@@ -1,0 +1,401 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xA018CE68754A1DD",
+      "device": "xc7a35tcpg236-1",
+      "gen_directory": "../../../../Neo430First.gen/sources_1/bd/SystemTop",
+      "name": "SystemTop",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Singular",
+      "tool_version": "2021.2",
+      "validated": "true"
+    },
+    "design_tree": {
+      "neo430_top_0": "",
+      "util_vector_logic_0": "",
+      "xlconstant_0": "",
+      "xlconstant_1": "",
+      "xlconstant_2": ""
+    },
+    "ports": {
+      "clk_i": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "SystemTop_clk_i",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "rst_n_i": {
+        "type": "rst",
+        "direction": "I",
+        "left": "0",
+        "right": "0",
+        "parameters": {
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "POLARITY": {
+            "value": "ACTIVE_HIGH"
+          }
+        }
+      },
+      "sw_i": {
+        "type": "data",
+        "direction": "I",
+        "left": "15",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "uart_rxd_i": {
+        "type": "data",
+        "direction": "I",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "uart_txd_o": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "led_o": {
+        "type": "data",
+        "direction": "O",
+        "left": "15",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "neo430_top_0": {
+        "vlnv": "xilinx.com:module_ref:neo430_top:1.0",
+        "xci_name": "SystemTop_neo430_top_0_0",
+        "xci_path": "ip\\SystemTop_neo430_top_0_0\\SystemTop_neo430_top_0_0.xci",
+        "inst_hier_path": "neo430_top_0",
+        "parameters": {
+          "CRC_USE": {
+            "value": "false"
+          },
+          "EXIRQ_USE": {
+            "value": "false"
+          },
+          "IMEM_SIZE": {
+            "value": "16384"
+          },
+          "MULDIV_USE": {
+            "value": "false"
+          },
+          "SPI_USE": {
+            "value": "false"
+          },
+          "TWI_USE": {
+            "value": "false"
+          },
+          "USER_CODE": {
+            "value": "0xCAFE"
+          },
+          "WB32_USE": {
+            "value": "false"
+          },
+          "WDT_USE": {
+            "value": "false"
+          }
+        },
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "neo430_top",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk_i": {
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "default_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "SystemTop_clk_i",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "rst_i": {
+            "direction": "I",
+            "parameters": {
+              "PortType": {
+                "value": "rst",
+                "value_src": "ip_prop"
+              },
+              "PortType.PROP_SRC": {
+                "value": "false",
+                "value_src": "ip_prop"
+              },
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "gpio_o": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "gpio_i": {
+            "direction": "I",
+            "left": "15",
+            "right": "0",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "pwm_o": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "freq_gen_o": {
+            "direction": "O",
+            "left": "2",
+            "right": "0"
+          },
+          "uart_txd_o": {
+            "direction": "O"
+          },
+          "uart_rxd_i": {
+            "direction": "I",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "undef",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "spi_sclk_o": {
+            "direction": "O"
+          },
+          "spi_mosi_o": {
+            "direction": "O"
+          },
+          "spi_miso_i": {
+            "direction": "I"
+          },
+          "spi_cs_o": {
+            "direction": "O",
+            "left": "5",
+            "right": "0"
+          },
+          "twi_sda_io": {
+            "direction": "IO"
+          },
+          "twi_scl_io": {
+            "direction": "IO"
+          },
+          "wb_adr_o": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "wb_dat_i": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "wb_dat_o": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "wb_we_o": {
+            "direction": "O"
+          },
+          "wb_sel_o": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "wb_stb_o": {
+            "direction": "O"
+          },
+          "wb_cyc_o": {
+            "direction": "O"
+          },
+          "wb_ack_i": {
+            "direction": "I"
+          },
+          "ext_irq_i": {
+            "direction": "I",
+            "left": "7",
+            "right": "0"
+          },
+          "ext_ack_o": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
+          }
+        }
+      },
+      "util_vector_logic_0": {
+        "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
+        "xci_name": "SystemTop_util_vector_logic_0_0",
+        "xci_path": "ip\\SystemTop_util_vector_logic_0_0\\SystemTop_util_vector_logic_0_0.xci",
+        "inst_hier_path": "util_vector_logic_0",
+        "parameters": {
+          "C_OPERATION": {
+            "value": "not"
+          },
+          "C_SIZE": {
+            "value": "1"
+          }
+        }
+      },
+      "xlconstant_0": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "SystemTop_xlconstant_0_0",
+        "xci_path": "ip\\SystemTop_xlconstant_0_0\\SystemTop_xlconstant_0_0.xci",
+        "inst_hier_path": "xlconstant_0",
+        "parameters": {
+          "CONST_VAL": {
+            "value": "0"
+          }
+        }
+      },
+      "xlconstant_1": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "SystemTop_xlconstant_1_0",
+        "xci_path": "ip\\SystemTop_xlconstant_1_0\\SystemTop_xlconstant_1_0.xci",
+        "inst_hier_path": "xlconstant_1",
+        "parameters": {
+          "CONST_VAL": {
+            "value": "0"
+          },
+          "CONST_WIDTH": {
+            "value": "32"
+          }
+        }
+      },
+      "xlconstant_2": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "SystemTop_xlconstant_2_0",
+        "xci_path": "ip\\SystemTop_xlconstant_2_0\\SystemTop_xlconstant_2_0.xci",
+        "inst_hier_path": "xlconstant_2",
+        "parameters": {
+          "CONST_VAL": {
+            "value": "0"
+          },
+          "CONST_WIDTH": {
+            "value": "8"
+          }
+        }
+      }
+    },
+    "nets": {
+      "clk_i_1": {
+        "ports": [
+          "clk_i",
+          "neo430_top_0/clk_i"
+        ]
+      },
+      "neo430_top_0_gpio_o": {
+        "ports": [
+          "neo430_top_0/gpio_o",
+          "led_o"
+        ]
+      },
+      "neo430_top_0_uart_txd_o": {
+        "ports": [
+          "neo430_top_0/uart_txd_o",
+          "uart_txd_o"
+        ]
+      },
+      "rst_n_i_1": {
+        "ports": [
+          "rst_n_i",
+          "util_vector_logic_0/Op1"
+        ]
+      },
+      "sw_i_1": {
+        "ports": [
+          "sw_i",
+          "neo430_top_0/gpio_i"
+        ]
+      },
+      "uart_rxd_i_1": {
+        "ports": [
+          "uart_rxd_i",
+          "neo430_top_0/uart_rxd_i"
+        ]
+      },
+      "util_vector_logic_0_Res": {
+        "ports": [
+          "util_vector_logic_0/Res",
+          "neo430_top_0/rst_i"
+        ]
+      },
+      "xlconstant_0_dout": {
+        "ports": [
+          "xlconstant_0/dout",
+          "neo430_top_0/spi_miso_i",
+          "neo430_top_0/wb_ack_i"
+        ]
+      },
+      "xlconstant_1_dout": {
+        "ports": [
+          "xlconstant_1/dout",
+          "neo430_top_0/wb_dat_i"
+        ]
+      },
+      "xlconstant_2_dout": {
+        "ports": [
+          "xlconstant_2/dout",
+          "neo430_top_0/ext_irq_i"
+        ]
+      }
+    }
+  }
+}
