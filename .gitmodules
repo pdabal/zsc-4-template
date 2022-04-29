@@ -1,0 +1,6 @@
+[submodule "Library/vhdl-extras"]
+	path = Library/vhdl-extras
+	url = https://github.com/kevinpt/vhdl-extras.git
+[submodule "Library/neo-430"]
+	path = Library/neo-430
+	url = https://github.com/stnolting/neo430
