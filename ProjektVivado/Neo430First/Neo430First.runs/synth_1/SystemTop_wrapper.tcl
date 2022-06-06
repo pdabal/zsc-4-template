@@ -70,6 +70,7 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 3
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
@@ -85,7 +86,7 @@ set_property ip_output_repo c:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Proj
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_vhdl -library xil_defaultlib c:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/ProjektVivado/Neo430First/Neo430First.gen/sources_1/bd/SystemTop/hdl/SystemTop_wrapper.vhd
+read_vhdl -library xil_defaultlib C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/ProjektVivado/Neo430First/Neo430First.gen/sources_1/bd/SystemTop/hdl/SystemTop_wrapper.vhd
 add_files C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/ProjektVivado/Neo430First/Neo430First.srcs/sources_1/bd/SystemTop/SystemTop.bd
 set_property used_in_implementation false [get_files -all c:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/ProjektVivado/Neo430First/Neo430First.gen/sources_1/bd/SystemTop/SystemTop_ooc.xdc]
 
@@ -107,7 +108,7 @@ read_checkpoint -auto_incremental -incremental C:/Projekty/LabZSC/WEL21ET1S4/paw
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top SystemTop_wrapper -part xc7a35tcpg236-1
+synth_design -top SystemTop_wrapper -part xc7a35tcpg236-1 -flatten_hierarchy none -keep_equivalent_registers -resource_sharing off
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"

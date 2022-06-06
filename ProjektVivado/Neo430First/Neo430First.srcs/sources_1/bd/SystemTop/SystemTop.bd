@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xA018CE68754A1DD",
+      "boundary_crc": "0xADAC73B9872A8C37",
       "device": "xc7a35tcpg236-1",
       "gen_directory": "../../../../Neo430First.gen/sources_1/bd/SystemTop",
       "name": "SystemTop",
@@ -15,7 +15,11 @@
       "util_vector_logic_0": "",
       "xlconstant_0": "",
       "xlconstant_1": "",
-      "xlconstant_2": ""
+      "xlconstant_2": "",
+      "led_dimmer_0": "",
+      "xlslice_0": "",
+      "seven_seg_driver_0": "",
+      "xlslice_1": ""
     },
     "ports": {
       "clk_i": {
@@ -101,6 +105,30 @@
             "value_src": "default"
           }
         }
+      },
+      "seg_segment_o": {
+        "type": "data",
+        "direction": "O",
+        "left": "7",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "seg_module_o": {
+        "type": "data",
+        "direction": "O",
+        "left": "3",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
       }
     },
     "components": {
@@ -117,7 +145,7 @@
             "value": "false"
           },
           "IMEM_SIZE": {
-            "value": "16384"
+            "value": "32768"
           },
           "MULDIV_USE": {
             "value": "false"
@@ -332,19 +360,151 @@
             "value": "8"
           }
         }
+      },
+      "led_dimmer_0": {
+        "vlnv": "xilinx.com:module_ref:led_dimmer:1.0",
+        "xci_name": "SystemTop_led_dimmer_0_0",
+        "xci_path": "ip\\SystemTop_led_dimmer_0_0\\SystemTop_led_dimmer_0_0.xci",
+        "inst_hier_path": "led_dimmer_0",
+        "parameters": {
+          "length_g": {
+            "value": "16"
+          }
+        },
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "led_dimmer",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "led_i": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "led_o": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "pwm_i": {
+            "direction": "I"
+          }
+        }
+      },
+      "xlslice_0": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "xci_name": "SystemTop_xlslice_0_0",
+        "xci_path": "ip\\SystemTop_xlslice_0_0\\SystemTop_xlslice_0_0.xci",
+        "inst_hier_path": "xlslice_0",
+        "parameters": {
+          "DIN_WIDTH": {
+            "value": "4"
+          }
+        }
+      },
+      "seven_seg_driver_0": {
+        "vlnv": "xilinx.com:module_ref:seven_seg_driver:1.0",
+        "xci_name": "SystemTop_seven_seg_driver_0_0",
+        "xci_path": "ip\\SystemTop_seven_seg_driver_0_0\\SystemTop_seven_seg_driver_0_0.xci",
+        "inst_hier_path": "seven_seg_driver_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "seven_seg_driver",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk_i": {
+            "direction": "I",
+            "parameters": {
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "PHASE": {
+                "value": "0.0",
+                "value_src": "default_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "SystemTop_clk_i",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "rst_i": {
+            "direction": "I",
+            "parameters": {
+              "PortType": {
+                "value": "rst",
+                "value_src": "ip_prop"
+              },
+              "PortType.PROP_SRC": {
+                "value": "false",
+                "value_src": "ip_prop"
+              },
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "ip_prop"
+              }
+            }
+          },
+          "en_i": {
+            "direction": "I"
+          },
+          "bcd_vector_i": {
+            "direction": "I",
+            "left": "15",
+            "right": "0"
+          },
+          "seg_segment_o": {
+            "direction": "O",
+            "left": "7",
+            "right": "0"
+          },
+          "seg_module_o": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          }
+        }
+      },
+      "xlslice_1": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "xci_name": "SystemTop_xlslice_1_0",
+        "xci_path": "ip\\SystemTop_xlslice_1_0\\SystemTop_xlslice_1_0.xci",
+        "inst_hier_path": "xlslice_1",
+        "parameters": {
+          "DIN_WIDTH": {
+            "value": "16"
+          }
+        }
       }
     },
     "nets": {
       "clk_i_1": {
         "ports": [
           "clk_i",
-          "neo430_top_0/clk_i"
+          "neo430_top_0/clk_i",
+          "seven_seg_driver_0/clk_i"
+        ]
+      },
+      "led_dimmer_0_led_o": {
+        "ports": [
+          "led_dimmer_0/led_o",
+          "led_o"
         ]
       },
       "neo430_top_0_gpio_o": {
         "ports": [
           "neo430_top_0/gpio_o",
-          "led_o"
+          "led_dimmer_0/led_i",
+          "seven_seg_driver_0/bcd_vector_i"
+        ]
+      },
+      "neo430_top_0_pwm_o": {
+        "ports": [
+          "neo430_top_0/pwm_o",
+          "xlslice_0/Din"
         ]
       },
       "neo430_top_0_uart_txd_o": {
@@ -359,10 +519,23 @@
           "util_vector_logic_0/Op1"
         ]
       },
+      "seven_seg_driver_0_seg_module_o": {
+        "ports": [
+          "seven_seg_driver_0/seg_module_o",
+          "seg_module_o"
+        ]
+      },
+      "seven_seg_driver_0_seg_segment_o": {
+        "ports": [
+          "seven_seg_driver_0/seg_segment_o",
+          "seg_segment_o"
+        ]
+      },
       "sw_i_1": {
         "ports": [
           "sw_i",
-          "neo430_top_0/gpio_i"
+          "neo430_top_0/gpio_i",
+          "xlslice_1/Din"
         ]
       },
       "uart_rxd_i_1": {
@@ -374,7 +547,8 @@
       "util_vector_logic_0_Res": {
         "ports": [
           "util_vector_logic_0/Res",
-          "neo430_top_0/rst_i"
+          "neo430_top_0/rst_i",
+          "seven_seg_driver_0/rst_i"
         ]
       },
       "xlconstant_0_dout": {
@@ -394,6 +568,18 @@
         "ports": [
           "xlconstant_2/dout",
           "neo430_top_0/ext_irq_i"
+        ]
+      },
+      "xlslice_0_Dout": {
+        "ports": [
+          "xlslice_0/Dout",
+          "led_dimmer_0/pwm_i"
+        ]
+      },
+      "xlslice_1_Dout": {
+        "ports": [
+          "xlslice_1/Dout",
+          "seven_seg_driver_0/en_i"
         ]
       }
     }

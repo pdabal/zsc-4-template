@@ -1,33 +1,45 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.969231",
-   "Default View_TopLeft":"-306,0",
+   "Default View_ScaleFactor":"0.795322",
+   "Default View_TopLeft":"-119,-79",
    "ExpandedHierarchyInLayout":"",
-   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
+   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS-threadsafe
 #  -string -flagsOSRD
-preplace port port-id_clk_i -pg 1 -lvl 0 -x 0 -y 60 -defaultsOSRD
-preplace port port-id_uart_rxd_i -pg 1 -lvl 0 -x 0 -y 200 -defaultsOSRD
-preplace port port-id_uart_txd_o -pg 1 -lvl 3 -x 650 -y 120 -defaultsOSRD
-preplace portBus rst_n_i -pg 1 -lvl 0 -x 0 -y 120 -defaultsOSRD
-preplace portBus sw_i -pg 1 -lvl 0 -x 0 -y 180 -defaultsOSRD
-preplace portBus led_o -pg 1 -lvl 3 -x 650 -y 60 -defaultsOSRD
-preplace inst neo430_top_0 -pg 1 -lvl 2 -x 480 -y 210 -defaultsOSRD
-preplace inst util_vector_logic_0 -pg 1 -lvl 1 -x 170 -y 120 -defaultsOSRD
-preplace inst xlconstant_0 -pg 1 -lvl 1 -x 170 -y 260 -defaultsOSRD
-preplace inst xlconstant_1 -pg 1 -lvl 1 -x 170 -y 360 -defaultsOSRD
-preplace inst xlconstant_2 -pg 1 -lvl 1 -x 170 -y 460 -defaultsOSRD
-preplace netloc clk_i_1 1 0 2 NJ 60 330J
-preplace netloc util_vector_logic_0_Res 1 1 1 320J 120n
-preplace netloc rst_n_i_1 1 0 1 NJ 120
-preplace netloc sw_i_1 1 0 2 NJ 180 NJ
-preplace netloc uart_rxd_i_1 1 0 2 NJ 200 NJ
-preplace netloc xlconstant_0_dout 1 1 1 330 220n
-preplace netloc xlconstant_1_dout 1 1 1 320J 240n
-preplace netloc xlconstant_2_dout 1 1 1 330J 280n
-preplace netloc neo430_top_0_uart_txd_o 1 2 1 NJ 120
-preplace netloc neo430_top_0_gpio_o 1 2 1 NJ 60
-levelinfo -pg 1 0 170 480 650
-pagesize -pg 1 -db -bbox -sgen -120 0 770 520
+preplace port port-id_clk_i -pg 1 -lvl 0 -x 0 -y 180 -defaultsOSRD
+preplace port port-id_uart_rxd_i -pg 1 -lvl 0 -x 0 -y 340 -defaultsOSRD
+preplace port port-id_uart_txd_o -pg 1 -lvl 5 -x 1240 -y 380 -defaultsOSRD
+preplace portBus rst_n_i -pg 1 -lvl 0 -x 0 -y 240 -defaultsOSRD
+preplace portBus sw_i -pg 1 -lvl 0 -x 0 -y 300 -defaultsOSRD
+preplace portBus led_o -pg 1 -lvl 5 -x 1240 -y 70 -defaultsOSRD
+preplace portBus seg_segment_o -pg 1 -lvl 5 -x 1240 -y 200 -defaultsOSRD
+preplace portBus seg_module_o -pg 1 -lvl 5 -x 1240 -y 220 -defaultsOSRD
+preplace inst neo430_top_0 -pg 1 -lvl 2 -x 510 -y 470 -defaultsOSRD
+preplace inst util_vector_logic_0 -pg 1 -lvl 1 -x 170 -y 240 -defaultsOSRD
+preplace inst xlconstant_0 -pg 1 -lvl 1 -x 170 -y 400 -defaultsOSRD
+preplace inst xlconstant_1 -pg 1 -lvl 1 -x 170 -y 500 -defaultsOSRD
+preplace inst xlconstant_2 -pg 1 -lvl 1 -x 170 -y 600 -defaultsOSRD
+preplace inst led_dimmer_0 -pg 1 -lvl 4 -x 1050 -y 70 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 3 -x 770 -y 80 -defaultsOSRD
+preplace inst seven_seg_driver_0 -pg 1 -lvl 4 -x 1050 -y 210 -defaultsOSRD
+preplace inst xlslice_1 -pg 1 -lvl 3 -x 770 -y 260 -defaultsOSRD
+preplace netloc clk_i_1 1 0 4 NJ 180 340 180 NJ 180 NJ
+preplace netloc led_dimmer_0_led_o 1 4 1 NJ 70
+preplace netloc neo430_top_0_gpio_o 1 2 2 660 20 870
+preplace netloc neo430_top_0_pwm_o 1 2 1 670 80n
+preplace netloc neo430_top_0_uart_txd_o 1 2 3 NJ 380 NJ 380 NJ
+preplace netloc rst_n_i_1 1 0 1 NJ 240
+preplace netloc sw_i_1 1 0 3 NJ 300 360 260 NJ
+preplace netloc uart_rxd_i_1 1 0 2 NJ 340 330J
+preplace netloc util_vector_logic_0_Res 1 1 3 350 200 NJ 200 NJ
+preplace netloc xlconstant_0_dout 1 1 1 320 400n
+preplace netloc xlconstant_1_dout 1 1 1 NJ 500
+preplace netloc xlconstant_2_dout 1 1 1 340J 540n
+preplace netloc xlslice_0_Dout 1 3 1 NJ 80
+preplace netloc xlslice_1_Dout 1 3 1 880J 220n
+preplace netloc seven_seg_driver_0_seg_segment_o 1 4 1 NJ 200
+preplace netloc seven_seg_driver_0_seg_module_o 1 4 1 NJ 220
+levelinfo -pg 1 0 170 510 770 1050 1240
+pagesize -pg 1 -db -bbox -sgen -120 0 1420 680
 "
 }
-
+0

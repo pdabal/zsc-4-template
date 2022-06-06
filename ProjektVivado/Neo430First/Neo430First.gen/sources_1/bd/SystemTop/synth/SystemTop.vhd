@@ -1,7 +1,7 @@
 --Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
---Date        : Fri Apr 29 12:49:23 2022
+--Date        : Fri May 13 14:58:09 2022
 --Host        : Laptop-G5-5590 running 64-bit major release  (build 9200)
 --Command     : generate_target SystemTop.bd
 --Design      : SystemTop
@@ -16,12 +16,14 @@ entity SystemTop is
     clk_i : in STD_LOGIC;
     led_o : out STD_LOGIC_VECTOR ( 15 downto 0 );
     rst_n_i : in STD_LOGIC_VECTOR ( 0 to 0 );
+    seg_module_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    seg_segment_o : out STD_LOGIC_VECTOR ( 7 downto 0 );
     sw_i : in STD_LOGIC_VECTOR ( 15 downto 0 );
     uart_rxd_i : in STD_LOGIC;
     uart_txd_o : out STD_LOGIC
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of SystemTop : entity is "SystemTop,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=SystemTop,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=5,numReposBlks=5,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_BD}";
+  attribute CORE_GENERATION_INFO of SystemTop : entity is "SystemTop,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=SystemTop,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=9,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_BD}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of SystemTop : entity is "SystemTop.hwdef";
 end SystemTop;
@@ -76,16 +78,51 @@ architecture STRUCTURE of SystemTop is
     dout : out STD_LOGIC_VECTOR ( 7 downto 0 )
   );
   end component SystemTop_xlconstant_2_0;
+  component SystemTop_led_dimmer_0_0 is
+  port (
+    led_i : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    led_o : out STD_LOGIC_VECTOR ( 15 downto 0 );
+    pwm_i : in STD_LOGIC
+  );
+  end component SystemTop_led_dimmer_0_0;
+  component SystemTop_xlslice_0_0 is
+  port (
+    Din : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    Dout : out STD_LOGIC_VECTOR ( 0 to 0 )
+  );
+  end component SystemTop_xlslice_0_0;
+  component SystemTop_seven_seg_driver_0_0 is
+  port (
+    clk_i : in STD_LOGIC;
+    rst_i : in STD_LOGIC;
+    en_i : in STD_LOGIC;
+    bcd_vector_i : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    seg_segment_o : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    seg_module_o : out STD_LOGIC_VECTOR ( 3 downto 0 )
+  );
+  end component SystemTop_seven_seg_driver_0_0;
+  component SystemTop_xlslice_1_0 is
+  port (
+    Din : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    Dout : out STD_LOGIC_VECTOR ( 0 to 0 )
+  );
+  end component SystemTop_xlslice_1_0;
   signal clk_i_1 : STD_LOGIC;
+  signal led_dimmer_0_led_o : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal neo430_top_0_gpio_o : STD_LOGIC_VECTOR ( 15 downto 0 );
+  signal neo430_top_0_pwm_o : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal neo430_top_0_uart_txd_o : STD_LOGIC;
   signal rst_n_i_1 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal seven_seg_driver_0_seg_module_o : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal seven_seg_driver_0_seg_segment_o : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal sw_i_1 : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal uart_rxd_i_1 : STD_LOGIC;
   signal util_vector_logic_0_Res : STD_LOGIC_VECTOR ( 0 to 0 );
   signal xlconstant_0_dout : STD_LOGIC_VECTOR ( 0 to 0 );
   signal xlconstant_1_dout : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal xlconstant_2_dout : STD_LOGIC_VECTOR ( 7 downto 0 );
+  signal xlslice_0_Dout : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal xlslice_1_Dout : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_neo430_top_0_spi_mosi_o_UNCONNECTED : STD_LOGIC;
   signal NLW_neo430_top_0_spi_sclk_o_UNCONNECTED : STD_LOGIC;
   signal NLW_neo430_top_0_twi_scl_io_UNCONNECTED : STD_LOGIC;
@@ -95,7 +132,6 @@ architecture STRUCTURE of SystemTop is
   signal NLW_neo430_top_0_wb_we_o_UNCONNECTED : STD_LOGIC;
   signal NLW_neo430_top_0_ext_ack_o_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal NLW_neo430_top_0_freq_gen_o_UNCONNECTED : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal NLW_neo430_top_0_pwm_o_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_neo430_top_0_spi_cs_o_UNCONNECTED : STD_LOGIC_VECTOR ( 5 downto 0 );
   signal NLW_neo430_top_0_wb_adr_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_neo430_top_0_wb_dat_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -112,15 +148,27 @@ architecture STRUCTURE of SystemTop is
   attribute X_INTERFACE_PARAMETER of led_o : signal is "XIL_INTERFACENAME DATA.LED_O, LAYERED_METADATA undef";
   attribute X_INTERFACE_INFO of rst_n_i : signal is "xilinx.com:signal:reset:1.0 RST.RST_N_I RST";
   attribute X_INTERFACE_PARAMETER of rst_n_i : signal is "XIL_INTERFACENAME RST.RST_N_I, INSERT_VIP 0, POLARITY ACTIVE_HIGH";
+  attribute X_INTERFACE_INFO of seg_module_o : signal is "xilinx.com:signal:data:1.0 DATA.SEG_MODULE_O DATA";
+  attribute X_INTERFACE_PARAMETER of seg_module_o : signal is "XIL_INTERFACENAME DATA.SEG_MODULE_O, LAYERED_METADATA undef";
+  attribute X_INTERFACE_INFO of seg_segment_o : signal is "xilinx.com:signal:data:1.0 DATA.SEG_SEGMENT_O DATA";
+  attribute X_INTERFACE_PARAMETER of seg_segment_o : signal is "XIL_INTERFACENAME DATA.SEG_SEGMENT_O, LAYERED_METADATA undef";
   attribute X_INTERFACE_INFO of sw_i : signal is "xilinx.com:signal:data:1.0 DATA.SW_I DATA";
   attribute X_INTERFACE_PARAMETER of sw_i : signal is "XIL_INTERFACENAME DATA.SW_I, LAYERED_METADATA undef";
 begin
   clk_i_1 <= clk_i;
-  led_o(15 downto 0) <= neo430_top_0_gpio_o(15 downto 0);
+  led_o(15 downto 0) <= led_dimmer_0_led_o(15 downto 0);
   rst_n_i_1(0) <= rst_n_i(0);
+  seg_module_o(3 downto 0) <= seven_seg_driver_0_seg_module_o(3 downto 0);
+  seg_segment_o(7 downto 0) <= seven_seg_driver_0_seg_segment_o(7 downto 0);
   sw_i_1(15 downto 0) <= sw_i(15 downto 0);
   uart_rxd_i_1 <= uart_rxd_i;
   uart_txd_o <= neo430_top_0_uart_txd_o;
+led_dimmer_0: component SystemTop_led_dimmer_0_0
+     port map (
+      led_i(15 downto 0) => neo430_top_0_gpio_o(15 downto 0),
+      led_o(15 downto 0) => led_dimmer_0_led_o(15 downto 0),
+      pwm_i => xlslice_0_Dout(0)
+    );
 neo430_top_0: component SystemTop_neo430_top_0_0
      port map (
       clk_i => clk_i_1,
@@ -129,7 +177,7 @@ neo430_top_0: component SystemTop_neo430_top_0_0
       freq_gen_o(2 downto 0) => NLW_neo430_top_0_freq_gen_o_UNCONNECTED(2 downto 0),
       gpio_i(15 downto 0) => sw_i_1(15 downto 0),
       gpio_o(15 downto 0) => neo430_top_0_gpio_o(15 downto 0),
-      pwm_o(3 downto 0) => NLW_neo430_top_0_pwm_o_UNCONNECTED(3 downto 0),
+      pwm_o(3 downto 0) => neo430_top_0_pwm_o(3 downto 0),
       rst_i => util_vector_logic_0_Res(0),
       spi_cs_o(5 downto 0) => NLW_neo430_top_0_spi_cs_o_UNCONNECTED(5 downto 0),
       spi_miso_i => xlconstant_0_dout(0),
@@ -148,6 +196,15 @@ neo430_top_0: component SystemTop_neo430_top_0_0
       wb_stb_o => NLW_neo430_top_0_wb_stb_o_UNCONNECTED,
       wb_we_o => NLW_neo430_top_0_wb_we_o_UNCONNECTED
     );
+seven_seg_driver_0: component SystemTop_seven_seg_driver_0_0
+     port map (
+      bcd_vector_i(15 downto 0) => neo430_top_0_gpio_o(15 downto 0),
+      clk_i => clk_i_1,
+      en_i => xlslice_1_Dout(0),
+      rst_i => util_vector_logic_0_Res(0),
+      seg_module_o(3 downto 0) => seven_seg_driver_0_seg_module_o(3 downto 0),
+      seg_segment_o(7 downto 0) => seven_seg_driver_0_seg_segment_o(7 downto 0)
+    );
 util_vector_logic_0: component SystemTop_util_vector_logic_0_0
      port map (
       Op1(0) => rst_n_i_1(0),
@@ -164,5 +221,15 @@ xlconstant_1: component SystemTop_xlconstant_1_0
 xlconstant_2: component SystemTop_xlconstant_2_0
      port map (
       dout(7 downto 0) => xlconstant_2_dout(7 downto 0)
+    );
+xlslice_0: component SystemTop_xlslice_0_0
+     port map (
+      Din(3 downto 0) => neo430_top_0_pwm_o(3 downto 0),
+      Dout(0) => xlslice_0_Dout(0)
+    );
+xlslice_1: component SystemTop_xlslice_1_0
+     port map (
+      Din(15 downto 0) => sw_i_1(15 downto 0),
+      Dout(0) => xlslice_1_Dout(0)
     );
 end STRUCTURE;
