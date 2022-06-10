@@ -1,7 +1,7 @@
 --Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
---Date        : Fri May 13 14:58:09 2022
+--Date        : Mon Jun  6 14:26:33 2022
 --Host        : Laptop-G5-5590 running 64-bit major release  (build 9200)
 --Command     : generate_target SystemTop.bd
 --Design      : SystemTop
@@ -23,7 +23,7 @@ entity SystemTop is
     uart_txd_o : out STD_LOGIC
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of SystemTop : entity is "SystemTop,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=SystemTop,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=9,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_BD}";
+  attribute CORE_GENERATION_INFO of SystemTop : entity is "SystemTop,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=SystemTop,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=10,numReposBlks=10,numNonXlnxBlks=0,numHierBlks=0,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=OOC_per_BD}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of SystemTop : entity is "SystemTop.hwdef";
 end SystemTop;
@@ -91,6 +91,18 @@ architecture STRUCTURE of SystemTop is
     Dout : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component SystemTop_xlslice_0_0;
+  component SystemTop_xlslice_1_0 is
+  port (
+    Din : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    Dout : out STD_LOGIC_VECTOR ( 0 to 0 )
+  );
+  end component SystemTop_xlslice_1_0;
+  component SystemTop_xlslice_2_0 is
+  port (
+    Din : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    Dout : out STD_LOGIC_VECTOR ( 0 to 0 )
+  );
+  end component SystemTop_xlslice_2_0;
   component SystemTop_seven_seg_driver_0_0 is
   port (
     clk_i : in STD_LOGIC;
@@ -101,14 +113,9 @@ architecture STRUCTURE of SystemTop is
     seg_module_o : out STD_LOGIC_VECTOR ( 3 downto 0 )
   );
   end component SystemTop_seven_seg_driver_0_0;
-  component SystemTop_xlslice_1_0 is
-  port (
-    Din : in STD_LOGIC_VECTOR ( 15 downto 0 );
-    Dout : out STD_LOGIC_VECTOR ( 0 to 0 )
-  );
-  end component SystemTop_xlslice_1_0;
   signal clk_i_1 : STD_LOGIC;
   signal led_dimmer_0_led_o : STD_LOGIC_VECTOR ( 15 downto 0 );
+  signal neo430_top_0_freq_gen_o : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal neo430_top_0_gpio_o : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal neo430_top_0_pwm_o : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal neo430_top_0_uart_txd_o : STD_LOGIC;
@@ -123,6 +130,7 @@ architecture STRUCTURE of SystemTop is
   signal xlconstant_2_dout : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal xlslice_0_Dout : STD_LOGIC_VECTOR ( 0 to 0 );
   signal xlslice_1_Dout : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal xlslice_2_Dout : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_neo430_top_0_spi_mosi_o_UNCONNECTED : STD_LOGIC;
   signal NLW_neo430_top_0_spi_sclk_o_UNCONNECTED : STD_LOGIC;
   signal NLW_neo430_top_0_twi_scl_io_UNCONNECTED : STD_LOGIC;
@@ -131,7 +139,6 @@ architecture STRUCTURE of SystemTop is
   signal NLW_neo430_top_0_wb_stb_o_UNCONNECTED : STD_LOGIC;
   signal NLW_neo430_top_0_wb_we_o_UNCONNECTED : STD_LOGIC;
   signal NLW_neo430_top_0_ext_ack_o_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
-  signal NLW_neo430_top_0_freq_gen_o_UNCONNECTED : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal NLW_neo430_top_0_spi_cs_o_UNCONNECTED : STD_LOGIC_VECTOR ( 5 downto 0 );
   signal NLW_neo430_top_0_wb_adr_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_neo430_top_0_wb_dat_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -174,7 +181,7 @@ neo430_top_0: component SystemTop_neo430_top_0_0
       clk_i => clk_i_1,
       ext_ack_o(7 downto 0) => NLW_neo430_top_0_ext_ack_o_UNCONNECTED(7 downto 0),
       ext_irq_i(7 downto 0) => xlconstant_2_dout(7 downto 0),
-      freq_gen_o(2 downto 0) => NLW_neo430_top_0_freq_gen_o_UNCONNECTED(2 downto 0),
+      freq_gen_o(2 downto 0) => neo430_top_0_freq_gen_o(2 downto 0),
       gpio_i(15 downto 0) => sw_i_1(15 downto 0),
       gpio_o(15 downto 0) => neo430_top_0_gpio_o(15 downto 0),
       pwm_o(3 downto 0) => neo430_top_0_pwm_o(3 downto 0),
@@ -199,9 +206,9 @@ neo430_top_0: component SystemTop_neo430_top_0_0
 seven_seg_driver_0: component SystemTop_seven_seg_driver_0_0
      port map (
       bcd_vector_i(15 downto 0) => neo430_top_0_gpio_o(15 downto 0),
-      clk_i => clk_i_1,
+      clk_i => xlslice_2_Dout(0),
       en_i => xlslice_1_Dout(0),
-      rst_i => util_vector_logic_0_Res(0),
+      rst_i => rst_n_i_1(0),
       seg_module_o(3 downto 0) => seven_seg_driver_0_seg_module_o(3 downto 0),
       seg_segment_o(7 downto 0) => seven_seg_driver_0_seg_segment_o(7 downto 0)
     );
@@ -231,5 +238,10 @@ xlslice_1: component SystemTop_xlslice_1_0
      port map (
       Din(15 downto 0) => sw_i_1(15 downto 0),
       Dout(0) => xlslice_1_Dout(0)
+    );
+xlslice_2: component SystemTop_xlslice_2_0
+     port map (
+      Din(2 downto 0) => neo430_top_0_freq_gen_o(2 downto 0),
+      Dout(0) => xlslice_2_Dout(0)
     );
 end STRUCTURE;

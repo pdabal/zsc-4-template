@@ -18,8 +18,9 @@
       "xlconstant_2": "",
       "led_dimmer_0": "",
       "xlslice_0": "",
-      "seven_seg_driver_0": "",
-      "xlslice_1": ""
+      "xlslice_1": "",
+      "xlslice_2": "",
+      "seven_seg_driver_0": ""
     },
     "ports": {
       "clk_i": {
@@ -403,6 +404,28 @@
           }
         }
       },
+      "xlslice_1": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "xci_name": "SystemTop_xlslice_1_0",
+        "xci_path": "ip\\SystemTop_xlslice_1_0\\SystemTop_xlslice_1_0.xci",
+        "inst_hier_path": "xlslice_1",
+        "parameters": {
+          "DIN_WIDTH": {
+            "value": "16"
+          }
+        }
+      },
+      "xlslice_2": {
+        "vlnv": "xilinx.com:ip:xlslice:1.0",
+        "xci_name": "SystemTop_xlslice_2_0",
+        "xci_path": "ip\\SystemTop_xlslice_2_0\\SystemTop_xlslice_2_0.xci",
+        "inst_hier_path": "xlslice_2",
+        "parameters": {
+          "DIN_WIDTH": {
+            "value": "3"
+          }
+        }
+      },
       "seven_seg_driver_0": {
         "vlnv": "xilinx.com:module_ref:seven_seg_driver:1.0",
         "xci_name": "SystemTop_seven_seg_driver_0_0",
@@ -434,17 +457,9 @@
           "rst_i": {
             "direction": "I",
             "parameters": {
-              "PortType": {
-                "value": "rst",
-                "value_src": "ip_prop"
-              },
-              "PortType.PROP_SRC": {
-                "value": "false",
-                "value_src": "ip_prop"
-              },
               "POLARITY": {
-                "value": "ACTIVE_LOW",
-                "value_src": "ip_prop"
+                "value": "ACTIVE_HIGH",
+                "value_src": "user_prop"
               }
             }
           },
@@ -467,31 +482,25 @@
             "right": "0"
           }
         }
-      },
-      "xlslice_1": {
-        "vlnv": "xilinx.com:ip:xlslice:1.0",
-        "xci_name": "SystemTop_xlslice_1_0",
-        "xci_path": "ip\\SystemTop_xlslice_1_0\\SystemTop_xlslice_1_0.xci",
-        "inst_hier_path": "xlslice_1",
-        "parameters": {
-          "DIN_WIDTH": {
-            "value": "16"
-          }
-        }
       }
     },
     "nets": {
       "clk_i_1": {
         "ports": [
           "clk_i",
-          "neo430_top_0/clk_i",
-          "seven_seg_driver_0/clk_i"
+          "neo430_top_0/clk_i"
         ]
       },
       "led_dimmer_0_led_o": {
         "ports": [
           "led_dimmer_0/led_o",
           "led_o"
+        ]
+      },
+      "neo430_top_0_freq_gen_o": {
+        "ports": [
+          "neo430_top_0/freq_gen_o",
+          "xlslice_2/Din"
         ]
       },
       "neo430_top_0_gpio_o": {
@@ -516,7 +525,8 @@
       "rst_n_i_1": {
         "ports": [
           "rst_n_i",
-          "util_vector_logic_0/Op1"
+          "util_vector_logic_0/Op1",
+          "seven_seg_driver_0/rst_i"
         ]
       },
       "seven_seg_driver_0_seg_module_o": {
@@ -547,8 +557,7 @@
       "util_vector_logic_0_Res": {
         "ports": [
           "util_vector_logic_0/Res",
-          "neo430_top_0/rst_i",
-          "seven_seg_driver_0/rst_i"
+          "neo430_top_0/rst_i"
         ]
       },
       "xlconstant_0_dout": {
@@ -580,6 +589,12 @@
         "ports": [
           "xlslice_1/Dout",
           "seven_seg_driver_0/en_i"
+        ]
+      },
+      "xlslice_2_Dout": {
+        "ports": [
+          "xlslice_2/Dout",
+          "seven_seg_driver_0/clk_i"
         ]
       }
     }

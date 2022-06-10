@@ -1,0 +1,17 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../Source/vhdl/bcd_to_seg.vhdl" \
+
+vhdl extras  \
+"../../../../../../Library/vhdl-extras/rtl/extras/sizing.vhdl" \
+
+vhdl xil_defaultlib  \
+"../../../../../../Source/vhdl/counter_up.vhdl" \
+"../../../../../../Source/vhdl/mux_4_to_1.vhdl" \
+"../../../../../../Source/vhdl/reg_async_rst.vhdl" \
+"../../../../../../Source/vhdl/reg_shift_async_rst.vhdl" \
+"../../../../../../Source/vhdl/seven_seg_driver.vhdl" \
+"../../../../../../Source/testbench/tb_seven_seg_driver.vhdl" \
+
+# Do not sort compile order
+nosort

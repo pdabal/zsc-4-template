@@ -39,14 +39,16 @@ begin
       clk_i => clk_i, rst_i => rst_i, en_i => en_i,
       d_i => seg_segment_s, q_o => seg_segment_o(6 downto 0));
 
+  seg_segment_o(7) <= '1';
+
   BCD_TO_SEG_Inst : entity work.bcd_to_seg
     port map(bcd_i => bcd_digit_s, seg_o => seg_segment_s);
 
   MUX_DIGIT_Inst : entity work.mux_4_to_1
     generic map(lenght_g => bcd_digit_s'length)
     port map(
-      d_i_0 => bcd_vector_s(3 downto 0), d_i_1 => bcd_vector_s(7 downto 4),
-      d_i_2 => bcd_vector_s(11 downto 8), d_i_3 => bcd_vector_s(15 downto 12),
+      d_i_0 => bcd_vector_s(7 downto 4), d_i_1 => bcd_vector_s(11 downto 8),
+      d_i_2 => bcd_vector_s(15 downto 12), d_i_3 => bcd_vector_s(3 downto 0),
       sel_i => seg_select_s, q_o => bcd_digit_s);
 
   DIGIT_REGs_Inst : for i in 1 to 4 generate

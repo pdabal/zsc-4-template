@@ -1,7 +1,7 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.2 (win64) Build 3367213 Tue Oct 19 02:48:09 MDT 2021
-// Date        : Fri May 13 14:59:39 2022
+// Date        : Mon Jun  6 14:28:06 2022
 // Host        : Laptop-G5-5590 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/ProjektVivado/Neo430First/Neo430First.gen/sources_1/bd/SystemTop/SystemTop_sim_netlist.v
@@ -32,20 +32,22 @@ module SystemTop
   (* x_interface_info = "xilinx.com:signal:data:1.0 DATA.UART_RXD_I DATA" *) (* x_interface_parameter = "XIL_INTERFACENAME DATA.UART_RXD_I, LAYERED_METADATA undef" *) input uart_rxd_i;
   (* x_interface_info = "xilinx.com:signal:data:1.0 DATA.UART_TXD_O DATA" *) (* x_interface_parameter = "XIL_INTERFACENAME DATA.UART_TXD_O, LAYERED_METADATA undef" *) output uart_txd_o;
 
-  wire \<const0> ;
+  wire \<const1> ;
   wire [0:0]Din;
   wire clk_i;
   wire [15:0]led_o;
   wire [15:0]neo430_top_0_gpio_o_0;
+  wire neo430_top_0_n_22;
   wire [0:0]rst_n_i;
   wire [3:0]seg_module_o;
   wire [6:0]\^seg_segment_o ;
   wire [15:0]sw_i;
   wire uart_rxd_i;
   wire uart_txd_o;
-  wire util_vector_logic_0_Res_0;
+  wire util_vector_logic_0_Res;
   wire xlslice_0_Dout;
   wire xlslice_1_Dout;
+  wire xlslice_2_Dout;
   wire NLW_neo430_top_0_spi_mosi_o_UNCONNECTED;
   wire NLW_neo430_top_0_spi_sclk_o_UNCONNECTED;
   wire NLW_neo430_top_0_twi_scl_io_UNCONNECTED;
@@ -54,7 +56,7 @@ module SystemTop
   wire NLW_neo430_top_0_wb_stb_o_UNCONNECTED;
   wire NLW_neo430_top_0_wb_we_o_UNCONNECTED;
   wire [7:0]NLW_neo430_top_0_ext_ack_o_UNCONNECTED;
-  wire [2:0]NLW_neo430_top_0_freq_gen_o_UNCONNECTED;
+  wire [2:1]NLW_neo430_top_0_freq_gen_o_UNCONNECTED;
   wire [3:1]NLW_neo430_top_0_pwm_o_UNCONNECTED;
   wire [5:0]NLW_neo430_top_0_spi_cs_o_UNCONNECTED;
   wire [31:0]NLW_neo430_top_0_wb_adr_o_UNCONNECTED;
@@ -62,10 +64,10 @@ module SystemTop
   wire [3:0]NLW_neo430_top_0_wb_sel_o_UNCONNECTED;
   wire [7:7]NLW_seven_seg_driver_0_seg_segment_o_UNCONNECTED;
 
-  assign seg_segment_o[7] = \<const0> ;
+  assign seg_segment_o[7] = \<const1> ;
   assign seg_segment_o[6:0] = \^seg_segment_o [6:0];
-  GND GND
-       (.G(\<const0> ));
+  VCC VCC
+       (.P(\<const1> ));
   (* CHECK_LICENSE_TYPE = "SystemTop_led_dimmer_0_0,led_dimmer,{}" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
   (* ip_definition_source = "module_ref" *) 
@@ -82,11 +84,11 @@ module SystemTop
        (.clk_i(clk_i),
         .ext_ack_o(NLW_neo430_top_0_ext_ack_o_UNCONNECTED[7:0]),
         .ext_irq_i({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .freq_gen_o(NLW_neo430_top_0_freq_gen_o_UNCONNECTED[2:0]),
+        .freq_gen_o({NLW_neo430_top_0_freq_gen_o_UNCONNECTED[2:1],neo430_top_0_n_22}),
         .gpio_i(sw_i),
         .gpio_o(neo430_top_0_gpio_o_0),
         .pwm_o({NLW_neo430_top_0_pwm_o_UNCONNECTED[3:1],Din}),
-        .rst_i(util_vector_logic_0_Res_0),
+        .rst_i(util_vector_logic_0_Res),
         .spi_cs_o(NLW_neo430_top_0_spi_cs_o_UNCONNECTED[5:0]),
         .spi_miso_i(1'b0),
         .spi_mosi_o(NLW_neo430_top_0_spi_mosi_o_UNCONNECTED),
@@ -109,9 +111,9 @@ module SystemTop
   (* x_core_info = "seven_seg_driver,Vivado 2021.2" *) 
   SystemTop_seven_seg_driver_0_0 seven_seg_driver_0
        (.bcd_vector_i(neo430_top_0_gpio_o_0),
-        .clk_i(clk_i),
+        .clk_i(xlslice_2_Dout),
         .en_i(xlslice_1_Dout),
-        .rst_i(util_vector_logic_0_Res_0),
+        .rst_i(rst_n_i),
         .seg_module_o(seg_module_o),
         .seg_segment_o({NLW_seven_seg_driver_0_seg_segment_o_UNCONNECTED[7],\^seg_segment_o }));
   (* CHECK_LICENSE_TYPE = "SystemTop_util_vector_logic_0_0,util_vector_logic_v2_0_1_util_vector_logic,{}" *) 
@@ -119,7 +121,7 @@ module SystemTop
   (* x_core_info = "util_vector_logic_v2_0_1_util_vector_logic,Vivado 2021.2" *) 
   SystemTop_util_vector_logic_0_0 util_vector_logic_0
        (.Op1(rst_n_i),
-        .Res(util_vector_logic_0_Res_0));
+        .Res(util_vector_logic_0_Res));
   (* CHECK_LICENSE_TYPE = "SystemTop_xlslice_0_0,xlslice_v1_0_2_xlslice,{}" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
   (* x_core_info = "xlslice_v1_0_2_xlslice,Vivado 2021.2" *) 
@@ -132,6 +134,12 @@ module SystemTop
   SystemTop_xlslice_1_0 xlslice_1
        (.Din({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,sw_i[0]}),
         .Dout(xlslice_1_Dout));
+  (* CHECK_LICENSE_TYPE = "SystemTop_xlslice_2_0,xlslice_v1_0_2_xlslice,{}" *) 
+  (* downgradeipidentifiedwarnings = "yes" *) 
+  (* x_core_info = "xlslice_v1_0_2_xlslice,Vivado 2021.2" *) 
+  SystemTop_xlslice_2_0 xlslice_2
+       (.Din({1'b0,1'b0,neo430_top_0_n_22}),
+        .Dout(xlslice_2_Dout));
 endmodule
 
 (* ORIG_REF_NAME = "counter_up" *) 
@@ -169,13 +177,13 @@ module SystemTop_counter_up
   wire [3:0]\register_sr_reg[5]_1 ;
   wire rst_i;
 
-  (* SOFT_HLUTNM = "soft_lutpair128" *) 
+  (* SOFT_HLUTNM = "soft_lutpair130" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \counter_sr[0]_i_1 
        (.I0(counter_sr[0]),
         .O(p_0_in));
-  (* SOFT_HLUTNM = "soft_lutpair128" *) 
+  (* SOFT_HLUTNM = "soft_lutpair130" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \counter_sr[1]_i_1 
@@ -198,7 +206,7 @@ module SystemTop_counter_up
         .CLR(rst_i),
         .D(\counter_sr[1]_i_1_n_0 ),
         .Q(counter_sr[1]));
-  (* SOFT_HLUTNM = "soft_lutpair125" *) 
+  (* SOFT_HLUTNM = "soft_lutpair127" *) 
   LUT4 #(
     .INIT(16'h209C)) 
     \register_sr[0]_i_1 
@@ -207,7 +215,7 @@ module SystemTop_counter_up
         .I2(\register_sr[6]_i_4_n_0 ),
         .I3(\register_sr[6]_i_2_n_0 ),
         .O(D[0]));
-  (* SOFT_HLUTNM = "soft_lutpair126" *) 
+  (* SOFT_HLUTNM = "soft_lutpair128" *) 
   LUT4 #(
     .INIT(16'hA4C8)) 
     \register_sr[1]_i_1 
@@ -216,7 +224,7 @@ module SystemTop_counter_up
         .I2(\register_sr[6]_i_2_n_0 ),
         .I3(\register_sr[6]_i_4_n_0 ),
         .O(D[1]));
-  (* SOFT_HLUTNM = "soft_lutpair126" *) 
+  (* SOFT_HLUTNM = "soft_lutpair128" *) 
   LUT4 #(
     .INIT(16'hA210)) 
     \register_sr[2]_i_1 
@@ -225,7 +233,7 @@ module SystemTop_counter_up
         .I2(\register_sr[6]_i_2_n_0 ),
         .I3(\register_sr[6]_i_3_n_0 ),
         .O(D[2]));
-  (* SOFT_HLUTNM = "soft_lutpair127" *) 
+  (* SOFT_HLUTNM = "soft_lutpair129" *) 
   LUT4 #(
     .INIT(16'hC214)) 
     \register_sr[3]_i_1 
@@ -234,7 +242,7 @@ module SystemTop_counter_up
         .I2(\register_sr[6]_i_4_n_0 ),
         .I3(\register_sr[6]_i_2_n_0 ),
         .O(D[3]));
-  (* SOFT_HLUTNM = "soft_lutpair127" *) 
+  (* SOFT_HLUTNM = "soft_lutpair129" *) 
   LUT4 #(
     .INIT(16'h5710)) 
     \register_sr[4]_i_1 
@@ -251,7 +259,7 @@ module SystemTop_counter_up
         .I2(\register_sr[6]_i_2_n_0 ),
         .I3(\register_sr[6]_i_4_n_0 ),
         .O(D[5]));
-  (* SOFT_HLUTNM = "soft_lutpair125" *) 
+  (* SOFT_HLUTNM = "soft_lutpair127" *) 
   LUT4 #(
     .INIT(16'h0091)) 
     \register_sr[6]_i_1 
@@ -697,60 +705,60 @@ module SystemTop_neo430_alu
     \op_b_ff_reg[15]_1 ,
     \op_a_ff_reg[7]_0 ,
     \op_a_ff_reg[15]_0 ,
-    \op_b_ff_reg[3]_0 ,
-    \op_a_ff_reg[15]_1 ,
+    \op_b_ff_reg[11]_0 ,
     \op_a_ff_reg[7]_1 ,
     \op_a_ff_reg[7]_2 ,
-    \op_a_ff_reg[7]_3 ,
-    \op_a_ff_reg[0]_0 ,
     \op_a_ff_reg[9]_0 ,
-    \op_a_ff_reg[10]_0 ,
+    \op_a_ff_reg[2]_0 ,
     \op_a_ff_reg[11]_0 ,
-    \op_a_ff_reg[12]_0 ,
+    \op_a_ff_reg[4]_0 ,
     \op_a_ff_reg[13]_0 ,
-    \op_a_ff_reg[14]_0 ,
-    \op_a_ff_reg[15]_2 ,
-    \ctrl_reg[16] ,
-    \ctrl_reg[16]_0 ,
+    \op_a_ff_reg[6]_0 ,
+    \op_a_ff_reg[7]_3 ,
+    \op_a_ff_reg[1]_0 ,
+    \op_a_ff_reg[0]_0 ,
+    \op_a_ff_reg[1]_1 ,
+    \ctrl_reg[18] ,
+    \ctrl_reg[18]_0 ,
     CO,
     S,
+    reg_file_reg_0_15_12_12_i_5_0,
     op_a_v1,
     \sreg[8]_i_4 ,
     ctrl_bus,
-    \op_b_ff_reg[0]_0 ,
     D,
     clk_i,
-    reg_file_reg_0_15_3_3_i_3);
+    reg_file_reg_0_15_0_0_i_3);
   output [3:0]O;
   output [15:0]Q;
   output [3:0]\op_b_ff_reg[15]_0 ;
   output [0:0]\op_b_ff_reg[15]_1 ;
   output \op_a_ff_reg[7]_0 ;
   output [15:0]\op_a_ff_reg[15]_0 ;
-  output \op_b_ff_reg[3]_0 ;
-  output \op_a_ff_reg[15]_1 ;
+  output \op_b_ff_reg[11]_0 ;
   output \op_a_ff_reg[7]_1 ;
   output \op_a_ff_reg[7]_2 ;
-  output \op_a_ff_reg[7]_3 ;
-  output \op_a_ff_reg[0]_0 ;
   output \op_a_ff_reg[9]_0 ;
-  output \op_a_ff_reg[10]_0 ;
+  output \op_a_ff_reg[2]_0 ;
   output \op_a_ff_reg[11]_0 ;
-  output \op_a_ff_reg[12]_0 ;
+  output \op_a_ff_reg[4]_0 ;
   output \op_a_ff_reg[13]_0 ;
-  output \op_a_ff_reg[14]_0 ;
-  output \op_a_ff_reg[15]_2 ;
-  output [3:0]\ctrl_reg[16] ;
-  output [3:0]\ctrl_reg[16]_0 ;
+  output \op_a_ff_reg[6]_0 ;
+  output \op_a_ff_reg[7]_3 ;
+  output \op_a_ff_reg[1]_0 ;
+  output \op_a_ff_reg[0]_0 ;
+  output \op_a_ff_reg[1]_1 ;
+  output [3:0]\ctrl_reg[18] ;
+  output [2:0]\ctrl_reg[18]_0 ;
   input [0:0]CO;
   input [0:0]S;
+  input [5:0]reg_file_reg_0_15_12_12_i_5_0;
   input op_a_v1;
   input [0:0]\sreg[8]_i_4 ;
-  input [4:0]ctrl_bus;
-  input [1:0]\op_b_ff_reg[0]_0 ;
+  input [0:0]ctrl_bus;
   input [15:0]D;
   input clk_i;
-  input [0:0]reg_file_reg_0_15_3_3_i_3;
+  input [0:0]reg_file_reg_0_15_0_0_i_3;
 
   wire [0:0]CO;
   wire [15:0]D;
@@ -758,554 +766,534 @@ module SystemTop_neo430_alu
   wire [15:0]Q;
   wire [0:0]S;
   wire clk_i;
-  wire [4:0]ctrl_bus;
-  wire [3:0]\ctrl_reg[16] ;
-  wire [3:0]\ctrl_reg[16]_0 ;
+  wire [0:0]ctrl_bus;
+  wire [3:0]\ctrl_reg[18] ;
+  wire [2:0]\ctrl_reg[18]_0 ;
   wire \op_a_ff_reg[0]_0 ;
-  wire \op_a_ff_reg[10]_0 ;
   wire \op_a_ff_reg[11]_0 ;
-  wire \op_a_ff_reg[12]_0 ;
   wire \op_a_ff_reg[13]_0 ;
-  wire \op_a_ff_reg[14]_0 ;
   wire [15:0]\op_a_ff_reg[15]_0 ;
-  wire \op_a_ff_reg[15]_1 ;
-  wire \op_a_ff_reg[15]_2 ;
+  wire \op_a_ff_reg[1]_0 ;
+  wire \op_a_ff_reg[1]_1 ;
+  wire \op_a_ff_reg[2]_0 ;
+  wire \op_a_ff_reg[4]_0 ;
+  wire \op_a_ff_reg[6]_0 ;
   wire \op_a_ff_reg[7]_0 ;
   wire \op_a_ff_reg[7]_1 ;
   wire \op_a_ff_reg[7]_2 ;
   wire \op_a_ff_reg[7]_3 ;
   wire \op_a_ff_reg[9]_0 ;
   wire op_a_v1;
-  wire [1:0]\op_b_ff_reg[0]_0 ;
+  wire \op_b_ff_reg[11]_0 ;
   wire [3:0]\op_b_ff_reg[15]_0 ;
   wire [0:0]\op_b_ff_reg[15]_1 ;
-  wire \op_b_ff_reg[3]_0 ;
+  wire [0:0]reg_file_reg_0_15_0_0_i_3;
   wire reg_file_reg_0_15_12_12_i_10_n_0;
-  wire reg_file_reg_0_15_12_12_i_6_n_0;
-  wire reg_file_reg_0_15_12_12_i_6_n_1;
-  wire reg_file_reg_0_15_12_12_i_6_n_2;
-  wire reg_file_reg_0_15_12_12_i_6_n_3;
+  wire [5:0]reg_file_reg_0_15_12_12_i_5_0;
+  wire reg_file_reg_0_15_12_12_i_5_n_0;
+  wire reg_file_reg_0_15_12_12_i_5_n_1;
+  wire reg_file_reg_0_15_12_12_i_5_n_2;
+  wire reg_file_reg_0_15_12_12_i_5_n_3;
   wire reg_file_reg_0_15_12_12_i_8_n_0;
   wire reg_file_reg_0_15_12_12_i_9_n_0;
-  wire [0:0]reg_file_reg_0_15_3_3_i_3;
   wire reg_file_reg_0_15_8_8_i_10_n_0;
-  wire reg_file_reg_0_15_8_8_i_11_n_0;
-  wire reg_file_reg_0_15_8_8_i_12_n_0;
+  wire reg_file_reg_0_15_8_8_i_5_n_0;
+  wire reg_file_reg_0_15_8_8_i_5_n_1;
+  wire reg_file_reg_0_15_8_8_i_5_n_2;
+  wire reg_file_reg_0_15_8_8_i_5_n_3;
+  wire reg_file_reg_0_15_8_8_i_7_n_0;
   wire reg_file_reg_0_15_8_8_i_8_n_0;
-  wire reg_file_reg_0_15_8_8_i_8_n_1;
-  wire reg_file_reg_0_15_8_8_i_8_n_2;
-  wire reg_file_reg_0_15_8_8_i_8_n_3;
   wire reg_file_reg_0_15_8_8_i_9_n_0;
   wire [0:0]\sreg[8]_i_4 ;
   wire \sreg[8]_i_9_n_0 ;
-  wire [3:1]\NLW_sreg_reg[0]_i_8_CO_UNCONNECTED ;
-  wire [3:0]\NLW_sreg_reg[0]_i_8_O_UNCONNECTED ;
+  wire [3:1]\NLW_sreg_reg[0]_i_7_CO_UNCONNECTED ;
+  wire [3:0]\NLW_sreg_reg[0]_i_7_O_UNCONNECTED ;
 
   FDRE \op_a_ff_reg[0] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[0]),
         .Q(\op_a_ff_reg[15]_0 [0]),
         .R(1'b0));
   FDRE \op_a_ff_reg[10] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[10]),
         .Q(\op_a_ff_reg[15]_0 [10]),
         .R(1'b0));
   FDRE \op_a_ff_reg[11] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[11]),
         .Q(\op_a_ff_reg[15]_0 [11]),
         .R(1'b0));
   FDRE \op_a_ff_reg[12] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[12]),
         .Q(\op_a_ff_reg[15]_0 [12]),
         .R(1'b0));
   FDRE \op_a_ff_reg[13] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[13]),
         .Q(\op_a_ff_reg[15]_0 [13]),
         .R(1'b0));
   FDRE \op_a_ff_reg[14] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[14]),
         .Q(\op_a_ff_reg[15]_0 [14]),
         .R(1'b0));
   FDRE \op_a_ff_reg[15] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[15]),
         .Q(\op_a_ff_reg[15]_0 [15]),
         .R(1'b0));
   FDRE \op_a_ff_reg[1] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[1]),
         .Q(\op_a_ff_reg[15]_0 [1]),
         .R(1'b0));
   FDRE \op_a_ff_reg[2] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[2]),
         .Q(\op_a_ff_reg[15]_0 [2]),
         .R(1'b0));
   FDRE \op_a_ff_reg[3] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[3]),
         .Q(\op_a_ff_reg[15]_0 [3]),
         .R(1'b0));
   FDRE \op_a_ff_reg[4] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[4]),
         .Q(\op_a_ff_reg[15]_0 [4]),
         .R(1'b0));
   FDRE \op_a_ff_reg[5] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[5]),
         .Q(\op_a_ff_reg[15]_0 [5]),
         .R(1'b0));
   FDRE \op_a_ff_reg[6] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[6]),
         .Q(\op_a_ff_reg[15]_0 [6]),
         .R(1'b0));
   FDRE \op_a_ff_reg[7] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[7]),
         .Q(\op_a_ff_reg[15]_0 [7]),
         .R(1'b0));
   FDRE \op_a_ff_reg[8] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[8]),
         .Q(\op_a_ff_reg[15]_0 [8]),
         .R(1'b0));
   FDRE \op_a_ff_reg[9] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [0]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[0]),
         .D(D[9]),
         .Q(\op_a_ff_reg[15]_0 [9]),
         .R(1'b0));
   FDRE \op_b_ff_reg[0] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[0]),
         .Q(Q[0]),
         .R(1'b0));
   FDRE \op_b_ff_reg[10] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[10]),
         .Q(Q[10]),
         .R(1'b0));
   FDRE \op_b_ff_reg[11] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[11]),
         .Q(Q[11]),
         .R(1'b0));
   FDRE \op_b_ff_reg[12] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[12]),
         .Q(Q[12]),
         .R(1'b0));
   FDRE \op_b_ff_reg[13] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[13]),
         .Q(Q[13]),
         .R(1'b0));
   FDRE \op_b_ff_reg[14] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[14]),
         .Q(Q[14]),
         .R(1'b0));
   FDRE \op_b_ff_reg[15] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[15]),
         .Q(Q[15]),
         .R(1'b0));
   FDRE \op_b_ff_reg[1] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[1]),
         .Q(Q[1]),
         .R(1'b0));
   FDRE \op_b_ff_reg[2] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[2]),
         .Q(Q[2]),
         .R(1'b0));
   FDRE \op_b_ff_reg[3] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[3]),
         .Q(Q[3]),
         .R(1'b0));
   FDRE \op_b_ff_reg[4] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[4]),
         .Q(Q[4]),
         .R(1'b0));
   FDRE \op_b_ff_reg[5] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[5]),
         .Q(Q[5]),
         .R(1'b0));
   FDRE \op_b_ff_reg[6] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[6]),
         .Q(Q[6]),
         .R(1'b0));
   FDRE \op_b_ff_reg[7] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[7]),
         .Q(Q[7]),
         .R(1'b0));
   FDRE \op_b_ff_reg[8] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[8]),
         .Q(Q[8]),
         .R(1'b0));
   FDRE \op_b_ff_reg[9] 
        (.C(clk_i),
-        .CE(\op_b_ff_reg[0]_0 [1]),
+        .CE(reg_file_reg_0_15_12_12_i_5_0[1]),
         .D(D[9]),
         .Q(Q[9]),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'hEFECEFECFFFCCFCC)) 
-    reg_file_reg_0_15_0_0_i_7
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_0_0_i_10
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(\op_a_ff_reg[15]_0 [3]),
+        .I5(Q[3]),
+        .O(\ctrl_reg[18] [3]));
+  LUT6 #(
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_0_0_i_11
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(\op_a_ff_reg[15]_0 [2]),
+        .I5(Q[2]),
+        .O(\ctrl_reg[18] [2]));
+  LUT6 #(
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_0_0_i_12
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(\op_a_ff_reg[15]_0 [1]),
+        .I5(Q[1]),
+        .O(\ctrl_reg[18] [1]));
+  LUT6 #(
+    .INIT(64'hAAAA9AAA9AAAAAAA)) 
+    reg_file_reg_0_15_0_0_i_13
        (.I0(\op_a_ff_reg[15]_0 [0]),
-        .I1(ctrl_bus[2]),
-        .I2(ctrl_bus[0]),
-        .I3(\op_a_ff_reg[15]_0 [1]),
-        .I4(\op_a_ff_reg[15]_0 [8]),
-        .I5(ctrl_bus[1]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I4(reg_file_reg_0_15_0_0_i_3),
+        .I5(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .O(\ctrl_reg[18] [0]));
+  LUT6 #(
+    .INIT(64'h00000000EEE222E2)) 
+    reg_file_reg_0_15_0_0_i_14
+       (.I0(\op_a_ff_reg[15]_0 [1]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I2(\op_a_ff_reg[15]_0 [8]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I4(\op_a_ff_reg[15]_0 [0]),
+        .I5(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .O(\op_a_ff_reg[1]_1 ));
+  LUT2 #(
+    .INIT(4'h8)) 
+    reg_file_reg_0_15_0_0_i_4
+       (.I0(\op_a_ff_reg[15]_0 [0]),
+        .I1(Q[0]),
         .O(\op_a_ff_reg[0]_0 ));
+  LUT4 #(
+    .INIT(16'hB24A)) 
+    reg_file_reg_0_15_11_11_i_3
+       (.I0(Q[11]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I2(\op_a_ff_reg[15]_0 [11]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .O(\op_b_ff_reg[11]_0 ));
   LUT6 #(
-    .INIT(64'h1100030011330333)) 
-    reg_file_reg_0_15_10_10_i_6
-       (.I0(\op_a_ff_reg[15]_0 [7]),
-        .I1(ctrl_bus[2]),
-        .I2(\op_a_ff_reg[15]_0 [2]),
-        .I3(ctrl_bus[0]),
-        .I4(ctrl_bus[1]),
-        .I5(\op_a_ff_reg[15]_0 [11]),
-        .O(\op_a_ff_reg[7]_2 ));
-  LUT6 #(
-    .INIT(64'h1100030011330333)) 
-    reg_file_reg_0_15_11_11_i_6
-       (.I0(\op_a_ff_reg[15]_0 [7]),
-        .I1(ctrl_bus[2]),
-        .I2(\op_a_ff_reg[15]_0 [3]),
-        .I3(ctrl_bus[0]),
-        .I4(ctrl_bus[1]),
-        .I5(\op_a_ff_reg[15]_0 [12]),
-        .O(\op_a_ff_reg[7]_1 ));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
+    .INIT(64'hFBBF04400440FBBF)) 
     reg_file_reg_0_15_12_12_i_10
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I4(\op_a_ff_reg[15]_0 [12]),
         .I5(Q[12]),
         .O(reg_file_reg_0_15_12_12_i_10_n_0));
-  CARRY4 reg_file_reg_0_15_12_12_i_6
-       (.CI(reg_file_reg_0_15_8_8_i_8_n_0),
-        .CO({reg_file_reg_0_15_12_12_i_6_n_0,reg_file_reg_0_15_12_12_i_6_n_1,reg_file_reg_0_15_12_12_i_6_n_2,reg_file_reg_0_15_12_12_i_6_n_3}),
+  CARRY4 reg_file_reg_0_15_12_12_i_5
+       (.CI(reg_file_reg_0_15_8_8_i_5_n_0),
+        .CO({reg_file_reg_0_15_12_12_i_5_n_0,reg_file_reg_0_15_12_12_i_5_n_1,reg_file_reg_0_15_12_12_i_5_n_2,reg_file_reg_0_15_12_12_i_5_n_3}),
         .CYINIT(1'b0),
         .DI(Q[15:12]),
         .O(\op_b_ff_reg[15]_0 ),
         .S({S,reg_file_reg_0_15_12_12_i_8_n_0,reg_file_reg_0_15_12_12_i_9_n_0,reg_file_reg_0_15_12_12_i_10_n_0}));
   LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
+    .INIT(64'hFBBF04400440FBBF)) 
     reg_file_reg_0_15_12_12_i_8
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I4(\op_a_ff_reg[15]_0 [14]),
         .I5(Q[14]),
         .O(reg_file_reg_0_15_12_12_i_8_n_0));
   LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
+    .INIT(64'hFBBF04400440FBBF)) 
     reg_file_reg_0_15_12_12_i_9
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I4(\op_a_ff_reg[15]_0 [13]),
         .I5(Q[13]),
         .O(reg_file_reg_0_15_12_12_i_9_n_0));
-  LUT4 #(
-    .INIT(16'h8E64)) 
-    reg_file_reg_0_15_15_15_i_4
-       (.I0(\op_a_ff_reg[15]_0 [15]),
-        .I1(Q[15]),
-        .I2(ctrl_bus[1]),
-        .I3(ctrl_bus[0]),
-        .O(\op_a_ff_reg[15]_1 ));
+  LUT2 #(
+    .INIT(4'h8)) 
+    reg_file_reg_0_15_1_1_i_3
+       (.I0(\op_a_ff_reg[15]_0 [1]),
+        .I1(Q[1]),
+        .O(\op_a_ff_reg[1]_0 ));
   LUT6 #(
     .INIT(64'hFFFCCFCCEFECEFEC)) 
     reg_file_reg_0_15_1_1_i_6
        (.I0(\op_a_ff_reg[15]_0 [9]),
-        .I1(ctrl_bus[2]),
-        .I2(ctrl_bus[0]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I3(\op_a_ff_reg[15]_0 [2]),
         .I4(\op_a_ff_reg[15]_0 [1]),
-        .I5(ctrl_bus[1]),
+        .I5(reg_file_reg_0_15_12_12_i_5_0[3]),
         .O(\op_a_ff_reg[9]_0 ));
   LUT6 #(
-    .INIT(64'hFFFCCFCCEFECEFEC)) 
+    .INIT(64'hEFECEFECFFFCCFCC)) 
     reg_file_reg_0_15_2_2_i_6
-       (.I0(\op_a_ff_reg[15]_0 [10]),
-        .I1(ctrl_bus[2]),
-        .I2(ctrl_bus[0]),
+       (.I0(\op_a_ff_reg[15]_0 [2]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I3(\op_a_ff_reg[15]_0 [3]),
-        .I4(\op_a_ff_reg[15]_0 [2]),
-        .I5(ctrl_bus[1]),
-        .O(\op_a_ff_reg[10]_0 ));
-  LUT6 #(
-    .INIT(64'hAAAA9AAAAAAA6AAA)) 
-    reg_file_reg_0_15_3_3_i_10
-       (.I0(\op_a_ff_reg[15]_0 [0]),
-        .I1(reg_file_reg_0_15_3_3_i_3),
-        .I2(ctrl_bus[1]),
-        .I3(ctrl_bus[2]),
-        .I4(ctrl_bus[3]),
-        .I5(ctrl_bus[0]),
-        .O(\ctrl_reg[16] [0]));
-  LUT4 #(
-    .INIT(16'hB24A)) 
-    reg_file_reg_0_15_3_3_i_12
-       (.I0(Q[3]),
-        .I1(ctrl_bus[1]),
-        .I2(\op_a_ff_reg[15]_0 [3]),
-        .I3(ctrl_bus[0]),
-        .O(\op_b_ff_reg[3]_0 ));
+        .I4(\op_a_ff_reg[15]_0 [10]),
+        .I5(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .O(\op_a_ff_reg[2]_0 ));
   LUT6 #(
     .INIT(64'hFFFCCFCCEFECEFEC)) 
-    reg_file_reg_0_15_3_3_i_13
+    reg_file_reg_0_15_3_3_i_6
        (.I0(\op_a_ff_reg[15]_0 [11]),
-        .I1(ctrl_bus[2]),
-        .I2(ctrl_bus[0]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I3(\op_a_ff_reg[15]_0 [4]),
         .I4(\op_a_ff_reg[15]_0 [3]),
-        .I5(ctrl_bus[1]),
+        .I5(reg_file_reg_0_15_12_12_i_5_0[3]),
         .O(\op_a_ff_reg[11]_0 ));
   LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_3_3_i_7
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [3]),
-        .I5(Q[3]),
-        .O(\ctrl_reg[16] [3]));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_3_3_i_8
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [2]),
-        .I5(Q[2]),
-        .O(\ctrl_reg[16] [2]));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_3_3_i_9
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [1]),
-        .I5(Q[1]),
-        .O(\ctrl_reg[16] [1]));
-  LUT6 #(
-    .INIT(64'hFFFFCAFFFFFFCA00)) 
-    reg_file_reg_0_15_4_4_i_11
-       (.I0(\op_a_ff_reg[15]_0 [12]),
-        .I1(\op_a_ff_reg[15]_0 [4]),
-        .I2(ctrl_bus[1]),
-        .I3(ctrl_bus[0]),
-        .I4(ctrl_bus[2]),
-        .I5(\op_a_ff_reg[15]_0 [5]),
-        .O(\op_a_ff_reg[12]_0 ));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_4_4_i_5
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [7]),
-        .I5(Q[7]),
-        .O(\ctrl_reg[16]_0 [3]));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
+    .INIT(64'hFFFFAFCFFFFFA0C0)) 
     reg_file_reg_0_15_4_4_i_6
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [6]),
-        .I5(Q[6]),
-        .O(\ctrl_reg[16]_0 [2]));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_4_4_i_7
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [5]),
-        .I5(Q[5]),
-        .O(\ctrl_reg[16]_0 [1]));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_4_4_i_8
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [4]),
-        .I5(Q[4]),
-        .O(\ctrl_reg[16]_0 [0]));
+       (.I0(\op_a_ff_reg[15]_0 [4]),
+        .I1(\op_a_ff_reg[15]_0 [12]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I4(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I5(\op_a_ff_reg[15]_0 [5]),
+        .O(\op_a_ff_reg[4]_0 ));
   LUT6 #(
     .INIT(64'hFFFFCAFFFFFFCA00)) 
     reg_file_reg_0_15_5_5_i_6
        (.I0(\op_a_ff_reg[15]_0 [13]),
         .I1(\op_a_ff_reg[15]_0 [5]),
-        .I2(ctrl_bus[1]),
-        .I3(ctrl_bus[0]),
-        .I4(ctrl_bus[2]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(reg_file_reg_0_15_12_12_i_5_0[4]),
         .I5(\op_a_ff_reg[15]_0 [6]),
         .O(\op_a_ff_reg[13]_0 ));
   LUT6 #(
-    .INIT(64'hFFFCCFCCEFECEFEC)) 
+    .INIT(64'hFFFFAFCFFFFFA0C0)) 
     reg_file_reg_0_15_6_6_i_6
-       (.I0(\op_a_ff_reg[15]_0 [14]),
-        .I1(ctrl_bus[2]),
-        .I2(ctrl_bus[0]),
-        .I3(\op_a_ff_reg[15]_0 [7]),
+       (.I0(\op_a_ff_reg[15]_0 [6]),
+        .I1(\op_a_ff_reg[15]_0 [14]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I4(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I5(\op_a_ff_reg[15]_0 [7]),
+        .O(\op_a_ff_reg[6]_0 ));
+  LUT6 #(
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_7_7_i_10
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(\op_a_ff_reg[15]_0 [4]),
+        .I5(Q[4]),
+        .O(\ctrl_reg[18]_0 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    reg_file_reg_0_15_7_7_i_4
+       (.I0(\op_a_ff_reg[15]_0 [7]),
+        .I1(Q[7]),
+        .O(\op_a_ff_reg[7]_3 ));
+  LUT4 #(
+    .INIT(16'h8E64)) 
+    reg_file_reg_0_15_7_7_i_5
+       (.I0(\op_a_ff_reg[15]_0 [7]),
+        .I1(Q[7]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .O(\op_a_ff_reg[7]_0 ));
+  LUT6 #(
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_7_7_i_8
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I4(\op_a_ff_reg[15]_0 [6]),
-        .I5(ctrl_bus[1]),
-        .O(\op_a_ff_reg[14]_0 ));
+        .I5(Q[6]),
+        .O(\ctrl_reg[18]_0 [2]));
   LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_7_7_i_9
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(\op_a_ff_reg[15]_0 [5]),
+        .I5(Q[5]),
+        .O(\ctrl_reg[18]_0 [1]));
+  LUT6 #(
+    .INIT(64'hFBBF04400440FBBF)) 
     reg_file_reg_0_15_8_8_i_10
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [10]),
-        .I5(Q[10]),
-        .O(reg_file_reg_0_15_8_8_i_10_n_0));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_8_8_i_11
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
-        .I4(\op_a_ff_reg[15]_0 [9]),
-        .I5(Q[9]),
-        .O(reg_file_reg_0_15_8_8_i_11_n_0));
-  LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_8_8_i_12
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I4(\op_a_ff_reg[15]_0 [8]),
         .I5(CO),
-        .O(reg_file_reg_0_15_8_8_i_12_n_0));
-  CARRY4 reg_file_reg_0_15_8_8_i_8
+        .O(reg_file_reg_0_15_8_8_i_10_n_0));
+  CARRY4 reg_file_reg_0_15_8_8_i_5
        (.CI(1'b0),
-        .CO({reg_file_reg_0_15_8_8_i_8_n_0,reg_file_reg_0_15_8_8_i_8_n_1,reg_file_reg_0_15_8_8_i_8_n_2,reg_file_reg_0_15_8_8_i_8_n_3}),
+        .CO({reg_file_reg_0_15_8_8_i_5_n_0,reg_file_reg_0_15_8_8_i_5_n_1,reg_file_reg_0_15_8_8_i_5_n_2,reg_file_reg_0_15_8_8_i_5_n_3}),
         .CYINIT(Q[8]),
         .DI({Q[11:9],CO}),
         .O(O),
-        .S({reg_file_reg_0_15_8_8_i_9_n_0,reg_file_reg_0_15_8_8_i_10_n_0,reg_file_reg_0_15_8_8_i_11_n_0,reg_file_reg_0_15_8_8_i_12_n_0}));
+        .S({reg_file_reg_0_15_8_8_i_7_n_0,reg_file_reg_0_15_8_8_i_8_n_0,reg_file_reg_0_15_8_8_i_9_n_0,reg_file_reg_0_15_8_8_i_10_n_0}));
   LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
-    reg_file_reg_0_15_8_8_i_9
-       (.I0(ctrl_bus[1]),
-        .I1(ctrl_bus[0]),
-        .I2(ctrl_bus[2]),
-        .I3(ctrl_bus[3]),
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_8_8_i_7
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
         .I4(\op_a_ff_reg[15]_0 [11]),
         .I5(Q[11]),
+        .O(reg_file_reg_0_15_8_8_i_7_n_0));
+  LUT6 #(
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_8_8_i_8
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(\op_a_ff_reg[15]_0 [10]),
+        .I5(Q[10]),
+        .O(reg_file_reg_0_15_8_8_i_8_n_0));
+  LUT6 #(
+    .INIT(64'hFBBF04400440FBBF)) 
+    reg_file_reg_0_15_8_8_i_9
+       (.I0(reg_file_reg_0_15_12_12_i_5_0[5]),
+        .I1(reg_file_reg_0_15_12_12_i_5_0[4]),
+        .I2(reg_file_reg_0_15_12_12_i_5_0[3]),
+        .I3(reg_file_reg_0_15_12_12_i_5_0[2]),
+        .I4(\op_a_ff_reg[15]_0 [9]),
+        .I5(Q[9]),
         .O(reg_file_reg_0_15_8_8_i_9_n_0));
   LUT6 #(
-    .INIT(64'h1100030011330333)) 
-    reg_file_reg_0_15_9_9_i_6
-       (.I0(\op_a_ff_reg[15]_0 [7]),
-        .I1(ctrl_bus[2]),
-        .I2(\op_a_ff_reg[15]_0 [1]),
-        .I3(ctrl_bus[0]),
-        .I4(ctrl_bus[1]),
-        .I5(\op_a_ff_reg[15]_0 [10]),
-        .O(\op_a_ff_reg[7]_3 ));
-  LUT6 #(
-    .INIT(64'hF96FFFFFF96F0000)) 
+    .INIT(64'h0690FFFF06900000)) 
     \sreg[8]_i_6 
        (.I0(\op_a_ff_reg[15]_0 [7]),
         .I1(op_a_v1),
         .I2(Q[7]),
         .I3(\sreg[8]_i_4 ),
-        .I4(ctrl_bus[4]),
+        .I4(ctrl_bus),
         .I5(\sreg[8]_i_9_n_0 ),
-        .O(\op_a_ff_reg[7]_0 ));
+        .O(\op_a_ff_reg[7]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT5 #(
-    .INIT(32'h0FFF7777)) 
+    .INIT(32'h8F808080)) 
     \sreg[8]_i_7 
-       (.I0(\op_a_ff_reg[15]_0 [15]),
-        .I1(Q[15]),
-        .I2(\op_a_ff_reg[15]_0 [7]),
-        .I3(Q[7]),
-        .I4(ctrl_bus[4]),
-        .O(\op_a_ff_reg[15]_2 ));
+       (.I0(\op_a_ff_reg[15]_0 [7]),
+        .I1(Q[7]),
+        .I2(ctrl_bus),
+        .I3(\op_a_ff_reg[15]_0 [15]),
+        .I4(Q[15]),
+        .O(\op_a_ff_reg[7]_2 ));
   LUT4 #(
-    .INIT(16'hF69F)) 
+    .INIT(16'h0690)) 
     \sreg[8]_i_9 
        (.I0(\op_a_ff_reg[15]_0 [15]),
         .I1(op_a_v1),
-        .I2(\op_b_ff_reg[15]_0 [3]),
-        .I3(Q[15]),
+        .I2(Q[15]),
+        .I3(\op_b_ff_reg[15]_0 [3]),
         .O(\sreg[8]_i_9_n_0 ));
-  CARRY4 \sreg_reg[0]_i_8 
-       (.CI(reg_file_reg_0_15_12_12_i_6_n_0),
-        .CO({\NLW_sreg_reg[0]_i_8_CO_UNCONNECTED [3:1],\op_b_ff_reg[15]_1 }),
+  CARRY4 \sreg_reg[0]_i_7 
+       (.CI(reg_file_reg_0_15_12_12_i_5_n_0),
+        .CO({\NLW_sreg_reg[0]_i_7_CO_UNCONNECTED [3:1],\op_b_ff_reg[15]_1 }),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(\NLW_sreg_reg[0]_i_8_O_UNCONNECTED [3:0]),
+        .O(\NLW_sreg_reg[0]_i_7_O_UNCONNECTED [3:0]),
         .S({1'b0,1'b0,1'b0,1'b1}));
 endmodule
 
@@ -1313,77 +1301,42 @@ endmodule
 module SystemTop_neo430_boot_rom
    (rden,
     DOADO,
-    \FSM_sequential_state_reg[1] ,
     rden_reg_0,
-    rden_reg_1,
     rdata_reg__0_0,
     rdata_reg__0_1,
+    rden_reg_1,
     rden_reg_2,
     clk_i,
     rdata_reg__0_2,
     ADDRARDADDR,
-    \FSM_sequential_state_reg[0] ,
-    \FSM_sequential_state_reg[0]_0 ,
-    \FSM_sequential_state_reg[0]_1 ,
-    \FSM_sequential_state_reg[0]_2 ,
-    Q,
-    \FSM_sequential_state[0]_i_5_0 ,
-    \FSM_sequential_state[0]_i_5_1 ,
-    \FSM_sequential_state[0]_i_5_2 ,
     timer_rdata,
     uart_rdata,
-    \FSM_sequential_state[0]_i_5_3 ,
-    \FSM_sequential_state[0]_i_5_4 ,
-    rdata_reg,
+    \ir_reg[14] ,
     rden_0,
-    \ir[12]_i_2 ,
-    rden_1);
+    rden_1,
+    rdata_reg);
   output rden;
   output [11:0]DOADO;
-  output \FSM_sequential_state_reg[1] ;
   output rden_reg_0;
-  output rden_reg_1;
   output rdata_reg__0_0;
   output rdata_reg__0_1;
+  output rden_reg_1;
   input rden_reg_2;
   input clk_i;
   input rdata_reg__0_2;
   input [9:0]ADDRARDADDR;
-  input \FSM_sequential_state_reg[0] ;
-  input \FSM_sequential_state_reg[0]_0 ;
-  input \FSM_sequential_state_reg[0]_1 ;
-  input \FSM_sequential_state_reg[0]_2 ;
-  input [0:0]Q;
-  input \FSM_sequential_state[0]_i_5_0 ;
-  input \FSM_sequential_state[0]_i_5_1 ;
-  input \FSM_sequential_state[0]_i_5_2 ;
   input [1:0]timer_rdata;
   input [1:0]uart_rdata;
-  input \FSM_sequential_state[0]_i_5_3 ;
-  input \FSM_sequential_state[0]_i_5_4 ;
-  input [1:0]rdata_reg;
+  input [1:0]\ir_reg[14] ;
   input rden_0;
-  input [0:0]\ir[12]_i_2 ;
   input rden_1;
+  input [0:0]rdata_reg;
 
   wire [9:0]ADDRARDADDR;
   wire [11:0]DOADO;
-  wire \FSM_sequential_state[0]_i_11_n_0 ;
-  wire \FSM_sequential_state[0]_i_13_n_0 ;
-  wire \FSM_sequential_state[0]_i_5_0 ;
-  wire \FSM_sequential_state[0]_i_5_1 ;
-  wire \FSM_sequential_state[0]_i_5_2 ;
-  wire \FSM_sequential_state[0]_i_5_3 ;
-  wire \FSM_sequential_state[0]_i_5_4 ;
-  wire \FSM_sequential_state_reg[0] ;
-  wire \FSM_sequential_state_reg[0]_0 ;
-  wire \FSM_sequential_state_reg[0]_1 ;
-  wire \FSM_sequential_state_reg[0]_2 ;
-  wire \FSM_sequential_state_reg[1] ;
-  wire [0:0]Q;
   wire clk_i;
-  wire [0:0]\ir[12]_i_2 ;
-  wire [1:0]rdata_reg;
+  wire [1:0]\ir_reg[14] ;
+  wire [0:0]rdata_reg;
   wire [15:12]rdata_reg_0;
   wire rdata_reg__0_0;
   wire rdata_reg__0_1;
@@ -1400,69 +1353,22 @@ module SystemTop_neo430_boot_rom
   wire [1:0]NLW_rdata_reg__0_DOPADOP_UNCONNECTED;
   wire [1:0]NLW_rdata_reg__0_DOPBDOP_UNCONNECTED;
 
-  LUT6 #(
-    .INIT(64'hFBFBFBAAFBFBFBFB)) 
-    \FSM_sequential_state[0]_i_11 
-       (.I0(Q),
-        .I1(\FSM_sequential_state[0]_i_5_0 ),
-        .I2(rden_reg_0),
-        .I3(\FSM_sequential_state[0]_i_5_1 ),
-        .I4(rden_reg_1),
-        .I5(\FSM_sequential_state[0]_i_5_2 ),
-        .O(\FSM_sequential_state[0]_i_11_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFF4FFFF)) 
-    \FSM_sequential_state[0]_i_13 
-       (.I0(rden_reg_0),
-        .I1(\FSM_sequential_state[0]_i_5_0 ),
-        .I2(rdata_reg__0_1),
-        .I3(\FSM_sequential_state[0]_i_5_3 ),
-        .I4(\FSM_sequential_state[0]_i_5_4 ),
-        .O(\FSM_sequential_state[0]_i_13_n_0 ));
-  LUT6 #(
-    .INIT(64'h5151515151515100)) 
-    \FSM_sequential_state[0]_i_5 
-       (.I0(\FSM_sequential_state[0]_i_11_n_0 ),
-        .I1(\FSM_sequential_state_reg[0] ),
-        .I2(\FSM_sequential_state_reg[0]_0 ),
-        .I3(\FSM_sequential_state_reg[0]_1 ),
-        .I4(\FSM_sequential_state_reg[0]_2 ),
-        .I5(\FSM_sequential_state[0]_i_13_n_0 ),
-        .O(\FSM_sequential_state_reg[1] ));
+  LUT4 #(
+    .INIT(16'hF888)) 
+    \ir[14]_i_3 
+       (.I0(rdata_reg_0[14]),
+        .I1(rden),
+        .I2(\ir_reg[14] [1]),
+        .I3(rden_0),
+        .O(rdata_reg__0_0));
   LUT4 #(
     .INIT(16'hFFF8)) 
-    \am[3]_i_3 
+    \ir[15]_i_4 
        (.I0(rden),
         .I1(rdata_reg_0[15]),
         .I2(timer_rdata[1]),
         .I3(uart_rdata[1]),
-        .O(rden_reg_1));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \am[3]_i_6 
-       (.I0(rdata_reg_0[14]),
-        .I1(rden),
-        .I2(timer_rdata[0]),
-        .I3(uart_rdata[0]),
-        .O(rdata_reg__0_0));
-  LUT6 #(
-    .INIT(64'hFFFFF888F888F888)) 
-    \ir[12]_i_3 
-       (.I0(rden),
-        .I1(rdata_reg_0[12]),
-        .I2(rden_0),
-        .I3(rdata_reg[0]),
-        .I4(\ir[12]_i_2 ),
-        .I5(rden_1),
         .O(rden_reg_0));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    \ir[13]_i_4 
-       (.I0(rdata_reg_0[13]),
-        .I1(rden),
-        .I2(rdata_reg[1]),
-        .I3(rden_0),
-        .O(rdata_reg__0_1));
   (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p0_d16" *) 
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-6 {cell *THIS*}}" *) 
   (* RTL_RAM_BITS = "16384" *) 
@@ -1593,46 +1499,62 @@ module SystemTop_neo430_boot_rom
         .D(rden_reg_2),
         .Q(rden),
         .R(1'b0));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \src[3]_i_8 
+       (.I0(rdata_reg_0[13]),
+        .I1(rden),
+        .I2(timer_rdata[0]),
+        .I3(uart_rdata[0]),
+        .O(rdata_reg__0_1));
+  LUT6 #(
+    .INIT(64'hFFFFF888F888F888)) 
+    \src[3]_i_9 
+       (.I0(rden),
+        .I1(rdata_reg_0[12]),
+        .I2(rden_1),
+        .I3(rdata_reg),
+        .I4(\ir_reg[14] [0]),
+        .I5(rden_0),
+        .O(rden_reg_1));
 endmodule
 
 (* ORIG_REF_NAME = "neo430_control" *) 
 module SystemTop_neo430_control
-   (Q,
+   (\ctrl_reg[19]_0 ,
     S,
-    \ctrl_reg[19]_0 ,
     \ctrl_reg[21]_0 ,
     \ctrl_reg[23]_0 ,
     \ctrl_reg[12]_0 ,
     \mem_addr_reg_reg[1] ,
     \ctrl_reg[9]_0 ,
     \ctrl_reg[8]_0 ,
-    E,
+    D,
     \ctrl_reg[25]_0 ,
     \ctrl_reg[25]_1 ,
     \ctrl_reg[25]_2 ,
-    \ctrl_reg[25]_3 ,
-    \ctrl_reg[25]_4 ,
+    \ctrl_reg[28]_0 ,
     \ctrl_reg[21]_1 ,
     \ctrl_reg[23]_1 ,
-    SR,
-    \ctrl_reg[28]_0 ,
-    \ctrl_reg[25]_5 ,
-    \ctrl_reg[25]_6 ,
-    \mem_addr_reg_reg[15] ,
-    \ctrl_reg[22]_0 ,
-    \ctrl_reg[28]_1 ,
-    \ctrl_reg[22]_1 ,
+    \ctrl_reg[3]_0 ,
+    \ctrl_reg[1]_0 ,
+    \ctrl_reg[1]_1 ,
     DI,
+    \mem_addr_reg_reg[11] ,
+    \ctrl_reg[26]_0 ,
+    \ctrl_reg[22]_0 ,
+    \ctrl_reg[23]_2 ,
+    \ctrl_reg[22]_1 ,
     \FSM_sequential_state_reg[3]_0 ,
-    D,
-    \cpu_bus[wdata] ,
-    \ctrl_reg[12]_1 ,
-    \irq_vec_reg[1]_0 ,
-    \irq_vec_reg[1]_1 ,
-    \irq_vec_reg[1]_2 ,
+    E,
+    dio_swap_reg,
+    \mem_addr_reg_reg[2] ,
+    \mem_addr_reg_reg[2]_0 ,
     \din_reg[15] ,
     \pwm_ch_reg[1][7] ,
-    \mem_addr_reg_reg[1]_0 ,
+    \mem_addr_reg_reg[2]_1 ,
+    \mem_addr_reg_reg[2]_2 ,
+    \mem_addr_reg_reg[2]_3 ,
     cnt_reg_15_sp_1,
     cnt_reg_14_sp_1,
     cnt_reg_13_sp_1,
@@ -1645,62 +1567,63 @@ module SystemTop_neo430_control
     \ctrl_reg[6]_0 ,
     \ctrl_reg[5]_0 ,
     \ctrl_reg[4]_0 ,
-    \ctrl_reg[3]_0 ,
+    \ctrl_reg[3]_1 ,
     \ctrl_reg[2]_0 ,
-    \ctrl_reg[1]_0 ,
+    \ctrl_reg[1]_2 ,
     \ctrl_reg[0]_0 ,
-    \ctrl_reg[28]_2 ,
-    \ctrl_reg[12]_2 ,
+    \mem_addr_reg_reg[1]_0 ,
+    \mem_addr_reg_reg[1]_1 ,
+    \ctrl_reg[27]_0 ,
+    \ctrl_reg[27]_1 ,
+    \ctrl_reg[27]_2 ,
+    \ctrl_reg[28]_1 ,
+    \mem_addr_reg_reg[15] ,
     reg_i,
-    \ctrl_reg[28]_3 ,
-    \ctrl_reg[28]_4 ,
+    dio_swap_reg_0,
+    \mem_addr_reg_reg[11]_0 ,
+    \ctrl_reg[28]_2 ,
     \op_b_ff_reg[7] ,
     CO,
-    \ctrl_reg[1]_1 ,
+    dio_swap_reg_1,
     in_data,
-    \ctrl_reg[3]_1 ,
+    \ctrl_reg[1]_3 ,
     op_a_v1,
     \irq_buf_reg[1]_0 ,
     \ctrl_reg[7]_0 ,
-    \ctrl_reg[12]_3 ,
-    \mem_addr_reg_reg[1]_1 ,
+    \ctrl_reg[12]_1 ,
+    \ctrl_reg[25]_3 ,
+    uart_tx_busy0,
     \cpu_bus[addr] ,
-    \ctrl_reg[25]_7 ,
-    \ctrl_reg[25]_8 ,
-    \ctrl_reg[25]_9 ,
-    \ctrl_reg[25]_10 ,
-    \ctrl_reg[25]_11 ,
-    \ctrl_reg[28]_5 ,
-    \ctrl_reg[28]_6 ,
-    \ctrl_reg[25]_12 ,
+    \ctrl_reg[28]_3 ,
+    SR,
+    \ctrl_reg[28]_4 ,
+    \ctrl_reg[25]_4 ,
+    acc_en,
     acc_en_0,
     \cpu_bus[wr_en] ,
     dio_swap0,
-    \FSM_sequential_state_reg[1]_0 ,
-    \ctrl_reg[1]_2 ,
-    \ctrl_reg[1]_3 ,
-    \ctrl_reg[23]_2 ,
     clk_i,
     sreg,
-    reg_file_reg_0_15_15_15_i_2_0,
-    reg_file_reg_0_15_15_15_i_2_1,
-    \uart_tx_sreg_reg[4] ,
-    \uart_tx_sreg_reg[3] ,
-    \uart_tx_sreg_reg[2] ,
+    reg_file_reg_0_15_7_7_i_11_0,
+    Q,
     \op_b_ff_reg[1] ,
-    uart_tx_busy_reg,
-    \mem_addr_reg_reg[7] ,
-    \op_b_ff_reg[3] ,
-    \op_b_ff_reg[15] ,
+    \uart_tx_sreg_reg[7] ,
+    mem_addr_reg0_carry,
     \op_b_ff_reg[5] ,
+    data_o0,
+    \op_b_ff_reg[6] ,
+    \mem_addr_reg_reg[7] ,
+    \op_b_ff_reg[9] ,
+    \op_b_ff_reg[7]_0 ,
+    imem_file_ram_l_reg_3,
+    \op_b_ff_reg[12] ,
+    mem_addr_reg0_carry__2,
+    \am_reg[3]_0 ,
+    \ctrl_reg[17]_0 ,
     \uart_tx_sreg_reg[1] ,
-    \op_b_ff_reg[5]_0 ,
-    \mem_addr_reg_reg[15]_0 ,
-    mem_data_i,
     \uart_tx_sreg_reg[6] ,
     \uart_tx_sreg_reg[1]_0 ,
-    \uart_tx_sreg_reg[7] ,
-    uart_tx_busy_reg_0,
+    \uart_tx_sreg_reg[7]_0 ,
     \data_o_reg[15] ,
     \data_o_reg[15]_0 ,
     p_1_in,
@@ -1708,101 +1631,100 @@ module SystemTop_neo430_control
     \data_o_reg[7] ,
     cnt_reg,
     \data_o_reg[6] ,
+    \op_b_ff_reg[15] ,
+    mem_data_i,
+    \ctrl_reg[17]_1 ,
     \op_b_ff_reg[4] ,
+    \sam_reg[1]_0 ,
+    \op_b_ff_reg[14] ,
     \op_b_ff_reg[4]_0 ,
-    reg_file_reg_0_15_0_0_i_6_0,
-    reg_file_reg_0_15_4_4_i_2_0,
-    \sreg_reg[0] ,
+    \op_b_ff_reg[3] ,
+    \mem_addr_reg_reg[11]_1 ,
+    i__carry__1_i_5_0,
+    i__carry__1_i_5_1,
+    \op_b_ff_reg[0] ,
+    \op_b_ff_reg[0]_0 ,
+    reg_file_reg_0_15_0_0_i_2_0,
+    reg_file_reg_0_15_4_4_i_5_0,
+    addr_add,
+    \irq_buf_reg[1]_1 ,
+    \ctrl_reg[7]_1 ,
+    \ctrl_reg[7]_2 ,
+    O,
+    reg_file_reg_0_15_15_15_i_2_0,
     \sreg_reg[8] ,
     \sreg_reg[8]_0 ,
-    \irq_buf_reg[1]_1 ,
-    addr_add,
-    reg_file_reg_0_15_15_15_i_2_2,
-    O,
-    \sreg[1]_i_7_0 ,
-    data_o0,
-    \uart_tx_sreg_reg[7]_0 ,
-    imem_file_ram_l_reg_3,
-    \op_b_ff_reg[2] ,
     \FSM_sequential_state_reg[0]_0 ,
-    \op_b_ff_reg[6] ,
+    \sreg_reg[0] ,
+    \uart_tx_sreg_reg[7]_1 ,
+    \FSM_sequential_state_reg[0]_1 ,
+    \op_b_ff_reg[2] ,
     \op_b_ff_reg[8] ,
     \op_b_ff_reg[10] ,
-    \op_b_ff_reg[9] ,
-    \op_b_ff_reg[7]_0 ,
-    \op_b_ff_reg[14] ,
     \op_b_ff_reg[11] ,
+    \op_b_ff_reg[13] ,
     imem_up_en,
     bw_ff,
-    \am_reg[3]_0 ,
-    \am_reg[0]_0 ,
-    \FSM_sequential_state_reg[1]_1 ,
+    \FSM_sequential_state_reg[1]_0 ,
     \FSM_sequential_state_reg[3]_1 ,
     \FSM_sequential_state_reg[3]_2 ,
     \FSM_sequential_state_reg[3]_3 ,
-    \FSM_sequential_state_reg[3]_4 ,
-    \FSM_sequential_state_reg[2]_0 ,
-    \FSM_sequential_state_reg[2]_1 ,
     \FSM_sequential_state_reg[4]_0 ,
-    \FSM_sequential_state_reg[0]_1 ,
-    \FSM_sequential_state_reg[0]_2 ,
-    \ctrl_reg[17]_0 ,
+    \ctrl_reg[17]_2 ,
     \ctrl_reg[15]_0 ,
     \ctrl_reg[16]_0 ,
     \ctrl_reg[8]_1 ,
-    \ctrl_reg[8]_2 ,
     \irq_buf_reg[1]_2 ,
     irq_fire_ff,
     p_2_in3_in,
     irq_o,
-    \ctrl_reg[19]_1 ,
-    reg_file_reg_0_15_0_0_i_4_0,
-    reg_file_reg_0_15_1_1_i_3_0,
-    reg_file_reg_0_15_2_2_i_3_0,
-    reg_file_reg_0_15_3_3_i_5_0,
-    reg_file_reg_0_15_4_4_i_4_0,
-    reg_file_reg_0_15_5_5_i_3_0,
-    reg_file_reg_0_15_6_6_i_3_0,
-    \thres_reg[15] ,
-    mem_addr_reg0_carry__0,
+    \uart_tx_sreg_reg[1]_1 ,
+    reg_file_reg_0_15_0_0_i_2_1,
+    \uart_tx_sreg_reg[2] ,
+    reg_file_reg_0_15_1_1_i_2_0,
+    reg_file_reg_0_15_2_2_i_2_0,
+    reg_file_reg_0_15_3_3_i_2_0,
+    reg_file_reg_0_15_4_4_i_2_0,
+    reg_file_reg_0_15_5_5_i_2_0,
+    reg_file_reg_0_15_6_6_i_2_0,
+    \uart_tx_sreg_reg[4] ,
     \FSM_sequential_state_reg[4]_1 ,
+    \am_reg[0]_0 ,
     \src_reg[3]_0 );
-  output [13:0]Q;
+  output [9:0]\ctrl_reg[19]_0 ;
   output [0:0]S;
-  output [0:0]\ctrl_reg[19]_0 ;
   output [3:0]\ctrl_reg[21]_0 ;
   output [3:0]\ctrl_reg[23]_0 ;
   output \ctrl_reg[12]_0 ;
   output \mem_addr_reg_reg[1] ;
   output \ctrl_reg[9]_0 ;
   output \ctrl_reg[8]_0 ;
-  output [0:0]E;
+  output [10:0]D;
   output \ctrl_reg[25]_0 ;
   output \ctrl_reg[25]_1 ;
   output \ctrl_reg[25]_2 ;
-  output \ctrl_reg[25]_3 ;
-  output [0:0]\ctrl_reg[25]_4 ;
+  output \ctrl_reg[28]_0 ;
   output [3:0]\ctrl_reg[21]_1 ;
   output [3:0]\ctrl_reg[23]_1 ;
-  output [0:0]SR;
-  output \ctrl_reg[28]_0 ;
-  output \ctrl_reg[25]_5 ;
-  output \ctrl_reg[25]_6 ;
-  output \mem_addr_reg_reg[15] ;
-  output [3:0]\ctrl_reg[22]_0 ;
-  output \ctrl_reg[28]_1 ;
-  output [1:0]\ctrl_reg[22]_1 ;
+  output \ctrl_reg[3]_0 ;
+  output [3:0]\ctrl_reg[1]_0 ;
+  output [3:0]\ctrl_reg[1]_1 ;
   output [1:0]DI;
-  output [2:0]\FSM_sequential_state_reg[3]_0 ;
-  output [6:0]D;
-  output [15:0]\cpu_bus[wdata] ;
-  output \ctrl_reg[12]_1 ;
-  output \irq_vec_reg[1]_0 ;
-  output [0:0]\irq_vec_reg[1]_1 ;
-  output \irq_vec_reg[1]_2 ;
+  output \mem_addr_reg_reg[11] ;
+  output [4:0]\ctrl_reg[26]_0 ;
+  output [3:0]\ctrl_reg[22]_0 ;
+  output [3:0]\ctrl_reg[23]_2 ;
+  output [1:0]\ctrl_reg[22]_1 ;
+  output [1:0]\FSM_sequential_state_reg[3]_0 ;
+  output [0:0]E;
+  output [6:0]dio_swap_reg;
+  output [0:0]\mem_addr_reg_reg[2] ;
+  output [0:0]\mem_addr_reg_reg[2]_0 ;
   output [15:0]\din_reg[15] ;
   output [15:0]\pwm_ch_reg[1][7] ;
-  output \mem_addr_reg_reg[1]_0 ;
+  output [0:0]\mem_addr_reg_reg[2]_1 ;
+  output \mem_addr_reg_reg[2]_2 ;
+  output [0:0]\mem_addr_reg_reg[2]_3 ;
   output cnt_reg_15_sp_1;
   output cnt_reg_14_sp_1;
   output cnt_reg_13_sp_1;
@@ -1815,62 +1737,63 @@ module SystemTop_neo430_control
   output \ctrl_reg[6]_0 ;
   output \ctrl_reg[5]_0 ;
   output \ctrl_reg[4]_0 ;
-  output \ctrl_reg[3]_0 ;
+  output \ctrl_reg[3]_1 ;
   output \ctrl_reg[2]_0 ;
-  output \ctrl_reg[1]_0 ;
+  output \ctrl_reg[1]_2 ;
   output \ctrl_reg[0]_0 ;
-  output \ctrl_reg[28]_2 ;
-  output [15:0]\ctrl_reg[12]_2 ;
+  output [0:0]\mem_addr_reg_reg[1]_0 ;
+  output [0:0]\mem_addr_reg_reg[1]_1 ;
+  output [0:0]\ctrl_reg[27]_0 ;
+  output [0:0]\ctrl_reg[27]_1 ;
+  output [0:0]\ctrl_reg[27]_2 ;
+  output \ctrl_reg[28]_1 ;
+  output \mem_addr_reg_reg[15] ;
   output [14:0]reg_i;
-  output \ctrl_reg[28]_3 ;
-  output \ctrl_reg[28]_4 ;
+  output [15:0]dio_swap_reg_0;
+  output \mem_addr_reg_reg[11]_0 ;
+  output \ctrl_reg[28]_2 ;
   output [0:0]\op_b_ff_reg[7] ;
   output [0:0]CO;
-  output [4:0]\ctrl_reg[1]_1 ;
+  output [15:0]dio_swap_reg_1;
   output [15:0]in_data;
-  output \ctrl_reg[3]_1 ;
+  output [4:0]\ctrl_reg[1]_3 ;
   output op_a_v1;
   output [0:0]\irq_buf_reg[1]_0 ;
   output [0:0]\ctrl_reg[7]_0 ;
-  output [0:0]\ctrl_reg[12]_3 ;
-  output [10:0]\mem_addr_reg_reg[1]_1 ;
-  output [8:0]\cpu_bus[addr] ;
-  output [0:0]\ctrl_reg[25]_7 ;
-  output [0:0]\ctrl_reg[25]_8 ;
-  output [0:0]\ctrl_reg[25]_9 ;
-  output [0:0]\ctrl_reg[25]_10 ;
-  output [0:0]\ctrl_reg[25]_11 ;
-  output [0:0]\ctrl_reg[28]_5 ;
-  output \ctrl_reg[28]_6 ;
-  output [0:0]\ctrl_reg[25]_12 ;
+  output [0:0]\ctrl_reg[12]_1 ;
+  output \ctrl_reg[25]_3 ;
+  output uart_tx_busy0;
+  output [11:0]\cpu_bus[addr] ;
+  output \ctrl_reg[28]_3 ;
+  output [0:0]SR;
+  output [0:0]\ctrl_reg[28]_4 ;
+  output [0:0]\ctrl_reg[25]_4 ;
+  output acc_en;
   output acc_en_0;
   output [1:0]\cpu_bus[wr_en] ;
   output dio_swap0;
-  output \FSM_sequential_state_reg[1]_0 ;
-  output [3:0]\ctrl_reg[1]_2 ;
-  output [3:0]\ctrl_reg[1]_3 ;
-  output [3:0]\ctrl_reg[23]_2 ;
   input clk_i;
   input [3:0]sreg;
-  input [15:0]reg_file_reg_0_15_15_15_i_2_0;
-  input [15:0]reg_file_reg_0_15_15_15_i_2_1;
-  input \uart_tx_sreg_reg[4] ;
-  input \uart_tx_sreg_reg[3] ;
-  input \uart_tx_sreg_reg[2] ;
+  input [15:0]reg_file_reg_0_15_7_7_i_11_0;
+  input [15:0]Q;
   input \op_b_ff_reg[1] ;
-  input [2:0]uart_tx_busy_reg;
-  input \mem_addr_reg_reg[7] ;
-  input \op_b_ff_reg[3] ;
-  input \op_b_ff_reg[15] ;
+  input [2:0]\uart_tx_sreg_reg[7] ;
+  input mem_addr_reg0_carry;
   input \op_b_ff_reg[5] ;
+  input [15:0]data_o0;
+  input \op_b_ff_reg[6] ;
+  input \mem_addr_reg_reg[7] ;
+  input \op_b_ff_reg[9] ;
+  input \op_b_ff_reg[7]_0 ;
+  input [15:0]imem_file_ram_l_reg_3;
+  input \op_b_ff_reg[12] ;
+  input mem_addr_reg0_carry__2;
+  input [3:0]\am_reg[3]_0 ;
+  input \ctrl_reg[17]_0 ;
   input \uart_tx_sreg_reg[1] ;
-  input \op_b_ff_reg[5]_0 ;
-  input \mem_addr_reg_reg[15]_0 ;
-  input [15:0]mem_data_i;
   input [5:0]\uart_tx_sreg_reg[6] ;
   input \uart_tx_sreg_reg[1]_0 ;
-  input \uart_tx_sreg_reg[7] ;
-  input uart_tx_busy_reg_0;
+  input \uart_tx_sreg_reg[7]_0 ;
   input [15:0]\data_o_reg[15] ;
   input [15:0]\data_o_reg[15]_0 ;
   input [15:0]p_1_in;
@@ -1878,74 +1801,77 @@ module SystemTop_neo430_control
   input [7:0]\data_o_reg[7] ;
   input [15:0]cnt_reg;
   input [6:0]\data_o_reg[6] ;
+  input \op_b_ff_reg[15] ;
+  input [15:0]mem_data_i;
+  input \ctrl_reg[17]_1 ;
   input \op_b_ff_reg[4] ;
+  input \sam_reg[1]_0 ;
+  input \op_b_ff_reg[14] ;
   input \op_b_ff_reg[4]_0 ;
-  input [3:0]reg_file_reg_0_15_0_0_i_6_0;
-  input [3:0]reg_file_reg_0_15_4_4_i_2_0;
-  input [0:0]\sreg_reg[0] ;
+  input \op_b_ff_reg[3] ;
+  input \mem_addr_reg_reg[11]_1 ;
+  input i__carry__1_i_5_0;
+  input i__carry__1_i_5_1;
+  input \op_b_ff_reg[0] ;
+  input \op_b_ff_reg[0]_0 ;
+  input [3:0]reg_file_reg_0_15_0_0_i_2_0;
+  input [2:0]reg_file_reg_0_15_4_4_i_5_0;
+  input [15:0]addr_add;
+  input [1:0]\irq_buf_reg[1]_1 ;
+  input \ctrl_reg[7]_1 ;
+  input \ctrl_reg[7]_2 ;
+  input [3:0]O;
+  input [3:0]reg_file_reg_0_15_15_15_i_2_0;
   input \sreg_reg[8] ;
   input \sreg_reg[8]_0 ;
-  input [1:0]\irq_buf_reg[1]_1 ;
-  input [15:0]addr_add;
-  input [3:0]reg_file_reg_0_15_15_15_i_2_2;
-  input [3:0]O;
-  input \sreg[1]_i_7_0 ;
-  input [15:0]data_o0;
-  input [0:0]\uart_tx_sreg_reg[7]_0 ;
-  input [15:0]imem_file_ram_l_reg_3;
-  input \op_b_ff_reg[2] ;
   input \FSM_sequential_state_reg[0]_0 ;
-  input \op_b_ff_reg[6] ;
+  input [0:0]\sreg_reg[0] ;
+  input \uart_tx_sreg_reg[7]_1 ;
+  input \FSM_sequential_state_reg[0]_1 ;
+  input \op_b_ff_reg[2] ;
   input \op_b_ff_reg[8] ;
   input \op_b_ff_reg[10] ;
-  input \op_b_ff_reg[9] ;
-  input \op_b_ff_reg[7]_0 ;
-  input \op_b_ff_reg[14] ;
   input \op_b_ff_reg[11] ;
+  input \op_b_ff_reg[13] ;
   input imem_up_en;
   input bw_ff;
-  input [3:0]\am_reg[3]_0 ;
-  input \am_reg[0]_0 ;
-  input \FSM_sequential_state_reg[1]_1 ;
+  input \FSM_sequential_state_reg[1]_0 ;
   input \FSM_sequential_state_reg[3]_1 ;
   input \FSM_sequential_state_reg[3]_2 ;
   input \FSM_sequential_state_reg[3]_3 ;
-  input \FSM_sequential_state_reg[3]_4 ;
-  input \FSM_sequential_state_reg[2]_0 ;
-  input \FSM_sequential_state_reg[2]_1 ;
   input \FSM_sequential_state_reg[4]_0 ;
-  input \FSM_sequential_state_reg[0]_1 ;
-  input \FSM_sequential_state_reg[0]_2 ;
-  input \ctrl_reg[17]_0 ;
+  input \ctrl_reg[17]_2 ;
   input \ctrl_reg[15]_0 ;
   input \ctrl_reg[16]_0 ;
   input \ctrl_reg[8]_1 ;
-  input \ctrl_reg[8]_2 ;
   input \irq_buf_reg[1]_2 ;
   input irq_fire_ff;
   input p_2_in3_in;
   input irq_o;
-  input \ctrl_reg[19]_1 ;
-  input reg_file_reg_0_15_0_0_i_4_0;
-  input reg_file_reg_0_15_1_1_i_3_0;
-  input reg_file_reg_0_15_2_2_i_3_0;
-  input reg_file_reg_0_15_3_3_i_5_0;
-  input reg_file_reg_0_15_4_4_i_4_0;
-  input reg_file_reg_0_15_5_5_i_3_0;
-  input reg_file_reg_0_15_6_6_i_3_0;
-  input \thres_reg[15] ;
-  input mem_addr_reg0_carry__0;
+  input \uart_tx_sreg_reg[1]_1 ;
+  input reg_file_reg_0_15_0_0_i_2_1;
+  input \uart_tx_sreg_reg[2] ;
+  input reg_file_reg_0_15_1_1_i_2_0;
+  input reg_file_reg_0_15_2_2_i_2_0;
+  input reg_file_reg_0_15_3_3_i_2_0;
+  input reg_file_reg_0_15_4_4_i_2_0;
+  input reg_file_reg_0_15_5_5_i_2_0;
+  input reg_file_reg_0_15_6_6_i_2_0;
+  input \uart_tx_sreg_reg[4] ;
   input \FSM_sequential_state_reg[4]_1 ;
+  input [0:0]\am_reg[0]_0 ;
   input [3:0]\src_reg[3]_0 ;
 
   wire [0:0]CO;
-  wire [6:0]D;
+  wire [10:0]D;
   wire [1:0]DI;
   wire [0:0]E;
   wire \FSM_sequential_state[0]_i_10_n_0 ;
+  wire \FSM_sequential_state[0]_i_11_n_0 ;
   wire \FSM_sequential_state[0]_i_1_n_0 ;
+  wire \FSM_sequential_state[0]_i_2_n_0 ;
   wire \FSM_sequential_state[0]_i_3_n_0 ;
-  wire \FSM_sequential_state[0]_i_4_n_0 ;
+  wire \FSM_sequential_state[0]_i_5_n_0 ;
   wire \FSM_sequential_state[0]_i_6_n_0 ;
   wire \FSM_sequential_state[0]_i_7_n_0 ;
   wire \FSM_sequential_state[0]_i_9_n_0 ;
@@ -1960,48 +1886,45 @@ module SystemTop_neo430_control
   wire \FSM_sequential_state[2]_i_1_n_0 ;
   wire \FSM_sequential_state[2]_i_2_n_0 ;
   wire \FSM_sequential_state[2]_i_3_n_0 ;
+  wire \FSM_sequential_state[2]_i_4_n_0 ;
+  wire \FSM_sequential_state[2]_i_5_n_0 ;
   wire \FSM_sequential_state[2]_i_6_n_0 ;
   wire \FSM_sequential_state[2]_i_7_n_0 ;
-  wire \FSM_sequential_state[2]_i_8_n_0 ;
   wire \FSM_sequential_state[3]_i_10_n_0 ;
+  wire \FSM_sequential_state[3]_i_11_n_0 ;
   wire \FSM_sequential_state[3]_i_1_n_0 ;
   wire \FSM_sequential_state[3]_i_2_n_0 ;
-  wire \FSM_sequential_state[3]_i_5_n_0 ;
+  wire \FSM_sequential_state[3]_i_4_n_0 ;
   wire \FSM_sequential_state[3]_i_6_n_0 ;
   wire \FSM_sequential_state[3]_i_7_n_0 ;
   wire \FSM_sequential_state[3]_i_8_n_0 ;
   wire \FSM_sequential_state[3]_i_9_n_0 ;
-  wire \FSM_sequential_state[4]_i_10_n_0 ;
-  wire \FSM_sequential_state[4]_i_14_n_0 ;
-  wire \FSM_sequential_state[4]_i_15_n_0 ;
+  wire \FSM_sequential_state[4]_i_11_n_0 ;
+  wire \FSM_sequential_state[4]_i_12_n_0 ;
   wire \FSM_sequential_state[4]_i_1_n_0 ;
   wire \FSM_sequential_state[4]_i_2_n_0 ;
   wire \FSM_sequential_state[4]_i_4_n_0 ;
   wire \FSM_sequential_state[4]_i_5_n_0 ;
-  wire \FSM_sequential_state[4]_i_6_n_0 ;
+  wire \FSM_sequential_state[4]_i_7_n_0 ;
   wire \FSM_sequential_state[4]_i_8_n_0 ;
   wire \FSM_sequential_state[4]_i_9_n_0 ;
   wire \FSM_sequential_state_reg[0]_0 ;
   wire \FSM_sequential_state_reg[0]_1 ;
-  wire \FSM_sequential_state_reg[0]_2 ;
   wire \FSM_sequential_state_reg[1]_0 ;
-  wire \FSM_sequential_state_reg[1]_1 ;
-  wire \FSM_sequential_state_reg[2]_0 ;
-  wire \FSM_sequential_state_reg[2]_1 ;
-  wire [2:0]\FSM_sequential_state_reg[3]_0 ;
+  wire [1:0]\FSM_sequential_state_reg[3]_0 ;
   wire \FSM_sequential_state_reg[3]_1 ;
   wire \FSM_sequential_state_reg[3]_2 ;
   wire \FSM_sequential_state_reg[3]_3 ;
-  wire \FSM_sequential_state_reg[3]_4 ;
   wire \FSM_sequential_state_reg[4]_0 ;
   wire \FSM_sequential_state_reg[4]_1 ;
   wire [3:0]O;
-  wire [13:0]Q;
+  wire [15:0]Q;
   wire [0:0]S;
   wire [0:0]SR;
+  wire acc_en;
   wire acc_en_0;
   wire [15:0]addr_add;
-  wire \am_reg[0]_0 ;
+  wire [0:0]\am_reg[0]_0 ;
   wire [3:0]\am_reg[3]_0 ;
   wire \am_reg_n_0_[0] ;
   wire bw_ff;
@@ -2016,12 +1939,12 @@ module SystemTop_neo430_control
   wire cnt_reg_7_sn_1;
   wire cnt_reg_8_sn_1;
   wire cnt_reg_9_sn_1;
-  wire [8:0]\cpu_bus[addr] ;
+  wire [11:0]\cpu_bus[addr] ;
   wire \cpu_bus[rd_en] ;
-  wire [15:0]\cpu_bus[wdata] ;
   wire [1:0]\cpu_bus[wr_en] ;
   wire \ctrl[0]_i_1_n_0 ;
-  wire \ctrl[11]_i_1__0_n_0 ;
+  wire \ctrl[11]_i_1_n_0 ;
+  wire \ctrl[11]_i_2_n_0 ;
   wire \ctrl[12]_i_1_n_0 ;
   wire \ctrl[12]_i_2_n_0 ;
   wire \ctrl[13]_i_1_n_0 ;
@@ -2029,9 +1952,15 @@ module SystemTop_neo430_control
   wire \ctrl[13]_i_3_n_0 ;
   wire \ctrl[13]_i_4_n_0 ;
   wire \ctrl[13]_i_5_n_0 ;
-  wire \ctrl[14]_i_1__0_n_0 ;
+  wire \ctrl[14]_i_1_n_0 ;
   wire \ctrl[14]_i_2__0_n_0 ;
   wire \ctrl[14]_i_2_n_0 ;
+  wire \ctrl[14]_i_3_n_0 ;
+  wire \ctrl[14]_i_4_n_0 ;
+  wire \ctrl[14]_i_5_n_0 ;
+  wire \ctrl[14]_i_6_n_0 ;
+  wire \ctrl[14]_i_7_n_0 ;
+  wire \ctrl[14]_i_8_n_0 ;
   wire \ctrl[15]_i_1_n_0 ;
   wire \ctrl[15]_i_2_n_0 ;
   wire \ctrl[16]_i_1_n_0 ;
@@ -2050,8 +1979,6 @@ module SystemTop_neo430_control
   wire \ctrl[19]_i_1_n_0 ;
   wire \ctrl[19]_i_2_n_0 ;
   wire \ctrl[19]_i_3_n_0 ;
-  wire \ctrl[19]_i_4_n_0 ;
-  wire \ctrl[1]_i_1_n_0 ;
   wire \ctrl[1]_i_2_n_0 ;
   wire \ctrl[1]_i_3_n_0 ;
   wire \ctrl[1]_i_4_n_0 ;
@@ -2059,6 +1986,7 @@ module SystemTop_neo430_control
   wire \ctrl[21]_i_1_n_0 ;
   wire \ctrl[21]_i_2_n_0 ;
   wire \ctrl[21]_i_3_n_0 ;
+  wire \ctrl[21]_i_4_n_0 ;
   wire \ctrl[22]_i_1_n_0 ;
   wire \ctrl[23]_i_1_n_0 ;
   wire \ctrl[24]_i_1_n_0 ;
@@ -2084,31 +2012,34 @@ module SystemTop_neo430_control
   wire \ctrl[4]_i_3_n_0 ;
   wire \ctrl[5]_i_1_n_0 ;
   wire \ctrl[5]_i_2_n_0 ;
-  wire \ctrl[6]_i_1__0_n_0 ;
+  wire \ctrl[6]_i_1_n_0 ;
   wire \ctrl[7]_i_1_n_0 ;
   wire \ctrl[7]_i_2_n_0 ;
   wire \ctrl[7]_i_3_n_0 ;
+  wire \ctrl[8]_i_10_n_0 ;
+  wire \ctrl[8]_i_1_n_0 ;
   wire \ctrl[8]_i_2_n_0 ;
-  wire \ctrl[8]_i_3_n_0 ;
   wire \ctrl[8]_i_4_n_0 ;
   wire \ctrl[8]_i_5_n_0 ;
-  wire \ctrl[8]_i_8_n_0 ;
+  wire \ctrl[8]_i_6_n_0 ;
+  wire \ctrl[8]_i_7_n_0 ;
+  wire \ctrl[8]_i_9_n_0 ;
   wire \ctrl[9]_i_1_n_0 ;
   wire [27:27]ctrl_bus;
   wire \ctrl_reg[0]_0 ;
   wire \ctrl_reg[12]_0 ;
-  wire \ctrl_reg[12]_1 ;
-  wire [15:0]\ctrl_reg[12]_2 ;
-  wire [0:0]\ctrl_reg[12]_3 ;
+  wire [0:0]\ctrl_reg[12]_1 ;
   wire \ctrl_reg[15]_0 ;
   wire \ctrl_reg[16]_0 ;
   wire \ctrl_reg[17]_0 ;
-  wire [0:0]\ctrl_reg[19]_0 ;
-  wire \ctrl_reg[19]_1 ;
-  wire \ctrl_reg[1]_0 ;
-  wire [4:0]\ctrl_reg[1]_1 ;
-  wire [3:0]\ctrl_reg[1]_2 ;
-  wire [3:0]\ctrl_reg[1]_3 ;
+  wire \ctrl_reg[17]_1 ;
+  wire \ctrl_reg[17]_2 ;
+  wire [9:0]\ctrl_reg[19]_0 ;
+  wire [3:0]\ctrl_reg[1]_0 ;
+  wire [3:0]\ctrl_reg[1]_1 ;
+  wire \ctrl_reg[1]_2 ;
+  wire [4:0]\ctrl_reg[1]_3 ;
+  wire \ctrl_reg[1]_i_1_n_0 ;
   wire [3:0]\ctrl_reg[21]_0 ;
   wire [3:0]\ctrl_reg[21]_1 ;
   wire [3:0]\ctrl_reg[22]_0 ;
@@ -2118,24 +2049,18 @@ module SystemTop_neo430_control
   wire [3:0]\ctrl_reg[23]_2 ;
   wire \ctrl_reg[25]_0 ;
   wire \ctrl_reg[25]_1 ;
-  wire [0:0]\ctrl_reg[25]_10 ;
-  wire [0:0]\ctrl_reg[25]_11 ;
-  wire [0:0]\ctrl_reg[25]_12 ;
   wire \ctrl_reg[25]_2 ;
   wire \ctrl_reg[25]_3 ;
   wire [0:0]\ctrl_reg[25]_4 ;
-  wire \ctrl_reg[25]_5 ;
-  wire \ctrl_reg[25]_6 ;
-  wire [0:0]\ctrl_reg[25]_7 ;
-  wire [0:0]\ctrl_reg[25]_8 ;
-  wire [0:0]\ctrl_reg[25]_9 ;
+  wire [4:0]\ctrl_reg[26]_0 ;
+  wire [0:0]\ctrl_reg[27]_0 ;
+  wire [0:0]\ctrl_reg[27]_1 ;
+  wire [0:0]\ctrl_reg[27]_2 ;
   wire \ctrl_reg[28]_0 ;
   wire \ctrl_reg[28]_1 ;
   wire \ctrl_reg[28]_2 ;
   wire \ctrl_reg[28]_3 ;
-  wire \ctrl_reg[28]_4 ;
-  wire [0:0]\ctrl_reg[28]_5 ;
-  wire \ctrl_reg[28]_6 ;
+  wire [0:0]\ctrl_reg[28]_4 ;
   wire \ctrl_reg[2]_0 ;
   wire \ctrl_reg[3]_0 ;
   wire \ctrl_reg[3]_1 ;
@@ -2143,10 +2068,10 @@ module SystemTop_neo430_control
   wire \ctrl_reg[5]_0 ;
   wire \ctrl_reg[6]_0 ;
   wire [0:0]\ctrl_reg[7]_0 ;
+  wire \ctrl_reg[7]_1 ;
+  wire \ctrl_reg[7]_2 ;
   wire \ctrl_reg[8]_0 ;
   wire \ctrl_reg[8]_1 ;
-  wire \ctrl_reg[8]_2 ;
-  wire \ctrl_reg[8]_i_1_n_0 ;
   wire \ctrl_reg[9]_0 ;
   wire \ctrl_reg_n_0_[0] ;
   wire \ctrl_reg_n_0_[11] ;
@@ -2160,6 +2085,8 @@ module SystemTop_neo430_control
   wire \ctrl_reg_n_0_[6] ;
   wire \ctrl_reg_n_0_[7] ;
   wire [15:0]data_o0;
+  wire \data_o[15]_i_3_n_0 ;
+  wire \data_o[15]_i_4_n_0 ;
   wire [15:0]\data_o_reg[15] ;
   wire [15:0]\data_o_reg[15]_0 ;
   wire [7:0]\data_o_reg[15]_1 ;
@@ -2168,6 +2095,9 @@ module SystemTop_neo430_control
   wire [15:0]\din_reg[15] ;
   wire dio_swap0;
   wire dio_swap_i_2_n_0;
+  wire [6:0]dio_swap_reg;
+  wire [15:0]dio_swap_reg_0;
+  wire [15:0]dio_swap_reg_1;
   wire dmem_file_l_reg_i_3_n_0;
   wire dmem_file_l_reg_i_4_n_0;
   wire dmem_file_l_reg_i_5_n_0;
@@ -2182,28 +2112,26 @@ module SystemTop_neo430_control
   wire i__carry__0_i_9_n_0;
   wire i__carry__1_i_10_n_0;
   wire i__carry__1_i_11_n_0;
+  wire i__carry__1_i_5_0;
+  wire i__carry__1_i_5_1;
   wire i__carry__1_i_7_n_0;
   wire i__carry__1_i_8_n_0;
   wire i__carry__1_i_9_n_0;
   wire i__carry__2_i_7_n_0;
   wire i__carry_i_10_n_0;
-  wire i__carry_i_5_n_0;
-  wire i__carry_i_6_n_0;
+  wire i__carry_i_5__1_n_0;
+  wire i__carry_i_6__1_n_0;
   wire i__carry_i_7__1_n_0;
   wire i__carry_i_8__1_n_0;
   wire i__carry_i_9_n_0;
   wire i_flag_ff0;
   wire i_flag_ff1;
+  wire imem_file_ram_l_reg_0_i_19_n_0;
   wire [15:0]imem_file_ram_l_reg_3;
-  wire imem_file_ram_l_reg_3_i_3_n_0;
-  wire imem_file_ram_l_reg_3_i_4_n_0;
-  wire imem_file_ram_l_reg_3_i_5_n_0;
-  wire imem_file_ram_l_reg_3_i_6_n_0;
   wire imem_up_en;
   wire [8:1]imm;
   wire imm_i0;
   wire [15:0]in_data;
-  wire \ir[15]_i_1_n_0 ;
   wire \ir_reg_n_0_[10] ;
   wire \ir_reg_n_0_[11] ;
   wire \ir_reg_n_0_[4] ;
@@ -2223,34 +2151,47 @@ module SystemTop_neo430_control
   wire irq_vec;
   wire \irq_vec[0]_i_1_n_0 ;
   wire \irq_vec[1]_i_1_n_0 ;
-  wire \irq_vec_reg[1]_0 ;
-  wire [0:0]\irq_vec_reg[1]_1 ;
-  wire \irq_vec_reg[1]_2 ;
-  wire mem_addr_reg0_carry__0;
+  wire mem_addr_reg0_carry;
+  wire mem_addr_reg0_carry__0_i_10_n_0;
+  wire mem_addr_reg0_carry__0_i_11_n_0;
+  wire mem_addr_reg0_carry__0_i_9_n_0;
   wire mem_addr_reg0_carry__1_i_10_n_0;
+  wire mem_addr_reg0_carry__1_i_11_n_0;
   wire mem_addr_reg0_carry__1_i_9_n_0;
-  wire mem_addr_reg0_carry__2_i_8_n_0;
+  wire mem_addr_reg0_carry__2;
+  wire mem_addr_reg0_carry__2_i_10_n_0;
+  wire mem_addr_reg0_carry__2_i_11_n_0;
   wire mem_addr_reg0_carry__2_i_9_n_0;
-  wire mem_addr_reg0_carry_i_9_n_0;
+  wire mem_addr_reg0_carry_i_10_n_0;
+  wire \mem_addr_reg_reg[11] ;
+  wire \mem_addr_reg_reg[11]_0 ;
+  wire \mem_addr_reg_reg[11]_1 ;
   wire \mem_addr_reg_reg[15] ;
-  wire \mem_addr_reg_reg[15]_0 ;
   wire \mem_addr_reg_reg[1] ;
-  wire \mem_addr_reg_reg[1]_0 ;
-  wire [10:0]\mem_addr_reg_reg[1]_1 ;
+  wire [0:0]\mem_addr_reg_reg[1]_0 ;
+  wire [0:0]\mem_addr_reg_reg[1]_1 ;
+  wire [0:0]\mem_addr_reg_reg[2] ;
+  wire [0:0]\mem_addr_reg_reg[2]_0 ;
+  wire [0:0]\mem_addr_reg_reg[2]_1 ;
+  wire \mem_addr_reg_reg[2]_2 ;
+  wire [0:0]\mem_addr_reg_reg[2]_3 ;
   wire \mem_addr_reg_reg[7] ;
   wire [15:0]mem_data_i;
   wire mem_rd;
   wire mem_rd_ff;
   wire mem_rd_ff_i_2_n_0;
-  wire mem_rd_ff_i_3_n_0;
   wire op_a_v1;
-  wire \op_b_ff[14]_i_4_n_0 ;
-  wire \op_b_ff[15]_i_3_n_0 ;
+  wire \op_b_ff[13]_i_3_n_0 ;
+  wire \op_b_ff[15]_i_2_n_0 ;
   wire \op_b_ff[1]_i_3_n_0 ;
-  wire \op_b_ff[3]_i_3_n_0 ;
+  wire \op_b_ff[3]_i_2_n_0 ;
   wire \op_b_ff[4]_i_2_n_0 ;
+  wire \op_b_ff_reg[0] ;
+  wire \op_b_ff_reg[0]_0 ;
   wire \op_b_ff_reg[10] ;
   wire \op_b_ff_reg[11] ;
+  wire \op_b_ff_reg[12] ;
+  wire \op_b_ff_reg[13] ;
   wire \op_b_ff_reg[14] ;
   wire \op_b_ff_reg[15] ;
   wire \op_b_ff_reg[1] ;
@@ -2259,7 +2200,6 @@ module SystemTop_neo430_control
   wire \op_b_ff_reg[4] ;
   wire \op_b_ff_reg[4]_0 ;
   wire \op_b_ff_reg[5] ;
-  wire \op_b_ff_reg[5]_0 ;
   wire \op_b_ff_reg[6] ;
   wire [0:0]\op_b_ff_reg[7] ;
   wire \op_b_ff_reg[7]_0 ;
@@ -2274,98 +2214,97 @@ module SystemTop_neo430_control
   wire [2:0]p_9_out;
   wire \pwm_ch[0][7]_i_2_n_0 ;
   wire [15:0]\pwm_ch_reg[1][7] ;
+  wire rden_i_2_n_0;
+  wire rden_i_3_n_0;
+  wire [3:0]reg_file_reg_0_15_0_0_i_2_0;
+  wire reg_file_reg_0_15_0_0_i_2_1;
   wire reg_file_reg_0_15_0_0_i_2_n_0;
   wire reg_file_reg_0_15_0_0_i_3_n_0;
-  wire reg_file_reg_0_15_0_0_i_4_0;
-  wire reg_file_reg_0_15_0_0_i_4_n_0;
+  wire reg_file_reg_0_15_0_0_i_3_n_1;
+  wire reg_file_reg_0_15_0_0_i_3_n_2;
+  wire reg_file_reg_0_15_0_0_i_3_n_3;
+  wire reg_file_reg_0_15_0_0_i_3_n_4;
+  wire reg_file_reg_0_15_0_0_i_3_n_5;
+  wire reg_file_reg_0_15_0_0_i_3_n_6;
+  wire reg_file_reg_0_15_0_0_i_3_n_7;
   wire reg_file_reg_0_15_0_0_i_5_n_0;
-  wire [3:0]reg_file_reg_0_15_0_0_i_6_0;
   wire reg_file_reg_0_15_0_0_i_6_n_0;
+  wire reg_file_reg_0_15_0_0_i_7_n_0;
+  wire reg_file_reg_0_15_0_0_i_8_n_0;
+  wire reg_file_reg_0_15_0_0_i_9_n_0;
   wire reg_file_reg_0_15_10_10_i_2_n_0;
   wire reg_file_reg_0_15_10_10_i_3_n_0;
   wire reg_file_reg_0_15_10_10_i_4_n_0;
   wire reg_file_reg_0_15_10_10_i_5_n_0;
   wire reg_file_reg_0_15_11_11_i_2_n_0;
-  wire reg_file_reg_0_15_11_11_i_3_n_0;
   wire reg_file_reg_0_15_11_11_i_4_n_0;
   wire reg_file_reg_0_15_11_11_i_5_n_0;
+  wire reg_file_reg_0_15_11_11_i_6_n_0;
   wire reg_file_reg_0_15_12_12_i_2_n_0;
   wire reg_file_reg_0_15_12_12_i_3_n_0;
   wire reg_file_reg_0_15_12_12_i_4_n_0;
-  wire reg_file_reg_0_15_12_12_i_5_n_0;
+  wire reg_file_reg_0_15_12_12_i_6_n_0;
   wire reg_file_reg_0_15_13_13_i_2_n_0;
   wire reg_file_reg_0_15_13_13_i_3_n_0;
   wire reg_file_reg_0_15_13_13_i_4_n_0;
   wire reg_file_reg_0_15_13_13_i_5_n_0;
   wire reg_file_reg_0_15_14_14_i_2_n_0;
-  wire [15:0]reg_file_reg_0_15_15_15_i_2_0;
-  wire [15:0]reg_file_reg_0_15_15_15_i_2_1;
-  wire [3:0]reg_file_reg_0_15_15_15_i_2_2;
+  wire reg_file_reg_0_15_14_14_i_3_n_0;
+  wire reg_file_reg_0_15_14_14_i_4_n_0;
+  wire reg_file_reg_0_15_14_14_i_5_n_0;
+  wire [3:0]reg_file_reg_0_15_15_15_i_2_0;
   wire reg_file_reg_0_15_15_15_i_2_n_0;
   wire reg_file_reg_0_15_15_15_i_3_n_0;
+  wire reg_file_reg_0_15_15_15_i_4_n_0;
   wire reg_file_reg_0_15_15_15_i_5_n_0;
   wire reg_file_reg_0_15_15_15_i_6_n_0;
+  wire reg_file_reg_0_15_1_1_i_2_0;
   wire reg_file_reg_0_15_1_1_i_2_n_0;
-  wire reg_file_reg_0_15_1_1_i_3_0;
-  wire reg_file_reg_0_15_1_1_i_3_n_0;
   wire reg_file_reg_0_15_1_1_i_4_n_0;
   wire reg_file_reg_0_15_1_1_i_5_n_0;
-  wire reg_file_reg_0_15_1_1_i_7_n_0;
+  wire reg_file_reg_0_15_2_2_i_2_0;
   wire reg_file_reg_0_15_2_2_i_2_n_0;
-  wire reg_file_reg_0_15_2_2_i_3_0;
   wire reg_file_reg_0_15_2_2_i_3_n_0;
   wire reg_file_reg_0_15_2_2_i_4_n_0;
   wire reg_file_reg_0_15_2_2_i_5_n_0;
-  wire reg_file_reg_0_15_3_3_i_11_n_0;
+  wire reg_file_reg_0_15_3_3_i_2_0;
   wire reg_file_reg_0_15_3_3_i_2_n_0;
   wire reg_file_reg_0_15_3_3_i_3_n_0;
-  wire reg_file_reg_0_15_3_3_i_3_n_1;
-  wire reg_file_reg_0_15_3_3_i_3_n_2;
-  wire reg_file_reg_0_15_3_3_i_3_n_3;
-  wire reg_file_reg_0_15_3_3_i_3_n_4;
-  wire reg_file_reg_0_15_3_3_i_3_n_5;
-  wire reg_file_reg_0_15_3_3_i_3_n_6;
-  wire reg_file_reg_0_15_3_3_i_3_n_7;
   wire reg_file_reg_0_15_3_3_i_4_n_0;
-  wire reg_file_reg_0_15_3_3_i_5_0;
   wire reg_file_reg_0_15_3_3_i_5_n_0;
-  wire reg_file_reg_0_15_3_3_i_6_n_0;
-  wire reg_file_reg_0_15_4_4_i_10_n_0;
-  wire [3:0]reg_file_reg_0_15_4_4_i_2_0;
+  wire reg_file_reg_0_15_4_4_i_2_0;
   wire reg_file_reg_0_15_4_4_i_2_n_0;
   wire reg_file_reg_0_15_4_4_i_3_n_0;
-  wire reg_file_reg_0_15_4_4_i_3_n_1;
-  wire reg_file_reg_0_15_4_4_i_3_n_2;
-  wire reg_file_reg_0_15_4_4_i_3_n_3;
-  wire reg_file_reg_0_15_4_4_i_3_n_5;
-  wire reg_file_reg_0_15_4_4_i_3_n_6;
-  wire reg_file_reg_0_15_4_4_i_3_n_7;
-  wire reg_file_reg_0_15_4_4_i_4_0;
   wire reg_file_reg_0_15_4_4_i_4_n_0;
-  wire reg_file_reg_0_15_4_4_i_9_n_0;
+  wire [2:0]reg_file_reg_0_15_4_4_i_5_0;
+  wire reg_file_reg_0_15_4_4_i_5_n_0;
+  wire reg_file_reg_0_15_5_5_i_2_0;
   wire reg_file_reg_0_15_5_5_i_2_n_0;
-  wire reg_file_reg_0_15_5_5_i_3_0;
   wire reg_file_reg_0_15_5_5_i_3_n_0;
   wire reg_file_reg_0_15_5_5_i_4_n_0;
   wire reg_file_reg_0_15_5_5_i_5_n_0;
+  wire reg_file_reg_0_15_6_6_i_2_0;
   wire reg_file_reg_0_15_6_6_i_2_n_0;
-  wire reg_file_reg_0_15_6_6_i_3_0;
   wire reg_file_reg_0_15_6_6_i_3_n_0;
   wire reg_file_reg_0_15_6_6_i_4_n_0;
   wire reg_file_reg_0_15_6_6_i_5_n_0;
+  wire [15:0]reg_file_reg_0_15_7_7_i_11_0;
+  wire reg_file_reg_0_15_7_7_i_11_n_0;
+  wire reg_file_reg_0_15_7_7_i_12_n_0;
   wire reg_file_reg_0_15_7_7_i_2_n_0;
   wire reg_file_reg_0_15_7_7_i_3_n_0;
-  wire reg_file_reg_0_15_7_7_i_4_n_0;
-  wire reg_file_reg_0_15_7_7_i_5_n_0;
+  wire reg_file_reg_0_15_7_7_i_3_n_1;
+  wire reg_file_reg_0_15_7_7_i_3_n_2;
+  wire reg_file_reg_0_15_7_7_i_3_n_3;
+  wire reg_file_reg_0_15_7_7_i_3_n_5;
+  wire reg_file_reg_0_15_7_7_i_3_n_6;
+  wire reg_file_reg_0_15_7_7_i_3_n_7;
   wire reg_file_reg_0_15_7_7_i_6_n_0;
   wire reg_file_reg_0_15_7_7_i_7_n_0;
-  wire reg_file_reg_0_15_7_7_i_8_n_0;
   wire reg_file_reg_0_15_8_8_i_2_n_0;
   wire reg_file_reg_0_15_8_8_i_3_n_0;
   wire reg_file_reg_0_15_8_8_i_4_n_0;
-  wire reg_file_reg_0_15_8_8_i_5_n_0;
   wire reg_file_reg_0_15_8_8_i_6_n_0;
-  wire reg_file_reg_0_15_8_8_i_7_n_0;
   wire reg_file_reg_0_15_9_9_i_2_n_0;
   wire reg_file_reg_0_15_9_9_i_3_n_0;
   wire reg_file_reg_0_15_9_9_i_4_n_0;
@@ -2374,32 +2313,20 @@ module SystemTop_neo430_control
   wire [1:0]sam;
   wire \sam[0]_i_1_n_0 ;
   wire \sam[1]_i_1_n_0 ;
+  wire \sam_reg[1]_0 ;
   wire [3:0]src;
-  wire src_nxt;
   wire [3:0]\src_reg[3]_0 ;
   wire [3:0]sreg;
   wire \sreg[0]_i_2_n_0 ;
   wire \sreg[0]_i_3_n_0 ;
   wire \sreg[0]_i_4_n_0 ;
   wire \sreg[0]_i_5_n_0 ;
-  wire \sreg[0]_i_6_n_0 ;
-  wire \sreg[1]_i_10_n_0 ;
-  wire \sreg[1]_i_11_n_0 ;
-  wire \sreg[1]_i_12_n_0 ;
-  wire \sreg[1]_i_13_n_0 ;
-  wire \sreg[1]_i_14_n_0 ;
-  wire \sreg[1]_i_15_n_0 ;
-  wire \sreg[1]_i_16_n_0 ;
-  wire \sreg[1]_i_17_n_0 ;
+  wire \sreg[14]_i_2_n_0 ;
   wire \sreg[1]_i_2_n_0 ;
   wire \sreg[1]_i_3_n_0 ;
   wire \sreg[1]_i_4_n_0 ;
   wire \sreg[1]_i_5_n_0 ;
   wire \sreg[1]_i_6_n_0 ;
-  wire \sreg[1]_i_7_0 ;
-  wire \sreg[1]_i_7_n_0 ;
-  wire \sreg[1]_i_8_n_0 ;
-  wire \sreg[1]_i_9_n_0 ;
   wire \sreg[2]_i_2_n_0 ;
   wire \sreg[8]_i_3_n_0 ;
   wire \sreg[8]_i_4_n_0 ;
@@ -2407,30 +2334,19 @@ module SystemTop_neo430_control
   wire [0:0]\sreg_reg[0] ;
   wire \sreg_reg[8] ;
   wire \sreg_reg[8]_0 ;
-  wire [4:2]state;
-  wire \thres_reg[15] ;
-  wire \uart_rx_avail[1]_i_6_n_0 ;
-  wire \uart_rx_avail[1]_i_7_n_0 ;
-  wire \uart_rx_avail[1]_i_8_n_0 ;
-  wire [2:0]uart_tx_busy_reg;
-  wire uart_tx_busy_reg_0;
-  wire \uart_tx_sreg[7]_i_3_n_0 ;
-  wire \uart_tx_sreg[7]_i_4_n_0 ;
-  wire \uart_tx_sreg[7]_i_5_n_0 ;
-  wire \uart_tx_sreg[7]_i_6_n_0 ;
-  wire \uart_tx_sreg[7]_i_7_n_0 ;
-  wire \uart_tx_sreg[7]_i_8_n_0 ;
-  wire \uart_tx_sreg[7]_i_9_n_0 ;
+  wire [4:0]state;
+  wire uart_tx_busy0;
   wire \uart_tx_sreg_reg[1] ;
   wire \uart_tx_sreg_reg[1]_0 ;
+  wire \uart_tx_sreg_reg[1]_1 ;
   wire \uart_tx_sreg_reg[2] ;
-  wire \uart_tx_sreg_reg[3] ;
   wire \uart_tx_sreg_reg[4] ;
   wire [5:0]\uart_tx_sreg_reg[6] ;
-  wire \uart_tx_sreg_reg[7] ;
-  wire [0:0]\uart_tx_sreg_reg[7]_0 ;
-  wire [3:1]\NLW_sreg_reg[0]_i_7_CO_UNCONNECTED ;
-  wire [3:0]\NLW_sreg_reg[0]_i_7_O_UNCONNECTED ;
+  wire [2:0]\uart_tx_sreg_reg[7] ;
+  wire \uart_tx_sreg_reg[7]_0 ;
+  wire \uart_tx_sreg_reg[7]_1 ;
+  wire [3:1]\NLW_sreg_reg[0]_i_6_CO_UNCONNECTED ;
+  wire [3:0]\NLW_sreg_reg[0]_i_6_O_UNCONNECTED ;
 
   assign cnt_reg_10_sp_1 = cnt_reg_10_sn_1;
   assign cnt_reg_11_sp_1 = cnt_reg_11_sn_1;
@@ -2442,378 +2358,394 @@ module SystemTop_neo430_control
   assign cnt_reg_8_sp_1 = cnt_reg_8_sn_1;
   assign cnt_reg_9_sp_1 = cnt_reg_9_sn_1;
   LUT6 #(
-    .INIT(64'hFFFFFFFF45454544)) 
+    .INIT(64'hFFFFFFFF55551110)) 
     \FSM_sequential_state[0]_i_1 
-       (.I0(\FSM_sequential_state_reg[0]_1 ),
+       (.I0(\FSM_sequential_state[0]_i_2_n_0 ),
         .I1(\FSM_sequential_state[0]_i_3_n_0 ),
-        .I2(\FSM_sequential_state[0]_i_4_n_0 ),
-        .I3(\FSM_sequential_state_reg[0]_2 ),
+        .I2(\FSM_sequential_state_reg[0]_0 ),
+        .I3(\FSM_sequential_state[0]_i_5_n_0 ),
         .I4(\FSM_sequential_state[0]_i_6_n_0 ),
         .I5(\FSM_sequential_state[0]_i_7_n_0 ),
         .O(\FSM_sequential_state[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
-  LUT4 #(
-    .INIT(16'hF444)) 
+  LUT2 #(
+    .INIT(4'h2)) 
     \FSM_sequential_state[0]_i_10 
-       (.I0(p_2_in[1]),
-        .I1(p_2_in[0]),
-        .I2(p_0_in14_in),
-        .I3(\am_reg_n_0_[0] ),
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(state[0]),
         .O(\FSM_sequential_state[0]_i_10_n_0 ));
   LUT6 #(
-    .INIT(64'h0022202202222222)) 
-    \FSM_sequential_state[0]_i_3 
-       (.I0(\FSM_sequential_state[0]_i_9_n_0 ),
-        .I1(\ctrl[5]_i_2_n_0 ),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(imm[8]),
-        .I5(\FSM_sequential_state[0]_i_10_n_0 ),
-        .O(\FSM_sequential_state[0]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+    .INIT(64'hFFCFCFCFEFEFCFCF)) 
+    \FSM_sequential_state[0]_i_11 
+       (.I0(\FSM_sequential_state[4]_i_8_n_0 ),
+        .I1(state[4]),
+        .I2(\ctrl[5]_i_2_n_0 ),
+        .I3(imm[8]),
+        .I4(state[0]),
+        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+        .O(\FSM_sequential_state[0]_i_11_n_0 ));
+  LUT6 #(
+    .INIT(64'h0020000000000000)) 
+    \FSM_sequential_state[0]_i_2 
+       (.I0(\op_b_ff_reg[15] ),
+        .I1(\ctrl_reg[17]_1 ),
+        .I2(\ctrl_reg[17]_0 ),
+        .I3(\op_b_ff_reg[4] ),
+        .I4(\ctrl[8]_i_2_n_0 ),
+        .I5(\FSM_sequential_state[3]_i_4_n_0 ),
+        .O(\FSM_sequential_state[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT3 #(
     .INIT(8'hEB)) 
-    \FSM_sequential_state[0]_i_4 
+    \FSM_sequential_state[0]_i_3 
        (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
         .I2(state[4]),
-        .O(\FSM_sequential_state[0]_i_4_n_0 ));
+        .O(\FSM_sequential_state[0]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFCCCFCCCFEFFFFFF)) 
+    .INIT(64'hFFF0F0F0FFFDFFFF)) 
+    \FSM_sequential_state[0]_i_5 
+       (.I0(p_2_in[0]),
+        .I1(\ctrl[14]_i_2__0_n_0 ),
+        .I2(state[4]),
+        .I3(p_2_in[1]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(state[0]),
+        .O(\FSM_sequential_state[0]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'h00000000BBFBFBFB)) 
     \FSM_sequential_state[0]_i_6 
-       (.I0(\ctrl[14]_i_2_n_0 ),
-        .I1(state[4]),
-        .I2(p_2_in[1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(p_2_in[0]),
-        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+       (.I0(\FSM_sequential_state[0]_i_9_n_0 ),
+        .I1(\FSM_sequential_state[0]_i_10_n_0 ),
+        .I2(\FSM_sequential_state[3]_i_8_n_0 ),
+        .I3(\ctrl[14]_i_2__0_n_0 ),
+        .I4(\ctrl[7]_i_2_n_0 ),
+        .I5(\FSM_sequential_state[0]_i_11_n_0 ),
         .O(\FSM_sequential_state[0]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT4 #(
     .INIT(16'h4055)) 
     \FSM_sequential_state[0]_i_7 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
-        .I1(state[2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .O(\FSM_sequential_state[0]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
-  LUT4 #(
-    .INIT(16'hFBFF)) 
-    \FSM_sequential_state[0]_i_8 
        (.I0(\FSM_sequential_state_reg[3]_0 [1]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
-        .O(\FSM_sequential_state_reg[1]_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFF70FFFF)) 
+        .I1(state[2]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
+        .O(\FSM_sequential_state[0]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  LUT4 #(
+    .INIT(16'h0004)) 
     \FSM_sequential_state[0]_i_9 
-       (.I0(\ctrl[7]_i_2_n_0 ),
-        .I1(\ctrl[14]_i_2_n_0 ),
-        .I2(\FSM_sequential_state[4]_i_10_n_0 ),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(\FSM_sequential_state_reg[3]_0 [1]),
-        .I5(mem_rd_ff_i_3_n_0),
+       (.I0(\ctrl_reg[19]_0 [8]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(\ctrl_reg[19]_0 [5]),
         .O(\FSM_sequential_state[0]_i_9_n_0 ));
   LUT6 #(
     .INIT(64'h00000000FFFF00F2)) 
     \FSM_sequential_state[1]_i_1 
        (.I0(\FSM_sequential_state[1]_i_2_n_0 ),
-        .I1(\FSM_sequential_state_reg[1]_1 ),
+        .I1(\FSM_sequential_state_reg[1]_0 ),
         .I2(state[2]),
         .I3(\FSM_sequential_state[1]_i_4_n_0 ),
         .I4(\FSM_sequential_state[1]_i_5_n_0 ),
         .I5(\FSM_sequential_state[1]_i_6_n_0 ),
         .O(\FSM_sequential_state[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \FSM_sequential_state[1]_i_2 
        (.I0(irq_start_reg_n_0),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
         .O(\FSM_sequential_state[1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT5 #(
-    .INIT(32'hFFD0FFFF)) 
+    .INIT(32'hFFF3F7F3)) 
     \FSM_sequential_state[1]_i_4 
        (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(state[4]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(state[0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[4]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .O(\FSM_sequential_state[1]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'h00000000FFFDFFFF)) 
     \FSM_sequential_state[1]_i_5 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
-        .I1(state[2]),
+       (.I0(p_2_in[0]),
+        .I1(p_2_in[1]),
         .I2(\am_reg_n_0_[0] ),
-        .I3(p_2_in[1]),
-        .I4(p_2_in[0]),
+        .I3(state[2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .I5(\FSM_sequential_state[1]_i_7_n_0 ),
         .O(\FSM_sequential_state[1]_i_5_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFF000000020000)) 
+    .INIT(64'h04FF04FF04FF0404)) 
     \FSM_sequential_state[1]_i_6 
-       (.I0(\FSM_sequential_state[4]_i_4_n_0 ),
+       (.I0(\FSM_sequential_state[1]_i_8_n_0 ),
         .I1(\FSM_sequential_state_reg[3]_1 ),
-        .I2(\FSM_sequential_state_reg[3]_2 ),
-        .I3(\am_reg[3]_0 [3]),
-        .I4(\FSM_sequential_state[3]_i_8_n_0 ),
-        .I5(\FSM_sequential_state[1]_i_8_n_0 ),
+        .I2(\am_reg[3]_0 [3]),
+        .I3(\FSM_sequential_state[1]_i_9_n_0 ),
+        .I4(\am_reg_n_0_[0] ),
+        .I5(\ctrl[7]_i_2_n_0 ),
         .O(\FSM_sequential_state[1]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFF0FBF0FFF0F)) 
+    .INIT(64'hFFFFFF33F733FF33)) 
     \FSM_sequential_state[1]_i_7 
-       (.I0(state[2]),
-        .I1(p_2_in[1]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
+       (.I0(p_2_in[1]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[2]),
+        .I3(state[0]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .I5(state[4]),
         .O(\FSM_sequential_state[1]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'h00000000E00EE0E0)) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  LUT4 #(
+    .INIT(16'hFBFF)) 
     \FSM_sequential_state[1]_i_8 
-       (.I0(\ctrl[7]_i_2_n_0 ),
-        .I1(\am_reg_n_0_[0] ),
-        .I2(p_0_in14_in),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(p_2_in[0]),
-        .I5(\FSM_sequential_state[1]_i_9_n_0 ),
-        .O(\FSM_sequential_state[1]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
-  LUT3 #(
-    .INIT(8'h4F)) 
-    \FSM_sequential_state[1]_i_9 
        (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(p_2_in[1]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(state[0]),
+        .I2(state[2]),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .O(\FSM_sequential_state[1]_i_8_n_0 ));
+  LUT6 #(
+    .INIT(64'h3FFF3F9FFFFFFFFF)) 
+    \FSM_sequential_state[1]_i_9 
+       (.I0(p_2_in[0]),
+        .I1(p_0_in14_in),
+        .I2(\ctrl[8]_i_2_n_0 ),
+        .I3(state[0]),
+        .I4(p_2_in[1]),
+        .I5(\FSM_sequential_state_reg[3]_0 [0]),
         .O(\FSM_sequential_state[1]_i_9_n_0 ));
   LUT6 #(
-    .INIT(64'h0222020202020202)) 
+    .INIT(64'hBBBBBBBABBAABBAA)) 
     \FSM_sequential_state[2]_i_1 
        (.I0(\FSM_sequential_state[2]_i_2_n_0 ),
         .I1(\FSM_sequential_state[2]_i_3_n_0 ),
-        .I2(\FSM_sequential_state[4]_i_6_n_0 ),
-        .I3(\FSM_sequential_state_reg[2]_0 ),
-        .I4(\FSM_sequential_state_reg[2]_1 ),
-        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(\FSM_sequential_state_reg[4]_0 ),
+        .I3(state[2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(\FSM_sequential_state[2]_i_4_n_0 ),
         .O(\FSM_sequential_state[2]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFAFAFABFBAAABA)) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  LUT4 #(
+    .INIT(16'h0444)) 
     \FSM_sequential_state[2]_i_2 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state[2]_i_6_n_0 ),
-        .I2(\FSM_sequential_state_reg[3]_0 [2]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(state[2]),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .O(\FSM_sequential_state[2]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hBAAABAAABBAABAAA)) 
+    \FSM_sequential_state[2]_i_3 
+       (.I0(state[4]),
+        .I1(\FSM_sequential_state[2]_i_5_n_0 ),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[2]),
+        .I4(state[0]),
+        .I5(\FSM_sequential_state[4]_i_8_n_0 ),
+        .O(\FSM_sequential_state[2]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hAEAEAE00AE000000)) 
+    \FSM_sequential_state[2]_i_4 
+       (.I0(\FSM_sequential_state[2]_i_6_n_0 ),
+        .I1(\FSM_sequential_state[3]_i_8_n_0 ),
+        .I2(\ctrl[14]_i_2__0_n_0 ),
         .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .I4(state[0]),
+        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+        .O(\FSM_sequential_state[2]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  LUT4 #(
+    .INIT(16'h0004)) 
+    \FSM_sequential_state[2]_i_5 
+       (.I0(\ctrl[7]_i_2_n_0 ),
+        .I1(p_2_in[0]),
+        .I2(p_2_in[1]),
+        .I3(state[0]),
+        .O(\FSM_sequential_state[2]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'h0AAAFFFFAABBFFFF)) 
+    \FSM_sequential_state[2]_i_6 
+       (.I0(state[0]),
+        .I1(p_2_in[0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I3(p_2_in[1]),
         .I4(\FSM_sequential_state_reg[3]_0 [0]),
         .I5(\FSM_sequential_state[2]_i_7_n_0 ),
-        .O(\FSM_sequential_state[2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
-  LUT5 #(
-    .INIT(32'hF8F8F800)) 
-    \FSM_sequential_state[2]_i_3 
-       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [2]),
-        .I3(\FSM_sequential_state[2]_i_8_n_0 ),
-        .I4(state[4]),
-        .O(\FSM_sequential_state[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
-  LUT4 #(
-    .INIT(16'h0080)) 
-    \FSM_sequential_state[2]_i_6 
-       (.I0(p_2_in[1]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(\ctrl[7]_i_2_n_0 ),
-        .I3(p_0_in14_in),
         .O(\FSM_sequential_state[2]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
-  LUT5 #(
-    .INIT(32'h13301333)) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
     \FSM_sequential_state[2]_i_7 
-       (.I0(\am_reg_n_0_[0] ),
-        .I1(p_2_in[1]),
-        .I2(p_2_in[0]),
-        .I3(p_0_in14_in),
-        .I4(\ctrl[7]_i_2_n_0 ),
+       (.I0(\ctrl[7]_i_2_n_0 ),
+        .I1(p_0_in14_in),
         .O(\FSM_sequential_state[2]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'hC0C0C4C0C000C4C0)) 
-    \FSM_sequential_state[2]_i_8 
-       (.I0(\ctrl[14]_i_2_n_0 ),
-        .I1(state[2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(\FSM_sequential_state[4]_i_10_n_0 ),
-        .I5(\ctrl[7]_i_2_n_0 ),
-        .O(\FSM_sequential_state[2]_i_8_n_0 ));
   LUT6 #(
     .INIT(64'h00000000BABBBBBB)) 
     \FSM_sequential_state[3]_i_1 
        (.I0(\FSM_sequential_state[3]_i_2_n_0 ),
         .I1(state[2]),
-        .I2(\FSM_sequential_state_reg[3]_3 ),
-        .I3(\FSM_sequential_state[4]_i_4_n_0 ),
-        .I4(\FSM_sequential_state_reg[3]_4 ),
-        .I5(\FSM_sequential_state[3]_i_5_n_0 ),
+        .I2(\FSM_sequential_state_reg[3]_2 ),
+        .I3(\FSM_sequential_state[3]_i_4_n_0 ),
+        .I4(\FSM_sequential_state_reg[3]_3 ),
+        .I5(\FSM_sequential_state[3]_i_6_n_0 ),
         .O(\FSM_sequential_state[3]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000002)) 
+    \FSM_sequential_state[3]_i_10 
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[2]),
+        .I3(state[4]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
+        .I5(irq_start_reg_n_0),
+        .O(\FSM_sequential_state[3]_i_10_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT5 #(
     .INIT(32'h15F355FF)) 
-    \FSM_sequential_state[3]_i_10 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(p_2_in[1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(\ctrl[7]_i_2_n_0 ),
-        .O(\FSM_sequential_state[3]_i_10_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFBABABAAA)) 
-    \FSM_sequential_state[3]_i_2 
-       (.I0(\FSM_sequential_state[4]_i_14_n_0 ),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(state[2]),
-        .I3(\FSM_sequential_state[4]_i_10_n_0 ),
-        .I4(\am_reg_n_0_[0] ),
-        .I5(\FSM_sequential_state[3]_i_6_n_0 ),
-        .O(\FSM_sequential_state[3]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hAAAAAAAAAAAAAAEA)) 
-    \FSM_sequential_state[3]_i_5 
-       (.I0(\FSM_sequential_state[3]_i_7_n_0 ),
-        .I1(\FSM_sequential_state[4]_i_4_n_0 ),
-        .I2(\FSM_sequential_state[3]_i_8_n_0 ),
-        .I3(\FSM_sequential_state_reg[3]_1 ),
-        .I4(\FSM_sequential_state_reg[3]_2 ),
-        .I5(\am_reg[3]_0 [3]),
-        .O(\FSM_sequential_state[3]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
-  LUT5 #(
-    .INIT(32'h00000004)) 
-    \FSM_sequential_state[3]_i_6 
+    \FSM_sequential_state[3]_i_11 
        (.I0(state[2]),
         .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
-        .I4(irq_start_reg_n_0),
-        .O(\FSM_sequential_state[3]_i_6_n_0 ));
+        .I2(p_2_in[1]),
+        .I3(state[0]),
+        .I4(\ctrl[7]_i_2_n_0 ),
+        .O(\FSM_sequential_state[3]_i_11_n_0 ));
   LUT6 #(
-    .INIT(64'h0D0D0D0D0D0D0DFF)) 
+    .INIT(64'hEEEAEEEAFFFFEEEA)) 
+    \FSM_sequential_state[3]_i_2 
+       (.I0(\FSM_sequential_state[4]_i_11_n_0 ),
+        .I1(\FSM_sequential_state[3]_i_7_n_0 ),
+        .I2(\FSM_sequential_state[3]_i_8_n_0 ),
+        .I3(\am_reg_n_0_[0] ),
+        .I4(\ctrl[18]_i_6_n_0 ),
+        .I5(\FSM_sequential_state[1]_i_2_n_0 ),
+        .O(\FSM_sequential_state[3]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \FSM_sequential_state[3]_i_4 
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+        .O(\FSM_sequential_state[3]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00002000)) 
+    \FSM_sequential_state[3]_i_6 
+       (.I0(\FSM_sequential_state[3]_i_4_n_0 ),
+        .I1(state[2]),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I3(\FSM_sequential_state_reg[3]_1 ),
+        .I4(\am_reg[3]_0 [3]),
+        .I5(\FSM_sequential_state[3]_i_9_n_0 ),
+        .O(\FSM_sequential_state[3]_i_6_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
     \FSM_sequential_state[3]_i_7 
-       (.I0(\FSM_sequential_state[3]_i_9_n_0 ),
-        .I1(\FSM_sequential_state[1]_i_2_n_0 ),
-        .I2(\ctrl[18]_i_5_n_0 ),
-        .I3(\FSM_sequential_state[3]_i_10_n_0 ),
-        .I4(p_0_in14_in),
-        .I5(\FSM_sequential_state[4]_i_10_n_0 ),
+       (.I0(state[2]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
         .O(\FSM_sequential_state[3]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \FSM_sequential_state[3]_i_8 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
-        .I1(state[2]),
-        .O(\FSM_sequential_state[3]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
-  LUT4 #(
-    .INIT(16'h0004)) 
-    \FSM_sequential_state[3]_i_9 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(state[4]),
-        .O(\FSM_sequential_state[3]_i_9_n_0 ));
-  LUT6 #(
-    .INIT(64'h55FF55FF55FB55FF)) 
-    \FSM_sequential_state[4]_i_1 
-       (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[0]_0 ),
-        .I2(irq_start_reg_n_0),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
-        .I4(\FSM_sequential_state[4]_i_4_n_0 ),
-        .I5(state[2]),
-        .O(\FSM_sequential_state[4]_i_1_n_0 ));
-  LUT2 #(
-    .INIT(4'h2)) 
-    \FSM_sequential_state[4]_i_10 
        (.I0(p_2_in[0]),
         .I1(p_2_in[1]),
-        .O(\FSM_sequential_state[4]_i_10_n_0 ));
+        .O(\FSM_sequential_state[3]_i_8_n_0 ));
+  LUT6 #(
+    .INIT(64'h111F1111111F111F)) 
+    \FSM_sequential_state[3]_i_9 
+       (.I0(\FSM_sequential_state[3]_i_10_n_0 ),
+        .I1(\ctrl[18]_i_5_n_0 ),
+        .I2(\FSM_sequential_state[3]_i_11_n_0 ),
+        .I3(p_0_in14_in),
+        .I4(p_2_in[1]),
+        .I5(p_2_in[0]),
+        .O(\FSM_sequential_state[3]_i_9_n_0 ));
+  LUT5 #(
+    .INIT(32'h00DFFFDF)) 
+    \FSM_sequential_state[4]_i_1 
+       (.I0(\FSM_sequential_state[4]_i_4_n_0 ),
+        .I1(irq_start_reg_n_0),
+        .I2(\FSM_sequential_state_reg[0]_1 ),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .I4(state[4]),
+        .O(\FSM_sequential_state[4]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'h000000200000AAAA)) 
-    \FSM_sequential_state[4]_i_14 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
+    \FSM_sequential_state[4]_i_11 
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
         .I1(\ctrl[7]_i_2_n_0 ),
         .I2(p_2_in[0]),
         .I3(p_2_in[1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\FSM_sequential_state[4]_i_14_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+        .I4(state[0]),
+        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+        .O(\FSM_sequential_state[4]_i_11_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT4 #(
-    .INIT(16'hFFFD)) 
-    \FSM_sequential_state[4]_i_15 
-       (.I0(\ctrl[7]_i_2_n_0 ),
-        .I1(p_0_in14_in),
-        .I2(p_2_in[0]),
-        .I3(p_2_in[1]),
-        .O(\FSM_sequential_state[4]_i_15_n_0 ));
+    .INIT(16'hFEFF)) 
+    \FSM_sequential_state[4]_i_12 
+       (.I0(p_2_in[0]),
+        .I1(p_2_in[1]),
+        .I2(p_0_in14_in),
+        .I3(\ctrl[7]_i_2_n_0 ),
+        .O(\FSM_sequential_state[4]_i_12_n_0 ));
   LUT6 #(
-    .INIT(64'h00000000AAEAEEEE)) 
+    .INIT(64'h00000000FAAAAAEA)) 
     \FSM_sequential_state[4]_i_2 
        (.I0(\FSM_sequential_state[4]_i_5_n_0 ),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(\FSM_sequential_state[4]_i_6_n_0 ),
-        .I3(\FSM_sequential_state_reg[4]_0 ),
-        .I4(\FSM_sequential_state[4]_i_8_n_0 ),
-        .I5(\FSM_sequential_state[4]_i_9_n_0 ),
+        .I1(\FSM_sequential_state_reg[4]_0 ),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I3(state[2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(\FSM_sequential_state[4]_i_7_n_0 ),
         .O(\FSM_sequential_state[4]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  LUT4 #(
+    .INIT(16'h0100)) 
     \FSM_sequential_state[4]_i_4 
-       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(state[4]),
+        .I1(state[2]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
         .O(\FSM_sequential_state[4]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'h555F555577775555)) 
+    .INIT(64'hFFFFFFFF04FFC4FF)) 
     \FSM_sequential_state[4]_i_5 
        (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(\FSM_sequential_state[4]_i_10_n_0 ),
-        .I3(\ctrl[14]_i_2_n_0 ),
-        .I4(state[2]),
-        .I5(\FSM_sequential_state_reg[3]_0 [2]),
+        .I1(state[2]),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I3(state[0]),
+        .I4(\FSM_sequential_state[4]_i_8_n_0 ),
+        .I5(\FSM_sequential_state[4]_i_9_n_0 ),
         .O(\FSM_sequential_state[4]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    \FSM_sequential_state[4]_i_6 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\FSM_sequential_state[4]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
-  LUT5 #(
-    .INIT(32'h45FF55FF)) 
-    \FSM_sequential_state[4]_i_8 
-       (.I0(state[2]),
-        .I1(p_0_in14_in),
-        .I2(\ctrl[7]_i_2_n_0 ),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(p_2_in[1]),
-        .O(\FSM_sequential_state[4]_i_8_n_0 ));
   LUT6 #(
     .INIT(64'hEBEBEBEBEBEBFBEB)) 
-    \FSM_sequential_state[4]_i_9 
-       (.I0(\FSM_sequential_state[4]_i_14_n_0 ),
+    \FSM_sequential_state[4]_i_7 
+       (.I0(\FSM_sequential_state[4]_i_11_n_0 ),
         .I1(state[4]),
-        .I2(\FSM_sequential_state_reg[3]_0 [2]),
-        .I3(\FSM_sequential_state[4]_i_15_n_0 ),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I3(\FSM_sequential_state[4]_i_12_n_0 ),
         .I4(state[2]),
-        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(state[0]),
+        .O(\FSM_sequential_state[4]_i_7_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  LUT4 #(
+    .INIT(16'hF444)) 
+    \FSM_sequential_state[4]_i_8 
+       (.I0(p_2_in[1]),
+        .I1(p_2_in[0]),
+        .I2(p_0_in14_in),
+        .I3(\am_reg_n_0_[0] ),
+        .O(\FSM_sequential_state[4]_i_8_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  LUT5 #(
+    .INIT(32'h40000000)) 
+    \FSM_sequential_state[4]_i_9 
+       (.I0(p_0_in14_in),
+        .I1(\ctrl[7]_i_2_n_0 ),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(p_2_in[1]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .O(\FSM_sequential_state[4]_i_9_n_0 ));
   (* FSM_ENCODED_STATES = "reti_0:10100,pushcall_2:10001,pushcall_1:10000,irq_1:00011,irq_0:00010,decode:01001,reti_3:10111,ifetch_1:01000,reti_2:10110,ifetch_0:00001,irq_5:00111,reset:00000,irq_4:00110,pushcall_0:01111,trans_6:10011,trans_3:01101,irq_3:00101,trans_2:01100,irq_2:00100,trans_5:10010,trans_4:01110,trans_1:01011,reti_1:10101,trans_0:01010" *) 
   FDCE \FSM_sequential_state_reg[0] 
@@ -2821,14 +2753,14 @@ module SystemTop_neo430_control
         .CE(\FSM_sequential_state[4]_i_1_n_0 ),
         .CLR(\FSM_sequential_state_reg[4]_1 ),
         .D(\FSM_sequential_state[0]_i_1_n_0 ),
-        .Q(\FSM_sequential_state_reg[3]_0 [0]));
+        .Q(state[0]));
   (* FSM_ENCODED_STATES = "reti_0:10100,pushcall_2:10001,pushcall_1:10000,irq_1:00011,irq_0:00010,decode:01001,reti_3:10111,ifetch_1:01000,reti_2:10110,ifetch_0:00001,irq_5:00111,reset:00000,irq_4:00110,pushcall_0:01111,trans_6:10011,trans_3:01101,irq_3:00101,trans_2:01100,irq_2:00100,trans_5:10010,trans_4:01110,trans_1:01011,reti_1:10101,trans_0:01010" *) 
   FDCE \FSM_sequential_state_reg[1] 
        (.C(clk_i),
         .CE(\FSM_sequential_state[4]_i_1_n_0 ),
         .CLR(\FSM_sequential_state_reg[4]_1 ),
         .D(\FSM_sequential_state[1]_i_1_n_0 ),
-        .Q(\FSM_sequential_state_reg[3]_0 [1]));
+        .Q(\FSM_sequential_state_reg[3]_0 [0]));
   (* FSM_ENCODED_STATES = "reti_0:10100,pushcall_2:10001,pushcall_1:10000,irq_1:00011,irq_0:00010,decode:01001,reti_3:10111,ifetch_1:01000,reti_2:10110,ifetch_0:00001,irq_5:00111,reset:00000,irq_4:00110,pushcall_0:01111,trans_6:10011,trans_3:01101,irq_3:00101,trans_2:01100,irq_2:00100,trans_5:10010,trans_4:01110,trans_1:01011,reti_1:10101,trans_0:01010" *) 
   FDCE \FSM_sequential_state_reg[2] 
        (.C(clk_i),
@@ -2842,7 +2774,7 @@ module SystemTop_neo430_control
         .CE(\FSM_sequential_state[4]_i_1_n_0 ),
         .CLR(\FSM_sequential_state_reg[4]_1 ),
         .D(\FSM_sequential_state[3]_i_1_n_0 ),
-        .Q(\FSM_sequential_state_reg[3]_0 [2]));
+        .Q(\FSM_sequential_state_reg[3]_0 [1]));
   (* FSM_ENCODED_STATES = "reti_0:10100,pushcall_2:10001,pushcall_1:10000,irq_1:00011,irq_0:00010,decode:01001,reti_3:10111,ifetch_1:01000,reti_2:10110,ifetch_0:00001,irq_5:00111,reset:00000,irq_4:00110,pushcall_0:01111,trans_6:10011,trans_3:01101,irq_3:00101,trans_2:01100,irq_2:00100,trans_5:10010,trans_4:01110,trans_1:01011,reti_1:10101,trans_0:01010" *) 
   FDCE \FSM_sequential_state_reg[4] 
        (.C(clk_i),
@@ -2852,197 +2784,263 @@ module SystemTop_neo430_control
         .Q(state[4]));
   FDRE \am_reg[0] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\am_reg[3]_0 [0]),
         .Q(\am_reg_n_0_[0] ),
         .R(1'b0));
   FDRE \am_reg[1] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\am_reg[3]_0 [1]),
         .Q(p_2_in[0]),
         .R(1'b0));
   FDRE \am_reg[2] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\am_reg[3]_0 [2]),
         .Q(p_2_in[1]),
         .R(1'b0));
   FDRE \am_reg[3] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\am_reg[3]_0 [3]),
         .Q(p_0_in14_in),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT5 #(
     .INIT(32'h30308E16)) 
     \ctrl[0]_i_1 
-       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
         .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
         .I4(state[4]),
         .O(\ctrl[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
-  LUT5 #(
-    .INIT(32'h00020000)) 
-    \ctrl[11]_i_1 
-       (.I0(\ctrl[14]_i_2__0_n_0 ),
-        .I1(\ctrl_reg[25]_3 ),
-        .I2(\ctrl_reg[25]_2 ),
-        .I3(\ctrl_reg[25]_0 ),
-        .I4(\ctrl_reg[25]_1 ),
-        .O(\ctrl_reg[25]_11 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT5 #(
     .INIT(32'h00000001)) 
-    \ctrl[11]_i_1__0 
-       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+    \ctrl[11]_i_1 
+       (.I0(state[4]),
         .I1(state[2]),
         .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
-        .I4(state[4]),
-        .O(\ctrl[11]_i_1__0_n_0 ));
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .I4(state[0]),
+        .O(\ctrl[11]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  LUT3 #(
+    .INIT(8'h08)) 
+    \ctrl[11]_i_1__0 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
+        .I2(\ctrl[11]_i_2_n_0 ),
+        .O(\mem_addr_reg_reg[2]_3 ));
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  LUT5 #(
+    .INIT(32'hFBFFFFFF)) 
+    \ctrl[11]_i_2 
+       (.I0(\ctrl[14]_i_2_n_0 ),
+        .I1(\data_o[15]_i_4_n_0 ),
+        .I2(\ctrl_reg[25]_2 ),
+        .I3(\ctrl_reg[25]_0 ),
+        .I4(\data_o[15]_i_3_n_0 ),
+        .O(\ctrl[11]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h30CC30CC555500C0)) 
+    .INIT(64'h0404F404F7F40404)) 
     \ctrl[12]_i_1 
        (.I0(\ctrl[12]_i_2_n_0 ),
         .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
-        .I5(state[4]),
+        .I2(state[4]),
+        .I3(state[2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(state[0]),
         .O(\ctrl[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT5 #(
     .INIT(32'hFFF73FFF)) 
     \ctrl[12]_i_2 
        (.I0(p_2_in[0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
         .I2(p_2_in[1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
         .I4(state[2]),
         .O(\ctrl[12]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h7D573C4228022802)) 
+    .INIT(64'h4EE4444E0EE0400A)) 
     \ctrl[13]_i_1 
        (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(state[2]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
-        .I5(\ctrl[13]_i_2_n_0 ),
+        .I1(\ctrl[13]_i_2_n_0 ),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(state[2]),
+        .I5(\FSM_sequential_state_reg[3]_0 [1]),
         .O(\ctrl[13]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF00440040)) 
+    .INIT(64'hCCDDCCDDCCDDCCFC)) 
     \ctrl[13]_i_2 
-       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(\ctrl[13]_i_3_n_0 ),
-        .I2(p_2_in[0]),
+       (.I0(\ctrl[13]_i_3_n_0 ),
+        .I1(\ctrl[13]_i_4_n_0 ),
+        .I2(\ctrl[13]_i_5_n_0 ),
         .I3(p_2_in[1]),
-        .I4(\ctrl[14]_i_2_n_0 ),
-        .I5(\ctrl[13]_i_4_n_0 ),
+        .I4(p_2_in[0]),
+        .I5(\ctrl[14]_i_2__0_n_0 ),
         .O(\ctrl[13]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  LUT3 #(
+    .INIT(8'hBF)) 
     \ctrl[13]_i_3 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[2]),
         .O(\ctrl[13]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h3F37333733333333)) 
-    \ctrl[13]_i_4 
-       (.I0(\ctrl[13]_i_5_n_0 ),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(p_2_in[1]),
-        .I5(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\ctrl[13]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ctrl[13]_i_5 
-       (.I0(p_0_in14_in),
-        .I1(\am_reg_n_0_[0] ),
-        .I2(p_2_in[0]),
-        .I3(p_2_in[1]),
-        .O(\ctrl[13]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT5 #(
-    .INIT(32'h00000020)) 
-    \ctrl[14]_i_1 
-       (.I0(\ctrl[14]_i_2__0_n_0 ),
-        .I1(\ctrl_reg[25]_2 ),
-        .I2(\ctrl_reg[25]_3 ),
-        .I3(\ctrl_reg[25]_0 ),
-        .I4(\ctrl_reg[25]_1 ),
-        .O(\ctrl_reg[25]_9 ));
-  LUT6 #(
-    .INIT(64'h00000A0000400A00)) 
-    \ctrl[14]_i_1__0 
-       (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
+    .INIT(32'h0080FFFF)) 
+    \ctrl[13]_i_4 
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(p_2_in[1]),
+        .I2(state[0]),
+        .I3(state[2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
+        .O(\ctrl[13]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  LUT3 #(
+    .INIT(8'h04)) 
+    \ctrl[13]_i_5 
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
         .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .O(\ctrl[13]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000020000F00000)) 
+    \ctrl[14]_i_1 
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(\ctrl[14]_i_2__0_n_0 ),
+        .I2(state[4]),
+        .I3(state[2]),
         .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(\ctrl[14]_i_2_n_0 ),
-        .O(\ctrl[14]_i_1__0_n_0 ));
+        .I5(state[0]),
+        .O(\ctrl[14]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  LUT5 #(
+    .INIT(32'h00100000)) 
+    \ctrl[14]_i_1__0 
+       (.I0(\ctrl[14]_i_2_n_0 ),
+        .I1(\ctrl_reg[25]_2 ),
+        .I2(imem_file_ram_l_reg_0_i_19_n_0),
+        .I3(\ctrl[14]_i_3_n_0 ),
+        .I4(\mem_addr_reg_reg[1] ),
+        .O(\ctrl_reg[27]_2 ));
+  LUT5 #(
+    .INIT(32'hFFFEFFFF)) 
+    \ctrl[14]_i_2 
+       (.I0(\ctrl[14]_i_4_n_0 ),
+        .I1(dmem_file_l_reg_i_3_n_0),
+        .I2(dmem_file_l_reg_i_6_n_0),
+        .I3(dmem_file_l_reg_i_4_n_0),
+        .I4(ctrl_bus),
+        .O(\ctrl[14]_i_2_n_0 ));
   LUT2 #(
     .INIT(4'h8)) 
-    \ctrl[14]_i_2 
+    \ctrl[14]_i_2__0 
        (.I0(\am_reg_n_0_[0] ),
         .I1(p_0_in14_in),
-        .O(\ctrl[14]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
-  LUT3 #(
-    .INIT(8'h20)) 
-    \ctrl[14]_i_2__0 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
-        .I2(\uart_tx_sreg[7]_i_3_n_0 ),
         .O(\ctrl[14]_i_2__0_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFFFFFABFFABAA)) 
+    \ctrl[14]_i_3 
+       (.I0(\ctrl_reg[25]_0 ),
+        .I1(mem_addr_reg0_carry__0_i_10_n_0),
+        .I2(\ctrl_reg[26]_0 [3]),
+        .I3(\ctrl_reg_n_0_[24] ),
+        .I4(imem_file_ram_l_reg_3[6]),
+        .I5(\data_o[15]_i_4_n_0 ),
+        .O(\ctrl[14]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
+    \ctrl[14]_i_4 
+       (.I0(\ctrl[14]_i_5_n_0 ),
+        .I1(dmem_file_l_reg_i_5_n_0),
+        .I2(\ctrl[14]_i_6_n_0 ),
+        .I3(\ctrl[14]_i_7_n_0 ),
+        .I4(\ctrl[14]_i_8_n_0 ),
+        .O(\ctrl[14]_i_4_n_0 ));
+  LUT4 #(
+    .INIT(16'hD0DF)) 
+    \ctrl[14]_i_5 
+       (.I0(reg_i[8]),
+        .I1(\ctrl_reg[26]_0 [3]),
+        .I2(\ctrl_reg_n_0_[24] ),
+        .I3(imem_file_ram_l_reg_3[8]),
+        .O(\ctrl[14]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'hAABF0000AABFFFFF)) 
+    \ctrl[14]_i_6 
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(data_o0[7]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
+        .I4(\ctrl_reg_n_0_[24] ),
+        .I5(imem_file_ram_l_reg_3[7]),
+        .O(\ctrl[14]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'hAABF0000AABFFFFF)) 
+    \ctrl[14]_i_7 
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(data_o0[10]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
+        .I4(\ctrl_reg_n_0_[24] ),
+        .I5(imem_file_ram_l_reg_3[10]),
+        .O(\ctrl[14]_i_7_n_0 ));
+  LUT6 #(
+    .INIT(64'hAABF0000AABFFFFF)) 
+    \ctrl[14]_i_8 
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(data_o0[9]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
+        .I4(\ctrl_reg_n_0_[24] ),
+        .I5(imem_file_ram_l_reg_3[9]),
+        .O(\ctrl[14]_i_8_n_0 ));
   LUT6 #(
     .INIT(64'h0020AAAA00200020)) 
     \ctrl[15]_i_1 
        (.I0(\ctrl[15]_i_2_n_0 ),
-        .I1(\ctrl_reg[17]_0 ),
+        .I1(\ctrl_reg[17]_2 ),
         .I2(\ctrl[18]_i_6_n_0 ),
         .I3(\ctrl_reg[15]_0 ),
         .I4(\ctrl[18]_i_7_n_0 ),
-        .I5(Q[8]),
+        .I5(\ctrl_reg[19]_0 [5]),
         .O(\ctrl[15]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hFC3FFFEB0000AAAA)) 
     \ctrl[15]_i_2 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(state[0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
         .I3(state[2]),
         .I4(state[4]),
-        .I5(Q[8]),
+        .I5(\ctrl_reg[19]_0 [5]),
         .O(\ctrl[15]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h08AA080808080808)) 
     \ctrl[16]_i_1 
        (.I0(\ctrl[16]_i_2_n_0 ),
-        .I1(Q[9]),
+        .I1(\ctrl_reg[19]_0 [6]),
         .I2(\ctrl[18]_i_7_n_0 ),
-        .I3(\ctrl_reg[17]_0 ),
+        .I3(\ctrl_reg[17]_2 ),
         .I4(\ctrl[18]_i_6_n_0 ),
         .I5(\ctrl_reg[16]_0 ),
         .O(\ctrl[16]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hFC3FFFEB0000AAAA)) 
     \ctrl[16]_i_2 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(state[0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
         .I3(state[2]),
         .I4(state[4]),
-        .I5(Q[9]),
+        .I5(\ctrl_reg[19]_0 [6]),
         .O(\ctrl[16]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hBBBBBBBBBBBAAAAA)) 
@@ -3050,47 +3048,49 @@ module SystemTop_neo430_control
        (.I0(\ctrl[17]_i_2_n_0 ),
         .I1(\ctrl[17]_i_3_n_0 ),
         .I2(mem_data_i[14]),
-        .I3(\ctrl_reg[17]_0 ),
+        .I3(\ctrl_reg[17]_2 ),
         .I4(\ctrl[18]_i_6_n_0 ),
         .I5(\ctrl[17]_i_5_n_0 ),
         .O(\ctrl[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT5 #(
     .INIT(32'hA2AA0020)) 
     \ctrl[17]_i_2 
        (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
         .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(Q[10]),
+        .I3(state[0]),
+        .I4(\ctrl_reg[19]_0 [7]),
         .O(\ctrl[17]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hAAABAAAABBBBBABB)) 
     \ctrl[17]_i_3 
        (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
         .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(Q[10]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(state[0]),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(\ctrl[17]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT5 #(
     .INIT(32'hB33FB333)) 
     \ctrl[17]_i_5 
        (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(Q[10]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(\ctrl_reg[19]_0 [7]),
         .O(\ctrl[17]_i_5_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFE0)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFFFF040000)) 
     \ctrl[18]_i_1 
-       (.I0(\am_reg[3]_0 [3]),
-        .I1(\am_reg[0]_0 ),
-        .I2(\ir[15]_i_1_n_0 ),
-        .I3(\ctrl[18]_i_3_n_0 ),
+       (.I0(\ctrl_reg[17]_1 ),
+        .I1(\ctrl_reg[17]_0 ),
+        .I2(\op_b_ff_reg[4] ),
+        .I3(\am_reg[3]_0 [3]),
+        .I4(E),
+        .I5(\ctrl[18]_i_3_n_0 ),
         .O(\ctrl[18]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hD000DDDDC000C000)) 
@@ -3100,301 +3100,288 @@ module SystemTop_neo430_control
         .I2(mem_data_i[15]),
         .I3(\ctrl[18]_i_6_n_0 ),
         .I4(\ctrl[18]_i_7_n_0 ),
-        .I5(Q[11]),
+        .I5(\ctrl_reg[19]_0 [8]),
         .O(\ctrl[18]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
   LUT5 #(
-    .INIT(32'h00108004)) 
+    .INIT(32'h40020100)) 
     \ctrl[18]_i_3 
-       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+       (.I0(state[4]),
         .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
-        .I4(state[4]),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(state[2]),
         .O(\ctrl[18]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT4 #(
     .INIT(16'h1806)) 
     \ctrl[18]_i_4 
-       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
         .I2(state[2]),
         .I3(state[4]),
         .O(\ctrl[18]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \ctrl[18]_i_5 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
         .I1(state[4]),
         .O(\ctrl[18]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT3 #(
     .INIT(8'h04)) 
     \ctrl[18]_i_6 
-       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(state[0]),
         .I2(state[2]),
         .O(\ctrl[18]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT5 #(
     .INIT(32'h70303000)) 
     \ctrl[18]_i_7 
        (.I0(state[2]),
         .I1(state[4]),
-        .I2(\FSM_sequential_state_reg[3]_0 [2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .O(\ctrl[18]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFBAFF00003000)) 
-    \ctrl[19]_i_1 
-       (.I0(\ctrl[19]_i_2_n_0 ),
-        .I1(\ctrl[19]_i_3_n_0 ),
-        .I2(\ctrl[19]_i_4_n_0 ),
-        .I3(\ctrl[18]_i_6_n_0 ),
-        .I4(state[4]),
-        .I5(\ctrl_reg[19]_0 ),
-        .O(\ctrl[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
-  LUT4 #(
-    .INIT(16'h8AAA)) 
-    \ctrl[19]_i_2 
-       (.I0(state[4]),
-        .I1(state[2]),
         .I2(\FSM_sequential_state_reg[3]_0 [1]),
         .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .O(\ctrl[19]_i_2_n_0 ));
+        .I4(state[0]),
+        .O(\ctrl[18]_i_7_n_0 ));
   LUT6 #(
-    .INIT(64'hAAFBEAFBEBFBAAFB)) 
-    \ctrl[19]_i_3 
-       (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(state[2]),
-        .I3(\ctrl_reg[19]_0 ),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\ctrl[19]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'hB0B0B0B0B0FFF0F0)) 
-    \ctrl[19]_i_4 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(\ctrl_reg[19]_0 ),
-        .I3(\ctrl_reg[19]_1 ),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\ctrl[19]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFF0200)) 
-    \ctrl[1]_i_1 
-       (.I0(src[0]),
+    .INIT(64'hFFFEFFFF00020000)) 
+    \ctrl[19]_i_1 
+       (.I0(\ctrl[19]_i_2_n_0 ),
         .I1(state[4]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\ctrl[1]_i_2_n_0 ),
-        .I4(\ctrl[1]_i_3_n_0 ),
-        .I5(\ctrl[1]_i_4_n_0 ),
-        .O(\ctrl[1]_i_1_n_0 ));
+        .I2(state[2]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(state[0]),
+        .I5(\ctrl_reg[19]_0 [9]),
+        .O(\ctrl[19]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFCDFFFFFFFF00)) 
-    \ctrl[1]_i_2 
-       (.I0(\ctrl[14]_i_2_n_0 ),
-        .I1(p_2_in[1]),
-        .I2(p_2_in[0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
-        .I4(state[2]),
-        .I5(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\ctrl[1]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h00000000C0801212)) 
-    \ctrl[1]_i_3 
+    .INIT(64'h000000000000D7EF)) 
+    \ctrl[19]_i_2 
        (.I0(\FSM_sequential_state_reg[3]_0 [1]),
         .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(state[2]),
-        .I3(imm[1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
-        .I5(state[4]),
+        .I2(state[0]),
+        .I3(state[2]),
+        .I4(state[4]),
+        .I5(\ctrl[19]_i_3_n_0 ),
+        .O(\ctrl[19]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000EC00FFFFEFFF)) 
+    \ctrl[19]_i_3 
+       (.I0(\op_b_ff_reg[14] ),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .I4(state[2]),
+        .I5(\ctrl_reg[19]_0 [9]),
+        .O(\ctrl[19]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hC0038300FFFFFFFF)) 
+    \ctrl[1]_i_2 
+       (.I0(imm[1]),
+        .I1(state[0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I3(state[2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(\ctrl[1]_i_4_n_0 ),
+        .O(\ctrl[1]_i_2_n_0 ));
+  LUT5 #(
+    .INIT(32'h4F5A4A0A)) 
+    \ctrl[1]_i_3 
+       (.I0(state[2]),
+        .I1(imm[1]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
+        .I4(src[0]),
         .O(\ctrl[1]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h0000B800FF00C000)) 
+    .INIT(64'hDDDDDFDFDDDDDDDF)) 
     \ctrl[1]_i_4 
-       (.I0(imm[1]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(src[0]),
-        .I3(state[4]),
+       (.I0(src[0]),
+        .I1(state[0]),
+        .I2(\ctrl[2]_i_4_n_0 ),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
         .I4(state[2]),
         .I5(\FSM_sequential_state_reg[3]_0 [1]),
         .O(\ctrl[1]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'h00000000D050535C)) 
+    .INIT(64'hAAAAAAAAEAAAAABE)) 
     \ctrl[20]_i_1 
        (.I0(\ctrl[21]_i_2_n_0 ),
         .I1(state[2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .I5(state[4]),
         .O(\ctrl[20]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFCD00FFFFFFFF)) 
+    .INIT(64'h00000000FAFFFBFF)) 
     \ctrl[21]_i_1 
        (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(state[2]),
-        .I3(\ctrl[21]_i_2_n_0 ),
-        .I4(state[4]),
-        .I5(\FSM_sequential_state_reg[3]_0 [2]),
+        .I1(state[0]),
+        .I2(state[4]),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .I4(state[2]),
+        .I5(\ctrl[21]_i_2_n_0 ),
         .O(\ctrl[21]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFF0001)) 
+  LUT6 #(
+    .INIT(64'h0000000000002000)) 
     \ctrl[21]_i_2 
-       (.I0(src[2]),
-        .I1(src[1]),
-        .I2(src[0]),
-        .I3(src[3]),
-        .I4(\ctrl[21]_i_3_n_0 ),
+       (.I0(imm[7]),
+        .I1(state[0]),
+        .I2(p_2_in[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .I4(state[4]),
+        .I5(\ctrl[21]_i_3_n_0 ),
         .O(\ctrl[21]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFF7FFFFFFFFFF)) 
+    .INIT(64'hFFFF0001FFFFFFFF)) 
     \ctrl[21]_i_3 
-       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
-        .I1(p_2_in[1]),
-        .I2(state[2]),
-        .I3(p_2_in[0]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(imm[7]),
+       (.I0(src[3]),
+        .I1(src[0]),
+        .I2(src[1]),
+        .I3(src[2]),
+        .I4(state[2]),
+        .I5(\ctrl[21]_i_4_n_0 ),
         .O(\ctrl[21]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \ctrl[21]_i_4 
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(p_2_in[1]),
+        .O(\ctrl[21]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
   LUT4 #(
     .INIT(16'h0400)) 
     \ctrl[22]_i_1 
        (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
         .I3(state[2]),
         .O(\ctrl[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT5 #(
-    .INIT(32'h40450100)) 
+    .INIT(32'h40014050)) 
     \ctrl[23]_i_1 
        (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(state[2]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I2(state[2]),
+        .I3(state[0]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
         .O(\ctrl[23]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hBAAABAAABABBBAAA)) 
     \ctrl[24]_i_1 
        (.I0(\ctrl[28]_i_2_n_0 ),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
         .I2(state[2]),
         .I3(state[4]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(\FSM_sequential_state_reg[3]_0 [2]),
+        .I4(state[0]),
+        .I5(\FSM_sequential_state_reg[3]_0 [1]),
         .O(\ctrl[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
   LUT5 #(
     .INIT(32'h00100000)) 
     \ctrl[25]_i_1 
        (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
         .I4(state[2]),
         .O(\ctrl[25]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h4444444454445555)) 
+  LUT3 #(
+    .INIT(8'h45)) 
     \ctrl[26]_i_1 
        (.I0(state[4]),
         .I1(\ctrl[26]_i_2_n_0 ),
-        .I2(\am_reg_n_0_[0] ),
-        .I3(p_0_in14_in),
-        .I4(\FSM_sequential_state[4]_i_4_n_0 ),
-        .I5(\ctrl[26]_i_3_n_0 ),
+        .I2(\ctrl[26]_i_3_n_0 ),
         .O(\ctrl[26]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0400000044004000)) 
+    .INIT(64'hD999111100002222)) 
     \ctrl[26]_i_2 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\am_reg_n_0_[0] ),
-        .I5(p_2_in[1]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(state[0]),
+        .I2(p_0_in14_in),
+        .I3(\am_reg_n_0_[0] ),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
+        .I5(state[2]),
         .O(\ctrl[26]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
-  LUT4 #(
-    .INIT(16'h5DF9)) 
+  LUT6 #(
+    .INIT(64'hFFDFDFDFFFFFDFFF)) 
     \ctrl[26]_i_3 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(state[2]),
         .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
+        .I3(state[0]),
+        .I4(p_2_in[1]),
+        .I5(\am_reg_n_0_[0] ),
         .O(\ctrl[26]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT5 #(
     .INIT(32'h00110F00)) 
     \ctrl[27]_i_1 
-       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
         .I2(\ctrl[27]_i_2_n_0 ),
         .I3(state[4]),
         .I4(state[2]),
         .O(\ctrl[27]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h73F3737373737373)) 
+    .INIT(64'h40FF00FFFFFF00FF)) 
     \ctrl[27]_i_2 
-       (.I0(\am_reg_n_0_[0] ),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(p_0_in[2]),
-        .I4(p_0_in[3]),
-        .I5(p_0_in[0]),
+       (.I0(p_0_in[2]),
+        .I1(p_0_in[3]),
+        .I2(p_0_in[0]),
+        .I3(state[0]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(\am_reg_n_0_[0] ),
         .O(\ctrl[27]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFAAAAAA80)) 
+    .INIT(64'hFFFFFFFFFFF80000)) 
     \ctrl[28]_i_1 
-       (.I0(\ctrl[28]_i_2_n_0 ),
-        .I1(p_0_in14_in),
-        .I2(\am_reg_n_0_[0] ),
-        .I3(p_2_in[0]),
-        .I4(p_2_in[1]),
+       (.I0(p_0_in14_in),
+        .I1(\am_reg_n_0_[0] ),
+        .I2(p_2_in[0]),
+        .I3(p_2_in[1]),
+        .I4(\ctrl[28]_i_2_n_0 ),
         .I5(\ctrl[28]_i_3_n_0 ),
         .O(\ctrl[28]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h080000000C000C00)) 
+    .INIT(64'h2000000020202020)) 
     \ctrl[28]_i_2 
-       (.I0(p_2_in[1]),
-        .I1(\ctrl[18]_i_5_n_0 ),
-        .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\ctrl[14]_i_2_n_0 ),
-        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(state[2]),
+        .I2(\ctrl[18]_i_5_n_0 ),
+        .I3(p_2_in[1]),
+        .I4(\ctrl[14]_i_2__0_n_0 ),
+        .I5(state[0]),
         .O(\ctrl[28]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFFFFFAB00)) 
     \ctrl[28]_i_3 
        (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[0]_0 ),
+        .I1(\FSM_sequential_state_reg[0]_1 ),
         .I2(irq_start_reg_n_0),
         .I3(\ctrl[28]_i_4_n_0 ),
         .I4(\ctrl[28]_i_5_n_0 ),
         .I5(mem_rd_ff),
         .O(\ctrl[28]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
   LUT4 #(
     .INIT(16'h0004)) 
     \ctrl[28]_i_4 
-       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [2]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(state[0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
         .I3(state[4]),
         .O(\ctrl[28]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \ctrl[28]_i_5 
-       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
         .I1(state[2]),
         .I2(state[4]),
         .O(\ctrl[28]_i_5_n_0 ));
@@ -3405,38 +3392,38 @@ module SystemTop_neo430_control
         .I1(\ctrl[2]_i_3_n_0 ),
         .I2(\ctrl[2]_i_4_n_0 ),
         .I3(state[2]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .I5(\ctrl[2]_i_5_n_0 ),
         .O(\ctrl[2]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hAABAAABABAAAAAAA)) 
+    .INIT(64'hAAAAAFEAAAAAAAAA)) 
     \ctrl[2]_i_2 
        (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(src[1]),
-        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(src[1]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
+        .I5(state[2]),
         .O(\ctrl[2]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h2E22222222222222)) 
     \ctrl[2]_i_3 
        (.I0(src[1]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(state[0]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
         .I3(imm[2]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .I5(state[2]),
         .O(\ctrl[2]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'hA0A2A2A2AAAAAAAA)) 
     \ctrl[2]_i_4 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
         .I1(p_2_in[0]),
         .I2(p_2_in[1]),
         .I3(\am_reg_n_0_[0] ),
         .I4(p_0_in14_in),
-        .I5(\FSM_sequential_state_reg[3]_0 [1]),
+        .I5(\FSM_sequential_state_reg[3]_0 [0]),
         .O(\ctrl[2]_i_4_n_0 ));
   LUT6 #(
     .INIT(64'hC0C404CCCCC404CC)) 
@@ -3444,8 +3431,8 @@ module SystemTop_neo430_control
        (.I0(src[1]),
         .I1(state[4]),
         .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(state[0]),
         .I5(imm[2]),
         .O(\ctrl[2]_i_5_n_0 ));
   LUT5 #(
@@ -3453,7 +3440,7 @@ module SystemTop_neo430_control
     \ctrl[3]_i_1 
        (.I0(\ctrl[4]_i_2_n_0 ),
         .I1(src[2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[0]),
         .I3(imm[3]),
         .I4(\ctrl[4]_i_3_n_0 ),
         .O(\ctrl[3]_i_1_n_0 ));
@@ -3462,149 +3449,171 @@ module SystemTop_neo430_control
     \ctrl[4]_i_1 
        (.I0(\ctrl[4]_i_2_n_0 ),
         .I1(src[3]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[0]),
         .I3(imm[4]),
         .I4(\ctrl[4]_i_3_n_0 ),
         .O(\ctrl[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT5 #(
     .INIT(32'hEEDDFF07)) 
     \ctrl[4]_i_2 
-       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
         .I1(state[2]),
         .I2(\ctrl[2]_i_4_n_0 ),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
         .I4(state[4]),
         .O(\ctrl[4]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT4 #(
     .INIT(16'h3008)) 
     \ctrl[4]_i_3 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
         .I1(state[2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
         .I3(state[4]),
         .O(\ctrl[4]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFF80FF00008000)) 
+    .INIT(64'hFFFF8FFF00008000)) 
     \ctrl[5]_i_1 
        (.I0(imm[8]),
-        .I1(p_0_in14_in),
-        .I2(\am_reg_n_0_[0] ),
-        .I3(\FSM_sequential_state[4]_i_4_n_0 ),
-        .I4(\ctrl[5]_i_2_n_0 ),
+        .I1(\ctrl[14]_i_2__0_n_0 ),
+        .I2(\FSM_sequential_state[3]_i_4_n_0 ),
+        .I3(\ctrl[5]_i_2_n_0 ),
+        .I4(state[4]),
         .I5(sam[0]),
         .O(\ctrl[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
-  LUT3 #(
-    .INIT(8'hBF)) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \ctrl[5]_i_2 
-       (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(state[2]),
+       (.I0(state[2]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
         .O(\ctrl[5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
-  LUT5 #(
-    .INIT(32'h00000800)) 
-    \ctrl[6]_i_1 
-       (.I0(\ctrl[14]_i_2__0_n_0 ),
-        .I1(\ctrl_reg[25]_0 ),
-        .I2(\ctrl_reg[25]_1 ),
-        .I3(\ctrl_reg[25]_3 ),
-        .I4(\ctrl_reg[25]_2 ),
-        .O(\ctrl_reg[25]_10 ));
   LUT6 #(
     .INIT(64'hAAAAAAAA8AAAAAAA)) 
-    \ctrl[6]_i_1__0 
+    \ctrl[6]_i_1 
        (.I0(sam[1]),
         .I1(state[4]),
-        .I2(\FSM_sequential_state_reg[3]_0 [2]),
+        .I2(\FSM_sequential_state_reg[3]_0 [1]),
         .I3(state[2]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\ctrl[6]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+        .I4(state[0]),
+        .I5(\FSM_sequential_state_reg[3]_0 [0]),
+        .O(\ctrl[6]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  LUT5 #(
+    .INIT(32'h04000000)) 
+    \ctrl[6]_i_1__0 
+       (.I0(\ctrl[14]_i_2_n_0 ),
+        .I1(\ctrl_reg[25]_2 ),
+        .I2(\ctrl[14]_i_3_n_0 ),
+        .I3(imem_file_ram_l_reg_0_i_19_n_0),
+        .I4(\mem_addr_reg_reg[1] ),
+        .O(\ctrl_reg[27]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT5 #(
     .INIT(32'h08000000)) 
     \ctrl[7]_i_1 
        (.I0(\ctrl[7]_i_2_n_0 ),
         .I1(state[4]),
         .I2(state[2]),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(state[0]),
         .O(\ctrl[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \ctrl[7]_i_2 
        (.I0(\ir_reg_n_0_[11] ),
         .I1(p_0_in[3]),
-        .I2(p_0_in[2]),
+        .I2(p_0_in[1]),
         .I3(\ctrl[7]_i_3_n_0 ),
         .O(\ctrl[7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT4 #(
     .INIT(16'hFFDF)) 
     \ctrl[7]_i_3 
-       (.I0(imm_i0),
+       (.I0(p_0_in[0]),
         .I1(\ir_reg_n_0_[10] ),
-        .I2(p_0_in[0]),
-        .I3(p_0_in[1]),
+        .I2(imm_i0),
+        .I3(p_0_in[2]),
         .O(\ctrl[7]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hAAAEAEAEAAAEAAAE)) 
-    \ctrl[8]_i_2 
-       (.I0(\ctrl[8]_i_4_n_0 ),
-        .I1(\FSM_sequential_state_reg[3]_0 [2]),
-        .I2(state[2]),
+    .INIT(64'h00000000FFFF08AA)) 
+    \ctrl[8]_i_1 
+       (.I0(\ctrl[8]_i_2_n_0 ),
+        .I1(\ctrl_reg[8]_1 ),
+        .I2(\ctrl[8]_i_4_n_0 ),
         .I3(\ctrl[8]_i_5_n_0 ),
-        .I4(\ctrl_reg[8]_1 ),
-        .I5(\ctrl_reg[8]_2 ),
-        .O(\ctrl[8]_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'hAEAAAAFF)) 
-    \ctrl[8]_i_3 
-       (.I0(state[2]),
-        .I1(\ctrl[8]_i_8_n_0 ),
-        .I2(\am_reg_n_0_[0] ),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(\FSM_sequential_state_reg[3]_0 [1]),
-        .O(\ctrl[8]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h8080808093939397)) 
-    \ctrl[8]_i_4 
-       (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [0]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(irq_start_reg_n_0),
-        .I4(\FSM_sequential_state_reg[0]_0 ),
-        .I5(\FSM_sequential_state_reg[3]_0 [2]),
-        .O(\ctrl[8]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h3FFF777733333777)) 
-    \ctrl[8]_i_5 
-       (.I0(p_2_in[0]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(\am_reg_n_0_[0] ),
-        .I3(p_0_in14_in),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
-        .I5(p_2_in[1]),
-        .O(\ctrl[8]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+        .I4(\ctrl[8]_i_6_n_0 ),
+        .I5(\ctrl[8]_i_7_n_0 ),
+        .O(\ctrl[8]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT3 #(
-    .INIT(8'hBF)) 
-    \ctrl[8]_i_8 
+    .INIT(8'h40)) 
+    \ctrl[8]_i_10 
        (.I0(p_0_in[2]),
         .I1(p_0_in[3]),
         .I2(p_0_in[0]),
-        .O(\ctrl[8]_i_8_n_0 ));
+        .O(\ctrl[8]_i_10_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \ctrl[8]_i_2 
+       (.I0(\FSM_sequential_state_reg[3]_0 [1]),
+        .I1(state[2]),
+        .O(\ctrl[8]_i_2_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  LUT4 #(
+    .INIT(16'hFEFF)) 
+    \ctrl[8]_i_4 
+       (.I0(\am_reg[3]_0 [3]),
+        .I1(\ctrl_reg[17]_0 ),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
+        .O(\ctrl[8]_i_4_n_0 ));
+  LUT6 #(
+    .INIT(64'h5755F757F757F757)) 
+    \ctrl[8]_i_5 
+       (.I0(\FSM_sequential_state_reg[3]_0 [0]),
+        .I1(p_2_in[0]),
+        .I2(state[0]),
+        .I3(p_2_in[1]),
+        .I4(\am_reg_n_0_[0] ),
+        .I5(p_0_in14_in),
+        .O(\ctrl[8]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'hEAAAEAAAEBBFEBAF)) 
+    \ctrl[8]_i_6 
+       (.I0(state[4]),
+        .I1(state[2]),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(\ctrl[8]_i_9_n_0 ),
+        .I5(\FSM_sequential_state_reg[3]_0 [1]),
+        .O(\ctrl[8]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h00E000F000F00000)) 
+    \ctrl[8]_i_7 
+       (.I0(\am_reg_n_0_[0] ),
+        .I1(\ctrl[8]_i_10_n_0 ),
+        .I2(state[4]),
+        .I3(state[2]),
+        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I5(state[0]),
+        .O(\ctrl[8]_i_7_n_0 ));
+  LUT2 #(
+    .INIT(4'h1)) 
+    \ctrl[8]_i_9 
+       (.I0(irq_start_reg_n_0),
+        .I1(\FSM_sequential_state_reg[0]_1 ),
+        .O(\ctrl[8]_i_9_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT5 #(
     .INIT(32'h00000004)) 
     \ctrl[9]_i_1 
        (.I0(state[2]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
         .I4(state[4]),
         .O(\ctrl[9]_i_1_n_0 ));
   FDRE \ctrl_reg[0] 
@@ -3616,7 +3625,7 @@ module SystemTop_neo430_control
   FDRE \ctrl_reg[11] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\ctrl[11]_i_1__0_n_0 ),
+        .D(\ctrl[11]_i_1_n_0 ),
         .Q(\ctrl_reg_n_0_[11] ),
         .R(1'b0));
   FDRE \ctrl_reg[12] 
@@ -3629,50 +3638,55 @@ module SystemTop_neo430_control
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[13]_i_1_n_0 ),
-        .Q(Q[6]),
+        .Q(\ctrl_reg[26]_0 [1]),
         .R(1'b0));
   FDRE \ctrl_reg[14] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\ctrl[14]_i_1__0_n_0 ),
-        .Q(Q[7]),
+        .D(\ctrl[14]_i_1_n_0 ),
+        .Q(\ctrl_reg[26]_0 [2]),
         .R(1'b0));
   FDRE \ctrl_reg[15] 
        (.C(clk_i),
         .CE(\ctrl[18]_i_1_n_0 ),
         .D(\ctrl[15]_i_1_n_0 ),
-        .Q(Q[8]),
+        .Q(\ctrl_reg[19]_0 [5]),
         .R(1'b0));
   FDRE \ctrl_reg[16] 
        (.C(clk_i),
         .CE(\ctrl[18]_i_1_n_0 ),
         .D(\ctrl[16]_i_1_n_0 ),
-        .Q(Q[9]),
+        .Q(\ctrl_reg[19]_0 [6]),
         .R(1'b0));
   FDRE \ctrl_reg[17] 
        (.C(clk_i),
         .CE(\ctrl[18]_i_1_n_0 ),
         .D(\ctrl[17]_i_1_n_0 ),
-        .Q(Q[10]),
+        .Q(\ctrl_reg[19]_0 [7]),
         .R(1'b0));
   FDRE \ctrl_reg[18] 
        (.C(clk_i),
         .CE(\ctrl[18]_i_1_n_0 ),
         .D(\ctrl[18]_i_2_n_0 ),
-        .Q(Q[11]),
+        .Q(\ctrl_reg[19]_0 [8]),
         .R(1'b0));
   FDRE \ctrl_reg[19] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[19]_i_1_n_0 ),
-        .Q(\ctrl_reg[19]_0 ),
+        .Q(\ctrl_reg[19]_0 [9]),
         .R(1'b0));
   FDRE \ctrl_reg[1] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\ctrl[1]_i_1_n_0 ),
-        .Q(Q[0]),
+        .D(\ctrl_reg[1]_i_1_n_0 ),
+        .Q(\ctrl_reg[19]_0 [0]),
         .R(1'b0));
+  MUXF7 \ctrl_reg[1]_i_1 
+       (.I0(\ctrl[1]_i_2_n_0 ),
+        .I1(\ctrl[1]_i_3_n_0 ),
+        .O(\ctrl_reg[1]_i_1_n_0 ),
+        .S(state[4]));
   FDRE \ctrl_reg[20] 
        (.C(clk_i),
         .CE(1'b1),
@@ -3707,13 +3721,13 @@ module SystemTop_neo430_control
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[25]_i_1_n_0 ),
-        .Q(Q[12]),
+        .Q(\ctrl_reg[26]_0 [3]),
         .R(1'b0));
   FDRE \ctrl_reg[26] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[26]_i_1_n_0 ),
-        .Q(Q[13]),
+        .Q(\ctrl_reg[26]_0 [4]),
         .R(1'b0));
   FDRE \ctrl_reg[27] 
        (.C(clk_i),
@@ -3731,19 +3745,19 @@ module SystemTop_neo430_control
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[2]_i_1_n_0 ),
-        .Q(Q[1]),
+        .Q(\ctrl_reg[19]_0 [1]),
         .R(1'b0));
   FDRE \ctrl_reg[3] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[3]_i_1_n_0 ),
-        .Q(Q[2]),
+        .Q(\ctrl_reg[19]_0 [2]),
         .R(1'b0));
   FDRE \ctrl_reg[4] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[4]_i_1_n_0 ),
-        .Q(Q[3]),
+        .Q(\ctrl_reg[19]_0 [3]),
         .R(1'b0));
   FDRE \ctrl_reg[5] 
        (.C(clk_i),
@@ -3754,7 +3768,7 @@ module SystemTop_neo430_control
   FDRE \ctrl_reg[6] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\ctrl[6]_i_1__0_n_0 ),
+        .D(\ctrl[6]_i_1_n_0 ),
         .Q(\ctrl_reg_n_0_[6] ),
         .R(1'b0));
   FDRE \ctrl_reg[7] 
@@ -3766,603 +3780,619 @@ module SystemTop_neo430_control
   FDRE \ctrl_reg[8] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\ctrl_reg[8]_i_1_n_0 ),
-        .Q(Q[4]),
+        .D(\ctrl[8]_i_1_n_0 ),
+        .Q(\ctrl_reg[19]_0 [4]),
         .R(1'b0));
-  MUXF7 \ctrl_reg[8]_i_1 
-       (.I0(\ctrl[8]_i_2_n_0 ),
-        .I1(\ctrl[8]_i_3_n_0 ),
-        .O(\ctrl_reg[8]_i_1_n_0 ),
-        .S(state[4]));
   FDRE \ctrl_reg[9] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\ctrl[9]_i_1_n_0 ),
-        .Q(Q[5]),
+        .Q(\ctrl_reg[26]_0 [0]),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT3 #(
-    .INIT(8'h08)) 
-    \data_o[0]_i_1 
-       (.I0(\ctrl_reg[25]_1 ),
-        .I1(\irq_vec_reg[1]_2 ),
-        .I2(\mem_addr_reg_reg[1] ),
-        .O(\mem_addr_reg_reg[1]_1 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+    .INIT(8'h10)) 
+    \data_o[0]_i_1__0 
+       (.I0(\mem_addr_reg_reg[1] ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\ctrl_reg[25]_0 ),
+        .O(D[0]));
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[0]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [0]),
         .I3(\data_o_reg[15]_0 [0]),
         .O(\din_reg[15] [0]));
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[0]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[0]),
         .I3(\data_o_reg[7] [0]),
         .O(\pwm_ch_reg[1][7] [0]));
   LUT4 #(
-    .INIT(16'hFD20)) 
+    .INIT(16'hF780)) 
     \data_o[0]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[6] [0]),
         .I3(cnt_reg[0]),
         .O(\ctrl_reg[0]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT3 #(
-    .INIT(8'h24)) 
+    .INIT(8'h42)) 
     \data_o[10]_i_1 
-       (.I0(\ctrl_reg[25]_1 ),
-        .I1(\mem_addr_reg_reg[1] ),
-        .I2(\irq_vec_reg[1]_2 ),
-        .O(\mem_addr_reg_reg[1]_1 [6]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+       (.I0(\ctrl_reg[25]_0 ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\mem_addr_reg_reg[1] ),
+        .O(D[6]));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[10]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [10]),
         .I3(\data_o_reg[15]_0 [10]),
         .O(\din_reg[15] [10]));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[10]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[10]),
         .I3(\data_o_reg[15]_1 [2]),
         .O(\pwm_ch_reg[1][7] [10]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[10]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[10]),
         .O(cnt_reg_10_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT3 #(
-    .INIT(8'h25)) 
-    \data_o[11]_i_1 
-       (.I0(\irq_vec_reg[1]_2 ),
-        .I1(\ctrl_reg[25]_1 ),
-        .I2(\mem_addr_reg_reg[1] ),
-        .O(\mem_addr_reg_reg[1]_1 [7]));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+    .INIT(8'h34)) 
+    \data_o[11]_i_1__0 
+       (.I0(\ctrl_reg[25]_0 ),
+        .I1(\mem_addr_reg_reg[1] ),
+        .I2(imem_file_ram_l_reg_0_i_19_n_0),
+        .O(D[7]));
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT5 #(
-    .INIT(32'hFFFEFFFF)) 
+    .INIT(32'hFBFFFFFF)) 
     \data_o[11]_i_1__1 
        (.I0(\ctrl_reg[28]_0 ),
-        .I1(\ctrl_reg[25]_3 ),
+        .I1(\data_o[15]_i_4_n_0 ),
         .I2(\ctrl_reg[25]_2 ),
         .I3(\ctrl_reg[25]_0 ),
-        .I4(\ctrl_reg[25]_1 ),
-        .O(\ctrl_reg[28]_6 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+        .I4(\data_o[15]_i_3_n_0 ),
+        .O(\ctrl_reg[28]_3 ));
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[11]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [11]),
         .I3(\data_o_reg[15]_0 [11]),
         .O(\din_reg[15] [11]));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[11]_i_1__3 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[11]),
         .I3(\data_o_reg[15]_1 [3]),
         .O(\pwm_ch_reg[1][7] [11]));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[11]_i_1__4 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[11]),
         .O(cnt_reg_11_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_o[12]_i_1 
        (.I0(\mem_addr_reg_reg[1] ),
-        .I1(uart_tx_busy_reg[2]),
+        .I1(\uart_tx_sreg_reg[7] [2]),
         .O(\ctrl_reg[12]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[12]_i_1__0 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [12]),
         .I3(\data_o_reg[15]_0 [12]),
         .O(\din_reg[15] [12]));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[12]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[12]),
         .I3(\data_o_reg[15]_1 [4]),
         .O(\pwm_ch_reg[1][7] [12]));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[12]_i_1__2 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[12]),
         .O(cnt_reg_12_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \data_o[13]_i_1 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\ctrl_reg[25]_1 ),
-        .I2(\irq_vec_reg[1]_2 ),
-        .O(\mem_addr_reg_reg[1]_1 [8]));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
-    \data_o[13]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+    .INIT(16'hFD20)) 
+    \data_o[13]_i_1__0 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [13]),
         .I3(\data_o_reg[15]_0 [13]),
         .O(\din_reg[15] [13]));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
-    \data_o[13]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+    .INIT(16'hFD20)) 
+    \data_o[13]_i_1__1 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[13]),
         .I3(\data_o_reg[15]_1 [5]),
         .O(\pwm_ch_reg[1][7] [13]));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
-    \data_o[13]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+    .INIT(8'h70)) 
+    \data_o[13]_i_1__2 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[13]),
         .O(cnt_reg_13_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  LUT3 #(
+    .INIT(8'h20)) 
+    \data_o[13]_i_1__3 
+       (.I0(\mem_addr_reg_reg[1] ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\ctrl_reg[25]_0 ),
+        .O(D[8]));
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT2 #(
-    .INIT(4'h8)) 
+    .INIT(4'h2)) 
     \data_o[14]_i_1__0 
-       (.I0(\irq_vec_reg[1]_2 ),
-        .I1(\mem_addr_reg_reg[1] ),
-        .O(\mem_addr_reg_reg[1]_1 [9]));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+       (.I0(\mem_addr_reg_reg[1] ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .O(D[9]));
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[14]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [14]),
         .I3(\data_o_reg[15]_0 [14]),
         .O(\din_reg[15] [14]));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[14]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[14]),
         .I3(\data_o_reg[15]_1 [6]),
         .O(\pwm_ch_reg[1][7] [14]));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[14]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[14]),
         .O(cnt_reg_14_sn_1));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFEFF)) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  LUT4 #(
+    .INIT(16'hFFEF)) 
     \data_o[15]_i_1 
        (.I0(\ctrl_reg[28]_0 ),
-        .I1(\irq_vec_reg[1]_2 ),
-        .I2(\ctrl_reg[25]_2 ),
-        .I3(\ctrl_reg[25]_3 ),
-        .I4(\ctrl_reg[25]_0 ),
-        .I5(\ctrl_reg[25]_1 ),
-        .O(\ctrl_reg[28]_4 ));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+        .I1(\ctrl[14]_i_3_n_0 ),
+        .I2(imem_file_ram_l_reg_0_i_19_n_0),
+        .I3(\ctrl_reg[25]_2 ),
+        .O(\ctrl_reg[28]_2 ));
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT5 #(
-    .INIT(32'hFFFFFFBF)) 
+    .INIT(32'hFFFFEFFF)) 
     \data_o[15]_i_1__0 
        (.I0(\ctrl_reg[28]_0 ),
-        .I1(\ctrl_reg[25]_3 ),
-        .I2(\ctrl_reg[25]_2 ),
-        .I3(\ctrl_reg[25]_0 ),
-        .I4(\ctrl_reg[25]_1 ),
-        .O(\ctrl_reg[28]_5 ));
-  LUT4 #(
-    .INIT(16'hDFFF)) 
-    \data_o[15]_i_1__1 
-       (.I0(\ctrl_reg[25]_0 ),
-        .I1(\ctrl_reg[28]_0 ),
-        .I2(\ctrl_reg[25]_2 ),
-        .I3(\ctrl_reg[25]_3 ),
-        .O(\ctrl_reg[25]_12 ));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+        .I1(\ctrl_reg[25]_2 ),
+        .I2(\ctrl_reg[25]_0 ),
+        .I3(\data_o[15]_i_3_n_0 ),
+        .I4(\data_o[15]_i_4_n_0 ),
+        .O(SR));
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT5 #(
-    .INIT(32'hFFEFFFFF)) 
-    \data_o[15]_i_1__2 
+    .INIT(32'hFFFFFFFE)) 
+    \data_o[15]_i_1__1 
        (.I0(\ctrl_reg[28]_0 ),
         .I1(\ctrl_reg[25]_0 ),
-        .I2(\ctrl_reg[25]_1 ),
-        .I3(\ctrl_reg[25]_2 ),
-        .I4(\ctrl_reg[25]_3 ),
-        .O(SR));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFBFF)) 
-    \data_o[15]_i_1__3 
+        .I2(\ctrl_reg[25]_2 ),
+        .I3(\data_o[15]_i_3_n_0 ),
+        .I4(\data_o[15]_i_4_n_0 ),
+        .O(\ctrl_reg[28]_4 ));
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  LUT4 #(
+    .INIT(16'hFFFD)) 
+    \data_o[15]_i_1__2 
        (.I0(\ctrl_reg[25]_2 ),
-        .I1(\ctrl_reg[25]_3 ),
-        .I2(\ctrl_reg[25]_1 ),
-        .I3(\ctrl_reg[25]_0 ),
-        .I4(\ctrl_reg[28]_0 ),
-        .O(\ctrl_reg[25]_5 ));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+        .I1(\ctrl_reg[28]_0 ),
+        .I2(\data_o[15]_i_4_n_0 ),
+        .I3(\data_o[15]_i_3_n_0 ),
+        .O(\ctrl_reg[25]_4 ));
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT3 #(
-    .INIT(8'hB0)) 
+    .INIT(8'hFB)) 
+    \data_o[15]_i_1__3 
+       (.I0(\ctrl[14]_i_3_n_0 ),
+        .I1(\ctrl_reg[25]_2 ),
+        .I2(\ctrl_reg[28]_0 ),
+        .O(\ctrl_reg[25]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  LUT3 #(
+    .INIT(8'h23)) 
     \data_o[15]_i_2__0 
        (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\ctrl_reg[25]_1 ),
-        .I2(\irq_vec_reg[1]_2 ),
-        .O(\mem_addr_reg_reg[1]_1 [10]));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\ctrl_reg[25]_0 ),
+        .O(D[10]));
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[15]_i_2__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [15]),
         .I3(\data_o_reg[15]_0 [15]),
         .O(\din_reg[15] [15]));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[15]_i_2__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[15]),
         .I3(\data_o_reg[15]_1 [7]),
         .O(\pwm_ch_reg[1][7] [15]));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[15]_i_2__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[15]),
         .O(cnt_reg_15_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
-  LUT3 #(
-    .INIT(8'h20)) 
-    \data_o[1]_i_1 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\ctrl_reg[25]_1 ),
-        .I2(\irq_vec_reg[1]_2 ),
-        .O(\mem_addr_reg_reg[1]_1 [1]));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  LUT6 #(
+    .INIT(64'hFF070000FF07FFFF)) 
+    \data_o[15]_i_3 
+       (.I0(\ctrl_reg[3]_0 ),
+        .I1(data_o0[6]),
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(\ctrl_reg[26]_0 [3]),
+        .I4(\ctrl_reg_n_0_[24] ),
+        .I5(imem_file_ram_l_reg_3[6]),
+        .O(\data_o[15]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'hAABF0000AABFFFFF)) 
+    \data_o[15]_i_4 
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(data_o0[5]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
+        .I4(\ctrl_reg_n_0_[24] ),
+        .I5(imem_file_ram_l_reg_3[5]),
+        .O(\data_o[15]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
-    \data_o[1]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+    .INIT(16'hFD20)) 
+    \data_o[1]_i_1__0 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [1]),
         .I3(\data_o_reg[15]_0 [1]),
         .O(\din_reg[15] [1]));
   LUT4 #(
-    .INIT(16'hFE10)) 
-    \data_o[1]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+    .INIT(16'hFD20)) 
+    \data_o[1]_i_1__1 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[1]),
         .I3(\data_o_reg[7] [1]),
         .O(\pwm_ch_reg[1][7] [1]));
   LUT4 #(
-    .INIT(16'hFD20)) 
-    \data_o[1]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+    .INIT(16'hF780)) 
+    \data_o[1]_i_1__2 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[6] [1]),
         .I3(cnt_reg[1]),
-        .O(\ctrl_reg[1]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+        .O(\ctrl_reg[1]_2 ));
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT3 #(
-    .INIT(8'h48)) 
-    \data_o[2]_i_1 
+    .INIT(8'h02)) 
+    \data_o[1]_i_1__3 
        (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
-        .I2(\ctrl_reg[25]_1 ),
-        .O(\mem_addr_reg_reg[1]_1 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\ctrl_reg[25]_0 ),
+        .O(D[1]));
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  LUT3 #(
+    .INIT(8'h12)) 
+    \data_o[2]_i_1 
+       (.I0(\ctrl_reg[25]_0 ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\mem_addr_reg_reg[1] ),
+        .O(D[2]));
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[2]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [2]),
         .I3(\data_o_reg[15]_0 [2]),
         .O(\din_reg[15] [2]));
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[2]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[2]),
         .I3(\data_o_reg[7] [2]),
         .O(\pwm_ch_reg[1][7] [2]));
   LUT4 #(
-    .INIT(16'hFD20)) 
+    .INIT(16'hF780)) 
     \data_o[2]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[6] [2]),
         .I3(cnt_reg[2]),
         .O(\ctrl_reg[2]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT3 #(
-    .INIT(8'h0D)) 
-    \data_o[3]_i_1 
-       (.I0(\irq_vec_reg[1]_2 ),
+    .INIT(8'h54)) 
+    \data_o[3]_i_1__0 
+       (.I0(\ctrl_reg[25]_0 ),
         .I1(\mem_addr_reg_reg[1] ),
-        .I2(\ctrl_reg[25]_1 ),
-        .O(\mem_addr_reg_reg[1]_1 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+        .I2(imem_file_ram_l_reg_0_i_19_n_0),
+        .O(D[3]));
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[3]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [3]),
         .I3(\data_o_reg[15]_0 [3]),
         .O(\din_reg[15] [3]));
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[3]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[3]),
         .I3(\data_o_reg[7] [3]),
         .O(\pwm_ch_reg[1][7] [3]));
   LUT4 #(
-    .INIT(16'hFD20)) 
+    .INIT(16'hF780)) 
     \data_o[3]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[6] [3]),
         .I3(cnt_reg[3]),
-        .O(\ctrl_reg[3]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+        .O(\ctrl_reg[3]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[4]_i_1__0 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [4]),
         .I3(\data_o_reg[15]_0 [4]),
         .O(\din_reg[15] [4]));
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[4]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[4]),
         .I3(\data_o_reg[7] [4]),
         .O(\pwm_ch_reg[1][7] [4]));
   LUT4 #(
-    .INIT(16'hFD20)) 
+    .INIT(16'hF780)) 
     \data_o[4]_i_1__2 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[6] [4]),
         .I3(cnt_reg[4]),
         .O(\ctrl_reg[4]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[5]_i_1__0 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [5]),
         .I3(\data_o_reg[15]_0 [5]),
         .O(\din_reg[15] [5]));
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[5]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[5]),
         .I3(\data_o_reg[7] [5]),
         .O(\pwm_ch_reg[1][7] [5]));
   LUT4 #(
-    .INIT(16'hFD20)) 
+    .INIT(16'hF780)) 
     \data_o[5]_i_1__2 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[6] [5]),
         .I3(cnt_reg[5]),
         .O(\ctrl_reg[5]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT3 #(
-    .INIT(8'h61)) 
+    .INIT(8'h16)) 
     \data_o[6]_i_1 
-       (.I0(\ctrl_reg[25]_1 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
-        .I2(\irq_vec_reg[1]_2 ),
-        .O(\mem_addr_reg_reg[1]_1 [4]));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+        .I2(\ctrl_reg[25]_0 ),
+        .O(D[4]));
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[6]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [6]),
         .I3(\data_o_reg[15]_0 [6]),
         .O(\din_reg[15] [6]));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[6]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[6]),
         .I3(\data_o_reg[7] [6]),
         .O(\pwm_ch_reg[1][7] [6]));
   LUT4 #(
-    .INIT(16'hFD20)) 
+    .INIT(16'hF780)) 
     \data_o[6]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[6] [6]),
         .I3(cnt_reg[6]),
         .O(\ctrl_reg[6]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[7]_i_1__0 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [7]),
         .I3(\data_o_reg[15]_0 [7]),
         .O(\din_reg[15] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[7]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[7]),
         .I3(\data_o_reg[7] [7]),
         .O(\pwm_ch_reg[1][7] [7]));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[7]_i_1__2 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[7]),
         .O(cnt_reg_7_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \data_o[8]_i_1 
-       (.I0(\irq_vec_reg[1]_2 ),
-        .I1(\ctrl_reg[25]_1 ),
-        .O(\mem_addr_reg_reg[1]_1 [5]));
   (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \data_o[8]_i_1 
+       (.I0(\ctrl_reg[25]_0 ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .O(D[5]));
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_o[8]_i_1__0 
        (.I0(\mem_addr_reg_reg[1] ),
-        .I1(uart_tx_busy_reg[0]),
+        .I1(\uart_tx_sreg_reg[7] [0]),
         .O(\ctrl_reg[8]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[8]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [8]),
         .I3(\data_o_reg[15]_0 [8]),
         .O(\din_reg[15] [8]));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[8]_i_1__2 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[8]),
         .I3(\data_o_reg[15]_1 [0]),
         .O(\pwm_ch_reg[1][7] [8]));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[8]_i_1__3 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[8]),
         .O(cnt_reg_8_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_o[9]_i_1 
        (.I0(\mem_addr_reg_reg[1] ),
-        .I1(uart_tx_busy_reg[1]),
+        .I1(\uart_tx_sreg_reg[7] [1]),
         .O(\ctrl_reg[9]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[9]_i_1__0 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\data_o_reg[15] [9]),
         .I3(\data_o_reg[15]_0 [9]),
         .O(\din_reg[15] [9]));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT4 #(
-    .INIT(16'hFE10)) 
+    .INIT(16'hFD20)) 
     \data_o[9]_i_1__1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(p_1_in[9]),
         .I3(\data_o_reg[15]_1 [1]),
         .O(\pwm_ch_reg[1][7] [9]));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT3 #(
-    .INIT(8'hD0)) 
+    .INIT(8'h70)) 
     \data_o[9]_i_1__2 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(cnt_reg[9]),
         .O(cnt_reg_9_sn_1));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT5 #(
     .INIT(32'h080808A8)) 
     dio_swap_i_1
-       (.I0(\ctrl_reg[19]_0 ),
+       (.I0(\ctrl_reg[19]_0 [9]),
         .I1(imem_file_ram_l_reg_3[0]),
         .I2(\ctrl_reg_n_0_[24] ),
-        .I3(Q[12]),
+        .I3(\ctrl_reg[26]_0 [3]),
         .I4(dio_swap_i_2_n_0),
         .O(dio_swap0));
   LUT6 #(
@@ -4371,8 +4401,8 @@ module SystemTop_neo430_control
        (.I0(\ctrl_reg_n_0_[6] ),
         .I1(sreg[0]),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(Q[0]),
-        .I4(\ctrl_reg[3]_1 ),
+        .I3(\ctrl_reg[19]_0 [0]),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[0]),
         .O(dio_swap_i_2_n_0));
   LUT6 #(
@@ -4380,106 +4410,105 @@ module SystemTop_neo430_control
     dmem_file_h_reg_i_1
        (.I0(ctrl_bus),
         .I1(dio_swap_i_2_n_0),
-        .I2(Q[12]),
+        .I2(\ctrl_reg[26]_0 [3]),
         .I3(\ctrl_reg_n_0_[24] ),
         .I4(imem_file_ram_l_reg_3[0]),
         .I5(bw_ff),
         .O(\cpu_bus[wr_en] [1]));
-  LUT5 #(
-    .INIT(32'h10000000)) 
+  LUT4 #(
+    .INIT(16'h4000)) 
     dmem_file_l_reg_i_1
        (.I0(dmem_file_l_reg_i_3_n_0),
-        .I1(\mem_addr_reg_reg[15] ),
-        .I2(dmem_file_l_reg_i_4_n_0),
-        .I3(dmem_file_l_reg_i_5_n_0),
-        .I4(dmem_file_l_reg_i_6_n_0),
-        .O(acc_en_0));
+        .I1(dmem_file_l_reg_i_4_n_0),
+        .I2(dmem_file_l_reg_i_5_n_0),
+        .I3(dmem_file_l_reg_i_6_n_0),
+        .O(acc_en));
   LUT6 #(
     .INIT(64'hA800A8AAAAAAAAAA)) 
     dmem_file_l_reg_i_2
        (.I0(ctrl_bus),
         .I1(dio_swap_i_2_n_0),
-        .I2(Q[12]),
+        .I2(\ctrl_reg[26]_0 [3]),
         .I3(\ctrl_reg_n_0_[24] ),
         .I4(imem_file_ram_l_reg_3[0]),
         .I5(bw_ff),
         .O(\cpu_bus[wr_en] [0]));
   LUT6 #(
-    .INIT(64'h00005555303F5555)) 
+    .INIT(64'h053505F50F3F0FFF)) 
     dmem_file_l_reg_i_3
-       (.I0(imem_file_ram_l_reg_3[14]),
-        .I1(data_o0[14]),
-        .I2(\ctrl_reg[3]_1 ),
-        .I3(\op_b_ff[14]_i_4_n_0 ),
-        .I4(\ctrl_reg_n_0_[24] ),
-        .I5(Q[12]),
+       (.I0(imem_file_ram_l_reg_3[15]),
+        .I1(\op_b_ff[15]_i_2_n_0 ),
+        .I2(\ctrl_reg_n_0_[24] ),
+        .I3(\ctrl_reg[26]_0 [3]),
+        .I4(reg_i[14]),
+        .I5(imem_file_ram_l_reg_3[14]),
         .O(dmem_file_l_reg_i_3_n_0));
   LUT6 #(
-    .INIT(64'hFF470000FF47FFFF)) 
+    .INIT(64'hAABF0000AABFFFFF)) 
     dmem_file_l_reg_i_4
-       (.I0(data_o0[12]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(data_o0[12]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
         .I4(\ctrl_reg_n_0_[24] ),
         .I5(imem_file_ram_l_reg_3[12]),
         .O(dmem_file_l_reg_i_4_n_0));
   LUT6 #(
-    .INIT(64'hFF470000FF47FFFF)) 
+    .INIT(64'hAABF0000AABFFFFF)) 
     dmem_file_l_reg_i_5
-       (.I0(data_o0[11]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(data_o0[11]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
         .I4(\ctrl_reg_n_0_[24] ),
         .I5(imem_file_ram_l_reg_3[11]),
         .O(dmem_file_l_reg_i_5_n_0));
   LUT6 #(
-    .INIT(64'hFF470000FF47FFFF)) 
+    .INIT(64'hAABF0000AABFFFFF)) 
     dmem_file_l_reg_i_6
-       (.I0(data_o0[13]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(data_o0[13]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
         .I4(\ctrl_reg_n_0_[24] ),
         .I5(imem_file_ram_l_reg_3[13]),
         .O(dmem_file_l_reg_i_6_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  LUT3 #(
+    .INIT(8'h20)) 
+    \dout[15]_i_1 
+       (.I0(\mem_addr_reg_reg[1] ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\dout[15]_i_2_n_0 ),
+        .O(\mem_addr_reg_reg[1]_1 ));
   (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT5 #(
-    .INIT(32'h00200000)) 
-    \dout[15]_i_1 
-       (.I0(\dout[15]_i_2_n_0 ),
-        .I1(\ctrl_reg[25]_0 ),
-        .I2(\ctrl_reg[25]_1 ),
-        .I3(\ctrl_reg[25]_2 ),
-        .I4(\ctrl_reg[25]_3 ),
-        .O(E));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
+    .INIT(32'h00001000)) 
     \dout[15]_i_2 
-       (.I0(\uart_tx_sreg[7]_i_3_n_0 ),
-        .I1(\mem_addr_reg_reg[1] ),
-        .I2(\irq_vec_reg[1]_2 ),
+       (.I0(\ctrl[14]_i_2_n_0 ),
+        .I1(\ctrl_reg[25]_2 ),
+        .I2(\ctrl_reg[25]_0 ),
+        .I3(\data_o[15]_i_3_n_0 ),
+        .I4(\data_o[15]_i_4_n_0 ),
         .O(\dout[15]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT3 #(
-    .INIT(8'h02)) 
+    .INIT(8'h08)) 
     enable_i_1
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
         .I2(\pwm_ch[0][7]_i_2_n_0 ),
-        .O(\mem_addr_reg_reg[1]_0 ));
+        .O(\mem_addr_reg_reg[2]_2 ));
   LUT5 #(
-    .INIT(32'h77788878)) 
+    .INIT(32'h77787878)) 
     i__carry__0_i_1
        (.I0(\ctrl_reg_n_0_[23] ),
         .I1(i__carry__0_i_5_n_0),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(data_o0[7]),
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[7]),
+        .I4(\ctrl_reg[3]_0 ),
         .O(\ctrl_reg[23]_1 [3]));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry__0_i_10
@@ -4487,7 +4516,7 @@ module SystemTop_neo430_control
         .I1(\ir_reg_n_0_[5] ),
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry__0_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry__0_i_11
@@ -4496,22 +4525,22 @@ module SystemTop_neo430_control
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry__0_i_11_n_0));
   LUT5 #(
-    .INIT(32'h77788878)) 
+    .INIT(32'h77787878)) 
     i__carry__0_i_2
        (.I0(\ctrl_reg_n_0_[23] ),
         .I1(i__carry__0_i_6_n_0),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(data_o0[6]),
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[6]),
+        .I4(\ctrl_reg[3]_0 ),
         .O(\ctrl_reg[23]_1 [2]));
   LUT5 #(
-    .INIT(32'h77788878)) 
+    .INIT(32'h77787878)) 
     i__carry__0_i_3
        (.I0(\ctrl_reg_n_0_[23] ),
         .I1(i__carry__0_i_7_n_0),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(data_o0[5]),
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[5]),
+        .I4(\ctrl_reg[3]_0 ),
         .O(\ctrl_reg[23]_1 [1]));
   LUT5 #(
     .INIT(32'h8A80757F)) 
@@ -4523,33 +4552,33 @@ module SystemTop_neo430_control
         .I4(\op_b_ff[4]_i_2_n_0 ),
         .O(\ctrl_reg[23]_1 [0]));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
+    .INIT(32'hC5FFC500)) 
     i__carry__0_i_5
-       (.I0(mem_data_i[15]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[7]),
+       (.I0(\op_b_ff_reg[15] ),
+        .I1(mem_data_i[15]),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry__0_i_9_n_0),
         .O(i__carry__0_i_5_n_0));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
+    .INIT(32'hC5FFC500)) 
     i__carry__0_i_6
-       (.I0(mem_data_i[14]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[6]),
+       (.I0(\op_b_ff_reg[14] ),
+        .I1(mem_data_i[14]),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry__0_i_10_n_0),
         .O(i__carry__0_i_6_n_0));
   LUT5 #(
     .INIT(32'h47FF4700)) 
     i__carry__0_i_7
-       (.I0(\op_b_ff_reg[5] ),
+       (.I0(\ctrl_reg[17]_0 ),
         .I1(\uart_tx_sreg_reg[1] ),
-        .I2(\op_b_ff_reg[5]_0 ),
+        .I2(\sam_reg[1]_0 ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry__0_i_11_n_0),
         .O(i__carry__0_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry__0_i_8
@@ -4557,7 +4586,7 @@ module SystemTop_neo430_control
         .I1(imm[4]),
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry__0_i_8_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry__0_i_9
@@ -4566,16 +4595,16 @@ module SystemTop_neo430_control
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry__0_i_9_n_0));
   LUT6 #(
-    .INIT(64'hEEE222E200000000)) 
+    .INIT(64'h5C5CFC0C00000000)) 
     i__carry__1_i_1
-       (.I0(i__carry__1_i_7_n_0),
-        .I1(\ctrl_reg_n_0_[22] ),
-        .I2(mem_data_i[11]),
-        .I3(\uart_tx_sreg_reg[1] ),
-        .I4(mem_data_i[3]),
+       (.I0(\op_b_ff_reg[3] ),
+        .I1(i__carry__1_i_7_n_0),
+        .I2(\ctrl_reg_n_0_[22] ),
+        .I3(mem_data_i[11]),
+        .I4(\uart_tx_sreg_reg[1] ),
         .I5(\ctrl_reg_n_0_[23] ),
         .O(DI[1]));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry__1_i_10
@@ -4583,7 +4612,7 @@ module SystemTop_neo430_control
         .I1(\ir_reg_n_0_[8] ),
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry__1_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry__1_i_11
@@ -4592,52 +4621,52 @@ module SystemTop_neo430_control
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry__1_i_11_n_0));
   LUT6 #(
-    .INIT(64'hEEE222E200000000)) 
+    .INIT(64'h5C5CFC0C00000000)) 
     i__carry__1_i_2
-       (.I0(i__carry__1_i_7_n_0),
-        .I1(\ctrl_reg_n_0_[22] ),
-        .I2(mem_data_i[10]),
-        .I3(\uart_tx_sreg_reg[1] ),
-        .I4(mem_data_i[2]),
+       (.I0(\mem_addr_reg_reg[11]_1 ),
+        .I1(i__carry__1_i_7_n_0),
+        .I2(\ctrl_reg_n_0_[22] ),
+        .I3(mem_data_i[10]),
+        .I4(\uart_tx_sreg_reg[1] ),
         .I5(\ctrl_reg_n_0_[23] ),
         .O(DI[0]));
   LUT6 #(
     .INIT(64'h55556AAAAAAA6AAA)) 
     i__carry__1_i_3
        (.I0(DI[1]),
-        .I1(Q[0]),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[11]),
-        .O(\ctrl_reg[1]_3 [3]));
+        .O(\ctrl_reg[1]_1 [3]));
   LUT6 #(
     .INIT(64'h55556AAAAAAA6AAA)) 
     i__carry__1_i_4
        (.I0(DI[0]),
-        .I1(Q[0]),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[10]),
-        .O(\ctrl_reg[1]_3 [2]));
+        .O(\ctrl_reg[1]_1 [2]));
   LUT5 #(
-    .INIT(32'h77788878)) 
+    .INIT(32'h77787878)) 
     i__carry__1_i_5
        (.I0(\ctrl_reg_n_0_[23] ),
         .I1(i__carry__1_i_8_n_0),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(data_o0[9]),
-        .O(\ctrl_reg[1]_3 [1]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[9]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(\ctrl_reg[1]_1 [1]));
   LUT3 #(
     .INIT(8'h78)) 
     i__carry__1_i_6
        (.I0(\ctrl_reg_n_0_[23] ),
         .I1(i__carry__1_i_9_n_0),
         .I2(reg_i[8]),
-        .O(\ctrl_reg[1]_3 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+        .O(\ctrl_reg[1]_1 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry__1_i_7
@@ -4646,31 +4675,31 @@ module SystemTop_neo430_control
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry__1_i_7_n_0));
   LUT5 #(
-    .INIT(32'h8BFF8B00)) 
+    .INIT(32'h53FF5300)) 
     i__carry__1_i_8
-       (.I0(mem_data_i[1]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(\FSM_sequential_state_reg[3]_2 ),
+       (.I0(i__carry__1_i_5_0),
+        .I1(i__carry__1_i_5_1),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry__1_i_10_n_0),
         .O(i__carry__1_i_8_n_0));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
+    .INIT(32'h53FF5300)) 
     i__carry__1_i_9
-       (.I0(mem_data_i[0]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[8]),
+       (.I0(\op_b_ff_reg[0] ),
+        .I1(\op_b_ff_reg[0]_0 ),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry__1_i_11_n_0),
         .O(i__carry__1_i_9_n_0));
   LUT6 #(
-    .INIT(64'h222EEE2E00000000)) 
+    .INIT(64'h0C5CFC5C00000000)) 
     i__carry__2_i_1
-       (.I0(i__carry__1_i_7_n_0),
-        .I1(\ctrl_reg_n_0_[22] ),
-        .I2(\op_b_ff_reg[5] ),
+       (.I0(\ctrl_reg[17]_0 ),
+        .I1(i__carry__1_i_7_n_0),
+        .I2(\ctrl_reg_n_0_[22] ),
         .I3(\uart_tx_sreg_reg[1] ),
-        .I4(\op_b_ff_reg[5]_0 ),
+        .I4(\sam_reg[1]_0 ),
         .I5(\ctrl_reg_n_0_[23] ),
         .O(\ctrl_reg[22]_1 [1]));
   LUT6 #(
@@ -4680,54 +4709,52 @@ module SystemTop_neo430_control
         .I1(imm_i0),
         .I2(\ctrl_reg_n_0_[20] ),
         .I3(\ctrl_reg_n_0_[22] ),
-        .I4(\mem_addr_reg_reg[15]_0 ),
+        .I4(\op_b_ff_reg[12] ),
         .I5(\ctrl_reg_n_0_[23] ),
         .O(\ctrl_reg[22]_1 [0]));
   LUT3 #(
     .INIT(8'h9A)) 
     i__carry__2_i_3
-       (.I0(\op_b_ff[15]_i_3_n_0 ),
+       (.I0(\op_b_ff[15]_i_2_n_0 ),
         .I1(i__carry__2_i_7_n_0),
         .I2(\ctrl_reg_n_0_[23] ),
         .O(\ctrl_reg[23]_2 [3]));
-  LUT5 #(
-    .INIT(32'h77788878)) 
+  LUT3 #(
+    .INIT(8'h78)) 
     i__carry__2_i_4
        (.I0(\ctrl_reg_n_0_[23] ),
-        .I1(mem_addr_reg0_carry__2_i_8_n_0),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(data_o0[14]),
+        .I1(mem_addr_reg0_carry__2_i_9_n_0),
+        .I2(reg_i[14]),
         .O(\ctrl_reg[23]_2 [2]));
   LUT6 #(
     .INIT(64'h55556AAAAAAA6AAA)) 
     i__carry__2_i_5
        (.I0(\ctrl_reg[22]_1 [1]),
-        .I1(Q[0]),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[13]),
         .O(\ctrl_reg[23]_2 [1]));
   LUT5 #(
-    .INIT(32'h757F8A80)) 
+    .INIT(32'h8A80757F)) 
     i__carry__2_i_6
        (.I0(\ctrl_reg_n_0_[23] ),
-        .I1(\mem_addr_reg_reg[15]_0 ),
+        .I1(\op_b_ff_reg[12] ),
         .I2(\ctrl_reg_n_0_[22] ),
         .I3(i__carry__1_i_7_n_0),
-        .I4(reg_i[12]),
+        .I4(mem_addr_reg0_carry__2_i_11_n_0),
         .O(\ctrl_reg[23]_2 [0]));
   LUT5 #(
-    .INIT(32'h1D111DDD)) 
+    .INIT(32'hA303A3F3)) 
     i__carry__2_i_7
-       (.I0(i__carry__1_i_7_n_0),
-        .I1(\ctrl_reg_n_0_[22] ),
-        .I2(mem_data_i[7]),
+       (.I0(\op_b_ff_reg[15] ),
+        .I1(i__carry__1_i_7_n_0),
+        .I2(\ctrl_reg_n_0_[22] ),
         .I3(\uart_tx_sreg_reg[1] ),
         .I4(mem_data_i[15]),
         .O(i__carry__2_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
   LUT3 #(
     .INIT(8'hBA)) 
     i__carry_i_10
@@ -4739,14 +4766,14 @@ module SystemTop_neo430_control
     .INIT(8'h87)) 
     i__carry_i_1__1
        (.I0(\ctrl_reg_n_0_[23] ),
-        .I1(i__carry_i_5_n_0),
-        .I2(\op_b_ff[3]_i_3_n_0 ),
+        .I1(i__carry_i_5__1_n_0),
+        .I2(\op_b_ff[3]_i_2_n_0 ),
         .O(\ctrl_reg[23]_0 [3]));
   LUT3 #(
     .INIT(8'h78)) 
     i__carry_i_2__1
        (.I0(\ctrl_reg_n_0_[23] ),
-        .I1(i__carry_i_6_n_0),
+        .I1(i__carry_i_6__1_n_0),
         .I2(reg_i[2]),
         .O(\ctrl_reg[23]_0 [2]));
   LUT3 #(
@@ -4760,37 +4787,37 @@ module SystemTop_neo430_control
     .INIT(8'h87)) 
     i__carry_i_4__1
        (.I0(\ctrl_reg_n_0_[23] ),
-        .I1(mem_addr_reg0_carry_i_9_n_0),
+        .I1(mem_addr_reg0_carry_i_10_n_0),
         .I2(dio_swap_i_2_n_0),
         .O(\ctrl_reg[23]_0 [0]));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
-    i__carry_i_5
-       (.I0(mem_data_i[11]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[3]),
+    .INIT(32'hC5FFC500)) 
+    i__carry_i_5__1
+       (.I0(\op_b_ff_reg[3] ),
+        .I1(mem_data_i[11]),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry_i_8__1_n_0),
-        .O(i__carry_i_5_n_0));
+        .O(i__carry_i_5__1_n_0));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
-    i__carry_i_6
-       (.I0(mem_data_i[10]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[2]),
+    .INIT(32'hC5FFC500)) 
+    i__carry_i_6__1
+       (.I0(\mem_addr_reg_reg[11]_1 ),
+        .I1(mem_data_i[10]),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry_i_9_n_0),
-        .O(i__carry_i_6_n_0));
+        .O(i__carry_i_6__1_n_0));
   LUT5 #(
-    .INIT(32'h74FF7400)) 
+    .INIT(32'h35FF3500)) 
     i__carry_i_7__1
-       (.I0(\FSM_sequential_state_reg[3]_2 ),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[1]),
+       (.I0(i__carry__1_i_5_0),
+        .I1(i__carry__1_i_5_1),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry_i_10_n_0),
         .O(i__carry_i_7__1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry_i_8__1
@@ -4798,7 +4825,7 @@ module SystemTop_neo430_control
         .I1(imm[3]),
         .I2(\ctrl_reg_n_0_[21] ),
         .O(i__carry_i_8__1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT3 #(
     .INIT(8'hA4)) 
     i__carry_i_9
@@ -4824,109 +4851,105 @@ module SystemTop_neo430_control
        (.I0(reg_file_reg_0_15_1_1_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_9_9_i_2_n_0),
-        .O(\cpu_bus[wdata] [9]));
+        .O(dio_swap_reg_1[9]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_h_reg_0_i_2
        (.I0(reg_file_reg_0_15_0_0_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_8_8_i_2_n_0),
-        .O(\cpu_bus[wdata] [8]));
+        .O(dio_swap_reg_1[8]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_h_reg_1_i_1
        (.I0(reg_file_reg_0_15_3_3_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_11_11_i_2_n_0),
-        .O(\cpu_bus[wdata] [11]));
+        .O(dio_swap_reg_1[11]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_h_reg_1_i_2
        (.I0(reg_file_reg_0_15_2_2_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_10_10_i_2_n_0),
-        .O(\cpu_bus[wdata] [10]));
+        .O(dio_swap_reg_1[10]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_h_reg_2_i_1
        (.I0(reg_file_reg_0_15_5_5_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_13_13_i_2_n_0),
-        .O(\cpu_bus[wdata] [13]));
+        .O(dio_swap_reg_1[13]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_h_reg_2_i_2
        (.I0(reg_file_reg_0_15_4_4_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_12_12_i_2_n_0),
-        .O(\cpu_bus[wdata] [12]));
+        .O(dio_swap_reg_1[12]));
   LUT3 #(
-    .INIT(8'hC5)) 
+    .INIT(8'hB8)) 
     imem_file_ram_h_reg_3_i_1
-       (.I0(reg_file_reg_0_15_15_15_i_2_n_0),
-        .I1(reg_file_reg_0_15_7_7_i_2_n_0),
-        .I2(\uart_tx_sreg_reg[1] ),
-        .O(\cpu_bus[wdata] [15]));
+       (.I0(reg_file_reg_0_15_7_7_i_2_n_0),
+        .I1(\uart_tx_sreg_reg[1] ),
+        .I2(reg_file_reg_0_15_15_15_i_2_n_0),
+        .O(dio_swap_reg_1[15]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_h_reg_3_i_2
        (.I0(reg_file_reg_0_15_6_6_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
-        .I2(imem_file_ram_l_reg_3_i_3_n_0),
-        .O(\cpu_bus[wdata] [14]));
+        .I2(reg_file_reg_0_15_14_14_i_2_n_0),
+        .O(dio_swap_reg_1[14]));
   LUT4 #(
     .INIT(16'h0535)) 
     imem_file_ram_l_reg_0_i_1
        (.I0(imem_file_ram_l_reg_3[15]),
-        .I1(\op_b_ff[15]_i_3_n_0 ),
+        .I1(\op_b_ff[15]_i_2_n_0 ),
         .I2(\ctrl_reg_n_0_[24] ),
-        .I3(Q[12]),
-        .O(\mem_addr_reg_reg[15] ));
+        .I3(\ctrl_reg[26]_0 [3]),
+        .O(acc_en_0));
   LUT6 #(
-    .INIT(64'h00B8FFFF00B80000)) 
+    .INIT(64'h2E2E2E222E222E22)) 
     imem_file_ram_l_reg_0_i_10
-       (.I0(data_o0[6]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
-        .I4(\ctrl_reg_n_0_[24] ),
-        .I5(imem_file_ram_l_reg_3[6]),
-        .O(\ctrl_reg[25]_2 ));
+       (.I0(imem_file_ram_l_reg_3[6]),
+        .I1(\ctrl_reg_n_0_[24] ),
+        .I2(\ctrl_reg[26]_0 [3]),
+        .I3(\op_b_ff[13]_i_3_n_0 ),
+        .I4(data_o0[6]),
+        .I5(\ctrl_reg[3]_0 ),
+        .O(\cpu_bus[addr] [3]));
   LUT6 #(
-    .INIT(64'h00B8FFFF00B80000)) 
+    .INIT(64'h22222222EEE2E2E2)) 
     imem_file_ram_l_reg_0_i_11
-       (.I0(data_o0[5]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
-        .I4(\ctrl_reg_n_0_[24] ),
-        .I5(imem_file_ram_l_reg_3[5]),
-        .O(\ctrl_reg[25]_3 ));
+       (.I0(imem_file_ram_l_reg_3[5]),
+        .I1(\ctrl_reg_n_0_[24] ),
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[5]),
+        .I4(\ctrl_reg[3]_0 ),
+        .I5(\ctrl_reg[26]_0 [3]),
+        .O(\cpu_bus[addr] [2]));
   LUT4 #(
     .INIT(16'h1F10)) 
     imem_file_ram_l_reg_0_i_12
        (.I0(\op_b_ff[4]_i_2_n_0 ),
-        .I1(Q[12]),
+        .I1(\ctrl_reg[26]_0 [3]),
         .I2(\ctrl_reg_n_0_[24] ),
         .I3(imem_file_ram_l_reg_3[4]),
-        .O(\ctrl_reg[25]_0 ));
+        .O(\ctrl_reg[25]_2 ));
   LUT4 #(
     .INIT(16'h1F10)) 
     imem_file_ram_l_reg_0_i_13
-       (.I0(\op_b_ff[3]_i_3_n_0 ),
-        .I1(Q[12]),
+       (.I0(\op_b_ff[3]_i_2_n_0 ),
+        .I1(\ctrl_reg[26]_0 [3]),
         .I2(\ctrl_reg_n_0_[24] ),
         .I3(imem_file_ram_l_reg_3[3]),
-        .O(\ctrl_reg[25]_1 ));
-  LUT5 #(
-    .INIT(32'hB8B8FF00)) 
+        .O(\ctrl_reg[25]_0 ));
+  LUT1 #(
+    .INIT(2'h1)) 
     imem_file_ram_l_reg_0_i_14
-       (.I0(irq_sel[1]),
-        .I1(Q[12]),
-        .I2(reg_i[2]),
-        .I3(imem_file_ram_l_reg_3[2]),
-        .I4(\ctrl_reg_n_0_[24] ),
-        .O(\irq_vec_reg[1]_2 ));
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .O(\cpu_bus[addr] [1]));
   LUT1 #(
     .INIT(2'h1)) 
     imem_file_ram_l_reg_0_i_15
@@ -4938,283 +4961,252 @@ module SystemTop_neo430_control
        (.I0(reg_file_reg_0_15_9_9_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_1_1_i_2_n_0),
-        .O(\cpu_bus[wdata] [1]));
+        .O(dio_swap_reg_1[1]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_l_reg_0_i_17
        (.I0(reg_file_reg_0_15_8_8_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_0_0_i_2_n_0),
-        .O(\cpu_bus[wdata] [0]));
+        .O(dio_swap_reg_1[0]));
+  LUT5 #(
+    .INIT(32'h0F335555)) 
+    imem_file_ram_l_reg_0_i_19
+       (.I0(imem_file_ram_l_reg_3[2]),
+        .I1(reg_i[2]),
+        .I2(irq_sel[1]),
+        .I3(\ctrl_reg[26]_0 [3]),
+        .I4(\ctrl_reg_n_0_[24] ),
+        .O(imem_file_ram_l_reg_0_i_19_n_0));
+  LUT4 #(
+    .INIT(16'hFBC8)) 
+    imem_file_ram_l_reg_0_i_2
+       (.I0(\ctrl_reg[26]_0 [3]),
+        .I1(\ctrl_reg_n_0_[24] ),
+        .I2(reg_i[14]),
+        .I3(imem_file_ram_l_reg_3[14]),
+        .O(\cpu_bus[addr] [11]));
   LUT5 #(
     .INIT(32'h3F305555)) 
-    imem_file_ram_l_reg_0_i_19
+    imem_file_ram_l_reg_0_i_20
        (.I0(imem_file_ram_l_reg_3[1]),
         .I1(irq_sel[0]),
-        .I2(Q[12]),
+        .I2(\ctrl_reg[26]_0 [3]),
         .I3(\op_b_ff[1]_i_3_n_0 ),
         .I4(\ctrl_reg_n_0_[24] ),
         .O(\mem_addr_reg_reg[1] ));
   LUT6 #(
-    .INIT(64'hFFFBBBFBCCC888C8)) 
-    imem_file_ram_l_reg_0_i_2
-       (.I0(Q[12]),
-        .I1(\ctrl_reg_n_0_[24] ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(data_o0[14]),
-        .I5(imem_file_ram_l_reg_3[14]),
-        .O(\cpu_bus[addr] [8]));
-  LUT6 #(
-    .INIT(64'h2E2E2E2222222E22)) 
+    .INIT(64'h22222222EEE2E2E2)) 
     imem_file_ram_l_reg_0_i_3
        (.I0(imem_file_ram_l_reg_3[13]),
         .I1(\ctrl_reg_n_0_[24] ),
-        .I2(Q[12]),
-        .I3(\op_b_ff[14]_i_4_n_0 ),
-        .I4(\ctrl_reg[3]_1 ),
-        .I5(data_o0[13]),
-        .O(\cpu_bus[addr] [7]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[13]),
+        .I4(\ctrl_reg[3]_0 ),
+        .I5(\ctrl_reg[26]_0 [3]),
+        .O(\cpu_bus[addr] [10]));
   LUT6 #(
-    .INIT(64'h2E2E2E2222222E22)) 
+    .INIT(64'h22222222EEE2E2E2)) 
     imem_file_ram_l_reg_0_i_4
        (.I0(imem_file_ram_l_reg_3[12]),
         .I1(\ctrl_reg_n_0_[24] ),
-        .I2(Q[12]),
-        .I3(\op_b_ff[14]_i_4_n_0 ),
-        .I4(\ctrl_reg[3]_1 ),
-        .I5(data_o0[12]),
-        .O(\cpu_bus[addr] [6]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[12]),
+        .I4(\ctrl_reg[3]_0 ),
+        .I5(\ctrl_reg[26]_0 [3]),
+        .O(\cpu_bus[addr] [9]));
   LUT6 #(
-    .INIT(64'h2E2E2E2222222E22)) 
+    .INIT(64'h22222222EEE2E2E2)) 
     imem_file_ram_l_reg_0_i_5
        (.I0(imem_file_ram_l_reg_3[11]),
         .I1(\ctrl_reg_n_0_[24] ),
-        .I2(Q[12]),
-        .I3(\op_b_ff[14]_i_4_n_0 ),
-        .I4(\ctrl_reg[3]_1 ),
-        .I5(data_o0[11]),
-        .O(\cpu_bus[addr] [5]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[11]),
+        .I4(\ctrl_reg[3]_0 ),
+        .I5(\ctrl_reg[26]_0 [3]),
+        .O(\cpu_bus[addr] [8]));
   LUT6 #(
-    .INIT(64'h2E2E2E2222222E22)) 
+    .INIT(64'h22222222EEE2E2E2)) 
     imem_file_ram_l_reg_0_i_6
        (.I0(imem_file_ram_l_reg_3[10]),
         .I1(\ctrl_reg_n_0_[24] ),
-        .I2(Q[12]),
-        .I3(\op_b_ff[14]_i_4_n_0 ),
-        .I4(\ctrl_reg[3]_1 ),
-        .I5(data_o0[10]),
-        .O(\cpu_bus[addr] [4]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[10]),
+        .I4(\ctrl_reg[3]_0 ),
+        .I5(\ctrl_reg[26]_0 [3]),
+        .O(\cpu_bus[addr] [7]));
   LUT6 #(
-    .INIT(64'h2E2E2E2222222E22)) 
+    .INIT(64'h22222222EEE2E2E2)) 
     imem_file_ram_l_reg_0_i_7
        (.I0(imem_file_ram_l_reg_3[9]),
         .I1(\ctrl_reg_n_0_[24] ),
-        .I2(Q[12]),
-        .I3(\op_b_ff[14]_i_4_n_0 ),
-        .I4(\ctrl_reg[3]_1 ),
-        .I5(data_o0[9]),
-        .O(\cpu_bus[addr] [3]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[9]),
+        .I4(\ctrl_reg[3]_0 ),
+        .I5(\ctrl_reg[26]_0 [3]),
+        .O(\cpu_bus[addr] [6]));
   LUT4 #(
     .INIT(16'h2E22)) 
     imem_file_ram_l_reg_0_i_8
        (.I0(imem_file_ram_l_reg_3[8]),
         .I1(\ctrl_reg_n_0_[24] ),
-        .I2(Q[12]),
+        .I2(\ctrl_reg[26]_0 [3]),
         .I3(reg_i[8]),
-        .O(\cpu_bus[addr] [2]));
+        .O(\cpu_bus[addr] [5]));
   LUT6 #(
-    .INIT(64'h2E2E2E2222222E22)) 
+    .INIT(64'h22222222EEE2E2E2)) 
     imem_file_ram_l_reg_0_i_9
        (.I0(imem_file_ram_l_reg_3[7]),
         .I1(\ctrl_reg_n_0_[24] ),
-        .I2(Q[12]),
-        .I3(\op_b_ff[14]_i_4_n_0 ),
-        .I4(\ctrl_reg[3]_1 ),
-        .I5(data_o0[7]),
-        .O(\cpu_bus[addr] [1]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[7]),
+        .I4(\ctrl_reg[3]_0 ),
+        .I5(\ctrl_reg[26]_0 [3]),
+        .O(\cpu_bus[addr] [4]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_l_reg_1_i_1
        (.I0(reg_file_reg_0_15_11_11_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_3_3_i_2_n_0),
-        .O(\cpu_bus[wdata] [3]));
+        .O(dio_swap_reg_1[3]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_l_reg_1_i_2
        (.I0(reg_file_reg_0_15_10_10_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_2_2_i_2_n_0),
-        .O(\cpu_bus[wdata] [2]));
+        .O(dio_swap_reg_1[2]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_l_reg_2_i_1
        (.I0(reg_file_reg_0_15_13_13_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_5_5_i_2_n_0),
-        .O(\cpu_bus[wdata] [5]));
+        .O(dio_swap_reg_1[5]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_l_reg_2_i_2
        (.I0(reg_file_reg_0_15_12_12_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_4_4_i_2_n_0),
-        .O(\cpu_bus[wdata] [4]));
+        .O(dio_swap_reg_1[4]));
   LUT3 #(
-    .INIT(8'h74)) 
+    .INIT(8'hB8)) 
     imem_file_ram_l_reg_3_i_1
        (.I0(reg_file_reg_0_15_15_15_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_7_7_i_2_n_0),
-        .O(\cpu_bus[wdata] [7]));
+        .O(dio_swap_reg_1[7]));
   LUT3 #(
     .INIT(8'hB8)) 
     imem_file_ram_l_reg_3_i_2
-       (.I0(imem_file_ram_l_reg_3_i_3_n_0),
+       (.I0(reg_file_reg_0_15_14_14_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_6_6_i_2_n_0),
-        .O(\cpu_bus[wdata] [6]));
-  LUT4 #(
-    .INIT(16'h000D)) 
-    imem_file_ram_l_reg_3_i_3
-       (.I0(Q[11]),
-        .I1(imem_file_ram_l_reg_3_i_4_n_0),
-        .I2(imem_file_ram_l_reg_3_i_5_n_0),
-        .I3(imem_file_ram_l_reg_3_i_6_n_0),
-        .O(imem_file_ram_l_reg_3_i_3_n_0));
-  LUT6 #(
-    .INIT(64'hAFAC50AC50FC000C)) 
-    imem_file_ram_l_reg_3_i_4
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_2[2]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_1[14]),
-        .I5(reg_file_reg_0_15_15_15_i_2_0[14]),
-        .O(imem_file_ram_l_reg_3_i_4_n_0));
-  LUT6 #(
-    .INIT(64'hEFEFAAFFAAAAAAAA)) 
-    imem_file_ram_l_reg_3_i_5
-       (.I0(\ctrl_reg[19]_0 ),
-        .I1(Q[9]),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[6]),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[15]),
-        .I4(Q[8]),
-        .I5(reg_file_reg_0_15_8_8_i_7_n_0),
-        .O(imem_file_ram_l_reg_3_i_5_n_0));
-  LUT6 #(
-    .INIT(64'h0000555300000000)) 
-    imem_file_ram_l_reg_3_i_6
-       (.I0(reg_file_reg_0_15_15_15_i_2_2[2]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[14]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(Q[11]),
-        .I5(Q[10]),
-        .O(imem_file_ram_l_reg_3_i_6_n_0));
+        .O(dio_swap_reg_1[6]));
   LUT5 #(
-    .INIT(32'h00100000)) 
+    .INIT(32'h00020000)) 
     \ir[15]_i_1 
-       (.I0(state[4]),
-        .I1(\FSM_sequential_state_reg[3]_0 [1]),
-        .I2(\FSM_sequential_state_reg[3]_0 [0]),
-        .I3(state[2]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
-        .O(\ir[15]_i_1_n_0 ));
+       (.I0(state[0]),
+        .I1(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(state[2]),
+        .I3(state[4]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
+        .O(E));
   FDRE \ir_reg[0] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[0]),
         .Q(imm[1]),
         .R(1'b0));
   FDRE \ir_reg[10] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[10]),
         .Q(\ir_reg_n_0_[10] ),
         .R(1'b0));
   FDRE \ir_reg[11] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[11]),
         .Q(\ir_reg_n_0_[11] ),
         .R(1'b0));
   FDRE \ir_reg[12] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[12]),
         .Q(p_0_in[0]),
         .R(1'b0));
   FDRE \ir_reg[13] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[13]),
         .Q(p_0_in[1]),
         .R(1'b0));
   FDRE \ir_reg[14] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[14]),
         .Q(p_0_in[2]),
         .R(1'b0));
   FDRE \ir_reg[15] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[15]),
         .Q(p_0_in[3]),
         .R(1'b0));
   FDRE \ir_reg[1] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[1]),
         .Q(imm[2]),
         .R(1'b0));
   FDRE \ir_reg[2] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[2]),
         .Q(imm[3]),
         .R(1'b0));
   FDRE \ir_reg[3] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[3]),
         .Q(imm[4]),
         .R(1'b0));
   FDRE \ir_reg[4] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[4]),
         .Q(\ir_reg_n_0_[4] ),
         .R(1'b0));
   FDRE \ir_reg[5] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[5]),
         .Q(\ir_reg_n_0_[5] ),
         .R(1'b0));
   FDRE \ir_reg[6] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[6]),
         .Q(imm[7]),
         .R(1'b0));
   FDRE \ir_reg[7] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[7]),
         .Q(imm[8]),
         .R(1'b0));
   FDRE \ir_reg[8] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[8]),
         .Q(\ir_reg_n_0_[8] ),
         .R(1'b0));
   FDRE \ir_reg[9] 
        (.C(clk_i),
-        .CE(\ir[15]_i_1_n_0 ),
+        .CE(E),
         .D(mem_data_i[9]),
         .Q(imm_i0),
         .R(1'b0));
@@ -5233,9 +5225,9 @@ module SystemTop_neo430_control
     \irq_buf[0]_i_2 
        (.I0(irq_sel[1]),
         .I1(state[2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [0]),
-        .I4(\FSM_sequential_state_reg[3]_0 [2]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(state[0]),
+        .I4(\FSM_sequential_state_reg[3]_0 [1]),
         .I5(state[4]),
         .O(\irq_buf[0]_i_2_n_0 ));
   LUT5 #(
@@ -5275,17 +5267,15 @@ module SystemTop_neo430_control
         .D(p_9_out[2]),
         .Q(p_8_in),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
-  LUT5 #(
-    .INIT(32'h00200000)) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
     \irq_mask[15]_i_1 
-       (.I0(\ctrl[14]_i_2__0_n_0 ),
-        .I1(\ctrl_reg[25]_0 ),
-        .I2(\ctrl_reg[25]_1 ),
-        .I3(\ctrl_reg[25]_2 ),
-        .I4(\ctrl_reg[25]_3 ),
-        .O(\ctrl_reg[25]_4 ));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
+        .I2(\dout[15]_i_2_n_0 ),
+        .O(\mem_addr_reg_reg[2]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT4 #(
     .INIT(16'h2AEA)) 
     irq_start_i_1
@@ -5349,46 +5339,64 @@ module SystemTop_neo430_control
         .Q(irq_sel[1]),
         .R(1'b0));
   LUT5 #(
-    .INIT(32'hB8888888)) 
+    .INIT(32'hFF800080)) 
     mem_addr_reg0_carry__0_i_1
-       (.I0(data_o0[7]),
-        .I1(\ctrl_reg[3]_1 ),
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[7]),
         .O(reg_i[7]));
   LUT5 #(
-    .INIT(32'hB8888888)) 
-    mem_addr_reg0_carry__0_i_2
+    .INIT(32'h47777777)) 
+    mem_addr_reg0_carry__0_i_10
        (.I0(data_o0[6]),
-        .I1(\ctrl_reg[3]_1 ),
+        .I1(\ctrl_reg[3]_0 ),
         .I2(\ctrl_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I4(\ctrl_reg[19]_0 [0]),
+        .O(mem_addr_reg0_carry__0_i_10_n_0));
+  LUT5 #(
+    .INIT(32'h47777777)) 
+    mem_addr_reg0_carry__0_i_11
+       (.I0(data_o0[5]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(\ctrl_reg_n_0_[5] ),
+        .I3(\ctrl_reg_n_0_[6] ),
+        .I4(\ctrl_reg[19]_0 [0]),
+        .O(mem_addr_reg0_carry__0_i_11_n_0));
+  LUT5 #(
+    .INIT(32'hFF800080)) 
+    mem_addr_reg0_carry__0_i_2
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
+        .I2(\ctrl_reg_n_0_[5] ),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[6]),
         .O(reg_i[6]));
   LUT5 #(
-    .INIT(32'hB8888888)) 
+    .INIT(32'hFF800080)) 
     mem_addr_reg0_carry__0_i_3
-       (.I0(data_o0[5]),
-        .I1(\ctrl_reg[3]_1 ),
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[5]),
         .O(reg_i[5]));
   LUT6 #(
     .INIT(64'hB888888BB8888888)) 
     mem_addr_reg0_carry__0_i_4
        (.I0(data_o0[4]),
-        .I1(\ctrl_reg[3]_1 ),
+        .I1(\ctrl_reg[3]_0 ),
         .I2(\ctrl_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
-        .I5(\FSM_sequential_state_reg[0]_0 ),
+        .I4(\ctrl_reg[19]_0 [0]),
+        .I5(\FSM_sequential_state_reg[0]_1 ),
         .O(reg_i[4]));
   LUT6 #(
-    .INIT(64'h5555669AAAAA669A)) 
+    .INIT(64'hAAAA996555559965)) 
     mem_addr_reg0_carry__0_i_5
-       (.I0(reg_i[7]),
+       (.I0(mem_addr_reg0_carry__0_i_9_n_0),
         .I1(\ctrl_reg_n_0_[21] ),
         .I2(imm[7]),
         .I3(\ctrl_reg_n_0_[20] ),
@@ -5396,9 +5404,9 @@ module SystemTop_neo430_control
         .I5(\op_b_ff_reg[7]_0 ),
         .O(\ctrl_reg[21]_1 [3]));
   LUT6 #(
-    .INIT(64'h5555669AAAAA669A)) 
+    .INIT(64'hAAAA996555559965)) 
     mem_addr_reg0_carry__0_i_6
-       (.I0(reg_i[6]),
+       (.I0(mem_addr_reg0_carry__0_i_10_n_0),
         .I1(\ctrl_reg_n_0_[21] ),
         .I2(\ir_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[20] ),
@@ -5406,14 +5414,14 @@ module SystemTop_neo430_control
         .I5(\op_b_ff_reg[6] ),
         .O(\ctrl_reg[21]_1 [2]));
   LUT6 #(
-    .INIT(64'h5555669AAAAA669A)) 
+    .INIT(64'hAAAA996555559965)) 
     mem_addr_reg0_carry__0_i_7
-       (.I0(reg_i[5]),
+       (.I0(mem_addr_reg0_carry__0_i_11_n_0),
         .I1(\ctrl_reg_n_0_[21] ),
         .I2(\ir_reg_n_0_[4] ),
         .I3(\ctrl_reg_n_0_[20] ),
         .I4(\ctrl_reg_n_0_[22] ),
-        .I5(mem_addr_reg0_carry__0),
+        .I5(\op_b_ff_reg[5] ),
         .O(\ctrl_reg[21]_1 [1]));
   LUT6 #(
     .INIT(64'hAAAA996555559965)) 
@@ -5426,81 +5434,99 @@ module SystemTop_neo430_control
         .I5(\mem_addr_reg_reg[7] ),
         .O(\ctrl_reg[21]_1 [0]));
   LUT5 #(
-    .INIT(32'hB8888888)) 
-    mem_addr_reg0_carry__1_i_1
-       (.I0(data_o0[11]),
-        .I1(\ctrl_reg[3]_1 ),
+    .INIT(32'h47777777)) 
+    mem_addr_reg0_carry__0_i_9
+       (.I0(data_o0[7]),
+        .I1(\ctrl_reg[3]_0 ),
         .I2(\ctrl_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I4(\ctrl_reg[19]_0 [0]),
+        .O(mem_addr_reg0_carry__0_i_9_n_0));
+  LUT5 #(
+    .INIT(32'hFF800080)) 
+    mem_addr_reg0_carry__1_i_1
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
+        .I2(\ctrl_reg_n_0_[5] ),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[11]),
         .O(reg_i[11]));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
+    .INIT(32'h74FF7400)) 
     mem_addr_reg0_carry__1_i_10
-       (.I0(mem_data_i[2]),
+       (.I0(\mem_addr_reg_reg[11]_1 ),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(mem_data_i[10]),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry__1_i_7_n_0),
         .O(mem_addr_reg0_carry__1_i_10_n_0));
   LUT5 #(
-    .INIT(32'hB8888888)) 
-    mem_addr_reg0_carry__1_i_2
-       (.I0(data_o0[10]),
-        .I1(\ctrl_reg[3]_1 ),
+    .INIT(32'h47777777)) 
+    mem_addr_reg0_carry__1_i_11
+       (.I0(data_o0[9]),
+        .I1(\ctrl_reg[3]_0 ),
         .I2(\ctrl_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I4(\ctrl_reg[19]_0 [0]),
+        .O(mem_addr_reg0_carry__1_i_11_n_0));
+  LUT5 #(
+    .INIT(32'hFF800080)) 
+    mem_addr_reg0_carry__1_i_2
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
+        .I2(\ctrl_reg_n_0_[5] ),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[10]),
         .O(reg_i[10]));
   LUT5 #(
-    .INIT(32'hB8888888)) 
+    .INIT(32'hFF800080)) 
     mem_addr_reg0_carry__1_i_3
-       (.I0(data_o0[9]),
-        .I1(\ctrl_reg[3]_1 ),
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[9]),
         .O(reg_i[9]));
   LUT6 #(
     .INIT(64'hFFFFC0020000C002)) 
     mem_addr_reg0_carry__1_i_4
        (.I0(sreg[3]),
-        .I1(Q[0]),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[8]),
         .O(reg_i[8]));
   LUT6 #(
     .INIT(64'h007FFF7FFF800080)) 
     mem_addr_reg0_carry__1_i_5
-       (.I0(Q[0]),
+       (.I0(\ctrl_reg[19]_0 [0]),
         .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg[3]_1 ),
+        .I3(\ctrl_reg[3]_0 ),
         .I4(data_o0[11]),
         .I5(mem_addr_reg0_carry__1_i_9_n_0),
-        .O(\ctrl_reg[1]_2 [3]));
+        .O(\ctrl_reg[1]_0 [3]));
   LUT6 #(
     .INIT(64'h007FFF7FFF800080)) 
     mem_addr_reg0_carry__1_i_6
-       (.I0(Q[0]),
+       (.I0(\ctrl_reg[19]_0 [0]),
         .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg[3]_1 ),
+        .I3(\ctrl_reg[3]_0 ),
         .I4(data_o0[10]),
         .I5(mem_addr_reg0_carry__1_i_10_n_0),
-        .O(\ctrl_reg[1]_2 [2]));
+        .O(\ctrl_reg[1]_0 [2]));
   LUT6 #(
-    .INIT(64'h5555669AAAAA669A)) 
+    .INIT(64'hAAAA996555559965)) 
     mem_addr_reg0_carry__1_i_7
-       (.I0(reg_i[9]),
+       (.I0(mem_addr_reg0_carry__1_i_11_n_0),
         .I1(\ctrl_reg_n_0_[21] ),
         .I2(\ir_reg_n_0_[8] ),
         .I3(\ctrl_reg_n_0_[20] ),
         .I4(\ctrl_reg_n_0_[22] ),
         .I5(\op_b_ff_reg[9] ),
-        .O(\ctrl_reg[1]_2 [1]));
+        .O(\ctrl_reg[1]_0 [1]));
   LUT6 #(
     .INIT(64'h5555669AAAAA669A)) 
     mem_addr_reg0_carry__1_i_8
@@ -5510,11 +5536,11 @@ module SystemTop_neo430_control
         .I3(\ctrl_reg_n_0_[20] ),
         .I4(\ctrl_reg_n_0_[22] ),
         .I5(\op_b_ff_reg[8] ),
-        .O(\ctrl_reg[1]_2 [0]));
+        .O(\ctrl_reg[1]_0 [0]));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
+    .INIT(32'h74FF7400)) 
     mem_addr_reg0_carry__1_i_9
-       (.I0(mem_data_i[3]),
+       (.I0(\op_b_ff_reg[3] ),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(mem_data_i[11]),
         .I3(\ctrl_reg_n_0_[22] ),
@@ -5524,84 +5550,93 @@ module SystemTop_neo430_control
     .INIT(32'hB8888888)) 
     mem_addr_reg0_carry__2_i_1
        (.I0(data_o0[14]),
-        .I1(\ctrl_reg[3]_1 ),
+        .I1(\ctrl_reg[3]_0 ),
         .I2(\ctrl_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I4(\ctrl_reg[19]_0 [0]),
         .O(reg_i[14]));
   LUT5 #(
-    .INIT(32'hB8888888)) 
-    mem_addr_reg0_carry__2_i_2
-       (.I0(data_o0[13]),
-        .I1(\ctrl_reg[3]_1 ),
+    .INIT(32'h35FF3500)) 
+    mem_addr_reg0_carry__2_i_10
+       (.I0(\ctrl_reg[17]_0 ),
+        .I1(\sam_reg[1]_0 ),
+        .I2(\uart_tx_sreg_reg[1] ),
+        .I3(\ctrl_reg_n_0_[22] ),
+        .I4(i__carry__1_i_7_n_0),
+        .O(mem_addr_reg0_carry__2_i_10_n_0));
+  LUT5 #(
+    .INIT(32'h47777777)) 
+    mem_addr_reg0_carry__2_i_11
+       (.I0(data_o0[12]),
+        .I1(\ctrl_reg[3]_0 ),
         .I2(\ctrl_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I4(\ctrl_reg[19]_0 [0]),
+        .O(mem_addr_reg0_carry__2_i_11_n_0));
+  LUT5 #(
+    .INIT(32'hFF800080)) 
+    mem_addr_reg0_carry__2_i_2
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
+        .I2(\ctrl_reg_n_0_[5] ),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[13]),
         .O(reg_i[13]));
   LUT5 #(
-    .INIT(32'hB8888888)) 
+    .INIT(32'hFF800080)) 
     mem_addr_reg0_carry__2_i_3
-       (.I0(data_o0[12]),
-        .I1(\ctrl_reg[3]_1 ),
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(data_o0[12]),
         .O(reg_i[12]));
   LUT6 #(
     .INIT(64'h47477477B8B88B88)) 
     mem_addr_reg0_carry__2_i_4
-       (.I0(\op_b_ff_reg[15] ),
+       (.I0(mem_addr_reg0_carry__2),
         .I1(\ctrl_reg_n_0_[22] ),
         .I2(\ctrl_reg_n_0_[21] ),
         .I3(imm_i0),
         .I4(\ctrl_reg_n_0_[20] ),
-        .I5(\op_b_ff[15]_i_3_n_0 ),
+        .I5(\op_b_ff[15]_i_2_n_0 ),
         .O(\ctrl_reg[22]_0 [3]));
   LUT6 #(
     .INIT(64'h007FFF7FFF800080)) 
     mem_addr_reg0_carry__2_i_5
-       (.I0(Q[0]),
+       (.I0(\ctrl_reg[19]_0 [0]),
         .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg[3]_1 ),
+        .I3(\ctrl_reg[3]_0 ),
         .I4(data_o0[14]),
-        .I5(mem_addr_reg0_carry__2_i_8_n_0),
+        .I5(mem_addr_reg0_carry__2_i_9_n_0),
         .O(\ctrl_reg[22]_0 [2]));
   LUT6 #(
     .INIT(64'h007FFF7FFF800080)) 
     mem_addr_reg0_carry__2_i_6
-       (.I0(Q[0]),
+       (.I0(\ctrl_reg[19]_0 [0]),
         .I1(\ctrl_reg_n_0_[6] ),
         .I2(\ctrl_reg_n_0_[5] ),
-        .I3(\ctrl_reg[3]_1 ),
+        .I3(\ctrl_reg[3]_0 ),
         .I4(data_o0[13]),
-        .I5(mem_addr_reg0_carry__2_i_9_n_0),
+        .I5(mem_addr_reg0_carry__2_i_10_n_0),
         .O(\ctrl_reg[22]_0 [1]));
   LUT6 #(
-    .INIT(64'h5555669AAAAA669A)) 
+    .INIT(64'hAAAA996555559965)) 
     mem_addr_reg0_carry__2_i_7
-       (.I0(reg_i[12]),
+       (.I0(mem_addr_reg0_carry__2_i_11_n_0),
         .I1(\ctrl_reg_n_0_[21] ),
         .I2(imm_i0),
         .I3(\ctrl_reg_n_0_[20] ),
         .I4(\ctrl_reg_n_0_[22] ),
-        .I5(\mem_addr_reg_reg[15]_0 ),
+        .I5(\op_b_ff_reg[12] ),
         .O(\ctrl_reg[22]_0 [0]));
   LUT5 #(
-    .INIT(32'hB8FFB800)) 
-    mem_addr_reg0_carry__2_i_8
-       (.I0(mem_data_i[6]),
+    .INIT(32'h74FF7400)) 
+    mem_addr_reg0_carry__2_i_9
+       (.I0(\op_b_ff_reg[14] ),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(mem_data_i[14]),
-        .I3(\ctrl_reg_n_0_[22] ),
-        .I4(i__carry__1_i_7_n_0),
-        .O(mem_addr_reg0_carry__2_i_8_n_0));
-  LUT5 #(
-    .INIT(32'h47FF4700)) 
-    mem_addr_reg0_carry__2_i_9
-       (.I0(\op_b_ff_reg[5]_0 ),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(\op_b_ff_reg[5] ),
         .I3(\ctrl_reg_n_0_[22] ),
         .I4(i__carry__1_i_7_n_0),
         .O(mem_addr_reg0_carry__2_i_9_n_0));
@@ -5609,38 +5644,48 @@ module SystemTop_neo430_control
     .INIT(64'hB888B88BB888B888)) 
     mem_addr_reg0_carry_i_1
        (.I0(data_o0[3]),
-        .I1(\ctrl_reg[3]_1 ),
+        .I1(\ctrl_reg[3]_0 ),
         .I2(\ctrl_reg_n_0_[5] ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I4(\ctrl_reg[19]_0 [0]),
         .I5(sreg[2]),
         .O(reg_i[3]));
+  LUT6 #(
+    .INIT(64'h3500350035FF3500)) 
+    mem_addr_reg0_carry_i_10
+       (.I0(\op_b_ff_reg[0] ),
+        .I1(\op_b_ff_reg[0]_0 ),
+        .I2(\uart_tx_sreg_reg[1] ),
+        .I3(\ctrl_reg_n_0_[22] ),
+        .I4(\ctrl_reg_n_0_[20] ),
+        .I5(\ctrl_reg_n_0_[21] ),
+        .O(mem_addr_reg0_carry_i_10_n_0));
   LUT6 #(
     .INIT(64'hFFFFA00E0000A00E)) 
     mem_addr_reg0_carry_i_2
        (.I0(\ctrl_reg_n_0_[6] ),
         .I1(sreg[1]),
-        .I2(Q[0]),
+        .I2(\ctrl_reg[19]_0 [0]),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[2]),
         .O(reg_i[2]));
   LUT6 #(
-    .INIT(64'hAAC0AAC3AAC0AAC0)) 
+    .INIT(64'hAAC0AAC0AAC3AAC0)) 
     mem_addr_reg0_carry_i_3
        (.I0(data_o0[1]),
-        .I1(Q[0]),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(\ctrl_reg_n_0_[5] ),
-        .I5(\irq_buf_reg[1]_1 [0]),
+        .I3(\ctrl_reg[3]_0 ),
+        .I4(\irq_buf_reg[1]_1 [0]),
+        .I5(\ctrl_reg_n_0_[5] ),
         .O(reg_i[1]));
   LUT6 #(
     .INIT(64'hB888B888B88BB888)) 
     mem_addr_reg0_carry_i_4
        (.I0(data_o0[0]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(Q[0]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(\ctrl_reg[19]_0 [0]),
         .I3(\ctrl_reg_n_0_[5] ),
         .I4(sreg[0]),
         .I5(\ctrl_reg_n_0_[6] ),
@@ -5648,12 +5693,12 @@ module SystemTop_neo430_control
   LUT6 #(
     .INIT(64'hAAAA996555559965)) 
     mem_addr_reg0_carry_i_5
-       (.I0(\op_b_ff[3]_i_3_n_0 ),
+       (.I0(\op_b_ff[3]_i_2_n_0 ),
         .I1(\ctrl_reg_n_0_[21] ),
         .I2(imm[3]),
         .I3(\ctrl_reg_n_0_[20] ),
         .I4(\ctrl_reg_n_0_[22] ),
-        .I5(\op_b_ff_reg[3] ),
+        .I5(mem_addr_reg0_carry),
         .O(\ctrl_reg[21]_0 [3]));
   LUT6 #(
     .INIT(64'h5555669AAAAA669A)) 
@@ -5679,47 +5724,28 @@ module SystemTop_neo430_control
     .INIT(4'h9)) 
     mem_addr_reg0_carry_i_8
        (.I0(dio_swap_i_2_n_0),
-        .I1(mem_addr_reg0_carry_i_9_n_0),
+        .I1(mem_addr_reg0_carry_i_10_n_0),
         .O(\ctrl_reg[21]_0 [0]));
-  LUT6 #(
-    .INIT(64'hB800B800B8FFB800)) 
-    mem_addr_reg0_carry_i_9
-       (.I0(mem_data_i[8]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[0]),
-        .I3(\ctrl_reg_n_0_[22] ),
-        .I4(\ctrl_reg_n_0_[20] ),
-        .I5(\ctrl_reg_n_0_[21] ),
-        .O(mem_addr_reg0_carry_i_9_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT5 #(
     .INIT(32'h00002800)) 
     mem_rd_ff_i_1
        (.I0(mem_rd_ff_i_2_n_0),
         .I1(state[2]),
-        .I2(\FSM_sequential_state_reg[3]_0 [1]),
-        .I3(\FSM_sequential_state_reg[3]_0 [2]),
+        .I2(\FSM_sequential_state_reg[3]_0 [0]),
+        .I3(\FSM_sequential_state_reg[3]_0 [1]),
         .I4(state[4]),
         .O(mem_rd));
   LUT6 #(
     .INIT(64'h005000FFFF50C0FF)) 
     mem_rd_ff_i_2
-       (.I0(mem_rd_ff_i_3_n_0),
+       (.I0(\FSM_sequential_state[0]_i_9_n_0 ),
         .I1(p_2_in[0]),
-        .I2(\ctrl[14]_i_2_n_0 ),
-        .I3(\FSM_sequential_state_reg[3]_0 [1]),
-        .I4(\FSM_sequential_state_reg[3]_0 [0]),
+        .I2(\ctrl[14]_i_2__0_n_0 ),
+        .I3(\FSM_sequential_state_reg[3]_0 [0]),
+        .I4(state[0]),
         .I5(p_2_in[1]),
         .O(mem_rd_ff_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
-  LUT4 #(
-    .INIT(16'h0004)) 
-    mem_rd_ff_i_3
-       (.I0(Q[9]),
-        .I1(Q[10]),
-        .I2(Q[11]),
-        .I3(Q[8]),
-        .O(mem_rd_ff_i_3_n_0));
   FDRE mem_rd_ff_reg
        (.C(clk_i),
         .CE(1'b1),
@@ -5727,260 +5753,283 @@ module SystemTop_neo430_control
         .Q(mem_rd_ff),
         .R(1'b0));
   LUT5 #(
-    .INIT(32'hB800B8FF)) 
+    .INIT(32'h350035FF)) 
     \op_b_ff[0]_i_1 
-       (.I0(mem_data_i[8]),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(mem_data_i[0]),
+       (.I0(\op_b_ff_reg[0] ),
+        .I1(\op_b_ff_reg[0]_0 ),
+        .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[12] ),
         .I4(dio_swap_i_2_n_0),
-        .O(\ctrl_reg[12]_2 [0]));
+        .O(dio_swap_reg_0[0]));
   LUT5 #(
-    .INIT(32'hB8BBB888)) 
+    .INIT(32'hBBB8B8B8)) 
     \op_b_ff[10]_i_1 
        (.I0(\op_b_ff_reg[10] ),
         .I1(\ctrl_reg_n_0_[12] ),
-        .I2(data_o0[10]),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(\op_b_ff[14]_i_4_n_0 ),
-        .O(\ctrl_reg[12]_2 [10]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[10]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[10]));
   LUT5 #(
-    .INIT(32'hB8BBB888)) 
+    .INIT(32'hBBB8B8B8)) 
     \op_b_ff[11]_i_1 
        (.I0(\op_b_ff_reg[11] ),
         .I1(\ctrl_reg_n_0_[12] ),
-        .I2(data_o0[11]),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(\op_b_ff[14]_i_4_n_0 ),
-        .O(\ctrl_reg[12]_2 [11]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[11]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[11]));
   LUT5 #(
-    .INIT(32'h47FF4700)) 
+    .INIT(32'hBBB8B8B8)) 
     \op_b_ff[12]_i_1 
-       (.I0(\op_b_ff_reg[4] ),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(\op_b_ff_reg[4]_0 ),
-        .I3(\ctrl_reg_n_0_[12] ),
-        .I4(reg_i[12]),
-        .O(\ctrl_reg[12]_2 [12]));
-  LUT5 #(
-    .INIT(32'h35FF3500)) 
-    \op_b_ff[13]_i_1 
-       (.I0(\op_b_ff_reg[5] ),
-        .I1(\op_b_ff_reg[5]_0 ),
-        .I2(\uart_tx_sreg_reg[1] ),
-        .I3(\ctrl_reg_n_0_[12] ),
-        .I4(reg_i[13]),
-        .O(\ctrl_reg[12]_2 [13]));
-  LUT5 #(
-    .INIT(32'hB8BBB888)) 
-    \op_b_ff[14]_i_1 
-       (.I0(\op_b_ff_reg[14] ),
+       (.I0(\op_b_ff_reg[12] ),
         .I1(\ctrl_reg_n_0_[12] ),
-        .I2(data_o0[14]),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(\op_b_ff[14]_i_4_n_0 ),
-        .O(\ctrl_reg[12]_2 [14]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[12]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[12]));
+  LUT5 #(
+    .INIT(32'hBBB8B8B8)) 
+    \op_b_ff[13]_i_1 
+       (.I0(\op_b_ff_reg[13] ),
+        .I1(\ctrl_reg_n_0_[12] ),
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[13]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[13]));
+  LUT6 #(
+    .INIT(64'h0000000000800000)) 
+    \op_b_ff[13]_i_3 
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg_n_0_[6] ),
+        .I2(\ctrl_reg_n_0_[5] ),
+        .I3(\ctrl_reg[19]_0 [3]),
+        .I4(\ctrl_reg[19]_0 [1]),
+        .I5(\ctrl_reg[19]_0 [2]),
+        .O(\op_b_ff[13]_i_3_n_0 ));
   LUT3 #(
     .INIT(8'hFB)) 
-    \op_b_ff[14]_i_3 
-       (.I0(Q[2]),
-        .I1(Q[1]),
-        .I2(Q[3]),
-        .O(\ctrl_reg[3]_1 ));
-  LUT3 #(
-    .INIT(8'h80)) 
-    \op_b_ff[14]_i_4 
-       (.I0(\ctrl_reg_n_0_[5] ),
-        .I1(\ctrl_reg_n_0_[6] ),
-        .I2(Q[0]),
-        .O(\op_b_ff[14]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
+    \op_b_ff[13]_i_4 
+       (.I0(\ctrl_reg[19]_0 [2]),
+        .I1(\ctrl_reg[19]_0 [1]),
+        .I2(\ctrl_reg[19]_0 [3]),
+        .O(\ctrl_reg[3]_0 ));
+  LUT5 #(
+    .INIT(32'h74FF7400)) 
+    \op_b_ff[14]_i_1 
+       (.I0(\op_b_ff_reg[14] ),
+        .I1(\uart_tx_sreg_reg[1] ),
+        .I2(mem_data_i[14]),
+        .I3(\ctrl_reg_n_0_[12] ),
+        .I4(reg_i[14]),
+        .O(dio_swap_reg_0[14]));
+  LUT5 #(
+    .INIT(32'h74FF7400)) 
     \op_b_ff[15]_i_1 
        (.I0(\op_b_ff_reg[15] ),
-        .I1(\ctrl_reg_n_0_[12] ),
-        .I2(\op_b_ff[15]_i_3_n_0 ),
-        .O(\ctrl_reg[12]_2 [15]));
+        .I1(\uart_tx_sreg_reg[1] ),
+        .I2(mem_data_i[15]),
+        .I3(\ctrl_reg_n_0_[12] ),
+        .I4(\op_b_ff[15]_i_2_n_0 ),
+        .O(dio_swap_reg_0[15]));
   LUT6 #(
     .INIT(64'hFFFFC0020000C002)) 
-    \op_b_ff[15]_i_3 
+    \op_b_ff[15]_i_2 
        (.I0(imem_up_en),
-        .I1(Q[0]),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[15]),
-        .O(\op_b_ff[15]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+        .O(\op_b_ff[15]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT3 #(
     .INIT(8'h8B)) 
     \op_b_ff[1]_i_1 
        (.I0(\op_b_ff_reg[1] ),
         .I1(\ctrl_reg_n_0_[12] ),
         .I2(\op_b_ff[1]_i_3_n_0 ),
-        .O(\ctrl_reg[12]_2 [1]));
+        .O(dio_swap_reg_0[1]));
   LUT6 #(
-    .INIT(64'h000F0F0DF0FFFFFD)) 
+    .INIT(64'h000F0F0BF0FFFFFB)) 
     \op_b_ff[1]_i_3 
-       (.I0(\irq_buf_reg[1]_1 [0]),
-        .I1(\ctrl_reg_n_0_[5] ),
-        .I2(\ctrl_reg[3]_1 ),
+       (.I0(\ctrl_reg_n_0_[5] ),
+        .I1(\irq_buf_reg[1]_1 [0]),
+        .I2(\ctrl_reg[3]_0 ),
         .I3(\ctrl_reg_n_0_[6] ),
-        .I4(Q[0]),
+        .I4(\ctrl_reg[19]_0 [0]),
         .I5(data_o0[1]),
         .O(\op_b_ff[1]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \op_b_ff[2]_i_1 
        (.I0(\op_b_ff_reg[2] ),
         .I1(\ctrl_reg_n_0_[12] ),
         .I2(reg_i[2]),
-        .O(\ctrl_reg[12]_2 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
-  LUT3 #(
-    .INIT(8'h8B)) 
+        .O(dio_swap_reg_0[2]));
+  LUT5 #(
+    .INIT(32'hC500C5FF)) 
     \op_b_ff[3]_i_1 
        (.I0(\op_b_ff_reg[3] ),
-        .I1(\ctrl_reg_n_0_[12] ),
-        .I2(\op_b_ff[3]_i_3_n_0 ),
-        .O(\ctrl_reg[12]_2 [3]));
+        .I1(mem_data_i[11]),
+        .I2(\uart_tx_sreg_reg[1] ),
+        .I3(\ctrl_reg_n_0_[12] ),
+        .I4(\op_b_ff[3]_i_2_n_0 ),
+        .O(dio_swap_reg_0[3]));
   LUT6 #(
     .INIT(64'h00000FFDFFFF0FFD)) 
-    \op_b_ff[3]_i_3 
+    \op_b_ff[3]_i_2 
        (.I0(sreg[2]),
-        .I1(Q[0]),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[3]),
-        .O(\op_b_ff[3]_i_3_n_0 ));
+        .O(\op_b_ff[3]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'h350035FF)) 
     \op_b_ff[4]_i_1 
-       (.I0(\op_b_ff_reg[4] ),
-        .I1(\op_b_ff_reg[4]_0 ),
+       (.I0(\op_b_ff_reg[4]_0 ),
+        .I1(\op_b_ff_reg[4] ),
         .I2(\uart_tx_sreg_reg[1] ),
         .I3(\ctrl_reg_n_0_[12] ),
         .I4(\op_b_ff[4]_i_2_n_0 ),
-        .O(\ctrl_reg[12]_2 [4]));
+        .O(dio_swap_reg_0[4]));
   LUT6 #(
     .INIT(64'h00003FFDFFFF3FFD)) 
     \op_b_ff[4]_i_2 
-       (.I0(\FSM_sequential_state_reg[0]_0 ),
-        .I1(Q[0]),
+       (.I0(\FSM_sequential_state_reg[0]_1 ),
+        .I1(\ctrl_reg[19]_0 [0]),
         .I2(\ctrl_reg_n_0_[6] ),
         .I3(\ctrl_reg_n_0_[5] ),
-        .I4(\ctrl_reg[3]_1 ),
+        .I4(\ctrl_reg[3]_0 ),
         .I5(data_o0[4]),
         .O(\op_b_ff[4]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h47FF4700)) 
+    .INIT(32'hBBB8B8B8)) 
     \op_b_ff[5]_i_1 
        (.I0(\op_b_ff_reg[5] ),
-        .I1(\uart_tx_sreg_reg[1] ),
-        .I2(\op_b_ff_reg[5]_0 ),
-        .I3(\ctrl_reg_n_0_[12] ),
-        .I4(reg_i[5]),
-        .O(\ctrl_reg[12]_2 [5]));
+        .I1(\ctrl_reg_n_0_[12] ),
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[5]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[5]));
   LUT5 #(
-    .INIT(32'hB8BBB888)) 
+    .INIT(32'hBBB8B8B8)) 
     \op_b_ff[6]_i_1 
        (.I0(\op_b_ff_reg[6] ),
         .I1(\ctrl_reg_n_0_[12] ),
-        .I2(data_o0[6]),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(\op_b_ff[14]_i_4_n_0 ),
-        .O(\ctrl_reg[12]_2 [6]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[6]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[6]));
   LUT5 #(
-    .INIT(32'hB8BBB888)) 
+    .INIT(32'hBBB8B8B8)) 
     \op_b_ff[7]_i_1 
        (.I0(\op_b_ff_reg[7]_0 ),
         .I1(\ctrl_reg_n_0_[12] ),
-        .I2(data_o0[7]),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(\op_b_ff[14]_i_4_n_0 ),
-        .O(\ctrl_reg[12]_2 [7]));
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[7]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[7]));
   LUT3 #(
     .INIT(8'hB8)) 
     \op_b_ff[8]_i_1 
        (.I0(\op_b_ff_reg[8] ),
         .I1(\ctrl_reg_n_0_[12] ),
         .I2(reg_i[8]),
-        .O(\ctrl_reg[12]_2 [8]));
+        .O(dio_swap_reg_0[8]));
   LUT5 #(
-    .INIT(32'hB8BBB888)) 
+    .INIT(32'hBBB8B8B8)) 
     \op_b_ff[9]_i_1 
        (.I0(\op_b_ff_reg[9] ),
         .I1(\ctrl_reg_n_0_[12] ),
-        .I2(data_o0[9]),
-        .I3(\ctrl_reg[3]_1 ),
-        .I4(\op_b_ff[14]_i_4_n_0 ),
-        .O(\ctrl_reg[12]_2 [9]));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+        .I2(\op_b_ff[13]_i_3_n_0 ),
+        .I3(data_o0[9]),
+        .I4(\ctrl_reg[3]_0 ),
+        .O(dio_swap_reg_0[9]));
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT3 #(
-    .INIT(8'h01)) 
+    .INIT(8'h02)) 
     \pwm_ch[0][7]_i_1 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
         .I1(\mem_addr_reg_reg[1] ),
         .I2(\pwm_ch[0][7]_i_2_n_0 ),
-        .O(\irq_vec_reg[1]_1 ));
+        .O(\mem_addr_reg_reg[2] ));
   LUT5 #(
-    .INIT(32'hFFF7FFFF)) 
+    .INIT(32'hFFFFFFFE)) 
     \pwm_ch[0][7]_i_2 
-       (.I0(\ctrl_reg[25]_3 ),
-        .I1(\ctrl_reg[25]_2 ),
-        .I2(\ctrl_reg[25]_0 ),
-        .I3(\ctrl_reg[25]_1 ),
-        .I4(\uart_tx_sreg[7]_i_3_n_0 ),
-        .O(\pwm_ch[0][7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
-  LUT5 #(
-    .INIT(32'h00000080)) 
-    \pwm_ch[2][7]_i_1 
-       (.I0(\dout[15]_i_2_n_0 ),
-        .I1(\ctrl_reg[25]_3 ),
+       (.I0(\ctrl[14]_i_2_n_0 ),
+        .I1(\ctrl_reg[25]_0 ),
         .I2(\ctrl_reg[25]_2 ),
-        .I3(\ctrl_reg[25]_0 ),
-        .I4(\ctrl_reg[25]_1 ),
-        .O(\ctrl_reg[25]_7 ));
+        .I3(\data_o[15]_i_3_n_0 ),
+        .I4(\data_o[15]_i_4_n_0 ),
+        .O(\pwm_ch[0][7]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  LUT3 #(
+    .INIT(8'h02)) 
+    \pwm_ch[2][7]_i_1 
+       (.I0(\mem_addr_reg_reg[1] ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\pwm_ch[0][7]_i_2_n_0 ),
+        .O(\mem_addr_reg_reg[1]_0 ));
   LUT5 #(
-    .INIT(32'h00000002)) 
+    .INIT(32'h0000DDD1)) 
     rdata_reg_i_1
-       (.I0(dmem_file_l_reg_i_5_n_0),
-        .I1(dmem_file_l_reg_i_4_n_0),
-        .I2(dmem_file_l_reg_i_6_n_0),
-        .I3(\mem_addr_reg_reg[15] ),
-        .I4(dmem_file_l_reg_i_3_n_0),
-        .O(\ctrl_reg[25]_6 ));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
+       (.I0(imem_file_ram_l_reg_3[11]),
+        .I1(\ctrl_reg_n_0_[24] ),
+        .I2(rden_i_2_n_0),
+        .I3(\ctrl_reg[26]_0 [3]),
+        .I4(rden_i_3_n_0),
+        .O(\mem_addr_reg_reg[11] ));
+  LUT5 #(
+    .INIT(32'h40000000)) 
     rden_i_1
-       (.I0(\mem_addr_reg_reg[15] ),
-        .I1(\cpu_bus[rd_en] ),
-        .O(\ctrl_reg[28]_1 ));
-  LUT6 #(
-    .INIT(64'h1000000000000000)) 
-    rden_i_1__0
        (.I0(dmem_file_l_reg_i_3_n_0),
-        .I1(\mem_addr_reg_reg[15] ),
-        .I2(dmem_file_l_reg_i_4_n_0),
-        .I3(dmem_file_l_reg_i_5_n_0),
-        .I4(dmem_file_l_reg_i_6_n_0),
-        .I5(\cpu_bus[rd_en] ),
-        .O(\ctrl_reg[28]_2 ));
-  LUT6 #(
-    .INIT(64'h0000000200000000)) 
-    rden_i_1__1
-       (.I0(dmem_file_l_reg_i_5_n_0),
         .I1(dmem_file_l_reg_i_4_n_0),
-        .I2(dmem_file_l_reg_i_6_n_0),
-        .I3(\mem_addr_reg_reg[15] ),
-        .I4(dmem_file_l_reg_i_3_n_0),
+        .I2(dmem_file_l_reg_i_5_n_0),
+        .I3(dmem_file_l_reg_i_6_n_0),
+        .I4(\cpu_bus[rd_en] ),
+        .O(\ctrl_reg[28]_1 ));
+  LUT5 #(
+    .INIT(32'h05350000)) 
+    rden_i_1__0
+       (.I0(imem_file_ram_l_reg_3[15]),
+        .I1(\op_b_ff[15]_i_2_n_0 ),
+        .I2(\ctrl_reg_n_0_[24] ),
+        .I3(\ctrl_reg[26]_0 [3]),
+        .I4(\cpu_bus[rd_en] ),
+        .O(\mem_addr_reg_reg[15] ));
+  LUT6 #(
+    .INIT(64'h0000DDD100000000)) 
+    rden_i_1__1
+       (.I0(imem_file_ram_l_reg_3[11]),
+        .I1(\ctrl_reg_n_0_[24] ),
+        .I2(rden_i_2_n_0),
+        .I3(\ctrl_reg[26]_0 [3]),
+        .I4(rden_i_3_n_0),
         .I5(\cpu_bus[rd_en] ),
-        .O(\ctrl_reg[28]_3 ));
+        .O(\mem_addr_reg_reg[11]_0 ));
+  LUT5 #(
+    .INIT(32'h47777777)) 
+    rden_i_2
+       (.I0(data_o0[11]),
+        .I1(\ctrl_reg[3]_0 ),
+        .I2(\ctrl_reg_n_0_[5] ),
+        .I3(\ctrl_reg_n_0_[6] ),
+        .I4(\ctrl_reg[19]_0 [0]),
+        .O(rden_i_2_n_0));
+  LUT6 #(
+    .INIT(64'hFFFEEEEEFFFEFFFF)) 
+    rden_i_3
+       (.I0(dmem_file_l_reg_i_3_n_0),
+        .I1(dmem_file_l_reg_i_6_n_0),
+        .I2(\ctrl_reg[26]_0 [3]),
+        .I3(mem_addr_reg0_carry__2_i_11_n_0),
+        .I4(\ctrl_reg_n_0_[24] ),
+        .I5(imem_file_ram_l_reg_3[12]),
+        .O(rden_i_3_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
     reg_file_reg_0_15_0_0_i_1
@@ -5989,47 +6038,65 @@ module SystemTop_neo430_control
         .I2(addr_add[0]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[0]));
-  MUXF7 reg_file_reg_0_15_0_0_i_2
-       (.I0(reg_file_reg_0_15_0_0_i_4_n_0),
-        .I1(reg_file_reg_0_15_0_0_i_5_n_0),
-        .O(reg_file_reg_0_15_0_0_i_2_n_0),
-        .S(reg_file_reg_0_15_0_0_i_3_n_0));
+  LUT6 #(
+    .INIT(64'hAFA0CFCFAFA0C0C0)) 
+    reg_file_reg_0_15_0_0_i_2
+       (.I0(reg_file_reg_0_15_0_0_i_3_n_7),
+        .I1(\uart_tx_sreg_reg[1]_1 ),
+        .I2(reg_file_reg_0_15_0_0_i_5_n_0),
+        .I3(reg_file_reg_0_15_0_0_i_6_n_0),
+        .I4(reg_file_reg_0_15_0_0_i_7_n_0),
+        .I5(reg_file_reg_0_15_0_0_i_8_n_0),
+        .O(reg_file_reg_0_15_0_0_i_2_n_0));
+  CARRY4 reg_file_reg_0_15_0_0_i_3
+       (.CI(1'b0),
+        .CO({reg_file_reg_0_15_0_0_i_3_n_0,reg_file_reg_0_15_0_0_i_3_n_1,reg_file_reg_0_15_0_0_i_3_n_2,reg_file_reg_0_15_0_0_i_3_n_3}),
+        .CYINIT(Q[0]),
+        .DI({Q[3:1],reg_file_reg_0_15_0_0_i_9_n_0}),
+        .O({reg_file_reg_0_15_0_0_i_3_n_4,reg_file_reg_0_15_0_0_i_3_n_5,reg_file_reg_0_15_0_0_i_3_n_6,reg_file_reg_0_15_0_0_i_3_n_7}),
+        .S(reg_file_reg_0_15_0_0_i_2_0));
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT2 #(
     .INIT(4'h2)) 
-    reg_file_reg_0_15_0_0_i_3
-       (.I0(Q[11]),
-        .I1(Q[10]),
-        .O(reg_file_reg_0_15_0_0_i_3_n_0));
-  LUT6 #(
-    .INIT(64'h8E64FFFF8E640000)) 
-    reg_file_reg_0_15_0_0_i_4
-       (.I0(reg_file_reg_0_15_15_15_i_2_0[0]),
-        .I1(reg_file_reg_0_15_15_15_i_2_1[0]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(reg_file_reg_0_15_3_3_i_4_n_0),
-        .I5(reg_file_reg_0_15_0_0_i_6_n_0),
-        .O(reg_file_reg_0_15_0_0_i_4_n_0));
-  LUT6 #(
-    .INIT(64'hBFBB808880888088)) 
     reg_file_reg_0_15_0_0_i_5
-       (.I0(reg_file_reg_0_15_3_3_i_3_n_7),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[0]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[0]),
+       (.I0(\ctrl_reg[19]_0 [8]),
+        .I1(\ctrl_reg[19]_0 [7]),
         .O(reg_file_reg_0_15_0_0_i_5_n_0));
-  LUT6 #(
-    .INIT(64'hAAA8AAAA0200AAAA)) 
+  LUT4 #(
+    .INIT(16'h94B8)) 
     reg_file_reg_0_15_0_0_i_6
-       (.I0(reg_file_reg_0_15_0_0_i_4_0),
-        .I1(Q[8]),
-        .I2(Q[9]),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[0]),
-        .I4(Q[10]),
-        .I5(reg_file_reg_0_15_3_3_i_3_n_7),
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[0]),
+        .I2(Q[0]),
+        .I3(\ctrl_reg[19]_0 [6]),
         .O(reg_file_reg_0_15_0_0_i_6_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  LUT3 #(
+    .INIT(8'h8A)) 
+    reg_file_reg_0_15_0_0_i_7
+       (.I0(\ctrl_reg[19]_0 [8]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .O(reg_file_reg_0_15_0_0_i_7_n_0));
+  LUT6 #(
+    .INIT(64'hFFFEAAAAAAAEAAAA)) 
+    reg_file_reg_0_15_0_0_i_8
+       (.I0(reg_file_reg_0_15_0_0_i_2_1),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[0]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(\ctrl_reg[19]_0 [7]),
+        .I5(reg_file_reg_0_15_0_0_i_3_n_7),
+        .O(reg_file_reg_0_15_0_0_i_8_n_0));
+  LUT5 #(
+    .INIT(32'h0060FF9F)) 
+    reg_file_reg_0_15_0_0_i_9
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [6]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(\ctrl_reg[19]_0 [8]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[0]),
+        .O(reg_file_reg_0_15_0_0_i_9_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
     reg_file_reg_0_15_10_10_i_1
@@ -6038,44 +6105,43 @@ module SystemTop_neo430_control
         .I2(addr_add[10]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[10]));
-  LUT6 #(
-    .INIT(64'h5454545454545455)) 
+  LUT4 #(
+    .INIT(16'h00B8)) 
     reg_file_reg_0_15_10_10_i_2
-       (.I0(\ctrl_reg[19]_0 ),
-        .I1(reg_file_reg_0_15_10_10_i_3_n_0),
+       (.I0(reg_file_reg_0_15_10_10_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
         .I2(reg_file_reg_0_15_10_10_i_4_n_0),
-        .I3(reg_file_reg_0_15_10_10_i_5_n_0),
-        .I4(\uart_tx_sreg_reg[3] ),
-        .I5(Q[11]),
+        .I3(\ctrl_reg[19]_0 [9]),
         .O(reg_file_reg_0_15_10_10_i_2_n_0));
   LUT6 #(
-    .INIT(64'h8808080000808800)) 
+    .INIT(64'hBBB84B484F4C0300)) 
     reg_file_reg_0_15_10_10_i_3
-       (.I0(Q[10]),
-        .I1(Q[11]),
-        .I2(Q[9]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[10]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[10]),
-        .I5(Q[8]),
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(O[2]),
+        .I4(Q[10]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[10]),
         .O(reg_file_reg_0_15_10_10_i_3_n_0));
   LUT6 #(
-    .INIT(64'h008F000000800000)) 
+    .INIT(64'hAAA8AAAA0200AAAA)) 
     reg_file_reg_0_15_10_10_i_4
-       (.I0(reg_file_reg_0_15_15_15_i_2_1[10]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[10]),
-        .I2(Q[9]),
-        .I3(Q[10]),
-        .I4(Q[11]),
+       (.I0(reg_file_reg_0_15_10_10_i_5_n_0),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_7_7_i_11_0[10]),
+        .I4(\ctrl_reg[19]_0 [7]),
         .I5(O[2]),
         .O(reg_file_reg_0_15_10_10_i_4_n_0));
-  LUT5 #(
-    .INIT(32'h4444404C)) 
+  LUT6 #(
+    .INIT(64'hEEFFFAFFEEAAFAAA)) 
     reg_file_reg_0_15_10_10_i_5
-       (.I0(O[2]),
-        .I1(Q[10]),
-        .I2(Q[8]),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[10]),
-        .I4(Q[9]),
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(reg_file_reg_0_15_7_7_i_11_0[2]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[11]),
         .O(reg_file_reg_0_15_10_10_i_5_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
@@ -6085,46 +6151,46 @@ module SystemTop_neo430_control
         .I2(addr_add[11]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[11]));
-  LUT6 #(
-    .INIT(64'h5454545454545455)) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  LUT5 #(
+    .INIT(32'h0000BF8C)) 
     reg_file_reg_0_15_11_11_i_2
-       (.I0(\ctrl_reg[19]_0 ),
-        .I1(reg_file_reg_0_15_11_11_i_3_n_0),
-        .I2(reg_file_reg_0_15_11_11_i_4_n_0),
-        .I3(reg_file_reg_0_15_11_11_i_5_n_0),
-        .I4(\uart_tx_sreg_reg[4] ),
-        .I5(Q[11]),
+       (.I0(\uart_tx_sreg_reg[4] ),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(reg_file_reg_0_15_11_11_i_4_n_0),
+        .I4(reg_file_reg_0_15_11_11_i_5_n_0),
         .O(reg_file_reg_0_15_11_11_i_2_n_0));
   LUT6 #(
-    .INIT(64'h8808080000808800)) 
-    reg_file_reg_0_15_11_11_i_3
-       (.I0(Q[10]),
-        .I1(Q[11]),
-        .I2(Q[9]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[11]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[11]),
-        .I5(Q[8]),
-        .O(reg_file_reg_0_15_11_11_i_3_n_0));
-  LUT6 #(
-    .INIT(64'h008F000000800000)) 
+    .INIT(64'hAA02AAAAA800AAAA)) 
     reg_file_reg_0_15_11_11_i_4
-       (.I0(reg_file_reg_0_15_15_15_i_2_1[11]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[11]),
-        .I2(Q[9]),
-        .I3(Q[10]),
-        .I4(Q[11]),
-        .I5(O[3]),
+       (.I0(reg_file_reg_0_15_11_11_i_6_n_0),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(O[3]),
+        .I4(\ctrl_reg[19]_0 [7]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[11]),
         .O(reg_file_reg_0_15_11_11_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
-  LUT5 #(
-    .INIT(32'h4444404C)) 
+  LUT6 #(
+    .INIT(64'hBABFBFBFAAAAAAAA)) 
     reg_file_reg_0_15_11_11_i_5
-       (.I0(O[3]),
-        .I1(Q[10]),
-        .I2(Q[8]),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[11]),
-        .I4(Q[9]),
+       (.I0(\ctrl_reg[19]_0 [9]),
+        .I1(O[3]),
+        .I2(reg_file_reg_0_15_0_0_i_7_n_0),
+        .I3(reg_file_reg_0_15_7_7_i_11_0[11]),
+        .I4(Q[11]),
+        .I5(reg_file_reg_0_15_0_0_i_5_n_0),
         .O(reg_file_reg_0_15_11_11_i_5_n_0));
+  LUT6 #(
+    .INIT(64'hEEFFFAFFEEAAFAAA)) 
+    reg_file_reg_0_15_11_11_i_6
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(reg_file_reg_0_15_7_7_i_11_0[3]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[12]),
+        .O(reg_file_reg_0_15_11_11_i_6_n_0));
   LUT4 #(
     .INIT(16'hFFE2)) 
     reg_file_reg_0_15_12_12_i_1
@@ -6134,52 +6200,52 @@ module SystemTop_neo430_control
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[12]));
   LUT4 #(
-    .INIT(16'h000D)) 
+    .INIT(16'h00B8)) 
     reg_file_reg_0_15_12_12_i_2
-       (.I0(Q[11]),
-        .I1(reg_file_reg_0_15_12_12_i_3_n_0),
+       (.I0(reg_file_reg_0_15_12_12_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
         .I2(reg_file_reg_0_15_12_12_i_4_n_0),
-        .I3(reg_file_reg_0_15_12_12_i_5_n_0),
+        .I3(\ctrl_reg[19]_0 [9]),
         .O(reg_file_reg_0_15_12_12_i_2_n_0));
   LUT6 #(
-    .INIT(64'hAFAC50AC50FC000C)) 
+    .INIT(64'hBBB84B484F4C0300)) 
     reg_file_reg_0_15_12_12_i_3
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_2[0]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_1[12]),
-        .I5(reg_file_reg_0_15_15_15_i_2_0[12]),
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_15_15_i_2_0[0]),
+        .I4(Q[12]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[12]),
         .O(reg_file_reg_0_15_12_12_i_3_n_0));
   LUT6 #(
-    .INIT(64'hFABBFFBBAAAAAAAA)) 
+    .INIT(64'hAAA8AAAA0200AAAA)) 
     reg_file_reg_0_15_12_12_i_4
-       (.I0(\ctrl_reg[19]_0 ),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[13]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[4]),
-        .I5(reg_file_reg_0_15_8_8_i_7_n_0),
+       (.I0(reg_file_reg_0_15_12_12_i_6_n_0),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_7_7_i_11_0[12]),
+        .I4(\ctrl_reg[19]_0 [7]),
+        .I5(reg_file_reg_0_15_15_15_i_2_0[0]),
         .O(reg_file_reg_0_15_12_12_i_4_n_0));
   LUT6 #(
-    .INIT(64'h0000333500000000)) 
-    reg_file_reg_0_15_12_12_i_5
-       (.I0(reg_file_reg_0_15_15_15_i_2_0[12]),
-        .I1(reg_file_reg_0_15_15_15_i_2_2[0]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(Q[11]),
-        .I5(Q[10]),
-        .O(reg_file_reg_0_15_12_12_i_5_n_0));
+    .INIT(64'hEEFFFAFFEEAAFAAA)) 
+    reg_file_reg_0_15_12_12_i_6
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(reg_file_reg_0_15_7_7_i_11_0[4]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[13]),
+        .O(reg_file_reg_0_15_12_12_i_6_n_0));
   LUT6 #(
-    .INIT(64'hFF9F00600060FF9F)) 
+    .INIT(64'hFBBF04400440FBBF)) 
     reg_file_reg_0_15_12_12_i_7
-       (.I0(Q[9]),
-        .I1(Q[8]),
-        .I2(Q[10]),
-        .I3(Q[11]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[15]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[15]),
+       (.I0(\ctrl_reg[19]_0 [8]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[15]),
+        .I5(Q[15]),
         .O(S));
   LUT4 #(
     .INIT(16'hFFE2)) 
@@ -6189,102 +6255,145 @@ module SystemTop_neo430_control
         .I2(addr_add[13]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[13]));
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT4 #(
-    .INIT(16'h000D)) 
+    .INIT(16'h00B8)) 
     reg_file_reg_0_15_13_13_i_2
-       (.I0(Q[11]),
-        .I1(reg_file_reg_0_15_13_13_i_3_n_0),
+       (.I0(reg_file_reg_0_15_13_13_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
         .I2(reg_file_reg_0_15_13_13_i_4_n_0),
-        .I3(reg_file_reg_0_15_13_13_i_5_n_0),
+        .I3(\ctrl_reg[19]_0 [9]),
         .O(reg_file_reg_0_15_13_13_i_2_n_0));
   LUT6 #(
-    .INIT(64'hAFAC50AC50FC000C)) 
+    .INIT(64'hBBB84B484F4C0300)) 
     reg_file_reg_0_15_13_13_i_3
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_2[1]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_1[13]),
-        .I5(reg_file_reg_0_15_15_15_i_2_0[13]),
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_15_15_i_2_0[1]),
+        .I4(Q[13]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[13]),
         .O(reg_file_reg_0_15_13_13_i_3_n_0));
   LUT6 #(
-    .INIT(64'hFABBFFBBAAAAAAAA)) 
+    .INIT(64'hAAA8AAAA0200AAAA)) 
     reg_file_reg_0_15_13_13_i_4
-       (.I0(\ctrl_reg[19]_0 ),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[14]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[5]),
-        .I5(reg_file_reg_0_15_8_8_i_7_n_0),
+       (.I0(reg_file_reg_0_15_13_13_i_5_n_0),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_7_7_i_11_0[13]),
+        .I4(\ctrl_reg[19]_0 [7]),
+        .I5(reg_file_reg_0_15_15_15_i_2_0[1]),
         .O(reg_file_reg_0_15_13_13_i_4_n_0));
   LUT6 #(
-    .INIT(64'h0000333500000000)) 
+    .INIT(64'hEFFFEFAFEAFAEAAA)) 
     reg_file_reg_0_15_13_13_i_5
-       (.I0(reg_file_reg_0_15_15_15_i_2_0[13]),
-        .I1(reg_file_reg_0_15_15_15_i_2_2[1]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(Q[11]),
-        .I5(Q[10]),
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[5]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[14]),
         .O(reg_file_reg_0_15_13_13_i_5_n_0));
-  LUT1 #(
-    .INIT(2'h1)) 
+  LUT4 #(
+    .INIT(16'hEFEA)) 
     reg_file_reg_0_15_14_14_i_1
-       (.I0(reg_file_reg_0_15_14_14_i_2_n_0),
+       (.I0(\ctrl_reg_n_0_[11] ),
+        .I1(addr_add[14]),
+        .I2(\ctrl_reg_n_0_[0] ),
+        .I3(reg_file_reg_0_15_14_14_i_2_n_0),
         .O(in_data[14]));
   LUT4 #(
-    .INIT(16'h001D)) 
+    .INIT(16'h00B8)) 
     reg_file_reg_0_15_14_14_i_2
-       (.I0(imem_file_ram_l_reg_3_i_3_n_0),
-        .I1(\ctrl_reg_n_0_[0] ),
-        .I2(addr_add[14]),
-        .I3(\ctrl_reg_n_0_[11] ),
+       (.I0(reg_file_reg_0_15_14_14_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(reg_file_reg_0_15_14_14_i_4_n_0),
+        .I3(\ctrl_reg[19]_0 [9]),
         .O(reg_file_reg_0_15_14_14_i_2_n_0));
+  LUT6 #(
+    .INIT(64'hBBB84B484F4C0300)) 
+    reg_file_reg_0_15_14_14_i_3
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_15_15_i_2_0[2]),
+        .I4(Q[14]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[14]),
+        .O(reg_file_reg_0_15_14_14_i_3_n_0));
+  LUT6 #(
+    .INIT(64'hAA02AAAAA800AAAA)) 
+    reg_file_reg_0_15_14_14_i_4
+       (.I0(reg_file_reg_0_15_14_14_i_5_n_0),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_15_15_i_2_0[2]),
+        .I4(\ctrl_reg[19]_0 [7]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[14]),
+        .O(reg_file_reg_0_15_14_14_i_4_n_0));
+  LUT6 #(
+    .INIT(64'hEFFFEFAFEAFAEAAA)) 
+    reg_file_reg_0_15_14_14_i_5
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[6]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[15]),
+        .O(reg_file_reg_0_15_14_14_i_5_n_0));
   LUT4 #(
-    .INIT(16'hFFC5)) 
+    .INIT(16'hFFCA)) 
     reg_file_reg_0_15_15_15_i_1
        (.I0(reg_file_reg_0_15_15_15_i_2_n_0),
         .I1(addr_add[15]),
         .I2(\ctrl_reg_n_0_[0] ),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[15]));
-  LUT5 #(
-    .INIT(32'hBAAABFAF)) 
+  LUT6 #(
+    .INIT(64'h0000015155550151)) 
     reg_file_reg_0_15_15_15_i_2
-       (.I0(reg_file_reg_0_15_15_15_i_3_n_0),
-        .I1(\thres_reg[15] ),
-        .I2(Q[11]),
-        .I3(Q[10]),
-        .I4(reg_file_reg_0_15_15_15_i_5_n_0),
+       (.I0(\ctrl_reg[19]_0 [9]),
+        .I1(reg_file_reg_0_15_15_15_i_3_n_0),
+        .I2(reg_file_reg_0_15_0_0_i_7_n_0),
+        .I3(reg_file_reg_0_15_15_15_i_4_n_0),
+        .I4(reg_file_reg_0_15_0_0_i_5_n_0),
+        .I5(reg_file_reg_0_15_15_15_i_5_n_0),
         .O(reg_file_reg_0_15_15_15_i_2_n_0));
   LUT6 #(
-    .INIT(64'hAAAEEEAEEEAEEEAE)) 
+    .INIT(64'hFFFFFFFF01FD0000)) 
     reg_file_reg_0_15_15_15_i_3
-       (.I0(\ctrl_reg[19]_0 ),
-        .I1(reg_file_reg_0_15_0_0_i_3_n_0),
-        .I2(reg_file_reg_0_15_15_15_i_2_2[3]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_1[15]),
-        .I5(reg_file_reg_0_15_15_15_i_2_0[15]),
+       (.I0(reg_file_reg_0_15_7_7_i_11_0[15]),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(reg_file_reg_0_15_15_15_i_2_0[3]),
+        .I4(\ctrl_reg[19]_0 [7]),
+        .I5(reg_file_reg_0_15_15_15_i_6_n_0),
         .O(reg_file_reg_0_15_15_15_i_3_n_0));
+  LUT4 #(
+    .INIT(16'h2DB3)) 
+    reg_file_reg_0_15_15_15_i_4
+       (.I0(\ctrl_reg[19]_0 [6]),
+        .I1(Q[15]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(reg_file_reg_0_15_7_7_i_11_0[15]),
+        .O(reg_file_reg_0_15_15_15_i_4_n_0));
   LUT6 #(
-    .INIT(64'hAAA80008AAAAAAAA)) 
+    .INIT(64'h07770707F777F7F7)) 
     reg_file_reg_0_15_15_15_i_5
-       (.I0(reg_file_reg_0_15_15_15_i_6_n_0),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[15]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_2[3]),
-        .I5(Q[10]),
+       (.I0(reg_file_reg_0_15_7_7_i_11_0[15]),
+        .I1(Q[15]),
+        .I2(\ctrl_reg[19]_0 [8]),
+        .I3(\ctrl_reg[19]_0 [7]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(reg_file_reg_0_15_15_15_i_2_0[3]),
         .O(reg_file_reg_0_15_15_15_i_5_n_0));
   LUT6 #(
-    .INIT(64'hEFECEFEFEFECECEC)) 
+    .INIT(64'h1105110011051155)) 
     reg_file_reg_0_15_15_15_i_6
-       (.I0(reg_file_reg_0_15_15_15_i_2_0[7]),
-        .I1(Q[10]),
-        .I2(Q[8]),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[15]),
-        .I4(Q[9]),
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(reg_file_reg_0_15_7_7_i_11_0[15]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(\ctrl_reg[19]_0 [6]),
         .I5(sreg[0]),
         .O(reg_file_reg_0_15_15_15_i_6_n_0));
   LUT4 #(
@@ -6295,48 +6404,34 @@ module SystemTop_neo430_control
         .I2(addr_add[1]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[1]));
-  MUXF7 reg_file_reg_0_15_1_1_i_2
-       (.I0(reg_file_reg_0_15_1_1_i_3_n_0),
-        .I1(reg_file_reg_0_15_1_1_i_4_n_0),
-        .O(reg_file_reg_0_15_1_1_i_2_n_0),
-        .S(reg_file_reg_0_15_0_0_i_3_n_0));
   LUT6 #(
-    .INIT(64'hFBBAAEFAAAAAAAAA)) 
-    reg_file_reg_0_15_1_1_i_3
-       (.I0(reg_file_reg_0_15_1_1_i_5_n_0),
-        .I1(Q[9]),
-        .I2(reg_file_reg_0_15_15_15_i_2_1[1]),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[1]),
-        .I4(Q[8]),
-        .I5(reg_file_reg_0_15_3_3_i_4_n_0),
-        .O(reg_file_reg_0_15_1_1_i_3_n_0));
-  LUT6 #(
-    .INIT(64'hBFBB808880888088)) 
+    .INIT(64'hAFA0CFCFAFA0C0C0)) 
+    reg_file_reg_0_15_1_1_i_2
+       (.I0(reg_file_reg_0_15_0_0_i_3_n_6),
+        .I1(\uart_tx_sreg_reg[2] ),
+        .I2(reg_file_reg_0_15_0_0_i_5_n_0),
+        .I3(reg_file_reg_0_15_1_1_i_4_n_0),
+        .I4(reg_file_reg_0_15_0_0_i_7_n_0),
+        .I5(reg_file_reg_0_15_1_1_i_5_n_0),
+        .O(reg_file_reg_0_15_1_1_i_2_n_0));
+  LUT4 #(
+    .INIT(16'hC760)) 
     reg_file_reg_0_15_1_1_i_4
-       (.I0(reg_file_reg_0_15_3_3_i_3_n_6),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[1]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[1]),
+       (.I0(\ctrl_reg[19]_0 [6]),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(reg_file_reg_0_15_7_7_i_11_0[1]),
+        .I3(Q[1]),
         .O(reg_file_reg_0_15_1_1_i_4_n_0));
   LUT6 #(
-    .INIT(64'h00000000AAA222A2)) 
+    .INIT(64'hAAA80008AAAAAAAA)) 
     reg_file_reg_0_15_1_1_i_5
-       (.I0(reg_file_reg_0_15_1_1_i_3_0),
-        .I1(Q[10]),
-        .I2(reg_file_reg_0_15_3_3_i_3_n_6),
-        .I3(reg_file_reg_0_15_1_1_i_7_n_0),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[1]),
-        .I5(reg_file_reg_0_15_3_3_i_4_n_0),
+       (.I0(reg_file_reg_0_15_1_1_i_2_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[1]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_0_0_i_3_n_6),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(reg_file_reg_0_15_1_1_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    reg_file_reg_0_15_1_1_i_7
-       (.I0(Q[8]),
-        .I1(Q[9]),
-        .O(reg_file_reg_0_15_1_1_i_7_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
     reg_file_reg_0_15_2_2_i_1
@@ -6345,40 +6440,42 @@ module SystemTop_neo430_control
         .I2(addr_add[2]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[2]));
-  MUXF7 reg_file_reg_0_15_2_2_i_2
+  LUT5 #(
+    .INIT(32'hFB3BC808)) 
+    reg_file_reg_0_15_2_2_i_2
        (.I0(reg_file_reg_0_15_2_2_i_3_n_0),
-        .I1(reg_file_reg_0_15_2_2_i_4_n_0),
-        .O(reg_file_reg_0_15_2_2_i_2_n_0),
-        .S(reg_file_reg_0_15_0_0_i_3_n_0));
-  LUT6 #(
-    .INIT(64'hB24AFFFFB24A0000)) 
-    reg_file_reg_0_15_2_2_i_3
-       (.I0(reg_file_reg_0_15_15_15_i_2_1[2]),
-        .I1(Q[9]),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[2]),
-        .I3(Q[8]),
-        .I4(reg_file_reg_0_15_3_3_i_4_n_0),
-        .I5(reg_file_reg_0_15_2_2_i_5_n_0),
-        .O(reg_file_reg_0_15_2_2_i_3_n_0));
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(reg_file_reg_0_15_2_2_i_4_n_0),
+        .I4(reg_file_reg_0_15_2_2_i_5_n_0),
+        .O(reg_file_reg_0_15_2_2_i_2_n_0));
   LUT6 #(
     .INIT(64'hBFBB808880888088)) 
+    reg_file_reg_0_15_2_2_i_3
+       (.I0(reg_file_reg_0_15_0_0_i_3_n_5),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[2]),
+        .I5(Q[2]),
+        .O(reg_file_reg_0_15_2_2_i_3_n_0));
+  LUT4 #(
+    .INIT(16'h94B8)) 
     reg_file_reg_0_15_2_2_i_4
-       (.I0(reg_file_reg_0_15_3_3_i_3_n_5),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[2]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[2]),
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[2]),
+        .I2(Q[2]),
+        .I3(\ctrl_reg[19]_0 [6]),
         .O(reg_file_reg_0_15_2_2_i_4_n_0));
   LUT6 #(
     .INIT(64'hAAA80008AAAAAAAA)) 
     reg_file_reg_0_15_2_2_i_5
-       (.I0(reg_file_reg_0_15_2_2_i_3_0),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[2]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_3_3_i_3_n_5),
-        .I5(Q[10]),
+       (.I0(reg_file_reg_0_15_2_2_i_2_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[2]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_0_0_i_3_n_5),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(reg_file_reg_0_15_2_2_i_5_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
@@ -6388,54 +6485,43 @@ module SystemTop_neo430_control
         .I2(addr_add[3]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[3]));
+  LUT5 #(
+    .INIT(32'hFB3BC808)) 
+    reg_file_reg_0_15_3_3_i_2
+       (.I0(reg_file_reg_0_15_3_3_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(reg_file_reg_0_15_3_3_i_4_n_0),
+        .I4(reg_file_reg_0_15_3_3_i_5_n_0),
+        .O(reg_file_reg_0_15_3_3_i_2_n_0));
+  LUT6 #(
+    .INIT(64'hBFBB808880888088)) 
+    reg_file_reg_0_15_3_3_i_3
+       (.I0(reg_file_reg_0_15_0_0_i_3_n_4),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[3]),
+        .I5(Q[3]),
+        .O(reg_file_reg_0_15_3_3_i_3_n_0));
+  LUT4 #(
+    .INIT(16'h94B8)) 
+    reg_file_reg_0_15_3_3_i_4
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[3]),
+        .I2(Q[3]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .O(reg_file_reg_0_15_3_3_i_4_n_0));
   LUT6 #(
     .INIT(64'hAAA80008AAAAAAAA)) 
-    reg_file_reg_0_15_3_3_i_11
-       (.I0(reg_file_reg_0_15_3_3_i_5_0),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[3]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_3_3_i_3_n_4),
-        .I5(Q[10]),
-        .O(reg_file_reg_0_15_3_3_i_11_n_0));
-  LUT6 #(
-    .INIT(64'hB888FFFFB8880000)) 
-    reg_file_reg_0_15_3_3_i_2
-       (.I0(reg_file_reg_0_15_3_3_i_3_n_4),
-        .I1(reg_file_reg_0_15_3_3_i_4_n_0),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[3]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[3]),
-        .I4(reg_file_reg_0_15_0_0_i_3_n_0),
-        .I5(reg_file_reg_0_15_3_3_i_5_n_0),
-        .O(reg_file_reg_0_15_3_3_i_2_n_0));
-  CARRY4 reg_file_reg_0_15_3_3_i_3
-       (.CI(1'b0),
-        .CO({reg_file_reg_0_15_3_3_i_3_n_0,reg_file_reg_0_15_3_3_i_3_n_1,reg_file_reg_0_15_3_3_i_3_n_2,reg_file_reg_0_15_3_3_i_3_n_3}),
-        .CYINIT(reg_file_reg_0_15_15_15_i_2_1[0]),
-        .DI({reg_file_reg_0_15_15_15_i_2_1[3:1],reg_file_reg_0_15_3_3_i_6_n_0}),
-        .O({reg_file_reg_0_15_3_3_i_3_n_4,reg_file_reg_0_15_3_3_i_3_n_5,reg_file_reg_0_15_3_3_i_3_n_6,reg_file_reg_0_15_3_3_i_3_n_7}),
-        .S(reg_file_reg_0_15_0_0_i_6_0));
-  LUT3 #(
-    .INIT(8'h8A)) 
-    reg_file_reg_0_15_3_3_i_4
-       (.I0(Q[11]),
-        .I1(Q[10]),
-        .I2(Q[9]),
-        .O(reg_file_reg_0_15_3_3_i_4_n_0));
-  MUXF7 reg_file_reg_0_15_3_3_i_5
-       (.I0(reg_file_reg_0_15_3_3_i_11_n_0),
-        .I1(\sreg[1]_i_7_0 ),
-        .O(reg_file_reg_0_15_3_3_i_5_n_0),
-        .S(reg_file_reg_0_15_3_3_i_4_n_0));
-  LUT5 #(
-    .INIT(32'h0440FBBF)) 
-    reg_file_reg_0_15_3_3_i_6
-       (.I0(Q[11]),
-        .I1(Q[10]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[0]),
-        .O(reg_file_reg_0_15_3_3_i_6_n_0));
+    reg_file_reg_0_15_3_3_i_5
+       (.I0(reg_file_reg_0_15_3_3_i_2_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[3]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_0_0_i_3_n_4),
+        .I5(\ctrl_reg[19]_0 [7]),
+        .O(reg_file_reg_0_15_3_3_i_5_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
     reg_file_reg_0_15_4_4_i_1
@@ -6444,46 +6530,43 @@ module SystemTop_neo430_control
         .I2(addr_add[4]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[4]));
+  LUT5 #(
+    .INIT(32'hFB3BC808)) 
+    reg_file_reg_0_15_4_4_i_2
+       (.I0(reg_file_reg_0_15_4_4_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(reg_file_reg_0_15_4_4_i_4_n_0),
+        .I4(reg_file_reg_0_15_4_4_i_5_n_0),
+        .O(reg_file_reg_0_15_4_4_i_2_n_0));
+  LUT6 #(
+    .INIT(64'hBFBB808880888088)) 
+    reg_file_reg_0_15_4_4_i_3
+       (.I0(reg_file_reg_0_15_7_7_i_3_n_7),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[4]),
+        .I5(Q[4]),
+        .O(reg_file_reg_0_15_4_4_i_3_n_0));
   LUT4 #(
     .INIT(16'h94B8)) 
-    reg_file_reg_0_15_4_4_i_10
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[4]),
-        .I2(reg_file_reg_0_15_15_15_i_2_1[4]),
-        .I3(Q[9]),
-        .O(reg_file_reg_0_15_4_4_i_10_n_0));
-  LUT6 #(
-    .INIT(64'hB888FFFFB8880000)) 
-    reg_file_reg_0_15_4_4_i_2
-       (.I0(reg_file_reg_0_15_4_4_i_3_n_7),
-        .I1(reg_file_reg_0_15_3_3_i_4_n_0),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[4]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[4]),
-        .I4(reg_file_reg_0_15_0_0_i_3_n_0),
-        .I5(reg_file_reg_0_15_4_4_i_4_n_0),
-        .O(reg_file_reg_0_15_4_4_i_2_n_0));
-  CARRY4 reg_file_reg_0_15_4_4_i_3
-       (.CI(reg_file_reg_0_15_3_3_i_3_n_0),
-        .CO({reg_file_reg_0_15_4_4_i_3_n_0,reg_file_reg_0_15_4_4_i_3_n_1,reg_file_reg_0_15_4_4_i_3_n_2,reg_file_reg_0_15_4_4_i_3_n_3}),
-        .CYINIT(1'b0),
-        .DI(reg_file_reg_0_15_15_15_i_2_1[7:4]),
-        .O({\op_b_ff_reg[7] ,reg_file_reg_0_15_4_4_i_3_n_5,reg_file_reg_0_15_4_4_i_3_n_6,reg_file_reg_0_15_4_4_i_3_n_7}),
-        .S(reg_file_reg_0_15_4_4_i_2_0));
-  MUXF7 reg_file_reg_0_15_4_4_i_4
-       (.I0(reg_file_reg_0_15_4_4_i_9_n_0),
-        .I1(reg_file_reg_0_15_4_4_i_10_n_0),
-        .O(reg_file_reg_0_15_4_4_i_4_n_0),
-        .S(reg_file_reg_0_15_3_3_i_4_n_0));
+    reg_file_reg_0_15_4_4_i_4
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[4]),
+        .I2(Q[4]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .O(reg_file_reg_0_15_4_4_i_4_n_0));
   LUT6 #(
     .INIT(64'hAAA80008AAAAAAAA)) 
-    reg_file_reg_0_15_4_4_i_9
-       (.I0(reg_file_reg_0_15_4_4_i_4_0),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[4]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_4_4_i_3_n_7),
-        .I5(Q[10]),
-        .O(reg_file_reg_0_15_4_4_i_9_n_0));
+    reg_file_reg_0_15_4_4_i_5
+       (.I0(reg_file_reg_0_15_4_4_i_2_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[4]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_3_n_7),
+        .I5(\ctrl_reg[19]_0 [7]),
+        .O(reg_file_reg_0_15_4_4_i_5_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
     reg_file_reg_0_15_5_5_i_1
@@ -6492,38 +6575,42 @@ module SystemTop_neo430_control
         .I2(addr_add[5]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[5]));
-  LUT6 #(
-    .INIT(64'hB888FFFFB8880000)) 
+  LUT5 #(
+    .INIT(32'hFB3BC808)) 
     reg_file_reg_0_15_5_5_i_2
-       (.I0(reg_file_reg_0_15_4_4_i_3_n_6),
-        .I1(reg_file_reg_0_15_3_3_i_4_n_0),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[5]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[5]),
-        .I4(reg_file_reg_0_15_0_0_i_3_n_0),
-        .I5(reg_file_reg_0_15_5_5_i_3_n_0),
+       (.I0(reg_file_reg_0_15_5_5_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(reg_file_reg_0_15_5_5_i_4_n_0),
+        .I4(reg_file_reg_0_15_5_5_i_5_n_0),
         .O(reg_file_reg_0_15_5_5_i_2_n_0));
-  MUXF7 reg_file_reg_0_15_5_5_i_3
-       (.I0(reg_file_reg_0_15_5_5_i_4_n_0),
-        .I1(reg_file_reg_0_15_5_5_i_5_n_0),
-        .O(reg_file_reg_0_15_5_5_i_3_n_0),
-        .S(reg_file_reg_0_15_3_3_i_4_n_0));
   LUT6 #(
-    .INIT(64'hAAA80008AAAAAAAA)) 
-    reg_file_reg_0_15_5_5_i_4
-       (.I0(reg_file_reg_0_15_5_5_i_3_0),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[5]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_4_4_i_3_n_6),
-        .I5(Q[10]),
-        .O(reg_file_reg_0_15_5_5_i_4_n_0));
+    .INIT(64'hBFBB808880888088)) 
+    reg_file_reg_0_15_5_5_i_3
+       (.I0(reg_file_reg_0_15_7_7_i_3_n_6),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[5]),
+        .I5(Q[5]),
+        .O(reg_file_reg_0_15_5_5_i_3_n_0));
   LUT4 #(
     .INIT(16'h94B8)) 
+    reg_file_reg_0_15_5_5_i_4
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[5]),
+        .I2(Q[5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .O(reg_file_reg_0_15_5_5_i_4_n_0));
+  LUT6 #(
+    .INIT(64'hAAA80008AAAAAAAA)) 
     reg_file_reg_0_15_5_5_i_5
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[5]),
-        .I2(reg_file_reg_0_15_15_15_i_2_1[5]),
-        .I3(Q[9]),
+       (.I0(reg_file_reg_0_15_5_5_i_2_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[5]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_3_n_6),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(reg_file_reg_0_15_5_5_i_5_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
@@ -6533,38 +6620,42 @@ module SystemTop_neo430_control
         .I2(addr_add[6]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[6]));
-  LUT6 #(
-    .INIT(64'hB888FFFFB8880000)) 
+  LUT5 #(
+    .INIT(32'hFB3BC808)) 
     reg_file_reg_0_15_6_6_i_2
-       (.I0(reg_file_reg_0_15_4_4_i_3_n_5),
-        .I1(reg_file_reg_0_15_3_3_i_4_n_0),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[6]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[6]),
-        .I4(reg_file_reg_0_15_0_0_i_3_n_0),
-        .I5(reg_file_reg_0_15_6_6_i_3_n_0),
+       (.I0(reg_file_reg_0_15_6_6_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(reg_file_reg_0_15_6_6_i_4_n_0),
+        .I4(reg_file_reg_0_15_6_6_i_5_n_0),
         .O(reg_file_reg_0_15_6_6_i_2_n_0));
-  MUXF7 reg_file_reg_0_15_6_6_i_3
-       (.I0(reg_file_reg_0_15_6_6_i_4_n_0),
-        .I1(reg_file_reg_0_15_6_6_i_5_n_0),
-        .O(reg_file_reg_0_15_6_6_i_3_n_0),
-        .S(reg_file_reg_0_15_3_3_i_4_n_0));
   LUT6 #(
-    .INIT(64'hAAA80008AAAAAAAA)) 
-    reg_file_reg_0_15_6_6_i_4
-       (.I0(reg_file_reg_0_15_6_6_i_3_0),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[6]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_4_4_i_3_n_5),
-        .I5(Q[10]),
-        .O(reg_file_reg_0_15_6_6_i_4_n_0));
+    .INIT(64'hBFBB808880888088)) 
+    reg_file_reg_0_15_6_6_i_3
+       (.I0(reg_file_reg_0_15_7_7_i_3_n_5),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[6]),
+        .I5(Q[6]),
+        .O(reg_file_reg_0_15_6_6_i_3_n_0));
   LUT4 #(
     .INIT(16'h94B8)) 
+    reg_file_reg_0_15_6_6_i_4
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[6]),
+        .I2(Q[6]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .O(reg_file_reg_0_15_6_6_i_4_n_0));
+  LUT6 #(
+    .INIT(64'hAAA80008AAAAAAAA)) 
     reg_file_reg_0_15_6_6_i_5
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[6]),
-        .I2(reg_file_reg_0_15_15_15_i_2_1[6]),
-        .I3(Q[9]),
+       (.I0(reg_file_reg_0_15_6_6_i_2_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[6]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(reg_file_reg_0_15_7_7_i_3_n_5),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(reg_file_reg_0_15_6_6_i_5_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
@@ -6574,72 +6665,63 @@ module SystemTop_neo430_control
         .I2(addr_add[7]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[7]));
-  LUT4 #(
-    .INIT(16'hBBBA)) 
+  LUT6 #(
+    .INIT(64'hFFFFFFFF00004E44)) 
+    reg_file_reg_0_15_7_7_i_11
+       (.I0(\ctrl_reg[19]_0 [9]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[8]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(sreg[0]),
+        .I4(\ctrl_reg[19]_0 [5]),
+        .I5(reg_file_reg_0_15_7_7_i_12_n_0),
+        .O(reg_file_reg_0_15_7_7_i_11_n_0));
+  LUT6 #(
+    .INIT(64'hFEAAEEEEFEAA2222)) 
+    reg_file_reg_0_15_7_7_i_12
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(\ctrl_reg[19]_0 [5]),
+        .I2(\ctrl_reg[19]_0 [9]),
+        .I3(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[15]),
+        .O(reg_file_reg_0_15_7_7_i_12_n_0));
+  LUT6 #(
+    .INIT(64'hAFA0CFCFAFA0C0C0)) 
     reg_file_reg_0_15_7_7_i_2
-       (.I0(reg_file_reg_0_15_7_7_i_3_n_0),
-        .I1(reg_file_reg_0_15_7_7_i_4_n_0),
-        .I2(reg_file_reg_0_15_7_7_i_5_n_0),
-        .I3(reg_file_reg_0_15_7_7_i_6_n_0),
-        .O(reg_file_reg_0_15_7_7_i_2_n_0));
-  LUT6 #(
-    .INIT(64'h0C08000800080008)) 
-    reg_file_reg_0_15_7_7_i_3
        (.I0(\op_b_ff_reg[7] ),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_1[7]),
-        .I5(reg_file_reg_0_15_15_15_i_2_0[7]),
-        .O(reg_file_reg_0_15_7_7_i_3_n_0));
+        .I1(\ctrl_reg[7]_1 ),
+        .I2(reg_file_reg_0_15_0_0_i_5_n_0),
+        .I3(\ctrl_reg[7]_2 ),
+        .I4(reg_file_reg_0_15_0_0_i_7_n_0),
+        .I5(reg_file_reg_0_15_7_7_i_6_n_0),
+        .O(reg_file_reg_0_15_7_7_i_2_n_0));
+  CARRY4 reg_file_reg_0_15_7_7_i_3
+       (.CI(reg_file_reg_0_15_0_0_i_3_n_0),
+        .CO({reg_file_reg_0_15_7_7_i_3_n_0,reg_file_reg_0_15_7_7_i_3_n_1,reg_file_reg_0_15_7_7_i_3_n_2,reg_file_reg_0_15_7_7_i_3_n_3}),
+        .CYINIT(1'b0),
+        .DI(Q[7:4]),
+        .O({\op_b_ff_reg[7] ,reg_file_reg_0_15_7_7_i_3_n_5,reg_file_reg_0_15_7_7_i_3_n_6,reg_file_reg_0_15_7_7_i_3_n_7}),
+        .S({reg_file_reg_0_15_7_7_i_7_n_0,reg_file_reg_0_15_4_4_i_5_0}));
   LUT6 #(
-    .INIT(64'h6B47FFFF00000000)) 
-    reg_file_reg_0_15_7_7_i_4
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[7]),
-        .I2(reg_file_reg_0_15_15_15_i_2_1[7]),
-        .I3(Q[9]),
-        .I4(Q[10]),
-        .I5(Q[11]),
-        .O(reg_file_reg_0_15_7_7_i_4_n_0));
-  LUT4 #(
-    .INIT(16'hA222)) 
-    reg_file_reg_0_15_7_7_i_5
-       (.I0(reg_file_reg_0_15_7_7_i_7_n_0),
-        .I1(Q[10]),
-        .I2(\op_b_ff_reg[7] ),
-        .I3(Q[9]),
-        .O(reg_file_reg_0_15_7_7_i_5_n_0));
-  LUT6 #(
-    .INIT(64'hAAAA0000EFEAAAAA)) 
+    .INIT(64'h8888AAAACFC0AAAA)) 
     reg_file_reg_0_15_7_7_i_6
-       (.I0(Q[11]),
+       (.I0(reg_file_reg_0_15_7_7_i_11_n_0),
         .I1(\op_b_ff_reg[7] ),
-        .I2(Q[8]),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[7]),
-        .I4(Q[10]),
-        .I5(Q[9]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I4(\ctrl_reg[19]_0 [7]),
+        .I5(\ctrl_reg[19]_0 [6]),
         .O(reg_file_reg_0_15_7_7_i_6_n_0));
   LUT6 #(
-    .INIT(64'hFFEEFAEEEFEEEAEE)) 
+    .INIT(64'hFBBF04400440FBBF)) 
     reg_file_reg_0_15_7_7_i_7
-       (.I0(reg_file_reg_0_15_7_7_i_8_n_0),
-        .I1(Q[10]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[15]),
-        .I5(reg_file_reg_0_15_15_15_i_2_0[7]),
+       (.I0(\ctrl_reg[19]_0 [8]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I5(Q[7]),
         .O(reg_file_reg_0_15_7_7_i_7_n_0));
-  LUT6 #(
-    .INIT(64'h00000000B8FFB800)) 
-    reg_file_reg_0_15_7_7_i_8
-       (.I0(reg_file_reg_0_15_15_15_i_2_0[7]),
-        .I1(Q[9]),
-        .I2(sreg[0]),
-        .I3(\ctrl_reg[19]_0 ),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[8]),
-        .I5(Q[8]),
-        .O(reg_file_reg_0_15_7_7_i_8_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
     reg_file_reg_0_15_8_8_i_1
@@ -6648,64 +6730,44 @@ module SystemTop_neo430_control
         .I2(addr_add[8]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[8]));
-  LUT5 #(
-    .INIT(32'h000000F2)) 
+  LUT4 #(
+    .INIT(16'h00B8)) 
     reg_file_reg_0_15_8_8_i_2
        (.I0(reg_file_reg_0_15_8_8_i_3_n_0),
-        .I1(reg_file_reg_0_15_8_8_i_4_n_0),
-        .I2(reg_file_reg_0_15_8_8_i_5_n_0),
-        .I3(reg_file_reg_0_15_8_8_i_6_n_0),
-        .I4(\ctrl_reg[19]_0 ),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(reg_file_reg_0_15_8_8_i_4_n_0),
+        .I3(\ctrl_reg[19]_0 [9]),
         .O(reg_file_reg_0_15_8_8_i_2_n_0));
-  LUT5 #(
-    .INIT(32'h5FDF55D5)) 
+  LUT6 #(
+    .INIT(64'hAF637303AC607000)) 
     reg_file_reg_0_15_8_8_i_3
-       (.I0(reg_file_reg_0_15_8_8_i_7_n_0),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[0]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[9]),
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [6]),
+        .I2(\ctrl_reg[19]_0 [7]),
+        .I3(Q[8]),
+        .I4(reg_file_reg_0_15_7_7_i_11_0[8]),
+        .I5(O[0]),
         .O(reg_file_reg_0_15_8_8_i_3_n_0));
   LUT6 #(
-    .INIT(64'hAAABFFFB00000000)) 
+    .INIT(64'hAAA80008AAAAAAAA)) 
     reg_file_reg_0_15_8_8_i_4
-       (.I0(Q[11]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[8]),
-        .I2(Q[8]),
-        .I3(Q[9]),
+       (.I0(reg_file_reg_0_15_8_8_i_6_n_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[8]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
         .I4(O[0]),
-        .I5(Q[10]),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(reg_file_reg_0_15_8_8_i_4_n_0));
   LUT6 #(
-    .INIT(64'hD05050000080D000)) 
-    reg_file_reg_0_15_8_8_i_5
-       (.I0(Q[9]),
-        .I1(Q[10]),
-        .I2(Q[11]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[8]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[8]),
-        .I5(Q[8]),
-        .O(reg_file_reg_0_15_8_8_i_5_n_0));
-  LUT6 #(
-    .INIT(64'h0004440444044404)) 
+    .INIT(64'hEEFFFAFFEEAAFAAA)) 
     reg_file_reg_0_15_8_8_i_6
-       (.I0(Q[10]),
-        .I1(Q[11]),
-        .I2(O[0]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_1[8]),
-        .I5(reg_file_reg_0_15_15_15_i_2_0[8]),
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(reg_file_reg_0_15_7_7_i_11_0[0]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[9]),
         .O(reg_file_reg_0_15_8_8_i_6_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
-  LUT5 #(
-    .INIT(32'h0000007F)) 
-    reg_file_reg_0_15_8_8_i_7
-       (.I0(Q[8]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[7]),
-        .I2(Q[9]),
-        .I3(Q[10]),
-        .I4(Q[11]),
-        .O(reg_file_reg_0_15_8_8_i_7_n_0));
   LUT4 #(
     .INIT(16'h00E2)) 
     reg_file_reg_0_15_9_9_i_1
@@ -6714,64 +6776,62 @@ module SystemTop_neo430_control
         .I2(addr_add[9]),
         .I3(\ctrl_reg_n_0_[11] ),
         .O(in_data[9]));
-  LUT6 #(
-    .INIT(64'h5454545454545455)) 
+  LUT4 #(
+    .INIT(16'h00B8)) 
     reg_file_reg_0_15_9_9_i_2
-       (.I0(\ctrl_reg[19]_0 ),
-        .I1(reg_file_reg_0_15_9_9_i_3_n_0),
+       (.I0(reg_file_reg_0_15_9_9_i_3_n_0),
+        .I1(\ctrl_reg[19]_0 [8]),
         .I2(reg_file_reg_0_15_9_9_i_4_n_0),
-        .I3(reg_file_reg_0_15_9_9_i_5_n_0),
-        .I4(\uart_tx_sreg_reg[2] ),
-        .I5(Q[11]),
+        .I3(\ctrl_reg[19]_0 [9]),
         .O(reg_file_reg_0_15_9_9_i_2_n_0));
   LUT6 #(
-    .INIT(64'h8808080000808800)) 
+    .INIT(64'hBBB84B484F4C0300)) 
     reg_file_reg_0_15_9_9_i_3
-       (.I0(Q[10]),
-        .I1(Q[11]),
-        .I2(Q[9]),
-        .I3(reg_file_reg_0_15_15_15_i_2_1[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[9]),
-        .I5(Q[8]),
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(O[1]),
+        .I4(Q[9]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[9]),
         .O(reg_file_reg_0_15_9_9_i_3_n_0));
   LUT6 #(
-    .INIT(64'h008F000000800000)) 
+    .INIT(64'hAAA80008AAAAAAAA)) 
     reg_file_reg_0_15_9_9_i_4
-       (.I0(reg_file_reg_0_15_15_15_i_2_1[9]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[9]),
-        .I2(Q[9]),
-        .I3(Q[10]),
-        .I4(Q[11]),
-        .I5(O[1]),
+       (.I0(reg_file_reg_0_15_9_9_i_5_n_0),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[9]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(O[1]),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(reg_file_reg_0_15_9_9_i_4_n_0));
-  LUT5 #(
-    .INIT(32'h4444440C)) 
+  LUT6 #(
+    .INIT(64'hEEFFFAFFEEAAFAAA)) 
     reg_file_reg_0_15_9_9_i_5
-       (.I0(O[1]),
-        .I1(Q[10]),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[9]),
-        .I3(Q[9]),
-        .I4(Q[8]),
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(reg_file_reg_0_15_7_7_i_11_0[7]),
+        .I2(reg_file_reg_0_15_7_7_i_11_0[1]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[10]),
         .O(reg_file_reg_0_15_9_9_i_5_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFF2FF00000200)) 
+  LUT5 #(
+    .INIT(32'h04FF0400)) 
     \sam[0]_i_1 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
-        .I1(\op_b_ff_reg[4] ),
-        .I2(state[2]),
+       (.I0(state[4]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I2(\op_b_ff_reg[4]_0 ),
         .I3(\FSM_sequential_state[4]_i_4_n_0 ),
-        .I4(state[4]),
-        .I5(sam[0]),
+        .I4(sam[0]),
         .O(\sam[0]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFF2FF00000200)) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  LUT5 #(
+    .INIT(32'h04FF0400)) 
     \sam[1]_i_1 
-       (.I0(\FSM_sequential_state_reg[3]_0 [2]),
-        .I1(\op_b_ff_reg[5]_0 ),
-        .I2(state[2]),
+       (.I0(state[4]),
+        .I1(\FSM_sequential_state_reg[3]_0 [1]),
+        .I2(\sam_reg[1]_0 ),
         .I3(\FSM_sequential_state[4]_i_4_n_0 ),
-        .I4(state[4]),
-        .I5(sam[1]),
+        .I4(sam[1]),
         .O(\sam[1]_i_1_n_0 ));
   FDRE \sam_reg[0] 
        (.C(clk_i),
@@ -6785,417 +6845,269 @@ module SystemTop_neo430_control
         .D(\sam[1]_i_1_n_0 ),
         .Q(sam[1]),
         .R(1'b0));
-  LUT3 #(
-    .INIT(8'hA8)) 
-    \src[3]_i_1 
-       (.I0(\ir[15]_i_1_n_0 ),
-        .I1(\am_reg[0]_0 ),
-        .I2(\am_reg[3]_0 [3]),
-        .O(src_nxt));
   FDRE \src_reg[0] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\src_reg[3]_0 [0]),
         .Q(src[0]),
         .R(1'b0));
   FDRE \src_reg[1] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\src_reg[3]_0 [1]),
         .Q(src[1]),
         .R(1'b0));
   FDRE \src_reg[2] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\src_reg[3]_0 [2]),
         .Q(src[2]),
         .R(1'b0));
   FDRE \src_reg[3] 
        (.C(clk_i),
-        .CE(src_nxt),
+        .CE(\am_reg[0]_0 ),
         .D(\src_reg[3]_0 [3]),
         .Q(src[3]),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h88888888AA8AAAAA)) 
+    .INIT(64'hB8B8B8B8B8BBBBBB)) 
     \sreg[0]_i_1 
-       (.I0(\sreg[0]_i_2_n_0 ),
-        .I1(\sreg[0]_i_3_n_0 ),
-        .I2(\sreg[1]_i_2_n_0 ),
-        .I3(\sreg[1]_i_3_n_0 ),
-        .I4(\sreg[0]_i_4_n_0 ),
-        .I5(\sreg[0]_i_5_n_0 ),
-        .O(\ctrl_reg[1]_1 [0]));
-  LUT5 #(
-    .INIT(32'h4540FFFF)) 
+       (.I0(in_data[0]),
+        .I1(\sreg[8]_i_3_n_0 ),
+        .I2(\sreg[0]_i_2_n_0 ),
+        .I3(\sreg[1]_i_2_n_0 ),
+        .I4(\sreg[0]_i_3_n_0 ),
+        .I5(\sreg[0]_i_4_n_0 ),
+        .O(\ctrl_reg[1]_3 [0]));
+  LUT6 #(
+    .INIT(64'h0082038B00820088)) 
     \sreg[0]_i_2 
-       (.I0(\ctrl_reg_n_0_[11] ),
-        .I1(addr_add[0]),
-        .I2(\ctrl_reg_n_0_[0] ),
-        .I3(reg_file_reg_0_15_0_0_i_2_n_0),
-        .I4(\sreg[8]_i_3_n_0 ),
+       (.I0(sreg[0]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [8]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .I4(\ctrl_reg[19]_0 [5]),
+        .I5(reg_file_reg_0_15_7_7_i_11_0[0]),
         .O(\sreg[0]_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'hEFEAAAAA)) 
-    \sreg[0]_i_3 
-       (.I0(\sreg[8]_i_3_n_0 ),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[0]),
-        .I2(\sreg[0]_i_4_n_0 ),
-        .I3(sreg[0]),
-        .I4(\sreg[0]_i_6_n_0 ),
-        .O(\sreg[0]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT4 #(
-    .INIT(16'hF501)) 
-    \sreg[0]_i_4 
-       (.I0(Q[10]),
-        .I1(Q[8]),
-        .I2(Q[11]),
-        .I3(Q[9]),
-        .O(\sreg[0]_i_4_n_0 ));
+    .INIT(16'hC0CD)) 
+    \sreg[0]_i_3 
+       (.I0(\ctrl_reg[19]_0 [5]),
+        .I1(\ctrl_reg[19]_0 [6]),
+        .I2(\ctrl_reg[19]_0 [8]),
+        .I3(\ctrl_reg[19]_0 [7]),
+        .O(\sreg[0]_i_3_n_0 ));
   LUT5 #(
     .INIT(32'hAAAABABF)) 
-    \sreg[0]_i_5 
-       (.I0(\sreg[0]_i_6_n_0 ),
+    \sreg[0]_i_4 
+       (.I0(\sreg[0]_i_5_n_0 ),
         .I1(CO),
-        .I2(\ctrl_reg[19]_0 ),
+        .I2(\ctrl_reg[19]_0 [9]),
         .I3(\sreg_reg[0] ),
-        .I4(\sreg[0]_i_4_n_0 ),
-        .O(\sreg[0]_i_5_n_0 ));
+        .I4(\sreg[0]_i_3_n_0 ),
+        .O(\sreg[0]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT4 #(
     .INIT(16'h019D)) 
-    \sreg[0]_i_6 
-       (.I0(Q[11]),
-        .I1(Q[10]),
-        .I2(Q[8]),
-        .I3(Q[9]),
-        .O(\sreg[0]_i_6_n_0 ));
+    \sreg[0]_i_5 
+       (.I0(\ctrl_reg[19]_0 [8]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [5]),
+        .I3(\ctrl_reg[19]_0 [6]),
+        .O(\sreg[0]_i_5_n_0 ));
   LUT6 #(
     .INIT(64'h0000000000000400)) 
     \sreg[14]_i_1 
-       (.I0(Q[0]),
-        .I1(Q[4]),
-        .I2(Q[2]),
-        .I3(Q[1]),
-        .I4(Q[3]),
-        .I5(reg_file_reg_0_15_14_14_i_2_n_0),
-        .O(\ctrl_reg[1]_1 [4]));
-  LUT6 #(
-    .INIT(64'hB888B888B8BBB888)) 
+       (.I0(\ctrl_reg[19]_0 [0]),
+        .I1(\ctrl_reg[19]_0 [4]),
+        .I2(\ctrl_reg[19]_0 [2]),
+        .I3(\ctrl_reg[19]_0 [1]),
+        .I4(\ctrl_reg[19]_0 [3]),
+        .I5(\sreg[14]_i_2_n_0 ),
+        .O(\ctrl_reg[1]_3 [4]));
+  LUT4 #(
+    .INIT(16'h001D)) 
+    \sreg[14]_i_2 
+       (.I0(reg_file_reg_0_15_14_14_i_2_n_0),
+        .I1(\ctrl_reg_n_0_[0] ),
+        .I2(addr_add[14]),
+        .I3(\ctrl_reg_n_0_[11] ),
+        .O(\sreg[14]_i_2_n_0 ));
+  LUT5 #(
+    .INIT(32'hB8BBB888)) 
     \sreg[1]_i_1 
        (.I0(in_data[1]),
         .I1(\sreg[8]_i_3_n_0 ),
         .I2(\irq_buf_reg[1]_1 [0]),
         .I3(\sreg[8]_i_5_n_0 ),
         .I4(\sreg[1]_i_2_n_0 ),
-        .I5(\sreg[1]_i_3_n_0 ),
-        .O(\ctrl_reg[1]_1 [1]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF0100FB00)) 
-    \sreg[1]_i_10 
-       (.I0(Q[9]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[11]),
-        .I2(Q[8]),
-        .I3(Q[10]),
-        .I4(O[3]),
-        .I5(\sreg[1]_i_16_n_0 ),
-        .O(\sreg[1]_i_10_n_0 ));
-  LUT6 #(
-    .INIT(64'hEFEAEAEAAAAAAAAA)) 
-    \sreg[1]_i_11 
-       (.I0(reg_file_reg_0_15_11_11_i_3_n_0),
-        .I1(O[3]),
-        .I2(reg_file_reg_0_15_3_3_i_4_n_0),
-        .I3(reg_file_reg_0_15_15_15_i_2_0[11]),
-        .I4(reg_file_reg_0_15_15_15_i_2_1[11]),
-        .I5(reg_file_reg_0_15_0_0_i_3_n_0),
-        .O(\sreg[1]_i_11_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFBB808880888088)) 
-    \sreg[1]_i_12 
-       (.I0(reg_file_reg_0_15_4_4_i_3_n_5),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[6]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[6]),
-        .O(\sreg[1]_i_12_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFBB808880888088)) 
-    \sreg[1]_i_13 
-       (.I0(reg_file_reg_0_15_4_4_i_3_n_6),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[5]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[5]),
-        .O(\sreg[1]_i_13_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFBB808880888088)) 
-    \sreg[1]_i_14 
-       (.I0(reg_file_reg_0_15_4_4_i_3_n_7),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[4]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[4]),
-        .O(\sreg[1]_i_14_n_0 ));
-  LUT6 #(
-    .INIT(64'hBFBB808880888088)) 
-    \sreg[1]_i_15 
-       (.I0(reg_file_reg_0_15_3_3_i_3_n_4),
-        .I1(Q[11]),
-        .I2(Q[10]),
-        .I3(Q[9]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[3]),
-        .I5(reg_file_reg_0_15_15_15_i_2_1[3]),
-        .O(\sreg[1]_i_15_n_0 ));
-  LUT6 #(
-    .INIT(64'hFABBFFBBAAAAAAAA)) 
-    \sreg[1]_i_16 
-       (.I0(Q[11]),
-        .I1(reg_file_reg_0_15_15_15_i_2_0[12]),
-        .I2(Q[9]),
-        .I3(Q[8]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[3]),
-        .I5(\sreg[1]_i_17_n_0 ),
-        .O(\sreg[1]_i_16_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+        .O(\ctrl_reg[1]_3 [1]));
   LUT4 #(
-    .INIT(16'h1555)) 
-    \sreg[1]_i_17 
-       (.I0(Q[10]),
-        .I1(Q[8]),
-        .I2(reg_file_reg_0_15_15_15_i_2_0[7]),
-        .I3(Q[9]),
-        .O(\sreg[1]_i_17_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000004)) 
+    .INIT(16'h0001)) 
     \sreg[1]_i_2 
-       (.I0(\sreg[1]_i_4_n_0 ),
-        .I1(reg_file_reg_0_15_15_15_i_2_n_0),
-        .I2(reg_file_reg_0_15_0_0_i_2_n_0),
-        .I3(\sreg[1]_i_5_n_0 ),
-        .I4(reg_file_reg_0_15_10_10_i_2_n_0),
-        .I5(reg_file_reg_0_15_9_9_i_2_n_0),
+       (.I0(\sreg[1]_i_3_n_0 ),
+        .I1(\sreg[1]_i_4_n_0 ),
+        .I2(\sreg[1]_i_5_n_0 ),
+        .I3(\sreg[1]_i_6_n_0 ),
         .O(\sreg[1]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \sreg[1]_i_3 
-       (.I0(\sreg[1]_i_6_n_0 ),
-        .I1(reg_file_reg_0_15_8_8_i_2_n_0),
-        .I2(reg_file_reg_0_15_7_7_i_2_n_0),
-        .I3(reg_file_reg_0_15_2_2_i_2_n_0),
-        .I4(reg_file_reg_0_15_1_1_i_2_n_0),
-        .I5(\sreg[1]_i_7_n_0 ),
+       (.I0(reg_file_reg_0_15_7_7_i_2_n_0),
+        .I1(reg_file_reg_0_15_9_9_i_2_n_0),
+        .I2(reg_file_reg_0_15_1_1_i_2_n_0),
+        .I3(reg_file_reg_0_15_11_11_i_2_n_0),
         .O(\sreg[1]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h10FF101011FF11FF)) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \sreg[1]_i_4 
-       (.I0(imem_file_ram_l_reg_3_i_6_n_0),
-        .I1(imem_file_ram_l_reg_3_i_5_n_0),
-        .I2(imem_file_ram_l_reg_3_i_4_n_0),
-        .I3(\sreg[1]_i_8_n_0 ),
-        .I4(reg_file_reg_0_15_13_13_i_3_n_0),
-        .I5(Q[11]),
+       (.I0(reg_file_reg_0_15_15_15_i_2_n_0),
+        .I1(reg_file_reg_0_15_10_10_i_2_n_0),
+        .I2(reg_file_reg_0_15_3_3_i_2_n_0),
+        .I3(reg_file_reg_0_15_12_12_i_2_n_0),
         .O(\sreg[1]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h45454545FFFF45FF)) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \sreg[1]_i_5 
-       (.I0(\sreg[1]_i_9_n_0 ),
-        .I1(reg_file_reg_0_15_12_12_i_3_n_0),
-        .I2(Q[11]),
-        .I3(\sreg[1]_i_10_n_0 ),
-        .I4(\sreg[1]_i_11_n_0 ),
-        .I5(\ctrl_reg[19]_0 ),
+       (.I0(reg_file_reg_0_15_0_0_i_2_n_0),
+        .I1(reg_file_reg_0_15_13_13_i_2_n_0),
+        .I2(reg_file_reg_0_15_5_5_i_2_n_0),
+        .I3(reg_file_reg_0_15_14_14_i_2_n_0),
         .O(\sreg[1]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hFAFFFAFAFACCFAFA)) 
+  LUT4 #(
+    .INIT(16'hFFFE)) 
     \sreg[1]_i_6 
-       (.I0(reg_file_reg_0_15_6_6_i_3_n_0),
-        .I1(\sreg[1]_i_12_n_0 ),
-        .I2(reg_file_reg_0_15_5_5_i_3_n_0),
-        .I3(Q[10]),
-        .I4(Q[11]),
-        .I5(\sreg[1]_i_13_n_0 ),
+       (.I0(reg_file_reg_0_15_4_4_i_2_n_0),
+        .I1(reg_file_reg_0_15_8_8_i_2_n_0),
+        .I2(reg_file_reg_0_15_2_2_i_2_n_0),
+        .I3(reg_file_reg_0_15_6_6_i_2_n_0),
         .O(\sreg[1]_i_6_n_0 ));
   LUT6 #(
-    .INIT(64'hFAFFFAFAFACCFAFA)) 
-    \sreg[1]_i_7 
-       (.I0(reg_file_reg_0_15_4_4_i_4_n_0),
-        .I1(\sreg[1]_i_14_n_0 ),
-        .I2(reg_file_reg_0_15_3_3_i_5_n_0),
-        .I3(Q[10]),
-        .I4(Q[11]),
-        .I5(\sreg[1]_i_15_n_0 ),
-        .O(\sreg[1]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF00022022)) 
-    \sreg[1]_i_8 
-       (.I0(Q[10]),
-        .I1(Q[11]),
-        .I2(reg_file_reg_0_15_1_1_i_7_n_0),
-        .I3(reg_file_reg_0_15_15_15_i_2_2[1]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[13]),
-        .I5(reg_file_reg_0_15_13_13_i_4_n_0),
-        .O(\sreg[1]_i_8_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF00022022)) 
-    \sreg[1]_i_9 
-       (.I0(Q[10]),
-        .I1(Q[11]),
-        .I2(reg_file_reg_0_15_1_1_i_7_n_0),
-        .I3(reg_file_reg_0_15_15_15_i_2_2[0]),
-        .I4(reg_file_reg_0_15_15_15_i_2_0[12]),
-        .I5(reg_file_reg_0_15_12_12_i_4_n_0),
-        .O(\sreg[1]_i_9_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFEF0020)) 
+    .INIT(64'hB8BBB8BBB8BBB888)) 
     \sreg[2]_i_1 
        (.I0(in_data[2]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(Q[4]),
-        .I3(Q[0]),
+        .I1(\sreg[8]_i_3_n_0 ),
+        .I2(sreg[1]),
+        .I3(\sreg[8]_i_5_n_0 ),
         .I4(\sreg[2]_i_2_n_0 ),
-        .O(\ctrl_reg[1]_1 [2]));
-  LUT5 #(
-    .INIT(32'hFF00D5D5)) 
+        .I5(reg_file_reg_0_15_15_15_i_2_n_0),
+        .O(\ctrl_reg[1]_3 [2]));
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \sreg[2]_i_2 
-       (.I0(reg_file_reg_0_15_15_15_i_2_n_0),
-        .I1(reg_file_reg_0_15_7_7_i_2_n_0),
-        .I2(\ctrl_reg[19]_0 ),
-        .I3(sreg[1]),
-        .I4(\sreg[8]_i_5_n_0 ),
+       (.I0(reg_file_reg_0_15_7_7_i_2_n_0),
+        .I1(\ctrl_reg[19]_0 [9]),
         .O(\sreg[2]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hAAAAAAAAAABAAAAA)) 
     \sreg[8]_i_1 
        (.I0(\ctrl_reg_n_0_[7] ),
-        .I1(Q[0]),
-        .I2(Q[4]),
-        .I3(Q[2]),
-        .I4(Q[1]),
-        .I5(Q[3]),
+        .I1(\ctrl_reg[19]_0 [0]),
+        .I2(\ctrl_reg[19]_0 [4]),
+        .I3(\ctrl_reg[19]_0 [2]),
+        .I4(\ctrl_reg[19]_0 [1]),
+        .I5(\ctrl_reg[19]_0 [3]),
         .O(\ctrl_reg[7]_0 ));
   LUT5 #(
-    .INIT(32'hBB8B8B8B)) 
+    .INIT(32'hBBB8B8B8)) 
     \sreg[8]_i_2 
        (.I0(in_data[8]),
         .I1(\sreg[8]_i_3_n_0 ),
         .I2(\sreg[8]_i_4_n_0 ),
         .I3(\sreg[8]_i_5_n_0 ),
         .I4(sreg[3]),
-        .O(\ctrl_reg[1]_1 [3]));
+        .O(\ctrl_reg[1]_3 [3]));
   LUT5 #(
     .INIT(32'h00000400)) 
     \sreg[8]_i_3 
-       (.I0(Q[3]),
-        .I1(Q[1]),
-        .I2(Q[2]),
-        .I3(Q[4]),
-        .I4(Q[0]),
+       (.I0(\ctrl_reg[19]_0 [3]),
+        .I1(\ctrl_reg[19]_0 [1]),
+        .I2(\ctrl_reg[19]_0 [2]),
+        .I3(\ctrl_reg[19]_0 [4]),
+        .I4(\ctrl_reg[19]_0 [0]),
         .O(\sreg[8]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFAFBEFEFFA3BEF2F)) 
+    .INIT(64'h0ACA0A0000C0A0A0)) 
     \sreg[8]_i_4 
        (.I0(\sreg_reg[8] ),
-        .I1(Q[9]),
-        .I2(Q[11]),
-        .I3(Q[8]),
-        .I4(Q[10]),
-        .I5(\sreg_reg[8]_0 ),
+        .I1(\sreg_reg[8]_0 ),
+        .I2(\ctrl_reg[19]_0 [8]),
+        .I3(\ctrl_reg[19]_0 [5]),
+        .I4(\ctrl_reg[19]_0 [6]),
+        .I5(\ctrl_reg[19]_0 [7]),
         .O(\sreg[8]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
   LUT4 #(
-    .INIT(16'h4510)) 
+    .INIT(16'h090A)) 
     \sreg[8]_i_5 
-       (.I0(Q[9]),
-        .I1(Q[11]),
-        .I2(Q[8]),
-        .I3(Q[10]),
+       (.I0(\ctrl_reg[19]_0 [7]),
+        .I1(\ctrl_reg[19]_0 [8]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(\ctrl_reg[19]_0 [5]),
         .O(\sreg[8]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT4 #(
-    .INIT(16'h0060)) 
+    .INIT(16'h0440)) 
     \sreg[8]_i_8 
-       (.I0(Q[9]),
-        .I1(Q[8]),
-        .I2(Q[10]),
-        .I3(Q[11]),
+       (.I0(\ctrl_reg[19]_0 [8]),
+        .I1(\ctrl_reg[19]_0 [7]),
+        .I2(\ctrl_reg[19]_0 [6]),
+        .I3(\ctrl_reg[19]_0 [5]),
         .O(op_a_v1));
-  CARRY4 \sreg_reg[0]_i_7 
-       (.CI(reg_file_reg_0_15_4_4_i_3_n_0),
-        .CO({\NLW_sreg_reg[0]_i_7_CO_UNCONNECTED [3:1],CO}),
+  CARRY4 \sreg_reg[0]_i_6 
+       (.CI(reg_file_reg_0_15_7_7_i_3_n_0),
+        .CO({\NLW_sreg_reg[0]_i_6_CO_UNCONNECTED [3:1],CO}),
         .CYINIT(1'b0),
         .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(\NLW_sreg_reg[0]_i_7_O_UNCONNECTED [3:0]),
+        .O(\NLW_sreg_reg[0]_i_6_O_UNCONNECTED [3:0]),
         .S({1'b0,1'b0,1'b0,1'b1}));
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT5 #(
-    .INIT(32'h00000800)) 
+    .INIT(32'h00000400)) 
     \thres[15]_i_1 
-       (.I0(\dout[15]_i_2_n_0 ),
-        .I1(\ctrl_reg[25]_0 ),
-        .I2(\ctrl_reg[25]_1 ),
-        .I3(\ctrl_reg[25]_3 ),
-        .I4(\ctrl_reg[25]_2 ),
-        .O(\ctrl_reg[25]_8 ));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
-  LUT2 #(
-    .INIT(4'hB)) 
-    \uart_rx_avail[1]_i_3 
-       (.I0(\uart_rx_avail[1]_i_6_n_0 ),
-        .I1(\cpu_bus[rd_en] ),
-        .O(\ctrl_reg[28]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFFEF)) 
-    \uart_rx_avail[1]_i_4 
-       (.I0(\irq_vec_reg[1]_2 ),
+       (.I0(\ctrl[14]_i_2_n_0 ),
         .I1(\ctrl_reg[25]_2 ),
-        .I2(\ctrl_reg[25]_3 ),
-        .I3(\ctrl_reg[25]_0 ),
-        .I4(\ctrl_reg[25]_1 ),
-        .O(\irq_vec_reg[1]_0 ));
+        .I2(\ctrl[14]_i_3_n_0 ),
+        .I3(\mem_addr_reg_reg[1] ),
+        .I4(imem_file_ram_l_reg_0_i_19_n_0),
+        .O(\ctrl_reg[27]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  LUT3 #(
+    .INIT(8'h02)) 
+    \tuning_word[0][15]_i_1 
+       (.I0(imem_file_ram_l_reg_0_i_19_n_0),
+        .I1(\mem_addr_reg_reg[1] ),
+        .I2(\ctrl[11]_i_2_n_0 ),
+        .O(\mem_addr_reg_reg[2]_0 ));
+  LUT5 #(
+    .INIT(32'hFFFEFFFF)) 
+    \uart_rx_avail[1]_i_3 
+       (.I0(dmem_file_l_reg_i_4_n_0),
+        .I1(dmem_file_l_reg_i_6_n_0),
+        .I2(dmem_file_l_reg_i_3_n_0),
+        .I3(\ctrl[14]_i_4_n_0 ),
+        .I4(\cpu_bus[rd_en] ),
+        .O(\ctrl_reg[28]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  LUT3 #(
+    .INIT(8'h04)) 
+    \uart_rx_avail[1]_i_4 
+       (.I0(\ctrl[14]_i_3_n_0 ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\ctrl_reg[25]_2 ),
+        .O(\ctrl_reg[25]_3 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \uart_rx_avail[1]_i_6 
-       (.I0(\uart_tx_sreg[7]_i_7_n_0 ),
-        .I1(\uart_rx_avail[1]_i_7_n_0 ),
-        .I2(\uart_rx_avail[1]_i_8_n_0 ),
-        .I3(\uart_tx_sreg[7]_i_5_n_0 ),
-        .I4(dmem_file_l_reg_i_5_n_0),
-        .I5(\uart_tx_sreg[7]_i_4_n_0 ),
-        .O(\uart_rx_avail[1]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF470000FF47FFFF)) 
-    \uart_rx_avail[1]_i_7 
-       (.I0(data_o0[9]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
-        .I4(\ctrl_reg_n_0_[24] ),
-        .I5(imem_file_ram_l_reg_3[9]),
-        .O(\uart_rx_avail[1]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF470000FF47FFFF)) 
-    \uart_rx_avail[1]_i_8 
-       (.I0(data_o0[10]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
-        .I4(\ctrl_reg_n_0_[24] ),
-        .I5(imem_file_ram_l_reg_3[10]),
-        .O(\uart_rx_avail[1]_i_8_n_0 ));
-  LUT6 #(
-    .INIT(64'h00000400CCCC0400)) 
-    uart_tx_busy_i_1
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(uart_tx_busy_reg[2]),
-        .I2(\irq_vec_reg[1]_0 ),
-        .I3(\uart_tx_sreg[7]_i_3_n_0 ),
-        .I4(\uart_tx_sreg_reg[1]_0 ),
-        .I5(uart_tx_busy_reg_0),
-        .O(\ctrl_reg[12]_1 ));
+    .INIT(64'h0000000000040000)) 
+    uart_tx_busy_i_2
+       (.I0(\ctrl[14]_i_3_n_0 ),
+        .I1(imem_file_ram_l_reg_0_i_19_n_0),
+        .I2(\ctrl_reg[25]_2 ),
+        .I3(\ctrl[14]_i_2_n_0 ),
+        .I4(\uart_tx_sreg_reg[7] [2]),
+        .I5(\mem_addr_reg_reg[1] ),
+        .O(uart_tx_busy0));
   LUT5 #(
     .INIT(32'hFF00B8B8)) 
     \uart_tx_sreg[1]_i_1 
@@ -7204,7 +7116,7 @@ module SystemTop_neo430_control
         .I2(reg_file_reg_0_15_0_0_i_2_n_0),
         .I3(\uart_tx_sreg_reg[6] [0]),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .O(D[0]));
+        .O(dio_swap_reg[0]));
   LUT5 #(
     .INIT(32'hFF00B8B8)) 
     \uart_tx_sreg[2]_i_1 
@@ -7213,7 +7125,7 @@ module SystemTop_neo430_control
         .I2(reg_file_reg_0_15_1_1_i_2_n_0),
         .I3(\uart_tx_sreg_reg[6] [1]),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .O(D[1]));
+        .O(dio_swap_reg[1]));
   LUT5 #(
     .INIT(32'hFF00B8B8)) 
     \uart_tx_sreg[3]_i_1 
@@ -7222,7 +7134,7 @@ module SystemTop_neo430_control
         .I2(reg_file_reg_0_15_2_2_i_2_n_0),
         .I3(\uart_tx_sreg_reg[6] [2]),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .O(D[2]));
+        .O(dio_swap_reg[2]));
   LUT5 #(
     .INIT(32'hFF00B8B8)) 
     \uart_tx_sreg[4]_i_1 
@@ -7231,7 +7143,7 @@ module SystemTop_neo430_control
         .I2(reg_file_reg_0_15_3_3_i_2_n_0),
         .I3(\uart_tx_sreg_reg[6] [3]),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .O(D[3]));
+        .O(dio_swap_reg[3]));
   LUT5 #(
     .INIT(32'hFF00B8B8)) 
     \uart_tx_sreg[5]_i_1 
@@ -7240,7 +7152,7 @@ module SystemTop_neo430_control
         .I2(reg_file_reg_0_15_4_4_i_2_n_0),
         .I3(\uart_tx_sreg_reg[6] [4]),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .O(D[4]));
+        .O(dio_swap_reg[4]));
   LUT5 #(
     .INIT(32'hFF00B8B8)) 
     \uart_tx_sreg[6]_i_1 
@@ -7249,89 +7161,26 @@ module SystemTop_neo430_control
         .I2(reg_file_reg_0_15_5_5_i_2_n_0),
         .I3(\uart_tx_sreg_reg[6] [5]),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .O(D[5]));
+        .O(dio_swap_reg[5]));
   LUT6 #(
-    .INIT(64'hFF00100000001000)) 
+    .INIT(64'hFF00020000000200)) 
     \uart_tx_sreg[7]_i_1 
-       (.I0(\mem_addr_reg_reg[1] ),
-        .I1(\irq_vec_reg[1]_0 ),
-        .I2(\uart_tx_sreg[7]_i_3_n_0 ),
-        .I3(uart_tx_busy_reg[2]),
+       (.I0(\ctrl_reg[25]_3 ),
+        .I1(\ctrl[14]_i_2_n_0 ),
+        .I2(\mem_addr_reg_reg[1] ),
+        .I3(\uart_tx_sreg_reg[7] [2]),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .I5(\uart_tx_sreg_reg[7]_0 ),
-        .O(\ctrl_reg[12]_3 ));
+        .I5(\uart_tx_sreg_reg[7]_1 ),
+        .O(\ctrl_reg[12]_1 ));
   LUT5 #(
     .INIT(32'hFF00B8B8)) 
     \uart_tx_sreg[7]_i_2 
-       (.I0(imem_file_ram_l_reg_3_i_3_n_0),
+       (.I0(reg_file_reg_0_15_14_14_i_2_n_0),
         .I1(\uart_tx_sreg_reg[1] ),
         .I2(reg_file_reg_0_15_6_6_i_2_n_0),
-        .I3(\uart_tx_sreg_reg[7] ),
+        .I3(\uart_tx_sreg_reg[7]_0 ),
         .I4(\uart_tx_sreg_reg[1]_0 ),
-        .O(D[6]));
-  LUT6 #(
-    .INIT(64'h0000000000000002)) 
-    \uart_tx_sreg[7]_i_3 
-       (.I0(ctrl_bus),
-        .I1(\uart_tx_sreg[7]_i_4_n_0 ),
-        .I2(dmem_file_l_reg_i_5_n_0),
-        .I3(\uart_tx_sreg[7]_i_5_n_0 ),
-        .I4(\uart_tx_sreg[7]_i_6_n_0 ),
-        .I5(\uart_tx_sreg[7]_i_7_n_0 ),
-        .O(\uart_tx_sreg[7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
-  LUT4 #(
-    .INIT(16'hD0DF)) 
-    \uart_tx_sreg[7]_i_4 
-       (.I0(reg_i[8]),
-        .I1(Q[12]),
-        .I2(\ctrl_reg_n_0_[24] ),
-        .I3(imem_file_ram_l_reg_3[8]),
-        .O(\uart_tx_sreg[7]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF470000FF47FFFF)) 
-    \uart_tx_sreg[7]_i_5 
-       (.I0(data_o0[7]),
-        .I1(\ctrl_reg[3]_1 ),
-        .I2(\op_b_ff[14]_i_4_n_0 ),
-        .I3(Q[12]),
-        .I4(\ctrl_reg_n_0_[24] ),
-        .I5(imem_file_ram_l_reg_3[7]),
-        .O(\uart_tx_sreg[7]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'hFF5F335FFF5FFF5F)) 
-    \uart_tx_sreg[7]_i_6 
-       (.I0(imem_file_ram_l_reg_3[10]),
-        .I1(reg_i[10]),
-        .I2(imem_file_ram_l_reg_3[9]),
-        .I3(\ctrl_reg_n_0_[24] ),
-        .I4(Q[12]),
-        .I5(reg_i[9]),
-        .O(\uart_tx_sreg[7]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFEFEE)) 
-    \uart_tx_sreg[7]_i_7 
-       (.I0(dmem_file_l_reg_i_3_n_0),
-        .I1(\uart_tx_sreg[7]_i_8_n_0 ),
-        .I2(\op_b_ff[15]_i_3_n_0 ),
-        .I3(\uart_tx_sreg[7]_i_9_n_0 ),
-        .I4(dmem_file_l_reg_i_6_n_0),
-        .I5(dmem_file_l_reg_i_4_n_0),
-        .O(\uart_tx_sreg[7]_i_7_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
-    \uart_tx_sreg[7]_i_8 
-       (.I0(\ctrl_reg_n_0_[24] ),
-        .I1(imem_file_ram_l_reg_3[15]),
-        .O(\uart_tx_sreg[7]_i_8_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \uart_tx_sreg[7]_i_9 
-       (.I0(\ctrl_reg_n_0_[24] ),
-        .I1(Q[12]),
-        .O(\uart_tx_sreg[7]_i_9_n_0 ));
+        .O(dio_swap_reg[6]));
 endmodule
 
 (* ORIG_REF_NAME = "neo430_cpu" *) 
@@ -7341,24 +7190,21 @@ module SystemTop_neo430_cpu
     \mem_addr_reg_reg[1] ,
     \ctrl_reg[9] ,
     \ctrl_reg[8] ,
-    E,
+    D,
     \cpu_bus[addr] ,
     \ctrl_reg[25] ,
-    SR,
     \ctrl_reg[28] ,
-    \ctrl_reg[25]_0 ,
-    \ctrl_reg[25]_1 ,
-    acc_en,
-    \ctrl_reg[28]_0 ,
+    \mem_addr_reg_reg[11] ,
     \FSM_sequential_state_reg[3] ,
-    D,
-    \cpu_bus[wdata] ,
-    \ctrl_reg[12]_0 ,
-    \irq_vec_reg[1] ,
-    \irq_vec_reg[1]_0 ,
+    E,
+    dio_swap_reg_0,
+    \mem_addr_reg_reg[2] ,
+    \mem_addr_reg_reg[2]_0 ,
     \din_reg[15] ,
     \pwm_ch_reg[1][7] ,
-    \mem_addr_reg_reg[1]_0 ,
+    \mem_addr_reg_reg[2]_1 ,
+    \mem_addr_reg_reg[2]_2 ,
+    \mem_addr_reg_reg[2]_3 ,
     cnt_reg_15_sp_1,
     cnt_reg_14_sp_1,
     cnt_reg_13_sp_1,
@@ -7375,40 +7221,46 @@ module SystemTop_neo430_cpu
     \ctrl_reg[2] ,
     \ctrl_reg[1] ,
     \ctrl_reg[0] ,
-    \ctrl_reg[28]_1 ,
-    \ctrl_reg[28]_2 ,
-    \ctrl_reg[28]_3 ,
-    \irq_buf_reg[1] ,
-    \ctrl_reg[12]_1 ,
+    \mem_addr_reg_reg[1]_0 ,
     \mem_addr_reg_reg[1]_1 ,
-    \ctrl_reg[25]_2 ,
-    \ctrl_reg[25]_3 ,
-    \ctrl_reg[25]_4 ,
-    \ctrl_reg[25]_5 ,
-    \ctrl_reg[25]_6 ,
-    \ctrl_reg[28]_4 ,
-    \ctrl_reg[28]_5 ,
-    \ctrl_reg[25]_7 ,
+    \ctrl_reg[27] ,
+    \ctrl_reg[27]_0 ,
+    \ctrl_reg[27]_1 ,
+    \ctrl_reg[28]_0 ,
+    \mem_addr_reg_reg[15] ,
+    \mem_addr_reg_reg[11]_0 ,
+    \ctrl_reg[28]_1 ,
+    dio_swap_reg_1,
+    \irq_buf_reg[1] ,
+    \ctrl_reg[12]_0 ,
+    \ctrl_reg[25]_0 ,
+    uart_tx_busy0,
+    \ctrl_reg[28]_2 ,
+    SR,
+    \ctrl_reg[28]_3 ,
+    \ctrl_reg[25]_1 ,
+    acc_en,
     acc_en_0,
     WEA,
     \cpu_bus[wr_en] ,
     \sreg_reg[15] ,
-    \FSM_sequential_state_reg[1] ,
     \rst_gen_reg[3] ,
     clk_i,
     \op_b_ff_reg[1] ,
     Q,
-    \mem_addr_reg_reg[7] ,
-    \op_b_ff_reg[3] ,
-    \op_b_ff_reg[15] ,
+    mem_addr_reg0_carry,
     \op_b_ff_reg[5] ,
-    \op_b_ff_reg[5]_0 ,
-    \mem_addr_reg_reg[15] ,
-    mem_data_i,
+    \op_b_ff_reg[6] ,
+    \mem_addr_reg_reg[7] ,
+    \op_b_ff_reg[9] ,
+    \op_b_ff_reg[7] ,
+    \op_b_ff_reg[12] ,
+    mem_addr_reg0_carry__2,
+    \am_reg[3] ,
+    \ctrl_reg[17] ,
     \uart_tx_sreg_reg[6] ,
     \uart_tx_sreg_reg[1] ,
     \uart_tx_sreg_reg[7] ,
-    uart_tx_busy_reg,
     \data_o_reg[15] ,
     \data_o_reg[15]_0 ,
     p_1_in,
@@ -7416,43 +7268,40 @@ module SystemTop_neo430_cpu
     \data_o_reg[7] ,
     cnt_reg,
     \data_o_reg[6] ,
+    \op_b_ff_reg[15] ,
+    mem_data_i,
+    \ctrl_reg[17]_0 ,
     \op_b_ff_reg[4] ,
+    \sam_reg[1] ,
+    \op_b_ff_reg[14] ,
     \op_b_ff_reg[4]_0 ,
+    \op_b_ff_reg[3] ,
+    \mem_addr_reg_reg[11]_1 ,
+    i__carry__1_i_5,
+    i__carry__1_i_5_0,
+    \op_b_ff_reg[0] ,
+    \op_b_ff_reg[0]_0 ,
+    \FSM_sequential_state_reg[0] ,
     \uart_tx_sreg_reg[7]_0 ,
     \op_b_ff_reg[2] ,
-    \op_b_ff_reg[6] ,
     \op_b_ff_reg[8] ,
     \op_b_ff_reg[10] ,
-    \op_b_ff_reg[9] ,
-    \op_b_ff_reg[7] ,
-    \op_b_ff_reg[14] ,
     \op_b_ff_reg[11] ,
-    \am_reg[3] ,
-    \am_reg[0] ,
-    \FSM_sequential_state_reg[1]_0 ,
+    \op_b_ff_reg[13] ,
+    \FSM_sequential_state_reg[1] ,
     \FSM_sequential_state_reg[3]_0 ,
     \FSM_sequential_state_reg[3]_1 ,
     \FSM_sequential_state_reg[3]_2 ,
-    \FSM_sequential_state_reg[3]_3 ,
-    \FSM_sequential_state_reg[2] ,
-    \FSM_sequential_state_reg[2]_0 ,
     \FSM_sequential_state_reg[4] ,
-    \FSM_sequential_state_reg[0] ,
-    \FSM_sequential_state_reg[0]_0 ,
-    \ctrl_reg[17] ,
+    \ctrl_reg[17]_1 ,
     \ctrl_reg[15] ,
     \ctrl_reg[16] ,
-    \ctrl_reg[8]_0 ,
     \irq_buf_reg[1]_0 ,
     irq_fire_ff,
     p_2_in3_in,
     irq_o,
-    \ctrl_reg[19] ,
-    \ctrl[8]_i_7 ,
-    \ctrl[8]_i_7_0 ,
-    \ctrl[8]_i_7_1 ,
-    mem_addr_reg0_carry__0,
     \sreg_reg[0] ,
+    \am_reg[0] ,
     \src_reg[3] ,
     \am_reg[2] );
   output dio_swap;
@@ -7460,24 +7309,21 @@ module SystemTop_neo430_cpu
   output \mem_addr_reg_reg[1] ;
   output \ctrl_reg[9] ;
   output \ctrl_reg[8] ;
-  output [0:0]E;
+  output [10:0]D;
   output [13:0]\cpu_bus[addr] ;
-  output [0:0]\ctrl_reg[25] ;
-  output [0:0]SR;
+  output \ctrl_reg[25] ;
   output \ctrl_reg[28] ;
-  output \ctrl_reg[25]_0 ;
-  output \ctrl_reg[25]_1 ;
-  output acc_en;
-  output \ctrl_reg[28]_0 ;
-  output [2:0]\FSM_sequential_state_reg[3] ;
-  output [6:0]D;
-  output [15:0]\cpu_bus[wdata] ;
-  output \ctrl_reg[12]_0 ;
-  output \irq_vec_reg[1] ;
-  output [0:0]\irq_vec_reg[1]_0 ;
+  output \mem_addr_reg_reg[11] ;
+  output [1:0]\FSM_sequential_state_reg[3] ;
+  output [0:0]E;
+  output [6:0]dio_swap_reg_0;
+  output [0:0]\mem_addr_reg_reg[2] ;
+  output [0:0]\mem_addr_reg_reg[2]_0 ;
   output [15:0]\din_reg[15] ;
   output [15:0]\pwm_ch_reg[1][7] ;
-  output \mem_addr_reg_reg[1]_0 ;
+  output [0:0]\mem_addr_reg_reg[2]_1 ;
+  output \mem_addr_reg_reg[2]_2 ;
+  output [0:0]\mem_addr_reg_reg[2]_3 ;
   output cnt_reg_15_sp_1;
   output cnt_reg_14_sp_1;
   output cnt_reg_13_sp_1;
@@ -7494,40 +7340,46 @@ module SystemTop_neo430_cpu
   output \ctrl_reg[2] ;
   output \ctrl_reg[1] ;
   output \ctrl_reg[0] ;
+  output [0:0]\mem_addr_reg_reg[1]_0 ;
+  output [0:0]\mem_addr_reg_reg[1]_1 ;
+  output [0:0]\ctrl_reg[27] ;
+  output [0:0]\ctrl_reg[27]_0 ;
+  output [0:0]\ctrl_reg[27]_1 ;
+  output \ctrl_reg[28]_0 ;
+  output \mem_addr_reg_reg[15] ;
+  output \mem_addr_reg_reg[11]_0 ;
   output \ctrl_reg[28]_1 ;
-  output \ctrl_reg[28]_2 ;
-  output \ctrl_reg[28]_3 ;
+  output [15:0]dio_swap_reg_1;
   output [0:0]\irq_buf_reg[1] ;
-  output [0:0]\ctrl_reg[12]_1 ;
-  output [10:0]\mem_addr_reg_reg[1]_1 ;
-  output [0:0]\ctrl_reg[25]_2 ;
-  output [0:0]\ctrl_reg[25]_3 ;
-  output [0:0]\ctrl_reg[25]_4 ;
-  output [0:0]\ctrl_reg[25]_5 ;
-  output [0:0]\ctrl_reg[25]_6 ;
-  output [0:0]\ctrl_reg[28]_4 ;
-  output \ctrl_reg[28]_5 ;
-  output [0:0]\ctrl_reg[25]_7 ;
+  output [0:0]\ctrl_reg[12]_0 ;
+  output \ctrl_reg[25]_0 ;
+  output uart_tx_busy0;
+  output \ctrl_reg[28]_2 ;
+  output [0:0]SR;
+  output [0:0]\ctrl_reg[28]_3 ;
+  output [0:0]\ctrl_reg[25]_1 ;
+  output acc_en;
   output acc_en_0;
   output [0:0]WEA;
   output [1:0]\cpu_bus[wr_en] ;
   output [0:0]\sreg_reg[15] ;
-  output \FSM_sequential_state_reg[1] ;
   output \rst_gen_reg[3] ;
   input clk_i;
   input \op_b_ff_reg[1] ;
   input [2:0]Q;
-  input \mem_addr_reg_reg[7] ;
-  input \op_b_ff_reg[3] ;
-  input \op_b_ff_reg[15] ;
+  input mem_addr_reg0_carry;
   input \op_b_ff_reg[5] ;
-  input \op_b_ff_reg[5]_0 ;
-  input \mem_addr_reg_reg[15] ;
-  input [15:0]mem_data_i;
+  input \op_b_ff_reg[6] ;
+  input \mem_addr_reg_reg[7] ;
+  input \op_b_ff_reg[9] ;
+  input \op_b_ff_reg[7] ;
+  input \op_b_ff_reg[12] ;
+  input mem_addr_reg0_carry__2;
+  input \am_reg[3] ;
+  input \ctrl_reg[17] ;
   input [5:0]\uart_tx_sreg_reg[6] ;
   input \uart_tx_sreg_reg[1] ;
   input \uart_tx_sreg_reg[7] ;
-  input uart_tx_busy_reg;
   input [15:0]\data_o_reg[15] ;
   input [15:0]\data_o_reg[15]_0 ;
   input [15:0]p_1_in;
@@ -7535,59 +7387,51 @@ module SystemTop_neo430_cpu
   input [7:0]\data_o_reg[7] ;
   input [15:0]cnt_reg;
   input [6:0]\data_o_reg[6] ;
+  input \op_b_ff_reg[15] ;
+  input [15:0]mem_data_i;
+  input \ctrl_reg[17]_0 ;
   input \op_b_ff_reg[4] ;
+  input \sam_reg[1] ;
+  input \op_b_ff_reg[14] ;
   input \op_b_ff_reg[4]_0 ;
-  input [0:0]\uart_tx_sreg_reg[7]_0 ;
+  input \op_b_ff_reg[3] ;
+  input \mem_addr_reg_reg[11]_1 ;
+  input i__carry__1_i_5;
+  input i__carry__1_i_5_0;
+  input \op_b_ff_reg[0] ;
+  input \op_b_ff_reg[0]_0 ;
+  input \FSM_sequential_state_reg[0] ;
+  input \uart_tx_sreg_reg[7]_0 ;
   input \op_b_ff_reg[2] ;
-  input \op_b_ff_reg[6] ;
   input \op_b_ff_reg[8] ;
   input \op_b_ff_reg[10] ;
-  input \op_b_ff_reg[9] ;
-  input \op_b_ff_reg[7] ;
-  input \op_b_ff_reg[14] ;
   input \op_b_ff_reg[11] ;
-  input \am_reg[3] ;
-  input \am_reg[0] ;
-  input \FSM_sequential_state_reg[1]_0 ;
+  input \op_b_ff_reg[13] ;
+  input \FSM_sequential_state_reg[1] ;
   input \FSM_sequential_state_reg[3]_0 ;
   input \FSM_sequential_state_reg[3]_1 ;
   input \FSM_sequential_state_reg[3]_2 ;
-  input \FSM_sequential_state_reg[3]_3 ;
-  input \FSM_sequential_state_reg[2] ;
-  input \FSM_sequential_state_reg[2]_0 ;
   input \FSM_sequential_state_reg[4] ;
-  input \FSM_sequential_state_reg[0] ;
-  input \FSM_sequential_state_reg[0]_0 ;
-  input \ctrl_reg[17] ;
+  input \ctrl_reg[17]_1 ;
   input \ctrl_reg[15] ;
   input \ctrl_reg[16] ;
-  input \ctrl_reg[8]_0 ;
   input \irq_buf_reg[1]_0 ;
   input irq_fire_ff;
   input p_2_in3_in;
   input irq_o;
-  input \ctrl_reg[19] ;
-  input \ctrl[8]_i_7 ;
-  input \ctrl[8]_i_7_0 ;
-  input \ctrl[8]_i_7_1 ;
-  input mem_addr_reg0_carry__0;
   input [0:0]\sreg_reg[0] ;
+  input [0:0]\am_reg[0] ;
   input [3:0]\src_reg[3] ;
   input [2:0]\am_reg[2] ;
 
-  wire [6:0]D;
+  wire [10:0]D;
   wire [0:0]E;
   wire \FSM_sequential_state_reg[0] ;
-  wire \FSM_sequential_state_reg[0]_0 ;
   wire \FSM_sequential_state_reg[1] ;
-  wire \FSM_sequential_state_reg[1]_0 ;
-  wire \FSM_sequential_state_reg[2] ;
-  wire \FSM_sequential_state_reg[2]_0 ;
-  wire [2:0]\FSM_sequential_state_reg[3] ;
+  wire [1:0]\FSM_sequential_state_reg[3] ;
   wire \FSM_sequential_state_reg[3]_0 ;
   wire \FSM_sequential_state_reg[3]_1 ;
   wire \FSM_sequential_state_reg[3]_2 ;
-  wire \FSM_sequential_state_reg[3]_3 ;
   wire \FSM_sequential_state_reg[4] ;
   wire [2:0]Q;
   wire [0:0]SR;
@@ -7595,7 +7439,7 @@ module SystemTop_neo430_cpu
   wire acc_en;
   wire acc_en_0;
   wire [15:0]addr_add;
-  wire \am_reg[0] ;
+  wire [0:0]\am_reg[0] ;
   wire [2:0]\am_reg[2] ;
   wire \am_reg[3] ;
   wire bw_ff;
@@ -7611,44 +7455,34 @@ module SystemTop_neo430_cpu
   wire cnt_reg_8_sn_1;
   wire cnt_reg_9_sn_1;
   wire [13:0]\cpu_bus[addr] ;
-  wire [15:0]\cpu_bus[wdata] ;
   wire [1:0]\cpu_bus[wr_en] ;
-  wire \ctrl[8]_i_7 ;
-  wire \ctrl[8]_i_7_0 ;
-  wire \ctrl[8]_i_7_1 ;
   wire [19:1]ctrl_bus;
   wire \ctrl_reg[0] ;
   wire \ctrl_reg[12] ;
-  wire \ctrl_reg[12]_0 ;
-  wire [0:0]\ctrl_reg[12]_1 ;
+  wire [0:0]\ctrl_reg[12]_0 ;
   wire \ctrl_reg[15] ;
   wire \ctrl_reg[16] ;
   wire \ctrl_reg[17] ;
-  wire \ctrl_reg[19] ;
+  wire \ctrl_reg[17]_0 ;
+  wire \ctrl_reg[17]_1 ;
   wire \ctrl_reg[1] ;
-  wire [0:0]\ctrl_reg[25] ;
+  wire \ctrl_reg[25] ;
   wire \ctrl_reg[25]_0 ;
-  wire \ctrl_reg[25]_1 ;
-  wire [0:0]\ctrl_reg[25]_2 ;
-  wire [0:0]\ctrl_reg[25]_3 ;
-  wire [0:0]\ctrl_reg[25]_4 ;
-  wire [0:0]\ctrl_reg[25]_5 ;
-  wire [0:0]\ctrl_reg[25]_6 ;
-  wire [0:0]\ctrl_reg[25]_7 ;
+  wire [0:0]\ctrl_reg[25]_1 ;
+  wire [0:0]\ctrl_reg[27] ;
+  wire [0:0]\ctrl_reg[27]_0 ;
+  wire [0:0]\ctrl_reg[27]_1 ;
   wire \ctrl_reg[28] ;
   wire \ctrl_reg[28]_0 ;
   wire \ctrl_reg[28]_1 ;
   wire \ctrl_reg[28]_2 ;
-  wire \ctrl_reg[28]_3 ;
-  wire [0:0]\ctrl_reg[28]_4 ;
-  wire \ctrl_reg[28]_5 ;
+  wire [0:0]\ctrl_reg[28]_3 ;
   wire \ctrl_reg[2] ;
   wire \ctrl_reg[3] ;
   wire \ctrl_reg[4] ;
   wire \ctrl_reg[5] ;
   wire \ctrl_reg[6] ;
   wire \ctrl_reg[8] ;
-  wire \ctrl_reg[8]_0 ;
   wire \ctrl_reg[9] ;
   wire data1;
   wire [15:0]data_o0;
@@ -7660,20 +7494,31 @@ module SystemTop_neo430_cpu
   wire [15:0]\din_reg[15] ;
   wire dio_swap;
   wire dio_swap0;
+  wire [6:0]dio_swap_reg_0;
+  wire [15:0]dio_swap_reg_1;
+  wire i__carry__1_i_5;
+  wire i__carry__1_i_5_0;
   wire imem_up_en;
   wire [15:0]in_data;
   wire [0:0]\irq_buf_reg[1] ;
   wire \irq_buf_reg[1]_0 ;
   wire irq_fire_ff;
   wire irq_o;
-  wire \irq_vec_reg[1] ;
-  wire [0:0]\irq_vec_reg[1]_0 ;
   wire [15:0]mem_addr_reg;
-  wire mem_addr_reg0_carry__0;
+  wire mem_addr_reg0_carry;
+  wire mem_addr_reg0_carry__2;
+  wire \mem_addr_reg_reg[11] ;
+  wire \mem_addr_reg_reg[11]_0 ;
+  wire \mem_addr_reg_reg[11]_1 ;
   wire \mem_addr_reg_reg[15] ;
   wire \mem_addr_reg_reg[1] ;
-  wire \mem_addr_reg_reg[1]_0 ;
-  wire [10:0]\mem_addr_reg_reg[1]_1 ;
+  wire [0:0]\mem_addr_reg_reg[1]_0 ;
+  wire [0:0]\mem_addr_reg_reg[1]_1 ;
+  wire [0:0]\mem_addr_reg_reg[2] ;
+  wire [0:0]\mem_addr_reg_reg[2]_0 ;
+  wire [0:0]\mem_addr_reg_reg[2]_1 ;
+  wire \mem_addr_reg_reg[2]_2 ;
+  wire [0:0]\mem_addr_reg_reg[2]_3 ;
   wire \mem_addr_reg_reg[7] ;
   wire [15:0]mem_data_i;
   wire neo430_alu_inst_n_0;
@@ -7726,58 +7571,61 @@ module SystemTop_neo430_cpu
   wire neo430_alu_inst_n_59;
   wire neo430_alu_inst_n_60;
   wire neo430_alu_inst_n_61;
-  wire neo430_alu_inst_n_62;
-  wire neo430_control_inst_n_0;
-  wire neo430_control_inst_n_1;
+  wire neo430_control_inst_n_10;
+  wire neo430_control_inst_n_11;
+  wire neo430_control_inst_n_12;
+  wire neo430_control_inst_n_13;
   wire neo430_control_inst_n_14;
+  wire neo430_control_inst_n_15;
   wire neo430_control_inst_n_16;
   wire neo430_control_inst_n_17;
-  wire neo430_control_inst_n_170;
+  wire neo430_control_inst_n_177;
   wire neo430_control_inst_n_18;
-  wire neo430_control_inst_n_19;
-  wire neo430_control_inst_n_192;
-  wire neo430_control_inst_n_195;
-  wire neo430_control_inst_n_20;
-  wire neo430_control_inst_n_21;
-  wire neo430_control_inst_n_22;
-  wire neo430_control_inst_n_23;
-  wire neo430_control_inst_n_230;
-  wire neo430_control_inst_n_231;
-  wire neo430_control_inst_n_232;
-  wire neo430_control_inst_n_233;
-  wire neo430_control_inst_n_234;
-  wire neo430_control_inst_n_235;
-  wire neo430_control_inst_n_236;
-  wire neo430_control_inst_n_237;
-  wire neo430_control_inst_n_238;
-  wire neo430_control_inst_n_239;
-  wire neo430_control_inst_n_240;
-  wire neo430_control_inst_n_241;
-  wire neo430_control_inst_n_34;
-  wire neo430_control_inst_n_35;
-  wire neo430_control_inst_n_36;
-  wire neo430_control_inst_n_37;
+  wire neo430_control_inst_n_217;
   wire neo430_control_inst_n_38;
   wire neo430_control_inst_n_39;
   wire neo430_control_inst_n_40;
   wire neo430_control_inst_n_41;
+  wire neo430_control_inst_n_42;
+  wire neo430_control_inst_n_43;
+  wire neo430_control_inst_n_44;
+  wire neo430_control_inst_n_45;
+  wire neo430_control_inst_n_46;
   wire neo430_control_inst_n_47;
   wire neo430_control_inst_n_48;
   wire neo430_control_inst_n_49;
   wire neo430_control_inst_n_50;
+  wire neo430_control_inst_n_51;
   wire neo430_control_inst_n_52;
   wire neo430_control_inst_n_53;
   wire neo430_control_inst_n_54;
   wire neo430_control_inst_n_55;
-  wire neo430_control_inst_n_6;
-  wire neo430_control_inst_n_7;
-  wire neo430_control_inst_n_8;
+  wire neo430_control_inst_n_56;
+  wire neo430_control_inst_n_58;
+  wire neo430_control_inst_n_59;
+  wire neo430_control_inst_n_60;
+  wire neo430_control_inst_n_61;
+  wire neo430_control_inst_n_62;
+  wire neo430_control_inst_n_63;
+  wire neo430_control_inst_n_64;
+  wire neo430_control_inst_n_65;
+  wire neo430_control_inst_n_66;
+  wire neo430_control_inst_n_67;
+  wire neo430_control_inst_n_68;
+  wire neo430_control_inst_n_69;
+  wire neo430_control_inst_n_70;
+  wire neo430_control_inst_n_71;
+  wire neo430_control_inst_n_72;
   wire neo430_reg_file_inst_n_26;
   wire neo430_reg_file_inst_n_3;
   wire neo430_reg_file_inst_n_4;
   wire op_a_v1;
+  wire \op_b_ff_reg[0] ;
+  wire \op_b_ff_reg[0]_0 ;
   wire \op_b_ff_reg[10] ;
   wire \op_b_ff_reg[11] ;
+  wire \op_b_ff_reg[12] ;
+  wire \op_b_ff_reg[13] ;
   wire \op_b_ff_reg[14] ;
   wire \op_b_ff_reg[15] ;
   wire \op_b_ff_reg[1] ;
@@ -7786,7 +7634,6 @@ module SystemTop_neo430_cpu
   wire \op_b_ff_reg[4] ;
   wire \op_b_ff_reg[4]_0 ;
   wire \op_b_ff_reg[5] ;
-  wire \op_b_ff_reg[5]_0 ;
   wire \op_b_ff_reg[6] ;
   wire \op_b_ff_reg[7] ;
   wire \op_b_ff_reg[8] ;
@@ -7803,16 +7650,17 @@ module SystemTop_neo430_cpu
   wire [15:0]\pwm_ch_reg[1][7] ;
   wire [14:0]reg_i;
   wire \rst_gen_reg[3] ;
+  wire \sam_reg[1] ;
   wire [3:0]\src_reg[3] ;
   wire [8:0]sreg;
   wire [14:0]sreg__0;
   wire [0:0]\sreg_reg[0] ;
   wire [0:0]\sreg_reg[15] ;
-  wire uart_tx_busy_reg;
+  wire uart_tx_busy0;
   wire \uart_tx_sreg_reg[1] ;
   wire [5:0]\uart_tx_sreg_reg[6] ;
   wire \uart_tx_sreg_reg[7] ;
-  wire [0:0]\uart_tx_sreg_reg[7]_0 ;
+  wire \uart_tx_sreg_reg[7]_0 ;
 
   assign cnt_reg_10_sp_1 = cnt_reg_10_sn_1;
   assign cnt_reg_11_sp_1 = cnt_reg_11_sn_1;
@@ -7836,75 +7684,71 @@ module SystemTop_neo430_cpu
         .Q(dio_swap),
         .R(1'b0));
   SystemTop_neo430_addr_gen neo430_addr_gen_inst
-       (.DI({neo430_control_inst_n_54,neo430_control_inst_n_55}),
+       (.DI({neo430_control_inst_n_55,neo430_control_inst_n_56}),
         .Q(mem_addr_reg),
-        .S({neo430_control_inst_n_16,neo430_control_inst_n_17,neo430_control_inst_n_18,neo430_control_inst_n_19}),
+        .S({neo430_control_inst_n_11,neo430_control_inst_n_12,neo430_control_inst_n_13,neo430_control_inst_n_14}),
         .addr_add(addr_add),
         .clk_i(clk_i),
-        .\mem_addr_reg_reg[0]_0 (neo430_control_inst_n_0),
-        .\mem_addr_reg_reg[11]_0 ({neo430_control_inst_n_234,neo430_control_inst_n_235,neo430_control_inst_n_236,neo430_control_inst_n_237}),
-        .\mem_addr_reg_reg[15]_0 ({neo430_control_inst_n_52,neo430_control_inst_n_53}),
-        .\mem_addr_reg_reg[15]_1 ({neo430_control_inst_n_238,neo430_control_inst_n_239,neo430_control_inst_n_240,neo430_control_inst_n_241}),
-        .\mem_addr_reg_reg[3]_0 ({neo430_control_inst_n_20,neo430_control_inst_n_21,neo430_control_inst_n_22,neo430_control_inst_n_23}),
-        .\mem_addr_reg_reg[7]_0 ({neo430_control_inst_n_38,neo430_control_inst_n_39,neo430_control_inst_n_40,neo430_control_inst_n_41}),
-        .reg_file_reg_0_15_12_12_i_1({neo430_control_inst_n_47,neo430_control_inst_n_48,neo430_control_inst_n_49,neo430_control_inst_n_50}),
-        .reg_file_reg_0_15_4_4_i_1({neo430_control_inst_n_34,neo430_control_inst_n_35,neo430_control_inst_n_36,neo430_control_inst_n_37}),
-        .reg_file_reg_0_15_8_8_i_1({neo430_control_inst_n_230,neo430_control_inst_n_231,neo430_control_inst_n_232,neo430_control_inst_n_233}),
+        .\mem_addr_reg_reg[0]_0 (neo430_control_inst_n_58),
+        .\mem_addr_reg_reg[11]_0 ({neo430_control_inst_n_51,neo430_control_inst_n_52,neo430_control_inst_n_53,neo430_control_inst_n_54}),
+        .\mem_addr_reg_reg[15]_0 ({neo430_control_inst_n_71,neo430_control_inst_n_72}),
+        .\mem_addr_reg_reg[15]_1 ({neo430_control_inst_n_67,neo430_control_inst_n_68,neo430_control_inst_n_69,neo430_control_inst_n_70}),
+        .\mem_addr_reg_reg[3]_0 ({neo430_control_inst_n_15,neo430_control_inst_n_16,neo430_control_inst_n_17,neo430_control_inst_n_18}),
+        .\mem_addr_reg_reg[7]_0 ({neo430_control_inst_n_42,neo430_control_inst_n_43,neo430_control_inst_n_44,neo430_control_inst_n_45}),
+        .reg_file_reg_0_15_12_12_i_1({neo430_control_inst_n_63,neo430_control_inst_n_64,neo430_control_inst_n_65,neo430_control_inst_n_66}),
+        .reg_file_reg_0_15_4_4_i_1({neo430_control_inst_n_38,neo430_control_inst_n_39,neo430_control_inst_n_40,neo430_control_inst_n_41}),
+        .reg_file_reg_0_15_8_8_i_1({neo430_control_inst_n_47,neo430_control_inst_n_48,neo430_control_inst_n_49,neo430_control_inst_n_50}),
         .reg_i(reg_i));
   SystemTop_neo430_alu neo430_alu_inst
-       (.CO(neo430_control_inst_n_170),
+       (.CO(neo430_control_inst_n_177),
         .D(op_data),
         .O({neo430_alu_inst_n_0,neo430_alu_inst_n_1,neo430_alu_inst_n_2,neo430_alu_inst_n_3}),
         .Q({p_0_in,p_0_in0_in,neo430_alu_inst_n_13,neo430_alu_inst_n_14,neo430_alu_inst_n_15,neo430_alu_inst_n_16,neo430_alu_inst_n_17,neo430_alu_inst_n_18,neo430_alu_inst_n_19}),
-        .S(neo430_control_inst_n_14),
+        .S(neo430_control_inst_n_10),
         .clk_i(clk_i),
-        .ctrl_bus(ctrl_bus[19:15]),
-        .\ctrl_reg[16] ({neo430_alu_inst_n_55,neo430_alu_inst_n_56,neo430_alu_inst_n_57,neo430_alu_inst_n_58}),
-        .\ctrl_reg[16]_0 ({neo430_alu_inst_n_59,neo430_alu_inst_n_60,neo430_alu_inst_n_61,neo430_alu_inst_n_62}),
-        .\op_a_ff_reg[0]_0 (neo430_alu_inst_n_47),
-        .\op_a_ff_reg[10]_0 (neo430_alu_inst_n_49),
-        .\op_a_ff_reg[11]_0 (neo430_alu_inst_n_50),
-        .\op_a_ff_reg[12]_0 (neo430_alu_inst_n_51),
-        .\op_a_ff_reg[13]_0 (neo430_alu_inst_n_52),
-        .\op_a_ff_reg[14]_0 (neo430_alu_inst_n_53),
+        .ctrl_bus(ctrl_bus[19]),
+        .\ctrl_reg[18] ({neo430_alu_inst_n_55,neo430_alu_inst_n_56,neo430_alu_inst_n_57,neo430_alu_inst_n_58}),
+        .\ctrl_reg[18]_0 ({neo430_alu_inst_n_59,neo430_alu_inst_n_60,neo430_alu_inst_n_61}),
+        .\op_a_ff_reg[0]_0 (neo430_alu_inst_n_53),
+        .\op_a_ff_reg[11]_0 (neo430_alu_inst_n_47),
+        .\op_a_ff_reg[13]_0 (neo430_alu_inst_n_49),
         .\op_a_ff_reg[15]_0 ({neo430_alu_inst_n_26,neo430_alu_inst_n_27,neo430_alu_inst_n_28,neo430_alu_inst_n_29,neo430_alu_inst_n_30,neo430_alu_inst_n_31,neo430_alu_inst_n_32,neo430_alu_inst_n_33,p_1_in1_in,neo430_alu_inst_n_35,neo430_alu_inst_n_36,neo430_alu_inst_n_37,neo430_alu_inst_n_38,neo430_alu_inst_n_39,neo430_alu_inst_n_40,neo430_alu_inst_n_41}),
-        .\op_a_ff_reg[15]_1 (neo430_alu_inst_n_43),
-        .\op_a_ff_reg[15]_2 (neo430_alu_inst_n_54),
+        .\op_a_ff_reg[1]_0 (neo430_alu_inst_n_52),
+        .\op_a_ff_reg[1]_1 (neo430_alu_inst_n_54),
+        .\op_a_ff_reg[2]_0 (neo430_alu_inst_n_46),
+        .\op_a_ff_reg[4]_0 (neo430_alu_inst_n_48),
+        .\op_a_ff_reg[6]_0 (neo430_alu_inst_n_50),
         .\op_a_ff_reg[7]_0 (neo430_alu_inst_n_25),
-        .\op_a_ff_reg[7]_1 (neo430_alu_inst_n_44),
-        .\op_a_ff_reg[7]_2 (neo430_alu_inst_n_45),
-        .\op_a_ff_reg[7]_3 (neo430_alu_inst_n_46),
-        .\op_a_ff_reg[9]_0 (neo430_alu_inst_n_48),
+        .\op_a_ff_reg[7]_1 (neo430_alu_inst_n_43),
+        .\op_a_ff_reg[7]_2 (neo430_alu_inst_n_44),
+        .\op_a_ff_reg[7]_3 (neo430_alu_inst_n_51),
+        .\op_a_ff_reg[9]_0 (neo430_alu_inst_n_45),
         .op_a_v1(op_a_v1),
-        .\op_b_ff_reg[0]_0 ({neo430_control_inst_n_6,neo430_control_inst_n_7}),
+        .\op_b_ff_reg[11]_0 (neo430_alu_inst_n_42),
         .\op_b_ff_reg[15]_0 ({p_0_in3_in,neo430_alu_inst_n_21,neo430_alu_inst_n_22,neo430_alu_inst_n_23}),
         .\op_b_ff_reg[15]_1 (p_3_in),
-        .\op_b_ff_reg[3]_0 (neo430_alu_inst_n_42),
-        .reg_file_reg_0_15_3_3_i_3(sreg[0]),
+        .reg_file_reg_0_15_0_0_i_3(sreg[0]),
+        .reg_file_reg_0_15_12_12_i_5_0({ctrl_bus[18:15],neo430_control_inst_n_60,neo430_control_inst_n_61}),
         .\sreg[8]_i_4 (p_0_in10_in));
   SystemTop_neo430_control neo430_control_inst
-       (.CO(neo430_control_inst_n_170),
+       (.CO(neo430_control_inst_n_177),
         .D(D),
-        .DI({neo430_control_inst_n_54,neo430_control_inst_n_55}),
+        .DI({neo430_control_inst_n_55,neo430_control_inst_n_56}),
         .E(E),
-        .\FSM_sequential_state_reg[0]_0 (neo430_reg_file_inst_n_26),
-        .\FSM_sequential_state_reg[0]_1 (\FSM_sequential_state_reg[0] ),
-        .\FSM_sequential_state_reg[0]_2 (\FSM_sequential_state_reg[0]_0 ),
+        .\FSM_sequential_state_reg[0]_0 (\FSM_sequential_state_reg[0] ),
+        .\FSM_sequential_state_reg[0]_1 (neo430_reg_file_inst_n_26),
         .\FSM_sequential_state_reg[1]_0 (\FSM_sequential_state_reg[1] ),
-        .\FSM_sequential_state_reg[1]_1 (\FSM_sequential_state_reg[1]_0 ),
-        .\FSM_sequential_state_reg[2]_0 (\FSM_sequential_state_reg[2] ),
-        .\FSM_sequential_state_reg[2]_1 (\FSM_sequential_state_reg[2]_0 ),
         .\FSM_sequential_state_reg[3]_0 (\FSM_sequential_state_reg[3] ),
         .\FSM_sequential_state_reg[3]_1 (\FSM_sequential_state_reg[3]_0 ),
         .\FSM_sequential_state_reg[3]_2 (\FSM_sequential_state_reg[3]_1 ),
         .\FSM_sequential_state_reg[3]_3 (\FSM_sequential_state_reg[3]_2 ),
-        .\FSM_sequential_state_reg[3]_4 (\FSM_sequential_state_reg[3]_3 ),
         .\FSM_sequential_state_reg[4]_0 (\FSM_sequential_state_reg[4] ),
         .\FSM_sequential_state_reg[4]_1 (\rst_gen_reg[3] ),
         .O({neo430_alu_inst_n_0,neo430_alu_inst_n_1,neo430_alu_inst_n_2,neo430_alu_inst_n_3}),
-        .Q({neo430_control_inst_n_0,neo430_control_inst_n_1,ctrl_bus[18:15],neo430_control_inst_n_6,neo430_control_inst_n_7,neo430_control_inst_n_8,ctrl_bus[8],ctrl_bus[4:1]}),
-        .S(neo430_control_inst_n_14),
+        .Q({p_0_in,p_0_in0_in,neo430_alu_inst_n_13,neo430_alu_inst_n_14,neo430_alu_inst_n_15,neo430_alu_inst_n_16,neo430_alu_inst_n_17,neo430_alu_inst_n_18,neo430_alu_inst_n_19}),
+        .S(neo430_control_inst_n_10),
         .SR(SR),
+        .acc_en(acc_en),
         .acc_en_0(acc_en_0),
         .addr_add(addr_add),
         .\am_reg[0]_0 (\am_reg[0] ),
@@ -7921,60 +7765,53 @@ module SystemTop_neo430_cpu
         .cnt_reg_7_sp_1(cnt_reg_7_sn_1),
         .cnt_reg_8_sp_1(cnt_reg_8_sn_1),
         .cnt_reg_9_sp_1(cnt_reg_9_sn_1),
-        .\cpu_bus[addr] ({\cpu_bus[addr] [13:6],\cpu_bus[addr] [0]}),
-        .\cpu_bus[wdata] (\cpu_bus[wdata] ),
+        .\cpu_bus[addr] ({\cpu_bus[addr] [13:4],\cpu_bus[addr] [1:0]}),
         .\cpu_bus[wr_en] (\cpu_bus[wr_en] ),
         .\ctrl_reg[0]_0 (\ctrl_reg[0] ),
         .\ctrl_reg[12]_0 (\ctrl_reg[12] ),
         .\ctrl_reg[12]_1 (\ctrl_reg[12]_0 ),
-        .\ctrl_reg[12]_2 (op_data),
-        .\ctrl_reg[12]_3 (\ctrl_reg[12]_1 ),
         .\ctrl_reg[15]_0 (\ctrl_reg[15] ),
         .\ctrl_reg[16]_0 (\ctrl_reg[16] ),
         .\ctrl_reg[17]_0 (\ctrl_reg[17] ),
-        .\ctrl_reg[19]_0 (ctrl_bus[19]),
-        .\ctrl_reg[19]_1 (\ctrl_reg[19] ),
-        .\ctrl_reg[1]_0 (\ctrl_reg[1] ),
-        .\ctrl_reg[1]_1 ({sreg__0[14],sreg__0[8],sreg__0[2:0]}),
-        .\ctrl_reg[1]_2 ({neo430_control_inst_n_230,neo430_control_inst_n_231,neo430_control_inst_n_232,neo430_control_inst_n_233}),
-        .\ctrl_reg[1]_3 ({neo430_control_inst_n_234,neo430_control_inst_n_235,neo430_control_inst_n_236,neo430_control_inst_n_237}),
-        .\ctrl_reg[21]_0 ({neo430_control_inst_n_16,neo430_control_inst_n_17,neo430_control_inst_n_18,neo430_control_inst_n_19}),
-        .\ctrl_reg[21]_1 ({neo430_control_inst_n_34,neo430_control_inst_n_35,neo430_control_inst_n_36,neo430_control_inst_n_37}),
-        .\ctrl_reg[22]_0 ({neo430_control_inst_n_47,neo430_control_inst_n_48,neo430_control_inst_n_49,neo430_control_inst_n_50}),
-        .\ctrl_reg[22]_1 ({neo430_control_inst_n_52,neo430_control_inst_n_53}),
-        .\ctrl_reg[23]_0 ({neo430_control_inst_n_20,neo430_control_inst_n_21,neo430_control_inst_n_22,neo430_control_inst_n_23}),
-        .\ctrl_reg[23]_1 ({neo430_control_inst_n_38,neo430_control_inst_n_39,neo430_control_inst_n_40,neo430_control_inst_n_41}),
-        .\ctrl_reg[23]_2 ({neo430_control_inst_n_238,neo430_control_inst_n_239,neo430_control_inst_n_240,neo430_control_inst_n_241}),
-        .\ctrl_reg[25]_0 (\cpu_bus[addr] [3]),
-        .\ctrl_reg[25]_1 (\cpu_bus[addr] [2]),
-        .\ctrl_reg[25]_10 (\ctrl_reg[25]_5 ),
-        .\ctrl_reg[25]_11 (\ctrl_reg[25]_6 ),
-        .\ctrl_reg[25]_12 (\ctrl_reg[25]_7 ),
-        .\ctrl_reg[25]_2 (\cpu_bus[addr] [5]),
-        .\ctrl_reg[25]_3 (\cpu_bus[addr] [4]),
-        .\ctrl_reg[25]_4 (\ctrl_reg[25] ),
-        .\ctrl_reg[25]_5 (\ctrl_reg[25]_0 ),
-        .\ctrl_reg[25]_6 (\ctrl_reg[25]_1 ),
-        .\ctrl_reg[25]_7 (\ctrl_reg[25]_2 ),
-        .\ctrl_reg[25]_8 (\ctrl_reg[25]_3 ),
-        .\ctrl_reg[25]_9 (\ctrl_reg[25]_4 ),
+        .\ctrl_reg[17]_1 (\ctrl_reg[17]_0 ),
+        .\ctrl_reg[17]_2 (\ctrl_reg[17]_1 ),
+        .\ctrl_reg[19]_0 ({ctrl_bus[19:15],ctrl_bus[8],ctrl_bus[4:1]}),
+        .\ctrl_reg[1]_0 ({neo430_control_inst_n_47,neo430_control_inst_n_48,neo430_control_inst_n_49,neo430_control_inst_n_50}),
+        .\ctrl_reg[1]_1 ({neo430_control_inst_n_51,neo430_control_inst_n_52,neo430_control_inst_n_53,neo430_control_inst_n_54}),
+        .\ctrl_reg[1]_2 (\ctrl_reg[1] ),
+        .\ctrl_reg[1]_3 ({sreg__0[14],sreg__0[8],sreg__0[2:0]}),
+        .\ctrl_reg[21]_0 ({neo430_control_inst_n_11,neo430_control_inst_n_12,neo430_control_inst_n_13,neo430_control_inst_n_14}),
+        .\ctrl_reg[21]_1 ({neo430_control_inst_n_38,neo430_control_inst_n_39,neo430_control_inst_n_40,neo430_control_inst_n_41}),
+        .\ctrl_reg[22]_0 ({neo430_control_inst_n_63,neo430_control_inst_n_64,neo430_control_inst_n_65,neo430_control_inst_n_66}),
+        .\ctrl_reg[22]_1 ({neo430_control_inst_n_71,neo430_control_inst_n_72}),
+        .\ctrl_reg[23]_0 ({neo430_control_inst_n_15,neo430_control_inst_n_16,neo430_control_inst_n_17,neo430_control_inst_n_18}),
+        .\ctrl_reg[23]_1 ({neo430_control_inst_n_42,neo430_control_inst_n_43,neo430_control_inst_n_44,neo430_control_inst_n_45}),
+        .\ctrl_reg[23]_2 ({neo430_control_inst_n_67,neo430_control_inst_n_68,neo430_control_inst_n_69,neo430_control_inst_n_70}),
+        .\ctrl_reg[25]_0 (\cpu_bus[addr] [2]),
+        .\ctrl_reg[25]_1 (\ctrl_reg[25] ),
+        .\ctrl_reg[25]_2 (\cpu_bus[addr] [3]),
+        .\ctrl_reg[25]_3 (\ctrl_reg[25]_0 ),
+        .\ctrl_reg[25]_4 (\ctrl_reg[25]_1 ),
+        .\ctrl_reg[26]_0 ({neo430_control_inst_n_58,neo430_control_inst_n_59,neo430_control_inst_n_60,neo430_control_inst_n_61,neo430_control_inst_n_62}),
+        .\ctrl_reg[27]_0 (\ctrl_reg[27] ),
+        .\ctrl_reg[27]_1 (\ctrl_reg[27]_0 ),
+        .\ctrl_reg[27]_2 (\ctrl_reg[27]_1 ),
         .\ctrl_reg[28]_0 (\ctrl_reg[28] ),
         .\ctrl_reg[28]_1 (\ctrl_reg[28]_0 ),
         .\ctrl_reg[28]_2 (\ctrl_reg[28]_1 ),
         .\ctrl_reg[28]_3 (\ctrl_reg[28]_2 ),
         .\ctrl_reg[28]_4 (\ctrl_reg[28]_3 ),
-        .\ctrl_reg[28]_5 (\ctrl_reg[28]_4 ),
-        .\ctrl_reg[28]_6 (\ctrl_reg[28]_5 ),
         .\ctrl_reg[2]_0 (\ctrl_reg[2] ),
-        .\ctrl_reg[3]_0 (\ctrl_reg[3] ),
-        .\ctrl_reg[3]_1 (neo430_control_inst_n_192),
+        .\ctrl_reg[3]_0 (neo430_control_inst_n_46),
+        .\ctrl_reg[3]_1 (\ctrl_reg[3] ),
         .\ctrl_reg[4]_0 (\ctrl_reg[4] ),
         .\ctrl_reg[5]_0 (\ctrl_reg[5] ),
         .\ctrl_reg[6]_0 (\ctrl_reg[6] ),
-        .\ctrl_reg[7]_0 (neo430_control_inst_n_195),
+        .\ctrl_reg[7]_0 (neo430_control_inst_n_217),
+        .\ctrl_reg[7]_1 (neo430_alu_inst_n_51),
+        .\ctrl_reg[7]_2 (neo430_alu_inst_n_25),
         .\ctrl_reg[8]_0 (\ctrl_reg[8] ),
-        .\ctrl_reg[8]_1 (\ctrl_reg[8]_0 ),
-        .\ctrl_reg[8]_2 (neo430_reg_file_inst_n_3),
+        .\ctrl_reg[8]_1 (neo430_reg_file_inst_n_3),
         .\ctrl_reg[9]_0 (\ctrl_reg[9] ),
         .data_o0(data_o0),
         .\data_o_reg[15] (\data_o_reg[15] ),
@@ -7984,6 +7821,11 @@ module SystemTop_neo430_cpu
         .\data_o_reg[7] (\data_o_reg[7] ),
         .\din_reg[15] (\din_reg[15] ),
         .dio_swap0(dio_swap0),
+        .dio_swap_reg(dio_swap_reg_0),
+        .dio_swap_reg_0(op_data),
+        .dio_swap_reg_1(dio_swap_reg_1),
+        .i__carry__1_i_5_0(i__carry__1_i_5),
+        .i__carry__1_i_5_1(i__carry__1_i_5_0),
         .imem_file_ram_l_reg_3(mem_addr_reg),
         .imem_up_en(imem_up_en),
         .in_data(in_data),
@@ -7992,20 +7834,29 @@ module SystemTop_neo430_cpu
         .\irq_buf_reg[1]_2 (\irq_buf_reg[1]_0 ),
         .irq_fire_ff(irq_fire_ff),
         .irq_o(irq_o),
-        .\irq_vec_reg[1]_0 (\irq_vec_reg[1] ),
-        .\irq_vec_reg[1]_1 (\irq_vec_reg[1]_0 ),
-        .\irq_vec_reg[1]_2 (\cpu_bus[addr] [1]),
-        .mem_addr_reg0_carry__0(mem_addr_reg0_carry__0),
-        .\mem_addr_reg_reg[15] (acc_en),
-        .\mem_addr_reg_reg[15]_0 (\mem_addr_reg_reg[15] ),
+        .mem_addr_reg0_carry(mem_addr_reg0_carry),
+        .mem_addr_reg0_carry__2(mem_addr_reg0_carry__2),
+        .\mem_addr_reg_reg[11] (\mem_addr_reg_reg[11] ),
+        .\mem_addr_reg_reg[11]_0 (\mem_addr_reg_reg[11]_0 ),
+        .\mem_addr_reg_reg[11]_1 (\mem_addr_reg_reg[11]_1 ),
+        .\mem_addr_reg_reg[15] (\mem_addr_reg_reg[15] ),
         .\mem_addr_reg_reg[1] (\mem_addr_reg_reg[1] ),
         .\mem_addr_reg_reg[1]_0 (\mem_addr_reg_reg[1]_0 ),
         .\mem_addr_reg_reg[1]_1 (\mem_addr_reg_reg[1]_1 ),
+        .\mem_addr_reg_reg[2] (\mem_addr_reg_reg[2] ),
+        .\mem_addr_reg_reg[2]_0 (\mem_addr_reg_reg[2]_0 ),
+        .\mem_addr_reg_reg[2]_1 (\mem_addr_reg_reg[2]_1 ),
+        .\mem_addr_reg_reg[2]_2 (\mem_addr_reg_reg[2]_2 ),
+        .\mem_addr_reg_reg[2]_3 (\mem_addr_reg_reg[2]_3 ),
         .\mem_addr_reg_reg[7] (\mem_addr_reg_reg[7] ),
         .mem_data_i(mem_data_i),
         .op_a_v1(op_a_v1),
+        .\op_b_ff_reg[0] (\op_b_ff_reg[0] ),
+        .\op_b_ff_reg[0]_0 (\op_b_ff_reg[0]_0 ),
         .\op_b_ff_reg[10] (\op_b_ff_reg[10] ),
         .\op_b_ff_reg[11] (\op_b_ff_reg[11] ),
+        .\op_b_ff_reg[12] (\op_b_ff_reg[12] ),
+        .\op_b_ff_reg[13] (\op_b_ff_reg[13] ),
         .\op_b_ff_reg[14] (\op_b_ff_reg[14] ),
         .\op_b_ff_reg[15] (\op_b_ff_reg[15] ),
         .\op_b_ff_reg[1] (\op_b_ff_reg[1] ),
@@ -8014,7 +7865,6 @@ module SystemTop_neo430_cpu
         .\op_b_ff_reg[4] (\op_b_ff_reg[4] ),
         .\op_b_ff_reg[4]_0 (\op_b_ff_reg[4]_0 ),
         .\op_b_ff_reg[5] (\op_b_ff_reg[5] ),
-        .\op_b_ff_reg[5]_0 (\op_b_ff_reg[5]_0 ),
         .\op_b_ff_reg[6] (\op_b_ff_reg[6] ),
         .\op_b_ff_reg[7] (p_0_in10_in),
         .\op_b_ff_reg[7]_0 (\op_b_ff_reg[7] ),
@@ -8023,47 +7873,42 @@ module SystemTop_neo430_cpu
         .p_1_in(p_1_in),
         .p_2_in3_in(p_2_in3_in),
         .\pwm_ch_reg[1][7] (\pwm_ch_reg[1][7] ),
-        .reg_file_reg_0_15_0_0_i_4_0(neo430_alu_inst_n_47),
-        .reg_file_reg_0_15_0_0_i_6_0({neo430_alu_inst_n_55,neo430_alu_inst_n_56,neo430_alu_inst_n_57,neo430_alu_inst_n_58}),
-        .reg_file_reg_0_15_15_15_i_2_0({neo430_alu_inst_n_26,neo430_alu_inst_n_27,neo430_alu_inst_n_28,neo430_alu_inst_n_29,neo430_alu_inst_n_30,neo430_alu_inst_n_31,neo430_alu_inst_n_32,neo430_alu_inst_n_33,p_1_in1_in,neo430_alu_inst_n_35,neo430_alu_inst_n_36,neo430_alu_inst_n_37,neo430_alu_inst_n_38,neo430_alu_inst_n_39,neo430_alu_inst_n_40,neo430_alu_inst_n_41}),
-        .reg_file_reg_0_15_15_15_i_2_1({p_0_in,p_0_in0_in,neo430_alu_inst_n_13,neo430_alu_inst_n_14,neo430_alu_inst_n_15,neo430_alu_inst_n_16,neo430_alu_inst_n_17,neo430_alu_inst_n_18,neo430_alu_inst_n_19}),
-        .reg_file_reg_0_15_15_15_i_2_2({p_0_in3_in,neo430_alu_inst_n_21,neo430_alu_inst_n_22,neo430_alu_inst_n_23}),
-        .reg_file_reg_0_15_1_1_i_3_0(neo430_alu_inst_n_48),
-        .reg_file_reg_0_15_2_2_i_3_0(neo430_alu_inst_n_49),
-        .reg_file_reg_0_15_3_3_i_5_0(neo430_alu_inst_n_50),
-        .reg_file_reg_0_15_4_4_i_2_0({neo430_alu_inst_n_59,neo430_alu_inst_n_60,neo430_alu_inst_n_61,neo430_alu_inst_n_62}),
-        .reg_file_reg_0_15_4_4_i_4_0(neo430_alu_inst_n_51),
-        .reg_file_reg_0_15_5_5_i_3_0(neo430_alu_inst_n_52),
-        .reg_file_reg_0_15_6_6_i_3_0(neo430_alu_inst_n_53),
+        .reg_file_reg_0_15_0_0_i_2_0({neo430_alu_inst_n_55,neo430_alu_inst_n_56,neo430_alu_inst_n_57,neo430_alu_inst_n_58}),
+        .reg_file_reg_0_15_0_0_i_2_1(neo430_alu_inst_n_54),
+        .reg_file_reg_0_15_15_15_i_2_0({p_0_in3_in,neo430_alu_inst_n_21,neo430_alu_inst_n_22,neo430_alu_inst_n_23}),
+        .reg_file_reg_0_15_1_1_i_2_0(neo430_alu_inst_n_45),
+        .reg_file_reg_0_15_2_2_i_2_0(neo430_alu_inst_n_46),
+        .reg_file_reg_0_15_3_3_i_2_0(neo430_alu_inst_n_47),
+        .reg_file_reg_0_15_4_4_i_2_0(neo430_alu_inst_n_48),
+        .reg_file_reg_0_15_4_4_i_5_0({neo430_alu_inst_n_59,neo430_alu_inst_n_60,neo430_alu_inst_n_61}),
+        .reg_file_reg_0_15_5_5_i_2_0(neo430_alu_inst_n_49),
+        .reg_file_reg_0_15_6_6_i_2_0(neo430_alu_inst_n_50),
+        .reg_file_reg_0_15_7_7_i_11_0({neo430_alu_inst_n_26,neo430_alu_inst_n_27,neo430_alu_inst_n_28,neo430_alu_inst_n_29,neo430_alu_inst_n_30,neo430_alu_inst_n_31,neo430_alu_inst_n_32,neo430_alu_inst_n_33,p_1_in1_in,neo430_alu_inst_n_35,neo430_alu_inst_n_36,neo430_alu_inst_n_37,neo430_alu_inst_n_38,neo430_alu_inst_n_39,neo430_alu_inst_n_40,neo430_alu_inst_n_41}),
         .reg_i(reg_i),
+        .\sam_reg[1]_0 (\sam_reg[1] ),
         .\src_reg[3]_0 (\src_reg[3] ),
         .sreg({sreg[8],sreg[3:2],sreg[0]}),
-        .\sreg[1]_i_7_0 (neo430_alu_inst_n_42),
         .\sreg_reg[0] (p_3_in),
-        .\sreg_reg[8] (neo430_alu_inst_n_25),
-        .\sreg_reg[8]_0 (neo430_alu_inst_n_54),
-        .\thres_reg[15] (neo430_alu_inst_n_43),
-        .uart_tx_busy_reg(Q),
-        .uart_tx_busy_reg_0(uart_tx_busy_reg),
+        .\sreg_reg[8] (neo430_alu_inst_n_43),
+        .\sreg_reg[8]_0 (neo430_alu_inst_n_44),
+        .uart_tx_busy0(uart_tx_busy0),
         .\uart_tx_sreg_reg[1] (dio_swap),
         .\uart_tx_sreg_reg[1]_0 (\uart_tx_sreg_reg[1] ),
-        .\uart_tx_sreg_reg[2] (neo430_alu_inst_n_46),
-        .\uart_tx_sreg_reg[3] (neo430_alu_inst_n_45),
-        .\uart_tx_sreg_reg[4] (neo430_alu_inst_n_44),
+        .\uart_tx_sreg_reg[1]_1 (neo430_alu_inst_n_53),
+        .\uart_tx_sreg_reg[2] (neo430_alu_inst_n_52),
+        .\uart_tx_sreg_reg[4] (neo430_alu_inst_n_42),
         .\uart_tx_sreg_reg[6] (\uart_tx_sreg_reg[6] ),
-        .\uart_tx_sreg_reg[7] (\uart_tx_sreg_reg[7] ),
-        .\uart_tx_sreg_reg[7]_0 (\uart_tx_sreg_reg[7]_0 ));
+        .\uart_tx_sreg_reg[7] (Q),
+        .\uart_tx_sreg_reg[7]_0 (\uart_tx_sreg_reg[7] ),
+        .\uart_tx_sreg_reg[7]_1 (\uart_tx_sreg_reg[7]_0 ));
   SystemTop_neo430_reg_file neo430_reg_file_inst
        (.D({sreg__0[14],sreg__0[8],sreg__0[2:0]}),
-        .E(neo430_control_inst_n_195),
+        .E(neo430_control_inst_n_217),
         .Q({neo430_reg_file_inst_n_4,sreg[8],sreg[2],data1,sreg[0]}),
         .WEA(WEA),
         .clk_i(clk_i),
         .\cpu_bus[wr_en] (\cpu_bus[wr_en] ),
-        .\ctrl[8]_i_2 (\op_b_ff_reg[4]_0 ),
-        .\ctrl[8]_i_7_0 (\ctrl[8]_i_7 ),
-        .\ctrl[8]_i_7_1 (\ctrl[8]_i_7_0 ),
-        .\ctrl[8]_i_7_2 (\ctrl[8]_i_7_1 ),
+        .\ctrl_reg[8] (\op_b_ff_reg[4] ),
         .data_o0(data_o0),
         .imem_up_en(imem_up_en),
         .in_data(in_data),
@@ -8072,9 +7917,10 @@ module SystemTop_neo430_cpu
         .sreg(sreg[3]),
         .\sreg_reg[0]_0 (\sreg_reg[0] ),
         .\sreg_reg[15]_0 (\sreg_reg[15] ),
-        .\sreg_reg[3]_0 ({neo430_control_inst_n_1,neo430_control_inst_n_8,ctrl_bus[8],ctrl_bus[4:1]}),
+        .\sreg_reg[3]_0 ({neo430_control_inst_n_59,neo430_control_inst_n_62}),
         .\sreg_reg[4]_0 (neo430_reg_file_inst_n_26),
-        .\sreg_reg[4]_1 (neo430_control_inst_n_192),
+        .\sreg_reg[4]_1 ({ctrl_bus[8],ctrl_bus[4:1]}),
+        .\sreg_reg[4]_2 (neo430_control_inst_n_46),
         .\sreg_reg[8]_0 (neo430_reg_file_inst_n_3));
 endmodule
 
@@ -8082,22 +7928,12 @@ endmodule
 module SystemTop_neo430_dmem
    (DOADO,
     rden,
-    dio_swap_reg,
-    mem_data_i,
-    \data_o_reg[8] ,
-    dmem_file_l_reg_0,
-    dio_swap_reg_0,
+    \data_o_reg[13] ,
     dmem_file_h_reg_0,
-    dio_swap_reg_1,
+    dmem_file_l_reg_0,
+    mem_data_i,
     dmem_file_h_reg_1,
     dmem_file_h_reg_2,
-    dmem_file_h_reg_3,
-    dio_swap_reg_2,
-    dmem_file_h_reg_4,
-    dmem_file_h_reg_5,
-    dmem_file_h_reg_6,
-    dio_swap_reg_3,
-    dio_swap_reg_4,
     dmem_file_l_reg_1,
     dmem_file_l_reg_2,
     dmem_file_l_reg_3,
@@ -8108,51 +7944,29 @@ module SystemTop_neo430_dmem
     clk_i,
     acc_en,
     \cpu_bus[addr] ,
-    \cpu_bus[wdata] ,
+    dmem_file_h_reg_3,
     \cpu_bus[wr_en] ,
     rden_reg_0,
-    dio_swap,
-    \op_b_ff_reg[15] ,
-    \src_reg[0] ,
-    \ir_reg[7] ,
-    timer_rdata,
+    \am_reg[0] ,
+    \am_reg[0]_0 ,
+    E,
+    \am_reg[0]_1 ,
     freq_gen_rdata,
-    uart_rdata,
     Q,
     \ir_reg[11] ,
-    \ir_reg[8] ,
-    \FSM_sequential_state[0]_i_5 ,
-    \FSM_sequential_state[0]_i_5_0 ,
-    \FSM_sequential_state[0]_i_5_1 ,
-    \FSM_sequential_state[0]_i_5_2 ,
-    \FSM_sequential_state[0]_i_5_3 ,
-    \FSM_sequential_state[0]_i_5_4 ,
-    \ir_reg[8]_0 ,
-    \FSM_sequential_state[0]_i_5_5 ,
-    \op_b_ff_reg[9] ,
-    \ir_reg[6] ,
-    \ir_reg[3] ,
-    \ir_reg[2] ,
-    \ir_reg[1] ,
-    \ir_reg[0] );
-  output [2:0]DOADO;
+    \ir_reg[11]_0 ,
+    \ir_reg[11]_1 ,
+    \ir_reg[10] ,
+    \ir_reg[10]_0 ,
+    timer_rdata);
+  output [3:0]DOADO;
   output rden;
-  output dio_swap_reg;
-  output [6:0]mem_data_i;
-  output [0:0]\data_o_reg[8] ;
-  output dmem_file_l_reg_0;
-  output dio_swap_reg_0;
+  output [0:0]\data_o_reg[13] ;
   output dmem_file_h_reg_0;
-  output dio_swap_reg_1;
+  output dmem_file_l_reg_0;
+  output [1:0]mem_data_i;
   output dmem_file_h_reg_1;
   output dmem_file_h_reg_2;
-  output dmem_file_h_reg_3;
-  output dio_swap_reg_2;
-  output dmem_file_h_reg_4;
-  output dmem_file_h_reg_5;
-  output dmem_file_h_reg_6;
-  output dio_swap_reg_3;
-  output dio_swap_reg_4;
   output dmem_file_l_reg_1;
   output dmem_file_l_reg_2;
   output dmem_file_l_reg_3;
@@ -8163,63 +7977,37 @@ module SystemTop_neo430_dmem
   input clk_i;
   input acc_en;
   input [9:0]\cpu_bus[addr] ;
-  input [15:0]\cpu_bus[wdata] ;
+  input [15:0]dmem_file_h_reg_3;
   input [1:0]\cpu_bus[wr_en] ;
   input rden_reg_0;
-  input dio_swap;
-  input [3:0]\op_b_ff_reg[15] ;
-  input \src_reg[0] ;
-  input \ir_reg[7] ;
-  input [8:0]timer_rdata;
+  input \am_reg[0] ;
+  input \am_reg[0]_0 ;
+  input [0:0]E;
+  input \am_reg[0]_1 ;
   input [11:0]freq_gen_rdata;
-  input [7:0]uart_rdata;
-  input [6:0]Q;
-  input [10:0]\ir_reg[11] ;
-  input [5:0]\ir_reg[8] ;
-  input \FSM_sequential_state[0]_i_5 ;
-  input \FSM_sequential_state[0]_i_5_0 ;
-  input \FSM_sequential_state[0]_i_5_1 ;
-  input \FSM_sequential_state[0]_i_5_2 ;
-  input \FSM_sequential_state[0]_i_5_3 ;
-  input \FSM_sequential_state[0]_i_5_4 ;
-  input \ir_reg[8]_0 ;
-  input \FSM_sequential_state[0]_i_5_5 ;
-  input \op_b_ff_reg[9] ;
-  input \ir_reg[6] ;
-  input \ir_reg[3] ;
-  input \ir_reg[2] ;
-  input \ir_reg[1] ;
-  input \ir_reg[0] ;
+  input [0:0]Q;
+  input \ir_reg[11] ;
+  input [8:0]\ir_reg[11]_0 ;
+  input \ir_reg[11]_1 ;
+  input \ir_reg[10] ;
+  input \ir_reg[10]_0 ;
+  input [1:0]timer_rdata;
 
-  wire [2:0]DOADO;
-  wire \FSM_sequential_state[0]_i_5 ;
-  wire \FSM_sequential_state[0]_i_5_0 ;
-  wire \FSM_sequential_state[0]_i_5_1 ;
-  wire \FSM_sequential_state[0]_i_5_2 ;
-  wire \FSM_sequential_state[0]_i_5_3 ;
-  wire \FSM_sequential_state[0]_i_5_4 ;
-  wire \FSM_sequential_state[0]_i_5_5 ;
-  wire [6:0]Q;
+  wire [3:0]DOADO;
+  wire [0:0]E;
+  wire [0:0]Q;
   wire acc_en;
+  wire \am_reg[0] ;
+  wire \am_reg[0]_0 ;
+  wire \am_reg[0]_1 ;
   wire clk_i;
   wire [9:0]\cpu_bus[addr] ;
-  wire [15:0]\cpu_bus[wdata] ;
   wire [1:0]\cpu_bus[wr_en] ;
-  wire [0:0]\data_o_reg[8] ;
-  wire dio_swap;
-  wire dio_swap_reg;
-  wire dio_swap_reg_0;
-  wire dio_swap_reg_1;
-  wire dio_swap_reg_2;
-  wire dio_swap_reg_3;
-  wire dio_swap_reg_4;
+  wire [0:0]\data_o_reg[13] ;
   wire dmem_file_h_reg_0;
   wire dmem_file_h_reg_1;
   wire dmem_file_h_reg_2;
-  wire dmem_file_h_reg_3;
-  wire dmem_file_h_reg_4;
-  wire dmem_file_h_reg_5;
-  wire dmem_file_h_reg_6;
+  wire [15:0]dmem_file_h_reg_3;
   wire dmem_file_l_reg_0;
   wire dmem_file_l_reg_1;
   wire dmem_file_l_reg_2;
@@ -8229,24 +8017,16 @@ module SystemTop_neo430_dmem
   wire dmem_file_l_reg_6;
   wire dmem_file_l_reg_7;
   wire [11:0]freq_gen_rdata;
-  wire \ir_reg[0] ;
-  wire [10:0]\ir_reg[11] ;
-  wire \ir_reg[1] ;
-  wire \ir_reg[2] ;
-  wire \ir_reg[3] ;
-  wire \ir_reg[6] ;
-  wire \ir_reg[7] ;
-  wire [5:0]\ir_reg[8] ;
-  wire \ir_reg[8]_0 ;
-  wire [6:0]mem_data_i;
-  wire [3:0]\op_b_ff_reg[15] ;
-  wire \op_b_ff_reg[9] ;
-  wire [13:0]rdata_reg;
+  wire \ir_reg[10] ;
+  wire \ir_reg[10]_0 ;
+  wire \ir_reg[11] ;
+  wire [8:0]\ir_reg[11]_0 ;
+  wire \ir_reg[11]_1 ;
+  wire [1:0]mem_data_i;
+  wire [11:0]rdata_reg;
   wire rden;
   wire rden_reg_0;
-  wire \src_reg[0] ;
-  wire [8:0]timer_rdata;
-  wire [7:0]uart_rdata;
+  wire [1:0]timer_rdata;
   wire [15:8]NLW_dmem_file_h_reg_DOADO_UNCONNECTED;
   wire [15:0]NLW_dmem_file_h_reg_DOBDO_UNCONNECTED;
   wire [1:0]NLW_dmem_file_h_reg_DOPADOP_UNCONNECTED;
@@ -8256,26 +8036,14 @@ module SystemTop_neo430_dmem
   wire [1:0]NLW_dmem_file_l_reg_DOPADOP_UNCONNECTED;
   wire [1:0]NLW_dmem_file_l_reg_DOPBDOP_UNCONNECTED;
 
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \FSM_sequential_state[4]_i_11 
-       (.I0(dmem_file_h_reg_2),
-        .I1(\FSM_sequential_state[0]_i_5 ),
-        .I2(\FSM_sequential_state[0]_i_5_0 ),
-        .I3(dmem_file_h_reg_3),
-        .I4(\FSM_sequential_state[0]_i_5_1 ),
-        .I5(\FSM_sequential_state[0]_i_5_2 ),
-        .O(dmem_file_h_reg_1));
-  LUT6 #(
-    .INIT(64'hEFEFEF00EFEFEFEF)) 
-    \FSM_sequential_state[4]_i_13 
-       (.I0(dmem_file_h_reg_5),
-        .I1(\FSM_sequential_state[0]_i_5_3 ),
-        .I2(\FSM_sequential_state[0]_i_5_4 ),
-        .I3(dmem_file_h_reg_6),
-        .I4(\ir_reg[8]_0 ),
-        .I5(\FSM_sequential_state[0]_i_5_5 ),
-        .O(dmem_file_h_reg_4));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \am[0]_i_4 
+       (.I0(rdata_reg[7]),
+        .I1(rden),
+        .I2(freq_gen_rdata[7]),
+        .I3(Q),
+        .O(dmem_file_l_reg_0));
   (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p0_d8" *) 
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-6 {cell *THIS*}}" *) 
   (* RTL_RAM_BITS = "8192" *) 
@@ -8310,11 +8078,11 @@ module SystemTop_neo430_dmem
         .ADDRBWRADDR({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [15:8]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,dmem_file_h_reg_3[15:8]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1}),
-        .DOADO({NLW_dmem_file_h_reg_DOADO_UNCONNECTED[15:8],DOADO[2:1],rdata_reg[13],DOADO[0],rdata_reg[11:8]}),
+        .DOADO({NLW_dmem_file_h_reg_DOADO_UNCONNECTED[15:8],DOADO,rdata_reg[11:8]}),
         .DOBDO(NLW_dmem_file_h_reg_DOBDO_UNCONNECTED[15:0]),
         .DOPADOP(NLW_dmem_file_h_reg_DOPADOP_UNCONNECTED[1:0]),
         .DOPBDOP(NLW_dmem_file_h_reg_DOPBDOP_UNCONNECTED[1:0]),
@@ -8362,7 +8130,7 @@ module SystemTop_neo430_dmem
         .ADDRBWRADDR({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [7:0]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,dmem_file_h_reg_3[7:0]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1}),
@@ -8381,203 +8149,33 @@ module SystemTop_neo430_dmem
         .WEA({\cpu_bus[wr_en] [0],\cpu_bus[wr_en] [0]}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0}));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[0]_i_1 
-       (.I0(dmem_file_l_reg_7),
-        .I1(\ir_reg[0] ),
-        .I2(uart_rdata[0]),
-        .I3(timer_rdata[0]),
-        .I4(Q[0]),
-        .I5(\ir_reg[8] [0]),
+    .INIT(64'hFFFFFFEAFFFFFFFF)) 
+    \ir[10]_i_1 
+       (.I0(\ir_reg[10] ),
+        .I1(rdata_reg[10]),
+        .I2(rden),
+        .I3(\ir_reg[11]_0 [7]),
+        .I4(freq_gen_rdata[10]),
+        .I5(\ir_reg[10]_0 ),
         .O(mem_data_i[0]));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[0]_i_2 
-       (.I0(rdata_reg[0]),
-        .I1(rden),
-        .I2(\ir_reg[11] [0]),
-        .I3(freq_gen_rdata[0]),
-        .O(dmem_file_l_reg_7));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[10]_i_3 
-       (.I0(rdata_reg[10]),
-        .I1(rden),
-        .I2(\ir_reg[11] [9]),
-        .I3(freq_gen_rdata[10]),
-        .O(dmem_file_h_reg_3));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[11]_i_3 
-       (.I0(rdata_reg[11]),
-        .I1(rden),
-        .I2(\ir_reg[11] [10]),
-        .I3(freq_gen_rdata[11]),
-        .O(dmem_file_h_reg_2));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[13]_i_3 
-       (.I0(rdata_reg[13]),
-        .I1(rden),
-        .I2(timer_rdata[8]),
-        .I3(uart_rdata[7]),
-        .O(dmem_file_h_reg_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[1]_i_1 
-       (.I0(dmem_file_l_reg_6),
-        .I1(\ir_reg[1] ),
-        .I2(uart_rdata[1]),
-        .I3(timer_rdata[1]),
-        .I4(Q[1]),
-        .I5(\ir_reg[8] [1]),
+    .INIT(64'hFFFFFFEAFFFFFFFF)) 
+    \ir[11]_i_1 
+       (.I0(\ir_reg[11] ),
+        .I1(rdata_reg[11]),
+        .I2(rden),
+        .I3(\ir_reg[11]_0 [8]),
+        .I4(freq_gen_rdata[11]),
+        .I5(\ir_reg[11]_1 ),
         .O(mem_data_i[1]));
   LUT4 #(
     .INIT(16'hFFF8)) 
-    \ir[1]_i_2 
-       (.I0(rdata_reg[1]),
-        .I1(rden),
-        .I2(\ir_reg[11] [1]),
-        .I3(freq_gen_rdata[1]),
-        .O(dmem_file_l_reg_6));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[2]_i_1 
-       (.I0(dmem_file_l_reg_5),
-        .I1(\ir_reg[2] ),
-        .I2(uart_rdata[2]),
-        .I3(timer_rdata[2]),
-        .I4(Q[2]),
-        .I5(\ir_reg[8] [2]),
-        .O(mem_data_i[2]));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[2]_i_2 
-       (.I0(rdata_reg[2]),
-        .I1(rden),
-        .I2(\ir_reg[11] [2]),
-        .I3(freq_gen_rdata[2]),
-        .O(dmem_file_l_reg_5));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[3]_i_1 
-       (.I0(dmem_file_l_reg_4),
-        .I1(\ir_reg[3] ),
-        .I2(uart_rdata[3]),
-        .I3(timer_rdata[3]),
-        .I4(Q[3]),
-        .I5(\ir_reg[8] [3]),
-        .O(mem_data_i[3]));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[3]_i_2 
-       (.I0(rdata_reg[3]),
-        .I1(rden),
-        .I2(\ir_reg[11] [3]),
-        .I3(freq_gen_rdata[3]),
-        .O(dmem_file_l_reg_4));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[6]_i_1 
-       (.I0(dmem_file_l_reg_1),
-        .I1(\ir_reg[6] ),
-        .I2(timer_rdata[4]),
-        .I3(\ir_reg[8] [4]),
-        .I4(uart_rdata[4]),
-        .I5(Q[4]),
-        .O(mem_data_i[4]));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[6]_i_2 
+    \ir[6]_i_4 
        (.I0(rdata_reg[6]),
         .I1(rden),
-        .I2(\ir_reg[11] [6]),
-        .I3(freq_gen_rdata[6]),
+        .I2(freq_gen_rdata[6]),
+        .I3(timer_rdata[0]),
         .O(dmem_file_l_reg_1));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[7]_i_1 
-       (.I0(dmem_file_l_reg_0),
-        .I1(\ir_reg[7] ),
-        .I2(timer_rdata[5]),
-        .I3(freq_gen_rdata[7]),
-        .I4(uart_rdata[5]),
-        .I5(Q[5]),
-        .O(mem_data_i[5]));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[7]_i_2 
-       (.I0(rdata_reg[7]),
-        .I1(rden),
-        .I2(\ir_reg[11] [7]),
-        .I3(\ir_reg[8] [4]),
-        .O(dmem_file_l_reg_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[8]_i_1 
-       (.I0(dmem_file_h_reg_6),
-        .I1(\ir_reg[8]_0 ),
-        .I2(uart_rdata[6]),
-        .I3(timer_rdata[6]),
-        .I4(Q[6]),
-        .I5(\ir_reg[8] [5]),
-        .O(mem_data_i[6]));
-  LUT4 #(
-    .INIT(16'hFFF8)) 
-    \ir[8]_i_2 
-       (.I0(rdata_reg[8]),
-        .I1(rden),
-        .I2(\ir_reg[11] [8]),
-        .I3(freq_gen_rdata[8]),
-        .O(dmem_file_h_reg_6));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[10]_i_2 
-       (.I0(mem_data_i[2]),
-        .I1(dio_swap),
-        .I2(\op_b_ff_reg[15] [0]),
-        .O(dio_swap_reg_2));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[11]_i_2 
-       (.I0(mem_data_i[3]),
-        .I1(dio_swap),
-        .I2(\op_b_ff_reg[15] [1]),
-        .O(dio_swap_reg_1));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[14]_i_2 
-       (.I0(mem_data_i[4]),
-        .I1(dio_swap),
-        .I2(\op_b_ff_reg[15] [2]),
-        .O(dio_swap_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[15]_i_2 
-       (.I0(mem_data_i[5]),
-        .I1(dio_swap),
-        .I2(\op_b_ff_reg[15] [3]),
-        .O(dio_swap_reg));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[8]_i_2 
-       (.I0(mem_data_i[0]),
-        .I1(dio_swap),
-        .I2(mem_data_i[6]),
-        .O(dio_swap_reg_4));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
-  LUT3 #(
-    .INIT(8'h8B)) 
-    \op_b_ff[9]_i_2 
-       (.I0(mem_data_i[1]),
-        .I1(dio_swap),
-        .I2(\op_b_ff_reg[9] ),
-        .O(dio_swap_reg_3));
   FDRE rden_reg
        (.C(clk_i),
         .CE(1'b1),
@@ -8589,7 +8187,7 @@ module SystemTop_neo430_dmem
     \sam[0]_i_4 
        (.I0(rdata_reg[4]),
         .I1(rden),
-        .I2(\ir_reg[11] [4]),
+        .I2(\ir_reg[11]_0 [4]),
         .I3(freq_gen_rdata[4]),
         .O(dmem_file_l_reg_3));
   LUT4 #(
@@ -8597,42 +8195,110 @@ module SystemTop_neo430_dmem
     \sam[1]_i_4 
        (.I0(rdata_reg[5]),
         .I1(rden),
-        .I2(\ir_reg[11] [5]),
+        .I2(\ir_reg[11]_0 [5]),
         .I3(freq_gen_rdata[5]),
         .O(dmem_file_l_reg_2));
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \src[0]_i_1 
-       (.I0(mem_data_i[6]),
-        .I1(\src_reg[0] ),
-        .I2(mem_data_i[0]),
-        .O(\data_o_reg[8] ));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \src[0]_i_5 
+       (.I0(rdata_reg[0]),
+        .I1(rden),
+        .I2(\ir_reg[11]_0 [0]),
+        .I3(freq_gen_rdata[0]),
+        .O(dmem_file_l_reg_7));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \src[0]_i_7 
+       (.I0(rdata_reg[8]),
+        .I1(rden),
+        .I2(\ir_reg[11]_0 [6]),
+        .I3(freq_gen_rdata[8]),
+        .O(dmem_file_h_reg_2));
   LUT4 #(
     .INIT(16'hFFF8)) 
     \src[1]_i_5 
+       (.I0(rdata_reg[1]),
+        .I1(rden),
+        .I2(\ir_reg[11]_0 [1]),
+        .I3(freq_gen_rdata[1]),
+        .O(dmem_file_l_reg_6));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \src[1]_i_7 
        (.I0(rdata_reg[9]),
         .I1(rden),
         .I2(freq_gen_rdata[9]),
-        .I3(timer_rdata[7]),
-        .O(dmem_file_h_reg_5));
+        .I3(timer_rdata[1]),
+        .O(dmem_file_h_reg_1));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \src[2]_i_4 
+       (.I0(rdata_reg[2]),
+        .I1(rden),
+        .I2(\ir_reg[11]_0 [2]),
+        .I3(freq_gen_rdata[2]),
+        .O(dmem_file_l_reg_5));
+  LUT5 #(
+    .INIT(32'hFF000400)) 
+    \src[3]_i_1 
+       (.I0(dmem_file_h_reg_0),
+        .I1(\am_reg[0] ),
+        .I2(\am_reg[0]_0 ),
+        .I3(E),
+        .I4(\am_reg[0]_1 ),
+        .O(\data_o_reg[13] ));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \src[3]_i_11 
+       (.I0(rdata_reg[3]),
+        .I1(rden),
+        .I2(\ir_reg[11]_0 [3]),
+        .I3(freq_gen_rdata[3]),
+        .O(dmem_file_l_reg_4));
+  LUT2 #(
+    .INIT(4'hE)) 
+    \src[3]_i_3 
+       (.I0(mem_data_i[1]),
+        .I1(mem_data_i[0]),
+        .O(dmem_file_h_reg_0));
 endmodule
 
 (* ORIG_REF_NAME = "neo430_freq_gen" *) 
 module SystemTop_neo430_freq_gen
    (freq_gen_cg_en,
+    freq_gen_o,
     freq_gen_rdata,
     clk_i,
+    \nco_prsc_tick_reg[0]_0 ,
+    \nco_prsc_tick_reg[0]_1 ,
+    \nco_prsc_tick_reg[0]_2 ,
+    \nco_prsc_tick_reg[0]_3 ,
+    \nco_prsc_tick_reg[0]_4 ,
+    \nco_prsc_tick_reg[0]_5 ,
+    \nco_prsc_tick_reg[0]_6 ,
+    \nco_prsc_tick_reg[0]_7 ,
     E,
     D,
-    \data_o_reg[11]_0 );
+    \data_o_reg[11]_0 ,
+    \tuning_word_reg[0][15]_0 );
   output freq_gen_cg_en;
+  output [0:0]freq_gen_o;
   output [11:0]freq_gen_rdata;
   input clk_i;
+  input \nco_prsc_tick_reg[0]_0 ;
+  input \nco_prsc_tick_reg[0]_1 ;
+  input \nco_prsc_tick_reg[0]_2 ;
+  input \nco_prsc_tick_reg[0]_3 ;
+  input \nco_prsc_tick_reg[0]_4 ;
+  input \nco_prsc_tick_reg[0]_5 ;
+  input \nco_prsc_tick_reg[0]_6 ;
+  input \nco_prsc_tick_reg[0]_7 ;
   input [0:0]E;
-  input [11:0]D;
+  input [15:0]D;
   input \data_o_reg[11]_0 ;
+  input [0:0]\tuning_word_reg[0][15]_0 ;
 
-  wire [11:0]D;
+  wire [15:0]D;
   wire [0:0]E;
   wire clk_i;
   wire clkgen_en_o_i_1_n_0;
@@ -8648,16 +8314,100 @@ module SystemTop_neo430_freq_gen
   wire \ctrl_reg_n_0_[9] ;
   wire \data_o_reg[11]_0 ;
   wire freq_gen_cg_en;
+  wire [0:0]freq_gen_o;
   wire [11:0]freq_gen_rdata;
+  wire [15:0]in;
+  wire \nco_phase_accu[0][0]_i_1_n_0 ;
+  wire \nco_phase_accu[0][0]_i_3_n_0 ;
+  wire \nco_phase_accu[0][0]_i_4_n_0 ;
+  wire \nco_phase_accu[0][0]_i_5_n_0 ;
+  wire \nco_phase_accu[0][0]_i_6_n_0 ;
+  wire \nco_phase_accu[0][12]_i_2_n_0 ;
+  wire \nco_phase_accu[0][12]_i_3_n_0 ;
+  wire \nco_phase_accu[0][12]_i_4_n_0 ;
+  wire \nco_phase_accu[0][12]_i_5_n_0 ;
+  wire \nco_phase_accu[0][4]_i_2_n_0 ;
+  wire \nco_phase_accu[0][4]_i_3_n_0 ;
+  wire \nco_phase_accu[0][4]_i_4_n_0 ;
+  wire \nco_phase_accu[0][4]_i_5_n_0 ;
+  wire \nco_phase_accu[0][8]_i_2_n_0 ;
+  wire \nco_phase_accu[0][8]_i_3_n_0 ;
+  wire \nco_phase_accu[0][8]_i_4_n_0 ;
+  wire \nco_phase_accu[0][8]_i_5_n_0 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_0 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_1 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_2 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_3 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_4 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_5 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_6 ;
+  wire \nco_phase_accu_reg[0][0]_i_2_n_7 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_0 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_1 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_2 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_3 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_4 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_5 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_6 ;
+  wire \nco_phase_accu_reg[0][12]_i_1_n_7 ;
+  wire \nco_phase_accu_reg[0][16]_i_1_n_7 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_0 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_1 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_2 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_3 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_4 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_5 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_6 ;
+  wire \nco_phase_accu_reg[0][4]_i_1_n_7 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_0 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_1 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_2 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_3 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_4 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_5 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_6 ;
+  wire \nco_phase_accu_reg[0][8]_i_1_n_7 ;
+  wire [16:16]\nco_phase_accu_reg[0]_3 ;
+  wire \nco_phase_accu_reg_n_0_[0][0] ;
+  wire \nco_phase_accu_reg_n_0_[0][10] ;
+  wire \nco_phase_accu_reg_n_0_[0][11] ;
+  wire \nco_phase_accu_reg_n_0_[0][12] ;
+  wire \nco_phase_accu_reg_n_0_[0][13] ;
+  wire \nco_phase_accu_reg_n_0_[0][14] ;
+  wire \nco_phase_accu_reg_n_0_[0][15] ;
+  wire \nco_phase_accu_reg_n_0_[0][1] ;
+  wire \nco_phase_accu_reg_n_0_[0][2] ;
+  wire \nco_phase_accu_reg_n_0_[0][3] ;
+  wire \nco_phase_accu_reg_n_0_[0][4] ;
+  wire \nco_phase_accu_reg_n_0_[0][5] ;
+  wire \nco_phase_accu_reg_n_0_[0][6] ;
+  wire \nco_phase_accu_reg_n_0_[0][7] ;
+  wire \nco_phase_accu_reg_n_0_[0][8] ;
+  wire \nco_phase_accu_reg_n_0_[0][9] ;
+  wire \nco_prsc_tick[0]_i_2_n_0 ;
+  wire \nco_prsc_tick[0]_i_3_n_0 ;
+  wire \nco_prsc_tick_reg[0]_0 ;
+  wire \nco_prsc_tick_reg[0]_1 ;
+  wire \nco_prsc_tick_reg[0]_2 ;
+  wire \nco_prsc_tick_reg[0]_3 ;
+  wire \nco_prsc_tick_reg[0]_4 ;
+  wire \nco_prsc_tick_reg[0]_5 ;
+  wire \nco_prsc_tick_reg[0]_6 ;
+  wire \nco_prsc_tick_reg[0]_7 ;
+  wire \nco_prsc_tick_reg_n_0_[0] ;
   wire p_0_in;
+  wire [0:0]p_1_out;
   wire p_2_in;
+  wire [0:0]\tuning_word_reg[0][15]_0 ;
+  wire [3:0]\NLW_nco_phase_accu_reg[0][16]_i_1_CO_UNCONNECTED ;
+  wire [3:1]\NLW_nco_phase_accu_reg[0][16]_i_1_O_UNCONNECTED ;
 
   LUT3 #(
     .INIT(8'hFE)) 
     clkgen_en_o_i_1
-       (.I0(\ctrl_reg_n_0_[0] ),
+       (.I0(p_2_in),
         .I1(p_0_in),
-        .I2(p_2_in),
+        .I2(\ctrl_reg_n_0_[0] ),
         .O(clkgen_en_o_i_1_n_0));
   FDRE clkgen_en_o_reg
        (.C(clk_i),
@@ -8809,154 +8559,457 @@ module SystemTop_neo430_freq_gen
         .D(\ctrl_reg_n_0_[9] ),
         .Q(freq_gen_rdata[9]),
         .R(\data_o_reg[11]_0 ));
+  FDRE \freq_gen_o_reg[0] 
+       (.C(clk_i),
+        .CE(1'b1),
+        .D(\nco_phase_accu_reg[0]_3 ),
+        .Q(freq_gen_o),
+        .R(1'b0));
+  LUT1 #(
+    .INIT(2'h1)) 
+    \nco_phase_accu[0][0]_i_1 
+       (.I0(\ctrl_reg_n_0_[0] ),
+        .O(\nco_phase_accu[0][0]_i_1_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][0]_i_3 
+       (.I0(in[3]),
+        .I1(\nco_phase_accu_reg_n_0_[0][3] ),
+        .O(\nco_phase_accu[0][0]_i_3_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][0]_i_4 
+       (.I0(in[2]),
+        .I1(\nco_phase_accu_reg_n_0_[0][2] ),
+        .O(\nco_phase_accu[0][0]_i_4_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][0]_i_5 
+       (.I0(in[1]),
+        .I1(\nco_phase_accu_reg_n_0_[0][1] ),
+        .O(\nco_phase_accu[0][0]_i_5_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][0]_i_6 
+       (.I0(in[0]),
+        .I1(\nco_phase_accu_reg_n_0_[0][0] ),
+        .O(\nco_phase_accu[0][0]_i_6_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][12]_i_2 
+       (.I0(in[15]),
+        .I1(\nco_phase_accu_reg_n_0_[0][15] ),
+        .O(\nco_phase_accu[0][12]_i_2_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][12]_i_3 
+       (.I0(in[14]),
+        .I1(\nco_phase_accu_reg_n_0_[0][14] ),
+        .O(\nco_phase_accu[0][12]_i_3_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][12]_i_4 
+       (.I0(in[13]),
+        .I1(\nco_phase_accu_reg_n_0_[0][13] ),
+        .O(\nco_phase_accu[0][12]_i_4_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][12]_i_5 
+       (.I0(in[12]),
+        .I1(\nco_phase_accu_reg_n_0_[0][12] ),
+        .O(\nco_phase_accu[0][12]_i_5_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][4]_i_2 
+       (.I0(in[7]),
+        .I1(\nco_phase_accu_reg_n_0_[0][7] ),
+        .O(\nco_phase_accu[0][4]_i_2_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][4]_i_3 
+       (.I0(in[6]),
+        .I1(\nco_phase_accu_reg_n_0_[0][6] ),
+        .O(\nco_phase_accu[0][4]_i_3_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][4]_i_4 
+       (.I0(in[5]),
+        .I1(\nco_phase_accu_reg_n_0_[0][5] ),
+        .O(\nco_phase_accu[0][4]_i_4_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][4]_i_5 
+       (.I0(in[4]),
+        .I1(\nco_phase_accu_reg_n_0_[0][4] ),
+        .O(\nco_phase_accu[0][4]_i_5_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][8]_i_2 
+       (.I0(in[11]),
+        .I1(\nco_phase_accu_reg_n_0_[0][11] ),
+        .O(\nco_phase_accu[0][8]_i_2_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][8]_i_3 
+       (.I0(in[10]),
+        .I1(\nco_phase_accu_reg_n_0_[0][10] ),
+        .O(\nco_phase_accu[0][8]_i_3_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][8]_i_4 
+       (.I0(in[9]),
+        .I1(\nco_phase_accu_reg_n_0_[0][9] ),
+        .O(\nco_phase_accu[0][8]_i_4_n_0 ));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \nco_phase_accu[0][8]_i_5 
+       (.I0(in[8]),
+        .I1(\nco_phase_accu_reg_n_0_[0][8] ),
+        .O(\nco_phase_accu[0][8]_i_5_n_0 ));
+  FDRE \nco_phase_accu_reg[0][0] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][0]_i_2_n_7 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][0] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  (* ADDER_THRESHOLD = "11" *) 
+  CARRY4 \nco_phase_accu_reg[0][0]_i_2 
+       (.CI(1'b0),
+        .CO({\nco_phase_accu_reg[0][0]_i_2_n_0 ,\nco_phase_accu_reg[0][0]_i_2_n_1 ,\nco_phase_accu_reg[0][0]_i_2_n_2 ,\nco_phase_accu_reg[0][0]_i_2_n_3 }),
+        .CYINIT(1'b0),
+        .DI(in[3:0]),
+        .O({\nco_phase_accu_reg[0][0]_i_2_n_4 ,\nco_phase_accu_reg[0][0]_i_2_n_5 ,\nco_phase_accu_reg[0][0]_i_2_n_6 ,\nco_phase_accu_reg[0][0]_i_2_n_7 }),
+        .S({\nco_phase_accu[0][0]_i_3_n_0 ,\nco_phase_accu[0][0]_i_4_n_0 ,\nco_phase_accu[0][0]_i_5_n_0 ,\nco_phase_accu[0][0]_i_6_n_0 }));
+  FDRE \nco_phase_accu_reg[0][10] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][8]_i_1_n_5 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][10] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][11] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][8]_i_1_n_4 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][11] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][12] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][12]_i_1_n_7 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][12] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  (* ADDER_THRESHOLD = "11" *) 
+  CARRY4 \nco_phase_accu_reg[0][12]_i_1 
+       (.CI(\nco_phase_accu_reg[0][8]_i_1_n_0 ),
+        .CO({\nco_phase_accu_reg[0][12]_i_1_n_0 ,\nco_phase_accu_reg[0][12]_i_1_n_1 ,\nco_phase_accu_reg[0][12]_i_1_n_2 ,\nco_phase_accu_reg[0][12]_i_1_n_3 }),
+        .CYINIT(1'b0),
+        .DI(in[15:12]),
+        .O({\nco_phase_accu_reg[0][12]_i_1_n_4 ,\nco_phase_accu_reg[0][12]_i_1_n_5 ,\nco_phase_accu_reg[0][12]_i_1_n_6 ,\nco_phase_accu_reg[0][12]_i_1_n_7 }),
+        .S({\nco_phase_accu[0][12]_i_2_n_0 ,\nco_phase_accu[0][12]_i_3_n_0 ,\nco_phase_accu[0][12]_i_4_n_0 ,\nco_phase_accu[0][12]_i_5_n_0 }));
+  FDRE \nco_phase_accu_reg[0][13] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][12]_i_1_n_6 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][13] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][14] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][12]_i_1_n_5 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][14] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][15] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][12]_i_1_n_4 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][15] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][16] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][16]_i_1_n_7 ),
+        .Q(\nco_phase_accu_reg[0]_3 ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  (* ADDER_THRESHOLD = "11" *) 
+  CARRY4 \nco_phase_accu_reg[0][16]_i_1 
+       (.CI(\nco_phase_accu_reg[0][12]_i_1_n_0 ),
+        .CO(\NLW_nco_phase_accu_reg[0][16]_i_1_CO_UNCONNECTED [3:0]),
+        .CYINIT(1'b0),
+        .DI({1'b0,1'b0,1'b0,1'b0}),
+        .O({\NLW_nco_phase_accu_reg[0][16]_i_1_O_UNCONNECTED [3:1],\nco_phase_accu_reg[0][16]_i_1_n_7 }),
+        .S({1'b0,1'b0,1'b0,\nco_phase_accu_reg[0]_3 }));
+  FDRE \nco_phase_accu_reg[0][1] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][0]_i_2_n_6 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][1] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][2] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][0]_i_2_n_5 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][2] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][3] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][0]_i_2_n_4 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][3] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][4] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][4]_i_1_n_7 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][4] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  (* ADDER_THRESHOLD = "11" *) 
+  CARRY4 \nco_phase_accu_reg[0][4]_i_1 
+       (.CI(\nco_phase_accu_reg[0][0]_i_2_n_0 ),
+        .CO({\nco_phase_accu_reg[0][4]_i_1_n_0 ,\nco_phase_accu_reg[0][4]_i_1_n_1 ,\nco_phase_accu_reg[0][4]_i_1_n_2 ,\nco_phase_accu_reg[0][4]_i_1_n_3 }),
+        .CYINIT(1'b0),
+        .DI(in[7:4]),
+        .O({\nco_phase_accu_reg[0][4]_i_1_n_4 ,\nco_phase_accu_reg[0][4]_i_1_n_5 ,\nco_phase_accu_reg[0][4]_i_1_n_6 ,\nco_phase_accu_reg[0][4]_i_1_n_7 }),
+        .S({\nco_phase_accu[0][4]_i_2_n_0 ,\nco_phase_accu[0][4]_i_3_n_0 ,\nco_phase_accu[0][4]_i_4_n_0 ,\nco_phase_accu[0][4]_i_5_n_0 }));
+  FDRE \nco_phase_accu_reg[0][5] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][4]_i_1_n_6 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][5] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][6] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][4]_i_1_n_5 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][6] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][7] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][4]_i_1_n_4 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][7] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  FDRE \nco_phase_accu_reg[0][8] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][8]_i_1_n_7 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][8] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  (* ADDER_THRESHOLD = "11" *) 
+  CARRY4 \nco_phase_accu_reg[0][8]_i_1 
+       (.CI(\nco_phase_accu_reg[0][4]_i_1_n_0 ),
+        .CO({\nco_phase_accu_reg[0][8]_i_1_n_0 ,\nco_phase_accu_reg[0][8]_i_1_n_1 ,\nco_phase_accu_reg[0][8]_i_1_n_2 ,\nco_phase_accu_reg[0][8]_i_1_n_3 }),
+        .CYINIT(1'b0),
+        .DI(in[11:8]),
+        .O({\nco_phase_accu_reg[0][8]_i_1_n_4 ,\nco_phase_accu_reg[0][8]_i_1_n_5 ,\nco_phase_accu_reg[0][8]_i_1_n_6 ,\nco_phase_accu_reg[0][8]_i_1_n_7 }),
+        .S({\nco_phase_accu[0][8]_i_2_n_0 ,\nco_phase_accu[0][8]_i_3_n_0 ,\nco_phase_accu[0][8]_i_4_n_0 ,\nco_phase_accu[0][8]_i_5_n_0 }));
+  FDRE \nco_phase_accu_reg[0][9] 
+       (.C(clk_i),
+        .CE(\nco_prsc_tick_reg_n_0_[0] ),
+        .D(\nco_phase_accu_reg[0][8]_i_1_n_6 ),
+        .Q(\nco_phase_accu_reg_n_0_[0][9] ),
+        .R(\nco_phase_accu[0][0]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h553355330F000FFF)) 
+    \nco_prsc_tick[0]_i_2 
+       (.I0(\nco_prsc_tick_reg[0]_0 ),
+        .I1(\nco_prsc_tick_reg[0]_1 ),
+        .I2(\nco_prsc_tick_reg[0]_2 ),
+        .I3(\ctrl_reg_n_0_[3] ),
+        .I4(\nco_prsc_tick_reg[0]_3 ),
+        .I5(\ctrl_reg_n_0_[4] ),
+        .O(\nco_prsc_tick[0]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h553355330F000FFF)) 
+    \nco_prsc_tick[0]_i_3 
+       (.I0(\nco_prsc_tick_reg[0]_4 ),
+        .I1(\nco_prsc_tick_reg[0]_5 ),
+        .I2(\nco_prsc_tick_reg[0]_6 ),
+        .I3(\ctrl_reg_n_0_[3] ),
+        .I4(\nco_prsc_tick_reg[0]_7 ),
+        .I5(\ctrl_reg_n_0_[4] ),
+        .O(\nco_prsc_tick[0]_i_3_n_0 ));
+  FDRE \nco_prsc_tick_reg[0] 
+       (.C(clk_i),
+        .CE(1'b1),
+        .D(p_1_out),
+        .Q(\nco_prsc_tick_reg_n_0_[0] ),
+        .R(1'b0));
+  MUXF7 \nco_prsc_tick_reg[0]_i_1 
+       (.I0(\nco_prsc_tick[0]_i_2_n_0 ),
+        .I1(\nco_prsc_tick[0]_i_3_n_0 ),
+        .O(p_1_out),
+        .S(\ctrl_reg_n_0_[5] ));
+  FDRE \tuning_word_reg[0][0] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[0]),
+        .Q(in[0]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][10] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[10]),
+        .Q(in[10]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][11] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[11]),
+        .Q(in[11]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][12] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[12]),
+        .Q(in[12]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][13] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[13]),
+        .Q(in[13]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][14] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[14]),
+        .Q(in[14]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][15] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[15]),
+        .Q(in[15]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][1] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[1]),
+        .Q(in[1]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][2] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[2]),
+        .Q(in[2]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][3] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[3]),
+        .Q(in[3]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][4] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[4]),
+        .Q(in[4]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][5] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[5]),
+        .Q(in[5]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][6] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[6]),
+        .Q(in[6]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][7] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[7]),
+        .Q(in[7]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][8] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[8]),
+        .Q(in[8]),
+        .R(1'b0));
+  FDRE \tuning_word_reg[0][9] 
+       (.C(clk_i),
+        .CE(\tuning_word_reg[0][15]_0 ),
+        .D(D[9]),
+        .Q(in[9]),
+        .R(1'b0));
 endmodule
 
 (* ORIG_REF_NAME = "neo430_gpio" *) 
 module SystemTop_neo430_gpio
    (irq_o,
-    \data_o_reg[7]_0 ,
-    \data_o_reg[15]_0 ,
-    \data_o_reg[5]_0 ,
-    \data_o_reg[13]_0 ,
     \data_o_reg[12]_0 ,
-    \data_o_reg[7]_1 ,
     \data_o_reg[12]_1 ,
-    \data_o_reg[15]_1 ,
+    mem_data_i,
     Q,
-    \data_o_reg[14]_0 ,
-    \data_o_reg[13]_1 ,
-    dio_swap_reg,
-    \data_o_reg[12]_2 ,
-    \data_o_reg[6]_0 ,
+    \data_o_reg[5]_0 ,
     \din_reg[15]_0 ,
     \dout_reg[15]_0 ,
     clk_i,
-    mem_data_i,
-    \am_reg[0] ,
-    \FSM_sequential_state_reg[4] ,
-    \FSM_sequential_state_reg[4]_0 ,
-    \FSM_sequential_state_reg[4]_1 ,
-    \am_reg[3] ,
-    \am_reg[3]_0 ,
-    \am_reg[3]_1 ,
-    \am_reg[3]_2 ,
-    \am_reg[3]_3 ,
-    \am_reg[3]_4 ,
-    uart_rdata,
-    freq_gen_rdata,
-    timer_rdata,
-    \FSM_sequential_state[2]_i_4 ,
-    \FSM_sequential_state[2]_i_4_0 ,
-    \FSM_sequential_state[0]_i_5 ,
-    \FSM_sequential_state[0]_i_5_0 ,
-    dio_swap,
+    \ctrl_reg[15] ,
+    \ctrl_reg[15]_0 ,
     \ir_reg[12] ,
-    \ctrl[19]_i_4 ,
-    \ctrl[19]_i_4_0 ,
-    \am_reg[0]_0 ,
-    \am_reg[0]_1 ,
+    timer_rdata,
+    uart_rdata,
+    \ir_reg[12]_0 ,
+    \ir_reg[5] ,
+    \ir_reg[5]_0 ,
+    \ir_reg[5]_1 ,
     gpio_i,
     E,
-    \cpu_bus[wdata] ,
+    \dout_reg[15]_1 ,
     SR,
     D,
-    \irq_mask_reg[0]_0 );
+    \irq_mask_reg[15]_0 );
   output irq_o;
-  output [0:0]\data_o_reg[7]_0 ;
-  output \data_o_reg[15]_0 ;
-  output \data_o_reg[5]_0 ;
-  output \data_o_reg[13]_0 ;
   output \data_o_reg[12]_0 ;
-  output \data_o_reg[7]_1 ;
   output \data_o_reg[12]_1 ;
-  output \data_o_reg[15]_1 ;
-  output [14:0]Q;
-  output \data_o_reg[14]_0 ;
-  output \data_o_reg[13]_1 ;
-  output dio_swap_reg;
-  output [1:0]\data_o_reg[12]_2 ;
-  output \data_o_reg[6]_0 ;
+  output [1:0]mem_data_i;
+  output [13:0]Q;
+  output \data_o_reg[5]_0 ;
   output [15:0]\din_reg[15]_0 ;
   output [15:0]\dout_reg[15]_0 ;
   input clk_i;
-  input [0:0]mem_data_i;
-  input \am_reg[0] ;
-  input \FSM_sequential_state_reg[4] ;
-  input \FSM_sequential_state_reg[4]_0 ;
-  input \FSM_sequential_state_reg[4]_1 ;
-  input \am_reg[3] ;
-  input \am_reg[3]_0 ;
-  input \am_reg[3]_1 ;
-  input \am_reg[3]_2 ;
-  input [3:0]\am_reg[3]_3 ;
-  input [3:0]\am_reg[3]_4 ;
-  input [3:0]uart_rdata;
-  input [0:0]freq_gen_rdata;
-  input [3:0]timer_rdata;
-  input \FSM_sequential_state[2]_i_4 ;
-  input \FSM_sequential_state[2]_i_4_0 ;
-  input \FSM_sequential_state[0]_i_5 ;
-  input \FSM_sequential_state[0]_i_5_0 ;
-  input dio_swap;
-  input \ir_reg[12] ;
-  input \ctrl[19]_i_4 ;
-  input \ctrl[19]_i_4_0 ;
-  input \am_reg[0]_0 ;
-  input \am_reg[0]_1 ;
+  input \ctrl_reg[15] ;
+  input \ctrl_reg[15]_0 ;
+  input [0:0]\ir_reg[12] ;
+  input [1:0]timer_rdata;
+  input [1:0]uart_rdata;
+  input \ir_reg[12]_0 ;
+  input [0:0]\ir_reg[5] ;
+  input \ir_reg[5]_0 ;
+  input \ir_reg[5]_1 ;
   input [15:0]gpio_i;
   input [0:0]E;
-  input [15:0]\cpu_bus[wdata] ;
+  input [15:0]\dout_reg[15]_1 ;
   input [0:0]SR;
   input [15:0]D;
-  input [0:0]\irq_mask_reg[0]_0 ;
+  input [0:0]\irq_mask_reg[15]_0 ;
 
   wire [15:0]D;
   wire [0:0]E;
-  wire \FSM_sequential_state[0]_i_5 ;
-  wire \FSM_sequential_state[0]_i_5_0 ;
-  wire \FSM_sequential_state[2]_i_4 ;
-  wire \FSM_sequential_state[2]_i_4_0 ;
-  wire \FSM_sequential_state_reg[4] ;
-  wire \FSM_sequential_state_reg[4]_0 ;
-  wire \FSM_sequential_state_reg[4]_1 ;
-  wire [14:0]Q;
+  wire [13:0]Q;
   wire [0:0]SR;
-  wire \am[3]_i_5_n_0 ;
-  wire \am_reg[0] ;
-  wire \am_reg[0]_0 ;
-  wire \am_reg[0]_1 ;
-  wire \am_reg[3] ;
-  wire \am_reg[3]_0 ;
-  wire \am_reg[3]_1 ;
-  wire \am_reg[3]_2 ;
-  wire [3:0]\am_reg[3]_3 ;
-  wire [3:0]\am_reg[3]_4 ;
   wire clk_i;
-  wire [15:0]\cpu_bus[wdata] ;
-  wire \ctrl[19]_i_4 ;
-  wire \ctrl[19]_i_4_0 ;
+  wire \ctrl_reg[15] ;
+  wire \ctrl_reg[15]_0 ;
   wire \data_o_reg[12]_0 ;
   wire \data_o_reg[12]_1 ;
-  wire [1:0]\data_o_reg[12]_2 ;
-  wire \data_o_reg[13]_0 ;
-  wire \data_o_reg[13]_1 ;
-  wire \data_o_reg[14]_0 ;
-  wire \data_o_reg[15]_0 ;
-  wire \data_o_reg[15]_1 ;
   wire \data_o_reg[5]_0 ;
-  wire \data_o_reg[6]_0 ;
-  wire [0:0]\data_o_reg[7]_0 ;
-  wire \data_o_reg[7]_1 ;
   wire [15:0]\din_reg[15]_0 ;
-  wire dio_swap;
-  wire dio_swap_reg;
   wire [15:0]\dout_reg[15]_0 ;
-  wire [0:0]freq_gen_rdata;
+  wire [15:0]\dout_reg[15]_1 ;
   wire [15:0]gpio_i;
-  wire [5:5]gpio_rdata;
+  wire [12:5]gpio_rdata;
   wire [15:0]in_buf;
-  wire \ir_reg[12] ;
-  wire [0:0]\irq_mask_reg[0]_0 ;
+  wire [0:0]\ir_reg[12] ;
+  wire \ir_reg[12]_0 ;
+  wire [0:0]\ir_reg[5] ;
+  wire \ir_reg[5]_0 ;
+  wire \ir_reg[5]_1 ;
+  wire [0:0]\irq_mask_reg[15]_0 ;
   wire \irq_mask_reg_n_0_[0] ;
   wire \irq_mask_reg_n_0_[10] ;
   wire \irq_mask_reg_n_0_[11] ;
@@ -8983,100 +9036,20 @@ module SystemTop_neo430_gpio
   wire irq_o_i_7_n_0;
   wire irq_o_i_8_n_0;
   wire irq_o_i_9_n_0;
-  wire [0:0]mem_data_i;
+  wire [1:0]mem_data_i;
   wire or_all_f;
   wire [15:0]sync_in;
-  wire [3:0]timer_rdata;
-  wire [3:0]uart_rdata;
+  wire [1:0]timer_rdata;
+  wire [1:0]uart_rdata;
 
-  LUT6 #(
-    .INIT(64'h0202020002020202)) 
-    \FSM_sequential_state[0]_i_12 
-       (.I0(\am[3]_i_5_n_0 ),
-        .I1(\am_reg[3]_1 ),
-        .I2(\am_reg[3]_2 ),
-        .I3(\FSM_sequential_state[0]_i_5 ),
-        .I4(\FSM_sequential_state[0]_i_5_0 ),
-        .I5(\data_o_reg[13]_1 ),
-        .O(\data_o_reg[14]_0 ));
-  LUT3 #(
-    .INIT(8'h01)) 
-    \FSM_sequential_state[0]_i_15 
-       (.I0(Q[12]),
-        .I1(\am_reg[3]_3 [1]),
-        .I2(\am_reg[3]_4 [1]),
-        .O(\data_o_reg[13]_1 ));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \FSM_sequential_state[4]_i_12 
-       (.I0(Q[6]),
-        .I1(uart_rdata[2]),
-        .I2(freq_gen_rdata),
-        .I3(timer_rdata[2]),
-        .I4(\FSM_sequential_state[2]_i_4 ),
-        .I5(\FSM_sequential_state[2]_i_4_0 ),
-        .O(\data_o_reg[7]_1 ));
-  LUT6 #(
-    .INIT(64'hFFFFFBFFFFFFFFFF)) 
-    \FSM_sequential_state[4]_i_7 
-       (.I0(\FSM_sequential_state_reg[4] ),
-        .I1(\FSM_sequential_state_reg[4]_0 ),
-        .I2(\data_o_reg[12]_0 ),
-        .I3(\data_o_reg[7]_1 ),
-        .I4(\data_o_reg[15]_0 ),
-        .I5(\FSM_sequential_state_reg[4]_1 ),
-        .O(\data_o_reg[13]_0 ));
   (* SOFT_HLUTNM = "soft_lutpair80" *) 
-  LUT4 #(
-    .INIT(16'h8BBB)) 
-    \am[0]_i_1 
-       (.I0(mem_data_i),
-        .I1(\data_o_reg[15]_0 ),
-        .I2(\data_o_reg[5]_0 ),
-        .I3(\am_reg[0] ),
-        .O(\data_o_reg[7]_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFDFF)) 
-    \am[3]_i_1 
-       (.I0(\data_o_reg[15]_1 ),
-        .I1(\am_reg[3] ),
-        .I2(\am_reg[3]_0 ),
-        .I3(\am[3]_i_5_n_0 ),
-        .I4(\am_reg[3]_1 ),
-        .I5(\am_reg[3]_2 ),
-        .O(\data_o_reg[15]_0 ));
-  LUT3 #(
-    .INIT(8'h01)) 
-    \am[3]_i_2 
-       (.I0(Q[14]),
-        .I1(\am_reg[3]_3 [3]),
-        .I2(\am_reg[3]_4 [3]),
-        .O(\data_o_reg[15]_1 ));
-  LUT3 #(
-    .INIT(8'h01)) 
-    \am[3]_i_5 
-       (.I0(Q[13]),
-        .I1(\am_reg[3]_3 [2]),
-        .I2(\am_reg[3]_4 [2]),
-        .O(\am[3]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \ctrl[15]_i_3 
-       (.I0(\data_o_reg[12]_0 ),
-        .I1(\data_o_reg[15]_0 ),
-        .I2(\data_o_reg[7]_1 ),
-        .O(\data_o_reg[12]_1 ));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \ctrl[19]_i_5 
-       (.I0(Q[5]),
-        .I1(uart_rdata[1]),
-        .I2(\am_reg[3]_4 [0]),
-        .I3(timer_rdata[1]),
-        .I4(\ctrl[19]_i_4 ),
-        .I5(\ctrl[19]_i_4_0 ),
-        .O(\data_o_reg[6]_0 ));
+       (.I0(\data_o_reg[12]_1 ),
+        .I1(\ctrl_reg[15] ),
+        .I2(\ctrl_reg[15]_0 ),
+        .O(\data_o_reg[12]_0 ));
   FDRE \data_o_reg[0] 
        (.C(clk_i),
         .CE(1'b1),
@@ -9099,25 +9072,25 @@ module SystemTop_neo430_gpio
        (.C(clk_i),
         .CE(1'b1),
         .D(D[12]),
-        .Q(Q[11]),
+        .Q(gpio_rdata[12]),
         .R(SR));
   FDRE \data_o_reg[13] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[13]),
-        .Q(Q[12]),
+        .Q(Q[11]),
         .R(SR));
   FDRE \data_o_reg[14] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[14]),
-        .Q(Q[13]),
+        .Q(Q[12]),
         .R(SR));
   FDRE \data_o_reg[15] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[15]),
-        .Q(Q[14]),
+        .Q(Q[13]),
         .R(SR));
   FDRE \data_o_reg[1] 
        (.C(clk_i),
@@ -9147,7 +9120,7 @@ module SystemTop_neo430_gpio
        (.C(clk_i),
         .CE(1'b1),
         .D(D[5]),
-        .Q(gpio_rdata),
+        .Q(gpio_rdata[5]),
         .R(SR));
   FDRE \data_o_reg[6] 
        (.C(clk_i),
@@ -9272,97 +9245,97 @@ module SystemTop_neo430_gpio
   FDRE \dout_reg[0] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [0]),
+        .D(\dout_reg[15]_1 [0]),
         .Q(\dout_reg[15]_0 [0]),
         .R(1'b0));
   FDRE \dout_reg[10] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [10]),
+        .D(\dout_reg[15]_1 [10]),
         .Q(\dout_reg[15]_0 [10]),
         .R(1'b0));
   FDRE \dout_reg[11] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [11]),
+        .D(\dout_reg[15]_1 [11]),
         .Q(\dout_reg[15]_0 [11]),
         .R(1'b0));
   FDRE \dout_reg[12] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [12]),
+        .D(\dout_reg[15]_1 [12]),
         .Q(\dout_reg[15]_0 [12]),
         .R(1'b0));
   FDRE \dout_reg[13] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [13]),
+        .D(\dout_reg[15]_1 [13]),
         .Q(\dout_reg[15]_0 [13]),
         .R(1'b0));
   FDRE \dout_reg[14] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [14]),
+        .D(\dout_reg[15]_1 [14]),
         .Q(\dout_reg[15]_0 [14]),
         .R(1'b0));
   FDRE \dout_reg[15] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [15]),
+        .D(\dout_reg[15]_1 [15]),
         .Q(\dout_reg[15]_0 [15]),
         .R(1'b0));
   FDRE \dout_reg[1] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [1]),
+        .D(\dout_reg[15]_1 [1]),
         .Q(\dout_reg[15]_0 [1]),
         .R(1'b0));
   FDRE \dout_reg[2] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [2]),
+        .D(\dout_reg[15]_1 [2]),
         .Q(\dout_reg[15]_0 [2]),
         .R(1'b0));
   FDRE \dout_reg[3] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [3]),
+        .D(\dout_reg[15]_1 [3]),
         .Q(\dout_reg[15]_0 [3]),
         .R(1'b0));
   FDRE \dout_reg[4] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [4]),
+        .D(\dout_reg[15]_1 [4]),
         .Q(\dout_reg[15]_0 [4]),
         .R(1'b0));
   FDRE \dout_reg[5] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [5]),
+        .D(\dout_reg[15]_1 [5]),
         .Q(\dout_reg[15]_0 [5]),
         .R(1'b0));
   FDRE \dout_reg[6] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [6]),
+        .D(\dout_reg[15]_1 [6]),
         .Q(\dout_reg[15]_0 [6]),
         .R(1'b0));
   FDRE \dout_reg[7] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [7]),
+        .D(\dout_reg[15]_1 [7]),
         .Q(\dout_reg[15]_0 [7]),
         .R(1'b0));
   FDRE \dout_reg[8] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [8]),
+        .D(\dout_reg[15]_1 [8]),
         .Q(\dout_reg[15]_0 [8]),
         .R(1'b0));
   FDRE \dout_reg[9] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [9]),
+        .D(\dout_reg[15]_1 [9]),
         .Q(\dout_reg[15]_0 [9]),
         .R(1'b0));
   FDRE \in_buf_reg[0] 
@@ -9461,120 +9434,111 @@ module SystemTop_neo430_gpio
         .D(gpio_i[9]),
         .Q(in_buf[9]),
         .R(1'b0));
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \ir[12]_i_1 
-       (.I0(\data_o_reg[12]_0 ),
-        .O(\data_o_reg[12]_2 [1]));
-  LUT5 #(
-    .INIT(32'h00000001)) 
-    \ir[12]_i_2 
-       (.I0(Q[11]),
-        .I1(\am_reg[3]_3 [0]),
-        .I2(timer_rdata[3]),
-        .I3(uart_rdata[3]),
-        .I4(\ir_reg[12] ),
-        .O(\data_o_reg[12]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+       (.I0(\data_o_reg[12]_1 ),
+        .O(mem_data_i[1]));
   LUT1 #(
     .INIT(2'h1)) 
     \ir[5]_i_1 
        (.I0(\data_o_reg[5]_0 ),
-        .O(\data_o_reg[12]_2 [0]));
+        .O(mem_data_i[0]));
   FDRE \irq_mask_reg[0] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [0]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [0]),
         .Q(\irq_mask_reg_n_0_[0] ),
         .R(1'b0));
   FDRE \irq_mask_reg[10] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [10]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [10]),
         .Q(\irq_mask_reg_n_0_[10] ),
         .R(1'b0));
   FDRE \irq_mask_reg[11] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [11]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [11]),
         .Q(\irq_mask_reg_n_0_[11] ),
         .R(1'b0));
   FDRE \irq_mask_reg[12] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [12]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [12]),
         .Q(\irq_mask_reg_n_0_[12] ),
         .R(1'b0));
   FDRE \irq_mask_reg[13] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [13]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [13]),
         .Q(\irq_mask_reg_n_0_[13] ),
         .R(1'b0));
   FDRE \irq_mask_reg[14] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [14]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [14]),
         .Q(\irq_mask_reg_n_0_[14] ),
         .R(1'b0));
   FDRE \irq_mask_reg[15] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [15]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [15]),
         .Q(\irq_mask_reg_n_0_[15] ),
         .R(1'b0));
   FDRE \irq_mask_reg[1] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [1]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [1]),
         .Q(\irq_mask_reg_n_0_[1] ),
         .R(1'b0));
   FDRE \irq_mask_reg[2] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [2]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [2]),
         .Q(\irq_mask_reg_n_0_[2] ),
         .R(1'b0));
   FDRE \irq_mask_reg[3] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [3]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [3]),
         .Q(\irq_mask_reg_n_0_[3] ),
         .R(1'b0));
   FDRE \irq_mask_reg[4] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [4]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [4]),
         .Q(\irq_mask_reg_n_0_[4] ),
         .R(1'b0));
   FDRE \irq_mask_reg[5] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [5]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [5]),
         .Q(\irq_mask_reg_n_0_[5] ),
         .R(1'b0));
   FDRE \irq_mask_reg[6] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [6]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [6]),
         .Q(\irq_mask_reg_n_0_[6] ),
         .R(1'b0));
   FDRE \irq_mask_reg[7] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [7]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [7]),
         .Q(\irq_mask_reg_n_0_[7] ),
         .R(1'b0));
   FDRE \irq_mask_reg[8] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [8]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [8]),
         .Q(\irq_mask_reg_n_0_[8] ),
         .R(1'b0));
   FDRE \irq_mask_reg[9] 
        (.C(clk_i),
-        .CE(\irq_mask_reg[0]_0 ),
-        .D(\cpu_bus[wdata] [9]),
+        .CE(\irq_mask_reg[15]_0 ),
+        .D(\dout_reg[15]_1 [9]),
         .Q(\irq_mask_reg_n_0_[9] ),
         .R(1'b0));
   LUT5 #(
@@ -9589,52 +9553,52 @@ module SystemTop_neo430_gpio
   LUT6 #(
     .INIT(64'h60FFFF6060606060)) 
     irq_o_i_10
-       (.I0(sync_in[13]),
-        .I1(\din_reg[15]_0 [13]),
-        .I2(\irq_mask_reg_n_0_[13] ),
-        .I3(sync_in[15]),
-        .I4(\din_reg[15]_0 [15]),
-        .I5(\irq_mask_reg_n_0_[15] ),
+       (.I0(sync_in[8]),
+        .I1(\din_reg[15]_0 [8]),
+        .I2(\irq_mask_reg_n_0_[8] ),
+        .I3(sync_in[11]),
+        .I4(\din_reg[15]_0 [11]),
+        .I5(\irq_mask_reg_n_0_[11] ),
         .O(irq_o_i_10_n_0));
   LUT6 #(
     .INIT(64'h60FFFF6060606060)) 
     irq_o_i_2
-       (.I0(sync_in[4]),
-        .I1(\din_reg[15]_0 [4]),
-        .I2(\irq_mask_reg_n_0_[4] ),
-        .I3(sync_in[7]),
-        .I4(\din_reg[15]_0 [7]),
-        .I5(\irq_mask_reg_n_0_[7] ),
-        .O(irq_o_i_2_n_0));
-  LUT6 #(
-    .INIT(64'h60FFFF6060606060)) 
-    irq_o_i_3
-       (.I0(sync_in[9]),
-        .I1(\din_reg[15]_0 [9]),
-        .I2(\irq_mask_reg_n_0_[9] ),
-        .I3(sync_in[6]),
-        .I4(\din_reg[15]_0 [6]),
-        .I5(\irq_mask_reg_n_0_[6] ),
-        .O(irq_o_i_3_n_0));
-  LUT6 #(
-    .INIT(64'h60FFFF6060606060)) 
-    irq_o_i_4
        (.I0(sync_in[5]),
         .I1(\din_reg[15]_0 [5]),
         .I2(\irq_mask_reg_n_0_[5] ),
         .I3(sync_in[3]),
         .I4(\din_reg[15]_0 [3]),
         .I5(\irq_mask_reg_n_0_[3] ),
+        .O(irq_o_i_2_n_0));
+  LUT6 #(
+    .INIT(64'h60FFFF6060606060)) 
+    irq_o_i_3
+       (.I0(sync_in[2]),
+        .I1(\din_reg[15]_0 [2]),
+        .I2(\irq_mask_reg_n_0_[2] ),
+        .I3(sync_in[12]),
+        .I4(\din_reg[15]_0 [12]),
+        .I5(\irq_mask_reg_n_0_[12] ),
+        .O(irq_o_i_3_n_0));
+  LUT6 #(
+    .INIT(64'h60FFFF6060606060)) 
+    irq_o_i_4
+       (.I0(sync_in[4]),
+        .I1(\din_reg[15]_0 [4]),
+        .I2(\irq_mask_reg_n_0_[4] ),
+        .I3(sync_in[7]),
+        .I4(\din_reg[15]_0 [7]),
+        .I5(\irq_mask_reg_n_0_[7] ),
         .O(irq_o_i_4_n_0));
   LUT6 #(
     .INIT(64'h60FFFF6060606060)) 
     irq_o_i_5
-       (.I0(sync_in[10]),
-        .I1(\din_reg[15]_0 [10]),
-        .I2(\irq_mask_reg_n_0_[10] ),
-        .I3(sync_in[14]),
-        .I4(\din_reg[15]_0 [14]),
-        .I5(\irq_mask_reg_n_0_[14] ),
+       (.I0(sync_in[9]),
+        .I1(\din_reg[15]_0 [9]),
+        .I2(\irq_mask_reg_n_0_[9] ),
+        .I3(sync_in[6]),
+        .I4(\din_reg[15]_0 [6]),
+        .I5(\irq_mask_reg_n_0_[6] ),
         .O(irq_o_i_5_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
@@ -9647,32 +9611,32 @@ module SystemTop_neo430_gpio
   LUT6 #(
     .INIT(64'h60FFFF6060606060)) 
     irq_o_i_7
-       (.I0(sync_in[2]),
-        .I1(\din_reg[15]_0 [2]),
-        .I2(\irq_mask_reg_n_0_[2] ),
-        .I3(sync_in[12]),
-        .I4(\din_reg[15]_0 [12]),
-        .I5(\irq_mask_reg_n_0_[12] ),
+       (.I0(sync_in[13]),
+        .I1(\din_reg[15]_0 [13]),
+        .I2(\irq_mask_reg_n_0_[13] ),
+        .I3(sync_in[15]),
+        .I4(\din_reg[15]_0 [15]),
+        .I5(\irq_mask_reg_n_0_[15] ),
         .O(irq_o_i_7_n_0));
   LUT6 #(
     .INIT(64'h60FFFF6060606060)) 
     irq_o_i_8
+       (.I0(sync_in[10]),
+        .I1(\din_reg[15]_0 [10]),
+        .I2(\irq_mask_reg_n_0_[10] ),
+        .I3(sync_in[14]),
+        .I4(\din_reg[15]_0 [14]),
+        .I5(\irq_mask_reg_n_0_[14] ),
+        .O(irq_o_i_8_n_0));
+  LUT6 #(
+    .INIT(64'h60FFFF6060606060)) 
+    irq_o_i_9
        (.I0(sync_in[1]),
         .I1(\din_reg[15]_0 [1]),
         .I2(\irq_mask_reg_n_0_[1] ),
         .I3(sync_in[0]),
         .I4(\din_reg[15]_0 [0]),
         .I5(\irq_mask_reg_n_0_[0] ),
-        .O(irq_o_i_8_n_0));
-  LUT6 #(
-    .INIT(64'h60FFFF6060606060)) 
-    irq_o_i_9
-       (.I0(sync_in[8]),
-        .I1(\din_reg[15]_0 [8]),
-        .I2(\irq_mask_reg_n_0_[8] ),
-        .I3(sync_in[11]),
-        .I4(\din_reg[15]_0 [11]),
-        .I5(\irq_mask_reg_n_0_[11] ),
         .O(irq_o_i_9_n_0));
   FDRE irq_o_reg
        (.C(clk_i),
@@ -9680,24 +9644,25 @@ module SystemTop_neo430_gpio
         .D(or_all_f),
         .Q(irq_o),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
-  LUT3 #(
-    .INIT(8'h47)) 
-    mem_addr_reg0_carry__0_i_10
-       (.I0(\data_o_reg[12]_0 ),
-        .I1(dio_swap),
-        .I2(\am_reg[0] ),
-        .O(dio_swap_reg));
   LUT6 #(
     .INIT(64'h0000000000000001)) 
     \sam[1]_i_2 
-       (.I0(gpio_rdata),
+       (.I0(gpio_rdata[5]),
         .I1(uart_rdata[0]),
-        .I2(\am_reg[3]_4 [0]),
+        .I2(\ir_reg[5] ),
         .I3(timer_rdata[0]),
-        .I4(\am_reg[0]_0 ),
-        .I5(\am_reg[0]_1 ),
+        .I4(\ir_reg[5]_0 ),
+        .I5(\ir_reg[5]_1 ),
         .O(\data_o_reg[5]_0 ));
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \src[3]_i_5 
+       (.I0(gpio_rdata[12]),
+        .I1(\ir_reg[12] ),
+        .I2(timer_rdata[1]),
+        .I3(uart_rdata[1]),
+        .I4(\ir_reg[12]_0 ),
+        .O(\data_o_reg[12]_1 ));
   FDRE \sync_in_reg[0] 
        (.C(clk_i),
         .CE(1'b1),
@@ -9799,16 +9764,14 @@ endmodule
 (* ORIG_REF_NAME = "neo430_imem" *) 
 module SystemTop_neo430_imem
    (rden,
-    dio_swap_reg,
-    \data_o_reg[15] ,
     \FSM_sequential_state_reg[3] ,
-    \data_o_reg[15]_0 ,
+    mem_data_i,
     \FSM_sequential_state_reg[1] ,
-    rden_reg_0,
+    \data_o_reg[13] ,
+    \data_o_reg[15] ,
     rdata_reg,
     imem_file_ram_l_reg_3_0,
-    dio_swap_reg_0,
-    imem_file_ram_h_reg_3_0,
+    imem_file_ram_h_reg_2_0,
     imem_file_ram_h_reg_1_0,
     imem_file_ram_h_reg_1_1,
     imem_file_ram_h_reg_0_0,
@@ -9820,10 +9783,8 @@ module SystemTop_neo430_imem
     imem_file_ram_l_reg_1_1,
     imem_file_ram_l_reg_0_0,
     imem_file_ram_l_reg_0_1,
-    rden_reg_1,
+    rden_reg_0,
     clk_i,
-    dio_swap,
-    mem_data_i,
     \FSM_sequential_state_reg[1]_0 ,
     \FSM_sequential_state_reg[1]_1 ,
     \FSM_sequential_state_reg[1]_2 ,
@@ -9837,22 +9798,22 @@ module SystemTop_neo430_imem
     \ir_reg[11] ,
     rden_1,
     \ir_reg[14] ,
+    uart_rdata,
+    timer_rdata,
     acc_en,
     \cpu_bus[addr] ,
-    \cpu_bus[wdata] ,
+    imem_file_ram_h_reg_3_0,
     imem_file_ram_l_reg_3_2,
     WEA);
   output rden;
-  output dio_swap_reg;
-  output [1:0]\data_o_reg[15] ;
   output \FSM_sequential_state_reg[3] ;
-  output \data_o_reg[15]_0 ;
+  output [1:0]mem_data_i;
   output \FSM_sequential_state_reg[1] ;
-  output rden_reg_0;
-  output [1:0]rdata_reg;
+  output \data_o_reg[13] ;
+  output \data_o_reg[15] ;
+  output [0:0]rdata_reg;
   output imem_file_ram_l_reg_3_0;
-  output dio_swap_reg_0;
-  output imem_file_ram_h_reg_3_0;
+  output imem_file_ram_h_reg_2_0;
   output imem_file_ram_h_reg_1_0;
   output imem_file_ram_h_reg_1_1;
   output imem_file_ram_h_reg_0_0;
@@ -9864,13 +9825,11 @@ module SystemTop_neo430_imem
   output imem_file_ram_l_reg_1_1;
   output imem_file_ram_l_reg_0_0;
   output imem_file_ram_l_reg_0_1;
-  input rden_reg_1;
+  input rden_reg_0;
   input clk_i;
-  input dio_swap;
-  input [1:0]mem_data_i;
   input \FSM_sequential_state_reg[1]_0 ;
   input \FSM_sequential_state_reg[1]_1 ;
-  input [2:0]\FSM_sequential_state_reg[1]_2 ;
+  input [1:0]\FSM_sequential_state_reg[1]_2 ;
   input \FSM_sequential_state_reg[1]_3 ;
   input \ir_reg[15] ;
   input [1:0]Q;
@@ -9881,9 +9840,11 @@ module SystemTop_neo430_imem
   input [11:0]\ir_reg[11] ;
   input rden_1;
   input \ir_reg[14] ;
+  input [0:0]uart_rdata;
+  input [0:0]timer_rdata;
   input acc_en;
   input [13:0]\cpu_bus[addr] ;
-  input [15:0]\cpu_bus[wdata] ;
+  input [15:0]imem_file_ram_h_reg_3_0;
   input [0:0]imem_file_ram_l_reg_3_2;
   input [0:0]WEA;
 
@@ -9891,7 +9852,7 @@ module SystemTop_neo430_imem
   wire \FSM_sequential_state_reg[1] ;
   wire \FSM_sequential_state_reg[1]_0 ;
   wire \FSM_sequential_state_reg[1]_1 ;
-  wire [2:0]\FSM_sequential_state_reg[1]_2 ;
+  wire [1:0]\FSM_sequential_state_reg[1]_2 ;
   wire \FSM_sequential_state_reg[1]_3 ;
   wire \FSM_sequential_state_reg[3] ;
   wire [1:0]Q;
@@ -9899,17 +9860,14 @@ module SystemTop_neo430_imem
   wire acc_en;
   wire clk_i;
   wire [13:0]\cpu_bus[addr] ;
-  wire [15:0]\cpu_bus[wdata] ;
-  wire [1:0]\data_o_reg[15] ;
-  wire \data_o_reg[15]_0 ;
-  wire dio_swap;
-  wire dio_swap_reg;
-  wire dio_swap_reg_0;
+  wire \data_o_reg[13] ;
+  wire \data_o_reg[15] ;
   wire imem_file_ram_h_reg_0_0;
   wire imem_file_ram_h_reg_0_1;
   wire imem_file_ram_h_reg_1_0;
   wire imem_file_ram_h_reg_1_1;
-  wire imem_file_ram_h_reg_3_0;
+  wire imem_file_ram_h_reg_2_0;
+  wire [15:0]imem_file_ram_h_reg_3_0;
   wire imem_file_ram_l_reg_0_0;
   wire imem_file_ram_l_reg_0_1;
   wire imem_file_ram_l_reg_1_0;
@@ -9919,19 +9877,22 @@ module SystemTop_neo430_imem
   wire imem_file_ram_l_reg_3_0;
   wire imem_file_ram_l_reg_3_1;
   wire [0:0]imem_file_ram_l_reg_3_2;
+  wire \ir[14]_i_2_n_0 ;
+  wire \ir[15]_i_3_n_0 ;
   wire [11:0]\ir_reg[11] ;
   wire \ir_reg[14] ;
   wire \ir_reg[15] ;
   wire [1:0]\ir_reg[15]_0 ;
   wire [1:0]\ir_reg[15]_1 ;
   wire [1:0]mem_data_i;
-  wire [1:0]rdata_reg;
+  wire [0:0]rdata_reg;
   wire [15:0]rdata_reg_0;
   wire rden;
   wire rden_0;
   wire rden_1;
   wire rden_reg_0;
-  wire rden_reg_1;
+  wire [0:0]timer_rdata;
+  wire [0:0]uart_rdata;
   wire NLW_imem_file_ram_h_reg_0_CASCADEOUTA_UNCONNECTED;
   wire NLW_imem_file_ram_h_reg_0_CASCADEOUTB_UNCONNECTED;
   wire NLW_imem_file_ram_h_reg_0_DBITERR_UNCONNECTED;
@@ -10029,50 +9990,48 @@ module SystemTop_neo430_imem
   wire [7:0]NLW_imem_file_ram_l_reg_3_ECCPARITY_UNCONNECTED;
   wire [8:0]NLW_imem_file_ram_l_reg_3_RDADDRECC_UNCONNECTED;
 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
+  LUT5 #(
+    .INIT(32'h00001505)) 
+    \FSM_sequential_state[0]_i_8 
+       (.I0(mem_data_i[0]),
+        .I1(\FSM_sequential_state_reg[1]_3 ),
+        .I2(mem_data_i[1]),
+        .I3(\FSM_sequential_state_reg[1]_0 ),
+        .I4(\FSM_sequential_state_reg[1]_2 [0]),
+        .O(\FSM_sequential_state_reg[1] ));
   LUT6 #(
     .INIT(64'h0000000000E0A0F0)) 
     \FSM_sequential_state[1]_i_3 
        (.I0(\FSM_sequential_state_reg[1]_0 ),
         .I1(\FSM_sequential_state_reg[1]_1 ),
-        .I2(\FSM_sequential_state_reg[1]_2 [2]),
-        .I3(\data_o_reg[15] [1]),
-        .I4(\FSM_sequential_state_reg[1]_3 ),
-        .I5(\data_o_reg[15] [0]),
-        .O(\FSM_sequential_state_reg[3] ));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
-  LUT3 #(
-    .INIT(8'hF8)) 
-    \FSM_sequential_state[3]_i_3 
-       (.I0(\data_o_reg[15] [1]),
-        .I1(\FSM_sequential_state_reg[1]_3 ),
-        .I2(\data_o_reg[15] [0]),
-        .O(\data_o_reg[15]_0 ));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    \am[3]_i_4 
-       (.I0(rden),
-        .I1(rdata_reg_0[15]),
-        .I2(rden_0),
-        .I3(DOADO[1]),
-        .O(rden_reg_0));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    \am[3]_i_7 
-       (.I0(rdata_reg_0[14]),
-        .I1(rden),
-        .I2(DOADO[0]),
-        .I3(rden_0),
-        .O(imem_file_ram_h_reg_3_0));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFEFF)) 
-    \ctrl[8]_i_6 
-       (.I0(\FSM_sequential_state_reg[1]_3 ),
-        .I1(\data_o_reg[15] [0]),
         .I2(\FSM_sequential_state_reg[1]_2 [1]),
-        .I3(\FSM_sequential_state_reg[1]_2 [0]),
-        .I4(\data_o_reg[15] [1]),
-        .O(\FSM_sequential_state_reg[1] ));
+        .I3(mem_data_i[1]),
+        .I4(\FSM_sequential_state_reg[1]_3 ),
+        .I5(mem_data_i[0]),
+        .O(\FSM_sequential_state_reg[3] ));
+  LUT3 #(
+    .INIT(8'hA8)) 
+    \FSM_sequential_state[3]_i_3 
+       (.I0(\data_o_reg[15] ),
+        .I1(\FSM_sequential_state_reg[1]_3 ),
+        .I2(mem_data_i[0]),
+        .O(\data_o_reg[13] ));
+  LUT4 #(
+    .INIT(16'hF888)) 
+    \am[0]_i_3 
+       (.I0(rdata_reg_0[7]),
+        .I1(rden),
+        .I2(\ir_reg[11] [7]),
+        .I3(rden_1),
+        .O(imem_file_ram_l_reg_3_0));
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
+  LUT2 #(
+    .INIT(4'hE)) 
+    \am[3]_i_1 
+       (.I0(mem_data_i[1]),
+        .I1(mem_data_i[0]),
+        .O(\data_o_reg[15] ));
   (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p0_d2" *) 
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-6 {cell *THIS*}}" *) 
   (* RTL_RAM_BITS = "131072" *) 
@@ -10116,7 +10075,7 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_h_reg_0_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [9:8]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[9:8]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
@@ -10182,7 +10141,7 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_h_reg_1_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [11:10]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[11:10]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
@@ -10248,11 +10207,11 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_h_reg_2_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [13:12]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[13:12]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
-        .DOADO({NLW_imem_file_ram_h_reg_2_DOADO_UNCONNECTED[31:2],rdata_reg}),
+        .DOADO({NLW_imem_file_ram_h_reg_2_DOADO_UNCONNECTED[31:2],rdata_reg_0[13],rdata_reg}),
         .DOBDO(NLW_imem_file_ram_h_reg_2_DOBDO_UNCONNECTED[31:0]),
         .DOPADOP(NLW_imem_file_ram_h_reg_2_DOPADOP_UNCONNECTED[3:0]),
         .DOPBDOP(NLW_imem_file_ram_h_reg_2_DOPBDOP_UNCONNECTED[3:0]),
@@ -10314,7 +10273,7 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_h_reg_3_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [15:14]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[15:14]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
@@ -10380,7 +10339,7 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_l_reg_0_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [1:0]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[1:0]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
@@ -10446,7 +10405,7 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_l_reg_1_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [3:2]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[3:2]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
@@ -10512,7 +10471,7 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_l_reg_2_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [5:4]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[5:4]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
@@ -10578,7 +10537,7 @@ module SystemTop_neo430_imem
         .CLKARDCLK(clk_i),
         .CLKBWRCLK(1'b0),
         .DBITERR(NLW_imem_file_ram_l_reg_3_DBITERR_UNCONNECTED),
-        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,\cpu_bus[wdata] [7:6]}),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,imem_file_ram_h_reg_3_0[7:6]}),
         .DIBDI({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b1,1'b1,1'b1,1'b1}),
@@ -10603,14 +10562,6 @@ module SystemTop_neo430_imem
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
   LUT4 #(
     .INIT(16'hF888)) 
-    \ir[0]_i_3 
-       (.I0(rdata_reg_0[0]),
-        .I1(rden),
-        .I2(\ir_reg[11] [0]),
-        .I3(rden_1),
-        .O(imem_file_ram_l_reg_0_1));
-  LUT4 #(
-    .INIT(16'hF888)) 
     \ir[10]_i_2 
        (.I0(rdata_reg_0[10]),
         .I1(rden),
@@ -10628,45 +10579,37 @@ module SystemTop_neo430_imem
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     \ir[14]_i_1 
-       (.I0(imem_file_ram_h_reg_3_0),
+       (.I0(\ir[14]_i_2_n_0 ),
         .I1(\ir_reg[14] ),
-        .I2(Q[0]),
-        .I3(\ir_reg[15]_0 [0]),
-        .I4(\ir_reg[15]_1 [0]),
-        .O(\data_o_reg[15] [0]));
+        .I2(\ir_reg[15]_1 [0]),
+        .I3(Q[0]),
+        .I4(uart_rdata),
+        .O(mem_data_i[0]));
+  LUT4 #(
+    .INIT(16'hFFF8)) 
+    \ir[14]_i_2 
+       (.I0(rdata_reg_0[14]),
+        .I1(rden),
+        .I2(\ir_reg[15]_0 [0]),
+        .I3(timer_rdata),
+        .O(\ir[14]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     \ir[15]_i_2 
-       (.I0(rden_reg_0),
+       (.I0(\ir[15]_i_3_n_0 ),
         .I1(\ir_reg[15] ),
         .I2(Q[1]),
         .I3(\ir_reg[15]_0 [1]),
         .I4(\ir_reg[15]_1 [1]),
-        .O(\data_o_reg[15] [1]));
+        .O(mem_data_i[1]));
   LUT4 #(
     .INIT(16'hF888)) 
-    \ir[1]_i_3 
-       (.I0(rdata_reg_0[1]),
-        .I1(rden),
-        .I2(\ir_reg[11] [1]),
-        .I3(rden_1),
-        .O(imem_file_ram_l_reg_0_0));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    \ir[2]_i_3 
-       (.I0(rdata_reg_0[2]),
-        .I1(rden),
-        .I2(\ir_reg[11] [2]),
-        .I3(rden_1),
-        .O(imem_file_ram_l_reg_1_1));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    \ir[3]_i_3 
-       (.I0(rdata_reg_0[3]),
-        .I1(rden),
-        .I2(\ir_reg[11] [3]),
-        .I3(rden_1),
-        .O(imem_file_ram_l_reg_1_0));
+    \ir[15]_i_3 
+       (.I0(rden),
+        .I1(rdata_reg_0[15]),
+        .I2(rden_0),
+        .I3(DOADO[1]),
+        .O(\ir[15]_i_3_n_0 ));
   LUT4 #(
     .INIT(16'hF888)) 
     \ir[6]_i_3 
@@ -10675,42 +10618,10 @@ module SystemTop_neo430_imem
         .I2(\ir_reg[11] [6]),
         .I3(rden_1),
         .O(imem_file_ram_l_reg_3_1));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    \ir[7]_i_3 
-       (.I0(rdata_reg_0[7]),
-        .I1(rden),
-        .I2(\ir_reg[11] [7]),
-        .I3(rden_1),
-        .O(imem_file_ram_l_reg_3_0));
-  LUT4 #(
-    .INIT(16'hF888)) 
-    \ir[8]_i_3 
-       (.I0(rdata_reg_0[8]),
-        .I1(rden),
-        .I2(\ir_reg[11] [8]),
-        .I3(rden_1),
-        .O(imem_file_ram_h_reg_0_1));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[6]_i_2 
-       (.I0(\data_o_reg[15] [0]),
-        .I1(dio_swap),
-        .I2(mem_data_i[0]),
-        .O(dio_swap_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[7]_i_2 
-       (.I0(\data_o_reg[15] [1]),
-        .I1(dio_swap),
-        .I2(mem_data_i[1]),
-        .O(dio_swap_reg));
   FDRE rden_reg
        (.C(clk_i),
         .CE(1'b1),
-        .D(rden_reg_1),
+        .D(rden_reg_0),
         .Q(rden),
         .R(1'b0));
   LUT4 #(
@@ -10731,12 +10642,60 @@ module SystemTop_neo430_imem
         .O(imem_file_ram_l_reg_2_0));
   LUT4 #(
     .INIT(16'hF888)) 
+    \src[0]_i_4 
+       (.I0(rdata_reg_0[0]),
+        .I1(rden),
+        .I2(\ir_reg[11] [0]),
+        .I3(rden_1),
+        .O(imem_file_ram_l_reg_0_1));
+  LUT4 #(
+    .INIT(16'hF888)) 
+    \src[0]_i_6 
+       (.I0(rdata_reg_0[8]),
+        .I1(rden),
+        .I2(\ir_reg[11] [8]),
+        .I3(rden_1),
+        .O(imem_file_ram_h_reg_0_1));
+  LUT4 #(
+    .INIT(16'hF888)) 
     \src[1]_i_4 
+       (.I0(rdata_reg_0[1]),
+        .I1(rden),
+        .I2(\ir_reg[11] [1]),
+        .I3(rden_1),
+        .O(imem_file_ram_l_reg_0_0));
+  LUT4 #(
+    .INIT(16'hF888)) 
+    \src[1]_i_6 
        (.I0(rdata_reg_0[9]),
         .I1(rden),
         .I2(\ir_reg[11] [9]),
         .I3(rden_1),
         .O(imem_file_ram_h_reg_0_0));
+  LUT4 #(
+    .INIT(16'hF888)) 
+    \src[2]_i_3 
+       (.I0(rdata_reg_0[2]),
+        .I1(rden),
+        .I2(\ir_reg[11] [2]),
+        .I3(rden_1),
+        .O(imem_file_ram_l_reg_1_1));
+  LUT4 #(
+    .INIT(16'hF888)) 
+    \src[3]_i_10 
+       (.I0(rdata_reg_0[3]),
+        .I1(rden),
+        .I2(\ir_reg[11] [3]),
+        .I3(rden_1),
+        .O(imem_file_ram_l_reg_1_0));
+  LUT4 #(
+    .INIT(16'hF888)) 
+    \src[3]_i_7 
+       (.I0(rdata_reg_0[13]),
+        .I1(rden),
+        .I2(DOADO[0]),
+        .I3(rden_0),
+        .O(imem_file_ram_h_reg_2_0));
 endmodule
 
 (* ORIG_REF_NAME = "neo430_pwm" *) 
@@ -10745,12 +10704,27 @@ module SystemTop_neo430_pwm
     pwm_o,
     Q,
     p_1_in,
+    \data_o_reg[7]_0 ,
+    \data_o_reg[7]_1 ,
+    dio_swap_reg,
+    dio_swap_reg_0,
+    \data_o_reg[7]_2 ,
+    \data_o_reg[15]_0 ,
     gpio_o,
     \pwm_ch_reg[2][7]_0 ,
-    \data_o_reg[15]_0 ,
     \prsc_reg[2]_0 ,
-    \cpu_bus[wdata] ,
+    \pwm_ch_reg[1][7]_0 ,
     clk_i,
+    \am_reg[0] ,
+    \am_reg[0]_0 ,
+    \am_reg[0]_1 ,
+    dio_swap,
+    mem_data_i,
+    uart_rdata,
+    timer_rdata,
+    \ir_reg[7] ,
+    \ir_reg[7]_0 ,
+    \ir_reg[7]_1 ,
     \pwm_cnt_reg[0]_0 ,
     \pwm_cnt_reg[0]_1 ,
     \pwm_cnt_reg[0]_2 ,
@@ -10768,12 +10742,27 @@ module SystemTop_neo430_pwm
   output [0:0]pwm_o;
   output [7:0]Q;
   output [15:0]p_1_in;
+  output [0:0]\data_o_reg[7]_0 ;
+  output \data_o_reg[7]_1 ;
+  output dio_swap_reg;
+  output dio_swap_reg_0;
+  output [0:0]\data_o_reg[7]_2 ;
+  output [14:0]\data_o_reg[15]_0 ;
   output [15:0]gpio_o;
   output [7:0]\pwm_ch_reg[2][7]_0 ;
-  output [15:0]\data_o_reg[15]_0 ;
   input \prsc_reg[2]_0 ;
-  input [15:0]\cpu_bus[wdata] ;
+  input [15:0]\pwm_ch_reg[1][7]_0 ;
   input clk_i;
+  input \am_reg[0] ;
+  input \am_reg[0]_0 ;
+  input \am_reg[0]_1 ;
+  input dio_swap;
+  input [0:0]mem_data_i;
+  input [0:0]uart_rdata;
+  input [0:0]timer_rdata;
+  input [0:0]\ir_reg[7] ;
+  input \ir_reg[7]_0 ;
+  input \ir_reg[7]_1 ;
   input \pwm_cnt_reg[0]_0 ;
   input \pwm_cnt_reg[0]_1 ;
   input \pwm_cnt_reg[0]_2 ;
@@ -10792,9 +10781,17 @@ module SystemTop_neo430_pwm
   wire [0:0]E;
   wire [7:0]Q;
   wire [0:0]SR;
+  wire \am_reg[0] ;
+  wire \am_reg[0]_0 ;
+  wire \am_reg[0]_1 ;
   wire clk_i;
-  wire [15:0]\cpu_bus[wdata] ;
-  wire [15:0]\data_o_reg[15]_0 ;
+  wire [14:0]\data_o_reg[15]_0 ;
+  wire [0:0]\data_o_reg[7]_0 ;
+  wire \data_o_reg[7]_1 ;
+  wire [0:0]\data_o_reg[7]_2 ;
+  wire dio_swap;
+  wire dio_swap_reg;
+  wire dio_swap_reg_0;
   wire [15:0]gpio_o;
   wire gpio_pwm;
   wire i__carry_i_1__0_n_0;
@@ -10806,13 +10803,17 @@ module SystemTop_neo430_pwm
   wire i__carry_i_4__0_n_0;
   wire i__carry_i_4_n_0;
   wire i__carry_i_5__0_n_0;
-  wire i__carry_i_5__1_n_0;
+  wire i__carry_i_5_n_0;
   wire i__carry_i_6__0_n_0;
-  wire i__carry_i_6__1_n_0;
+  wire i__carry_i_6_n_0;
   wire i__carry_i_7__0_n_0;
   wire i__carry_i_7_n_0;
   wire i__carry_i_8__0_n_0;
   wire i__carry_i_8_n_0;
+  wire [0:0]\ir_reg[7] ;
+  wire \ir_reg[7]_0 ;
+  wire \ir_reg[7]_1 ;
+  wire [0:0]mem_data_i;
   wire p_0_in;
   wire [15:0]p_1_in;
   wire [7:0]plusOp;
@@ -10822,6 +10823,7 @@ module SystemTop_neo430_pwm
   wire \prsc_reg_n_0_[2] ;
   wire prsc_tick;
   wire pwm_cg_en;
+  wire [15:0]\pwm_ch_reg[1][7]_0 ;
   wire [0:0]\pwm_ch_reg[2][0]_0 ;
   wire [7:0]\pwm_ch_reg[2][7]_0 ;
   wire \pwm_cnt[7]_i_1_n_0 ;
@@ -10848,11 +10850,33 @@ module SystemTop_neo430_pwm
   wire \pwm_out1_inferred__2/i__carry_n_3 ;
   wire \pwm_out[0]_i_1_n_0 ;
   wire \pwm_out[3]_i_1_n_0 ;
+  wire [7:7]pwm_rdata;
   wire [15:0]\register_sr_reg[3] ;
   wire size_sel;
+  wire [0:0]timer_rdata;
+  wire [0:0]uart_rdata;
   wire [3:0]\NLW_pwm_out1_inferred__1/i__carry_O_UNCONNECTED ;
   wire [3:0]\NLW_pwm_out1_inferred__2/i__carry_O_UNCONNECTED ;
 
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
+  LUT4 #(
+    .INIT(16'h4777)) 
+    \am[0]_i_1 
+       (.I0(\data_o_reg[7]_1 ),
+        .I1(\am_reg[0] ),
+        .I2(\am_reg[0]_0 ),
+        .I3(\am_reg[0]_1 ),
+        .O(\data_o_reg[7]_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \am[0]_i_2 
+       (.I0(pwm_rdata),
+        .I1(uart_rdata),
+        .I2(timer_rdata),
+        .I3(\ir_reg[7] ),
+        .I4(\ir_reg[7]_0 ),
+        .I5(\ir_reg[7]_1 ),
+        .O(\data_o_reg[7]_1 ));
   FDRE \data_o_reg[0] 
        (.C(clk_i),
         .CE(1'b1),
@@ -10863,37 +10887,37 @@ module SystemTop_neo430_pwm
        (.C(clk_i),
         .CE(1'b1),
         .D(D[10]),
-        .Q(\data_o_reg[15]_0 [10]),
+        .Q(\data_o_reg[15]_0 [9]),
         .R(SR));
   FDRE \data_o_reg[11] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[11]),
-        .Q(\data_o_reg[15]_0 [11]),
+        .Q(\data_o_reg[15]_0 [10]),
         .R(SR));
   FDRE \data_o_reg[12] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[12]),
-        .Q(\data_o_reg[15]_0 [12]),
+        .Q(\data_o_reg[15]_0 [11]),
         .R(SR));
   FDRE \data_o_reg[13] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[13]),
-        .Q(\data_o_reg[15]_0 [13]),
+        .Q(\data_o_reg[15]_0 [12]),
         .R(SR));
   FDRE \data_o_reg[14] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[14]),
-        .Q(\data_o_reg[15]_0 [14]),
+        .Q(\data_o_reg[15]_0 [13]),
         .R(SR));
   FDRE \data_o_reg[15] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[15]),
-        .Q(\data_o_reg[15]_0 [15]),
+        .Q(\data_o_reg[15]_0 [14]),
         .R(SR));
   FDRE \data_o_reg[1] 
        (.C(clk_i),
@@ -10935,24 +10959,24 @@ module SystemTop_neo430_pwm
        (.C(clk_i),
         .CE(1'b1),
         .D(D[7]),
-        .Q(\data_o_reg[15]_0 [7]),
+        .Q(pwm_rdata),
         .R(SR));
   FDRE \data_o_reg[8] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[8]),
-        .Q(\data_o_reg[15]_0 [8]),
+        .Q(\data_o_reg[15]_0 [7]),
         .R(SR));
   FDRE \data_o_reg[9] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[9]),
-        .Q(\data_o_reg[15]_0 [9]),
+        .Q(\data_o_reg[15]_0 [8]),
         .R(SR));
   FDRE enable_reg
        (.C(clk_i),
         .CE(\prsc_reg[2]_0 ),
-        .D(\cpu_bus[wdata] [0]),
+        .D(\pwm_ch_reg[1][7]_0 [0]),
         .Q(pwm_cg_en),
         .R(1'b0));
   (* SOFT_HLUTNM = "soft_lutpair87" *) 
@@ -11086,7 +11110,7 @@ module SystemTop_neo430_pwm
   FDRE gpio_pwm_reg
        (.C(clk_i),
         .CE(\prsc_reg[2]_0 ),
-        .D(\cpu_bus[wdata] [4]),
+        .D(\pwm_ch_reg[1][7]_0 [4]),
         .Q(gpio_pwm),
         .R(1'b0));
   LUT5 #(
@@ -11159,40 +11183,40 @@ module SystemTop_neo430_pwm
         .O(i__carry_i_4__0_n_0));
   LUT5 #(
     .INIT(32'h9009FFFF)) 
-    i__carry_i_5__0
+    i__carry_i_5
        (.I0(pwm_cnt_reg[6]),
         .I1(Q[6]),
         .I2(pwm_cnt_reg[7]),
         .I3(Q[7]),
         .I4(size_sel),
-        .O(i__carry_i_5__0_n_0));
+        .O(i__carry_i_5_n_0));
   LUT5 #(
     .INIT(32'h9009FFFF)) 
-    i__carry_i_5__1
+    i__carry_i_5__0
        (.I0(pwm_cnt_reg[6]),
         .I1(p_1_in[6]),
         .I2(pwm_cnt_reg[7]),
         .I3(p_1_in[7]),
         .I4(size_sel),
-        .O(i__carry_i_5__1_n_0));
+        .O(i__carry_i_5__0_n_0));
   LUT5 #(
     .INIT(32'h9009FFFF)) 
-    i__carry_i_6__0
+    i__carry_i_6
        (.I0(pwm_cnt_reg[4]),
         .I1(Q[4]),
         .I2(pwm_cnt_reg[5]),
         .I3(Q[5]),
         .I4(size_sel),
-        .O(i__carry_i_6__0_n_0));
+        .O(i__carry_i_6_n_0));
   LUT5 #(
     .INIT(32'h9009FFFF)) 
-    i__carry_i_6__1
+    i__carry_i_6__0
        (.I0(pwm_cnt_reg[4]),
         .I1(p_1_in[4]),
         .I2(pwm_cnt_reg[5]),
         .I3(p_1_in[5]),
         .I4(size_sel),
-        .O(i__carry_i_6__1_n_0));
+        .O(i__carry_i_6__0_n_0));
   LUT4 #(
     .INIT(16'h9009)) 
     i__carry_i_7
@@ -11225,214 +11249,236 @@ module SystemTop_neo430_pwm
         .I2(p_1_in[0]),
         .I3(pwm_cnt_reg[0]),
         .O(i__carry_i_8__0_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    \ir[7]_i_1 
+       (.I0(\data_o_reg[7]_1 ),
+        .O(\data_o_reg[7]_2 ));
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
+  LUT3 #(
+    .INIT(8'h74)) 
+    mem_addr_reg0_carry__2_i_8
+       (.I0(\data_o_reg[7]_1 ),
+        .I1(dio_swap),
+        .I2(mem_data_i),
+        .O(dio_swap_reg));
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
+  LUT3 #(
+    .INIT(8'hC5)) 
+    \op_b_ff[7]_i_2 
+       (.I0(\data_o_reg[7]_1 ),
+        .I1(mem_data_i),
+        .I2(dio_swap),
+        .O(dio_swap_reg_0));
   FDRE \prsc_reg[0] 
        (.C(clk_i),
         .CE(\prsc_reg[2]_0 ),
-        .D(\cpu_bus[wdata] [1]),
+        .D(\pwm_ch_reg[1][7]_0 [1]),
         .Q(\prsc_reg_n_0_[0] ),
         .R(1'b0));
   FDRE \prsc_reg[1] 
        (.C(clk_i),
         .CE(\prsc_reg[2]_0 ),
-        .D(\cpu_bus[wdata] [2]),
+        .D(\pwm_ch_reg[1][7]_0 [2]),
         .Q(\prsc_reg_n_0_[1] ),
         .R(1'b0));
   FDRE \prsc_reg[2] 
        (.C(clk_i),
         .CE(\prsc_reg[2]_0 ),
-        .D(\cpu_bus[wdata] [3]),
+        .D(\pwm_ch_reg[1][7]_0 [3]),
         .Q(\prsc_reg_n_0_[2] ),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][0] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [0]),
+        .D(\pwm_ch_reg[1][7]_0 [0]),
         .Q(p_1_in[0]),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][1] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [1]),
+        .D(\pwm_ch_reg[1][7]_0 [1]),
         .Q(p_1_in[1]),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][2] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [2]),
+        .D(\pwm_ch_reg[1][7]_0 [2]),
         .Q(p_1_in[2]),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][3] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [3]),
+        .D(\pwm_ch_reg[1][7]_0 [3]),
         .Q(p_1_in[3]),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][4] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [4]),
+        .D(\pwm_ch_reg[1][7]_0 [4]),
         .Q(p_1_in[4]),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][5] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [5]),
+        .D(\pwm_ch_reg[1][7]_0 [5]),
         .Q(p_1_in[5]),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][6] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [6]),
+        .D(\pwm_ch_reg[1][7]_0 [6]),
         .Q(p_1_in[6]),
         .R(1'b0));
   FDRE \pwm_ch_reg[0][7] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [7]),
+        .D(\pwm_ch_reg[1][7]_0 [7]),
         .Q(p_1_in[7]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][0] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [8]),
+        .D(\pwm_ch_reg[1][7]_0 [8]),
         .Q(p_1_in[8]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][1] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [9]),
+        .D(\pwm_ch_reg[1][7]_0 [9]),
         .Q(p_1_in[9]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][2] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [10]),
+        .D(\pwm_ch_reg[1][7]_0 [10]),
         .Q(p_1_in[10]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][3] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [11]),
+        .D(\pwm_ch_reg[1][7]_0 [11]),
         .Q(p_1_in[11]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][4] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [12]),
+        .D(\pwm_ch_reg[1][7]_0 [12]),
         .Q(p_1_in[12]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][5] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [13]),
+        .D(\pwm_ch_reg[1][7]_0 [13]),
         .Q(p_1_in[13]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][6] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [14]),
+        .D(\pwm_ch_reg[1][7]_0 [14]),
         .Q(p_1_in[14]),
         .R(1'b0));
   FDRE \pwm_ch_reg[1][7] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [15]),
+        .D(\pwm_ch_reg[1][7]_0 [15]),
         .Q(p_1_in[15]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][0] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [0]),
+        .D(\pwm_ch_reg[1][7]_0 [0]),
         .Q(\pwm_ch_reg[2][7]_0 [0]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][1] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [1]),
+        .D(\pwm_ch_reg[1][7]_0 [1]),
         .Q(\pwm_ch_reg[2][7]_0 [1]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][2] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [2]),
+        .D(\pwm_ch_reg[1][7]_0 [2]),
         .Q(\pwm_ch_reg[2][7]_0 [2]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][3] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [3]),
+        .D(\pwm_ch_reg[1][7]_0 [3]),
         .Q(\pwm_ch_reg[2][7]_0 [3]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][4] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [4]),
+        .D(\pwm_ch_reg[1][7]_0 [4]),
         .Q(\pwm_ch_reg[2][7]_0 [4]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][5] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [5]),
+        .D(\pwm_ch_reg[1][7]_0 [5]),
         .Q(\pwm_ch_reg[2][7]_0 [5]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][6] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [6]),
+        .D(\pwm_ch_reg[1][7]_0 [6]),
         .Q(\pwm_ch_reg[2][7]_0 [6]),
         .R(1'b0));
   FDRE \pwm_ch_reg[2][7] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [7]),
+        .D(\pwm_ch_reg[1][7]_0 [7]),
         .Q(\pwm_ch_reg[2][7]_0 [7]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][0] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [8]),
+        .D(\pwm_ch_reg[1][7]_0 [8]),
         .Q(Q[0]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][1] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [9]),
+        .D(\pwm_ch_reg[1][7]_0 [9]),
         .Q(Q[1]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][2] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [10]),
+        .D(\pwm_ch_reg[1][7]_0 [10]),
         .Q(Q[2]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][3] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [11]),
+        .D(\pwm_ch_reg[1][7]_0 [11]),
         .Q(Q[3]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][4] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [12]),
+        .D(\pwm_ch_reg[1][7]_0 [12]),
         .Q(Q[4]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][5] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [13]),
+        .D(\pwm_ch_reg[1][7]_0 [13]),
         .Q(Q[5]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][6] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [14]),
+        .D(\pwm_ch_reg[1][7]_0 [14]),
         .Q(Q[6]),
         .R(1'b0));
   FDRE \pwm_ch_reg[3][7] 
        (.C(clk_i),
         .CE(\pwm_ch_reg[2][0]_0 ),
-        .D(\cpu_bus[wdata] [15]),
+        .D(\pwm_ch_reg[1][7]_0 [15]),
         .Q(Q[7]),
         .R(1'b0));
   LUT1 #(
@@ -11455,7 +11501,7 @@ module SystemTop_neo430_pwm
         .I1(pwm_cnt_reg[0]),
         .I2(pwm_cnt_reg[1]),
         .O(plusOp[2]));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
   LUT4 #(
     .INIT(16'h6AAA)) 
     \pwm_cnt[3]_i_1 
@@ -11464,7 +11510,7 @@ module SystemTop_neo430_pwm
         .I2(pwm_cnt_reg[0]),
         .I3(pwm_cnt_reg[2]),
         .O(plusOp[3]));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
   LUT5 #(
     .INIT(32'h6AAAAAAA)) 
     \pwm_cnt[4]_i_1 
@@ -11594,7 +11640,7 @@ module SystemTop_neo430_pwm
         .CYINIT(1'b1),
         .DI({i__carry_i_1__0_n_0,i__carry_i_2__0_n_0,i__carry_i_3_n_0,i__carry_i_4_n_0}),
         .O(\NLW_pwm_out1_inferred__1/i__carry_O_UNCONNECTED [3:0]),
-        .S({i__carry_i_5__0_n_0,i__carry_i_6__0_n_0,i__carry_i_7_n_0,i__carry_i_8_n_0}));
+        .S({i__carry_i_5_n_0,i__carry_i_6_n_0,i__carry_i_7_n_0,i__carry_i_8_n_0}));
   (* COMPARATOR_THRESHOLD = "11" *) 
   CARRY4 \pwm_out1_inferred__2/i__carry 
        (.CI(1'b0),
@@ -11602,7 +11648,7 @@ module SystemTop_neo430_pwm
         .CYINIT(1'b1),
         .DI({i__carry_i_1_n_0,i__carry_i_2_n_0,i__carry_i_3__0_n_0,i__carry_i_4__0_n_0}),
         .O(\NLW_pwm_out1_inferred__2/i__carry_O_UNCONNECTED [3:0]),
-        .S({i__carry_i_5__1_n_0,i__carry_i_6__1_n_0,i__carry_i_7__0_n_0,i__carry_i_8__0_n_0}));
+        .S({i__carry_i_5__0_n_0,i__carry_i_6__0_n_0,i__carry_i_7__0_n_0,i__carry_i_8__0_n_0}));
   (* SOFT_HLUTNM = "soft_lutpair95" *) 
   LUT2 #(
     .INIT(4'h2)) 
@@ -11632,7 +11678,7 @@ module SystemTop_neo430_pwm
   FDRE size_sel_reg
        (.C(clk_i),
         .CE(\prsc_reg[2]_0 ),
-        .D(\cpu_bus[wdata] [5]),
+        .D(\pwm_ch_reg[1][7]_0 [5]),
         .Q(size_sel),
         .R(1'b0));
 endmodule
@@ -11649,18 +11695,16 @@ module SystemTop_neo430_reg_file
     \sreg_reg[4]_0 ,
     sreg,
     \cpu_bus[wr_en] ,
-    \ctrl[8]_i_2 ,
+    \ctrl_reg[8] ,
     mem_data_i,
-    \ctrl[8]_i_7_0 ,
-    \ctrl[8]_i_7_1 ,
-    \ctrl[8]_i_7_2 ,
     \sreg_reg[0]_0 ,
     clk_i,
     in_data,
-    \sreg_reg[3]_0 ,
+    \sreg_reg[4]_1 ,
     D,
     E,
-    \sreg_reg[4]_1 );
+    \sreg_reg[3]_0 ,
+    \sreg_reg[4]_2 );
   output [0:0]WEA;
   output imem_up_en;
   output [0:0]\sreg_reg[15]_0 ;
@@ -11671,18 +11715,16 @@ module SystemTop_neo430_reg_file
   output \sreg_reg[4]_0 ;
   output [0:0]sreg;
   input [1:0]\cpu_bus[wr_en] ;
-  input \ctrl[8]_i_2 ;
+  input \ctrl_reg[8] ;
   input [1:0]mem_data_i;
-  input \ctrl[8]_i_7_0 ;
-  input \ctrl[8]_i_7_1 ;
-  input \ctrl[8]_i_7_2 ;
   input [0:0]\sreg_reg[0]_0 ;
   input clk_i;
   input [15:0]in_data;
-  input [6:0]\sreg_reg[3]_0 ;
+  input [4:0]\sreg_reg[4]_1 ;
   input [4:0]D;
   input [0:0]E;
-  input \sreg_reg[4]_1 ;
+  input [1:0]\sreg_reg[3]_0 ;
+  input \sreg_reg[4]_2 ;
 
   wire [4:0]D;
   wire [0:0]E;
@@ -11690,11 +11732,8 @@ module SystemTop_neo430_reg_file
   wire [0:0]WEA;
   wire clk_i;
   wire [1:0]\cpu_bus[wr_en] ;
-  wire \ctrl[8]_i_2 ;
-  wire \ctrl[8]_i_7_0 ;
-  wire \ctrl[8]_i_7_1 ;
-  wire \ctrl[8]_i_7_2 ;
-  wire \ctrl[8]_i_9_n_0 ;
+  wire \ctrl[8]_i_8_n_0 ;
+  wire \ctrl_reg[8] ;
   wire [15:0]data_o0;
   wire imem_up_en;
   wire [15:0]in_data;
@@ -11706,9 +11745,10 @@ module SystemTop_neo430_reg_file
   wire \sreg[4]_i_1_n_0 ;
   wire [0:0]\sreg_reg[0]_0 ;
   wire [0:0]\sreg_reg[15]_0 ;
-  wire [6:0]\sreg_reg[3]_0 ;
+  wire [1:0]\sreg_reg[3]_0 ;
   wire \sreg_reg[4]_0 ;
-  wire \sreg_reg[4]_1 ;
+  wire [4:0]\sreg_reg[4]_1 ;
+  wire \sreg_reg[4]_2 ;
   wire \sreg_reg[8]_0 ;
 
   LUT1 #(
@@ -11718,23 +11758,21 @@ module SystemTop_neo430_reg_file
         .O(\rst_gen_reg[3] ));
   LUT6 #(
     .INIT(64'h787B7B787B4B4878)) 
-    \ctrl[8]_i_7 
-       (.I0(\ctrl[8]_i_9_n_0 ),
-        .I1(\ctrl[8]_i_2 ),
+    \ctrl[8]_i_3 
+       (.I0(\ctrl[8]_i_8_n_0 ),
+        .I1(\ctrl_reg[8] ),
         .I2(mem_data_i[0]),
         .I3(Q[3]),
         .I4(Q[2]),
         .I5(mem_data_i[1]),
         .O(\sreg_reg[8]_0 ));
-  LUT5 #(
-    .INIT(32'h55545557)) 
-    \ctrl[8]_i_9 
+  LUT3 #(
+    .INIT(8'h47)) 
+    \ctrl[8]_i_8 
        (.I0(Q[0]),
-        .I1(\ctrl[8]_i_7_0 ),
-        .I2(\ctrl[8]_i_7_1 ),
-        .I3(\ctrl[8]_i_7_2 ),
-        .I4(Q[1]),
-        .O(\ctrl[8]_i_9_n_0 ));
+        .I1(mem_data_i[1]),
+        .I2(Q[1]),
+        .O(\ctrl[8]_i_8_n_0 ));
   LUT2 #(
     .INIT(4'h8)) 
     imem_file_ram_h_reg_0_i_3
@@ -11760,15 +11798,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_0_0
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[0]),
         .O(data_o0[0]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11782,15 +11820,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_10_10
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[10]),
         .O(data_o0[10]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11804,15 +11842,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_11_11
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[11]),
         .O(data_o0[11]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11826,15 +11864,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_12_12
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[12]),
         .O(data_o0[12]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11848,15 +11886,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_13_13
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[13]),
         .O(data_o0[13]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11870,15 +11908,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_14_14
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[14]),
         .O(data_o0[14]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11892,15 +11930,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_15_15
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[15]),
         .O(data_o0[15]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11914,15 +11952,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_1_1
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[1]),
         .O(data_o0[1]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11936,15 +11974,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_2_2
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[2]),
         .O(data_o0[2]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11958,15 +11996,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_3_3
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[3]),
         .O(data_o0[3]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -11980,15 +12018,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_4_4
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[4]),
         .O(data_o0[4]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -12002,15 +12040,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_5_5
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[5]),
         .O(data_o0[5]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -12024,15 +12062,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_6_6
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[6]),
         .O(data_o0[6]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -12046,15 +12084,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_7_7
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[7]),
         .O(data_o0[7]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -12068,15 +12106,15 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_8_8
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[8]),
         .O(data_o0[8]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   (* RTL_RAM_BITS = "256" *) 
   (* RTL_RAM_NAME = "U0/neo430_cpu_inst/neo430_reg_file_inst/reg_file" *) 
   (* RTL_RAM_TYPE = "RAM_SP" *) 
@@ -12090,42 +12128,42 @@ module SystemTop_neo430_reg_file
   RAM32X1S #(
     .INIT(32'h00000000)) 
     reg_file_reg_0_15_9_9
-       (.A0(\sreg_reg[3]_0 [0]),
-        .A1(\sreg_reg[3]_0 [1]),
-        .A2(\sreg_reg[3]_0 [2]),
-        .A3(\sreg_reg[3]_0 [3]),
+       (.A0(\sreg_reg[4]_1 [0]),
+        .A1(\sreg_reg[4]_1 [1]),
+        .A2(\sreg_reg[4]_1 [2]),
+        .A3(\sreg_reg[4]_1 [3]),
         .A4(1'b0),
         .D(in_data[9]),
         .O(data_o0[9]),
         .WCLK(clk_i),
-        .WE(\sreg_reg[3]_0 [4]));
+        .WE(\sreg_reg[4]_1 [4]));
   LUT5 #(
     .INIT(32'hFFEF0020)) 
     \sreg[15]_i_1 
        (.I0(in_data[15]),
-        .I1(\sreg_reg[4]_1 ),
-        .I2(\sreg_reg[3]_0 [4]),
-        .I3(\sreg_reg[3]_0 [0]),
+        .I1(\sreg_reg[4]_2 ),
+        .I2(\sreg_reg[4]_1 [4]),
+        .I3(\sreg_reg[4]_1 [0]),
         .I4(imem_up_en),
         .O(\sreg[15]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'h33333A3300000A00)) 
     \sreg[3]_i_1 
        (.I0(in_data[3]),
-        .I1(\sreg_reg[3]_0 [6]),
-        .I2(\sreg_reg[3]_0 [0]),
-        .I3(\sreg_reg[3]_0 [4]),
-        .I4(\sreg_reg[4]_1 ),
+        .I1(\sreg_reg[3]_0 [1]),
+        .I2(\sreg_reg[4]_1 [0]),
+        .I3(\sreg_reg[4]_1 [4]),
+        .I4(\sreg_reg[4]_2 ),
         .I5(sreg),
         .O(\sreg[3]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'h33333A3300000A00)) 
     \sreg[4]_i_1 
        (.I0(in_data[4]),
-        .I1(\sreg_reg[3]_0 [5]),
-        .I2(\sreg_reg[3]_0 [0]),
-        .I3(\sreg_reg[3]_0 [4]),
-        .I4(\sreg_reg[4]_1 ),
+        .I1(\sreg_reg[3]_0 [0]),
+        .I2(\sreg_reg[4]_1 [0]),
+        .I3(\sreg_reg[4]_1 [4]),
+        .I4(\sreg_reg[4]_2 ),
         .I5(\sreg_reg[4]_0 ),
         .O(\sreg[4]_i_1_n_0 ));
   FDCE \sreg_reg[0] 
@@ -12180,149 +12218,165 @@ endmodule
 
 (* ORIG_REF_NAME = "neo430_sysconfig" *) 
 module SystemTop_neo430_sysconfig
-   (\data_o_reg[7] ,
+   (dio_swap_reg,
     \data_o_reg[13]_0 ,
-    mem_data_i,
-    \data_o_reg[11]_0 ,
-    \data_o_reg[1]_0 ,
-    \data_o_reg[5] ,
+    dio_swap_reg_0,
     \data_o_reg[8]_0 ,
-    \data_o_reg[6]_0 ,
     \data_o_reg[8]_1 ,
+    dio_swap_reg_1,
+    \data_o_reg[6]_0 ,
+    dio_swap_reg_2,
+    \data_o_reg[6]_1 ,
+    dio_swap_reg_3,
+    dio_swap_reg_4,
+    \data_o_reg[3]_0 ,
+    dio_swap_reg_5,
+    \data_o_reg[3]_1 ,
+    dio_swap_reg_6,
+    \data_o_reg[2]_0 ,
+    dio_swap_reg_7,
+    dio_swap_reg_8,
+    \data_o_reg[1]_0 ,
+    \data_o_reg[1]_1 ,
+    dio_swap_reg_9,
+    \data_o_reg[0]_0 ,
+    dio_swap_reg_10,
+    \data_o_reg[5] ,
+    \data_o_reg[7] ,
+    \data_o_reg[1]_2 ,
+    \FSM_sequential_state_reg[1] ,
     \data_o_reg[12] ,
     \data_o_reg[13]_1 ,
     \data_o_reg[13]_2 ,
-    \data_o_reg[10]_0 ,
-    \data_o_reg[10]_1 ,
-    dio_swap_reg,
     Q,
-    dio_swap_reg_0,
-    dio_swap_reg_1,
-    dio_swap_reg_2,
-    dio_swap_reg_3,
-    \FSM_sequential_state_reg[0] ,
-    \ctrl_reg[17] ,
-    \src_reg[3] ,
-    \am_reg[1] ,
-    \FSM_sequential_state_reg[3] ,
-    \FSM_sequential_state_reg[0]_0 ,
     dio_swap,
+    \am_reg[1] ,
+    \src_reg[3] ,
+    mem_data_i,
+    \FSM_sequential_state_reg[4] ,
+    \am_reg[2] ,
+    \FSM_sequential_state_reg[4]_0 ,
+    \FSM_sequential_state_reg[0] ,
     \ir_reg[13] ,
     \ir_reg[13]_0 ,
     \ir_reg[13]_1 ,
     \ir_reg[13]_2 ,
-    timer_rdata,
     uart_rdata,
-    \ir_reg[11] ,
-    \ir_reg[11]_0 ,
-    \ir_reg[10] ,
-    \ir_reg[10]_0 ,
     \ir_reg[9] ,
     \ir_reg[9]_0 ,
+    timer_rdata,
     \am_reg[1]_0 ,
     \am_reg[1]_1 ,
+    \ir_reg[6] ,
+    \ir_reg[6]_0 ,
     \am_reg[1]_2 ,
     \am_reg[1]_3 ,
-    \am[2]_i_3_0 ,
-    \am[2]_i_3_1 ,
-    \am[2]_i_3_2 ,
-    \am[2]_i_3_3 ,
-    \src_reg[1] ,
-    \src_reg[1]_0 ,
-    \am[2]_i_3_4 ,
-    \am[2]_i_3_5 ,
+    \ir_reg[3] ,
+    \ir_reg[3]_0 ,
+    \ir_reg[2] ,
+    \ir_reg[2]_0 ,
+    \ir_reg[1] ,
+    \ir_reg[1]_0 ,
+    \ir_reg[0] ,
+    \ir_reg[0]_0 ,
     SR,
     D,
     clk_i);
-  output \data_o_reg[7] ;
+  output dio_swap_reg;
   output \data_o_reg[13]_0 ;
-  output [4:0]mem_data_i;
-  output [2:0]\data_o_reg[11]_0 ;
-  output \data_o_reg[1]_0 ;
-  output [1:0]\data_o_reg[5] ;
+  output dio_swap_reg_0;
   output \data_o_reg[8]_0 ;
-  output \data_o_reg[6]_0 ;
   output \data_o_reg[8]_1 ;
+  output dio_swap_reg_1;
+  output \data_o_reg[6]_0 ;
+  output dio_swap_reg_2;
+  output \data_o_reg[6]_1 ;
+  output dio_swap_reg_3;
+  output dio_swap_reg_4;
+  output \data_o_reg[3]_0 ;
+  output dio_swap_reg_5;
+  output [3:0]\data_o_reg[3]_1 ;
+  output dio_swap_reg_6;
+  output \data_o_reg[2]_0 ;
+  output dio_swap_reg_7;
+  output dio_swap_reg_8;
+  output \data_o_reg[1]_0 ;
+  output \data_o_reg[1]_1 ;
+  output dio_swap_reg_9;
+  output \data_o_reg[0]_0 ;
+  output dio_swap_reg_10;
+  output [1:0]\data_o_reg[5] ;
+  output \data_o_reg[7] ;
+  output \data_o_reg[1]_2 ;
+  output \FSM_sequential_state_reg[1] ;
   output \data_o_reg[12] ;
   output \data_o_reg[13]_1 ;
-  output \data_o_reg[13]_2 ;
-  output \data_o_reg[10]_0 ;
-  output \data_o_reg[10]_1 ;
-  output dio_swap_reg;
-  output [10:0]Q;
-  output dio_swap_reg_0;
-  output dio_swap_reg_1;
-  output dio_swap_reg_2;
-  output dio_swap_reg_3;
-  input \FSM_sequential_state_reg[0] ;
-  input \ctrl_reg[17] ;
-  input \src_reg[3] ;
-  input \am_reg[1] ;
-  input [4:0]\FSM_sequential_state_reg[3] ;
-  input \FSM_sequential_state_reg[0]_0 ;
+  output [8:0]\data_o_reg[13]_2 ;
+  output [4:0]Q;
   input dio_swap;
-  input [1:0]\ir_reg[13] ;
-  input [9:0]\ir_reg[13]_0 ;
+  input \am_reg[1] ;
+  input \src_reg[3] ;
+  input [3:0]mem_data_i;
+  input \FSM_sequential_state_reg[4] ;
+  input \am_reg[2] ;
+  input \FSM_sequential_state_reg[4]_0 ;
+  input \FSM_sequential_state_reg[0] ;
+  input [2:0]\ir_reg[13] ;
+  input [8:0]\ir_reg[13]_0 ;
   input \ir_reg[13]_1 ;
   input \ir_reg[13]_2 ;
-  input [7:0]timer_rdata;
-  input [8:0]uart_rdata;
-  input \ir_reg[11] ;
-  input \ir_reg[11]_0 ;
-  input \ir_reg[10] ;
-  input \ir_reg[10]_0 ;
+  input [7:0]uart_rdata;
   input \ir_reg[9] ;
   input \ir_reg[9]_0 ;
+  input [5:0]timer_rdata;
   input \am_reg[1]_0 ;
   input \am_reg[1]_1 ;
+  input \ir_reg[6] ;
+  input \ir_reg[6]_0 ;
   input \am_reg[1]_2 ;
   input \am_reg[1]_3 ;
-  input \am[2]_i_3_0 ;
-  input \am[2]_i_3_1 ;
-  input \am[2]_i_3_2 ;
-  input \am[2]_i_3_3 ;
-  input \src_reg[1] ;
-  input \src_reg[1]_0 ;
-  input \am[2]_i_3_4 ;
-  input \am[2]_i_3_5 ;
+  input \ir_reg[3] ;
+  input \ir_reg[3]_0 ;
+  input \ir_reg[2] ;
+  input \ir_reg[2]_0 ;
+  input \ir_reg[1] ;
+  input \ir_reg[1]_0 ;
+  input \ir_reg[0] ;
+  input \ir_reg[0]_0 ;
   input [0:0]SR;
   input [10:0]D;
   input clk_i;
 
   wire [10:0]D;
   wire \FSM_sequential_state_reg[0] ;
-  wire \FSM_sequential_state_reg[0]_0 ;
-  wire [4:0]\FSM_sequential_state_reg[3] ;
-  wire [10:0]Q;
+  wire \FSM_sequential_state_reg[1] ;
+  wire \FSM_sequential_state_reg[4] ;
+  wire \FSM_sequential_state_reg[4]_0 ;
+  wire [4:0]Q;
   wire [0:0]SR;
   wire \am[2]_i_2_n_0 ;
-  wire \am[2]_i_3_0 ;
-  wire \am[2]_i_3_1 ;
-  wire \am[2]_i_3_2 ;
-  wire \am[2]_i_3_3 ;
-  wire \am[2]_i_3_4 ;
-  wire \am[2]_i_3_5 ;
   wire \am[2]_i_3_n_0 ;
-  wire \am[2]_i_4_n_0 ;
-  wire \am[2]_i_5_n_0 ;
-  wire \am[2]_i_6_n_0 ;
   wire \am_reg[1] ;
   wire \am_reg[1]_0 ;
   wire \am_reg[1]_1 ;
   wire \am_reg[1]_2 ;
   wire \am_reg[1]_3 ;
+  wire \am_reg[2] ;
   wire clk_i;
-  wire \ctrl_reg[17] ;
-  wire \data_o_reg[10]_0 ;
-  wire \data_o_reg[10]_1 ;
-  wire [2:0]\data_o_reg[11]_0 ;
+  wire \data_o_reg[0]_0 ;
   wire \data_o_reg[12] ;
   wire \data_o_reg[13]_0 ;
   wire \data_o_reg[13]_1 ;
-  wire \data_o_reg[13]_2 ;
+  wire [8:0]\data_o_reg[13]_2 ;
   wire \data_o_reg[1]_0 ;
+  wire \data_o_reg[1]_1 ;
+  wire \data_o_reg[1]_2 ;
+  wire \data_o_reg[2]_0 ;
+  wire \data_o_reg[3]_0 ;
+  wire [3:0]\data_o_reg[3]_1 ;
   wire [1:0]\data_o_reg[5] ;
   wire \data_o_reg[6]_0 ;
+  wire \data_o_reg[6]_1 ;
   wire \data_o_reg[7] ;
   wire \data_o_reg[8]_0 ;
   wire \data_o_reg[8]_1 ;
@@ -12330,85 +12384,83 @@ module SystemTop_neo430_sysconfig
   wire dio_swap_reg;
   wire dio_swap_reg_0;
   wire dio_swap_reg_1;
+  wire dio_swap_reg_10;
   wire dio_swap_reg_2;
   wire dio_swap_reg_3;
-  wire \ir_reg[10] ;
-  wire \ir_reg[10]_0 ;
-  wire \ir_reg[11] ;
-  wire \ir_reg[11]_0 ;
-  wire [1:0]\ir_reg[13] ;
-  wire [9:0]\ir_reg[13]_0 ;
+  wire dio_swap_reg_4;
+  wire dio_swap_reg_5;
+  wire dio_swap_reg_6;
+  wire dio_swap_reg_7;
+  wire dio_swap_reg_8;
+  wire dio_swap_reg_9;
+  wire \ir_reg[0] ;
+  wire \ir_reg[0]_0 ;
+  wire [2:0]\ir_reg[13] ;
+  wire [8:0]\ir_reg[13]_0 ;
   wire \ir_reg[13]_1 ;
   wire \ir_reg[13]_2 ;
+  wire \ir_reg[1] ;
+  wire \ir_reg[1]_0 ;
+  wire \ir_reg[2] ;
+  wire \ir_reg[2]_0 ;
+  wire \ir_reg[3] ;
+  wire \ir_reg[3]_0 ;
+  wire \ir_reg[6] ;
+  wire \ir_reg[6]_0 ;
   wire \ir_reg[9] ;
   wire \ir_reg[9]_0 ;
-  wire [4:0]mem_data_i;
-  wire \src[1]_i_2_n_0 ;
-  wire \src_reg[1] ;
-  wire \src_reg[1]_0 ;
+  wire [3:0]mem_data_i;
   wire \src_reg[3] ;
-  wire [7:0]timer_rdata;
-  wire [8:0]uart_rdata;
+  wire [13:0]sysconfig_rdata;
+  wire [5:0]timer_rdata;
+  wire [7:0]uart_rdata;
 
-  LUT6 #(
-    .INIT(64'h0000000000100000)) 
-    \FSM_sequential_state[0]_i_2 
-       (.I0(mem_data_i[2]),
-        .I1(mem_data_i[3]),
-        .I2(\data_o_reg[13]_0 ),
-        .I3(\ctrl_reg[17] ),
-        .I4(\FSM_sequential_state_reg[0] ),
-        .I5(\FSM_sequential_state_reg[0]_0 ),
-        .O(\data_o_reg[10]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair96" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFFDF)) 
-    \FSM_sequential_state[2]_i_4 
-       (.I0(\FSM_sequential_state_reg[0] ),
-        .I1(\ctrl_reg[17] ),
-        .I2(\data_o_reg[13]_0 ),
-        .I3(mem_data_i[3]),
-        .I4(mem_data_i[2]),
-        .O(\data_o_reg[7] ));
-  (* SOFT_HLUTNM = "soft_lutpair99" *) 
-  LUT3 #(
-    .INIT(8'h01)) 
-    \FSM_sequential_state[2]_i_5 
-       (.I0(\data_o_reg[8]_0 ),
-        .I1(\data_o_reg[1]_0 ),
-        .I2(\src_reg[3] ),
-        .O(\data_o_reg[8]_1 ));
-  (* SOFT_HLUTNM = "soft_lutpair98" *) 
-  LUT5 #(
-    .INIT(32'hFF00FFFD)) 
-    \FSM_sequential_state[3]_i_4 
-       (.I0(\data_o_reg[13]_0 ),
-        .I1(mem_data_i[3]),
-        .I2(mem_data_i[2]),
-        .I3(\ctrl_reg[17] ),
-        .I4(\FSM_sequential_state_reg[3] [4]),
-        .O(\data_o_reg[13]_2 ));
   (* SOFT_HLUTNM = "soft_lutpair97" *) 
+  LUT5 #(
+    .INIT(32'hAAAAA8AA)) 
+    \FSM_sequential_state[0]_i_4 
+       (.I0(\FSM_sequential_state_reg[0] ),
+        .I1(\data_o_reg[1]_2 ),
+        .I2(\am_reg[2] ),
+        .I3(\data_o_reg[13]_0 ),
+        .I4(\FSM_sequential_state_reg[4] ),
+        .O(\FSM_sequential_state_reg[1] ));
+  LUT4 #(
+    .INIT(16'hF0FD)) 
+    \FSM_sequential_state[3]_i_5 
+       (.I0(\data_o_reg[13]_0 ),
+        .I1(\am_reg[2] ),
+        .I2(\FSM_sequential_state_reg[4] ),
+        .I3(mem_data_i[3]),
+        .O(\data_o_reg[13]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair106" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    \FSM_sequential_state[4]_i_10 
+       (.I0(\data_o_reg[1]_1 ),
+        .I1(\data_o_reg[8]_1 ),
+        .O(\data_o_reg[1]_2 ));
+  LUT6 #(
+    .INIT(64'h0000000000400000)) 
+    \FSM_sequential_state[4]_i_6 
+       (.I0(\src_reg[3] ),
+        .I1(\data_o_reg[1]_2 ),
+        .I2(\FSM_sequential_state_reg[4]_0 ),
+        .I3(\am_reg[2] ),
+        .I4(\data_o_reg[13]_0 ),
+        .I5(\FSM_sequential_state_reg[4] ),
+        .O(\data_o_reg[7] ));
+  (* SOFT_HLUTNM = "soft_lutpair96" *) 
   LUT5 #(
     .INIT(32'h0000008F)) 
     \am[1]_i_1 
-       (.I0(\data_o_reg[8]_0 ),
+       (.I0(\data_o_reg[8]_1 ),
         .I1(\am_reg[1] ),
         .I2(\am[2]_i_2_n_0 ),
         .I3(\am[2]_i_3_n_0 ),
-        .I4(\data_o_reg[6]_0 ),
+        .I4(\data_o_reg[6]_1 ),
         .O(\data_o_reg[5] [0]));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \am[1]_i_2 
-       (.I0(Q[5]),
-        .I1(\ir_reg[13]_0 [5]),
-        .I2(timer_rdata[5]),
-        .I3(uart_rdata[5]),
-        .I4(\am_reg[1]_0 ),
-        .I5(\am_reg[1]_1 ),
-        .O(\data_o_reg[8]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair97" *) 
+  (* SOFT_HLUTNM = "soft_lutpair96" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \am[2]_i_1 
@@ -12416,288 +12468,375 @@ module SystemTop_neo430_sysconfig
         .I1(\am_reg[1] ),
         .I2(\am[2]_i_3_n_0 ),
         .O(\data_o_reg[5] [1]));
-  (* SOFT_HLUTNM = "soft_lutpair99" *) 
-  LUT4 #(
-    .INIT(16'h0004)) 
+  (* SOFT_HLUTNM = "soft_lutpair98" *) 
+  LUT3 #(
+    .INIT(8'h04)) 
     \am[2]_i_2 
-       (.I0(\data_o_reg[1]_0 ),
+       (.I0(\data_o_reg[1]_1 ),
         .I1(\src_reg[3] ),
-        .I2(mem_data_i[2]),
-        .I3(mem_data_i[3]),
+        .I2(\am_reg[2] ),
         .O(\am[2]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h0000100010001000)) 
     \am[2]_i_3 
        (.I0(\src_reg[3] ),
-        .I1(\src[1]_i_2_n_0 ),
-        .I2(\am[2]_i_4_n_0 ),
-        .I3(\am[2]_i_5_n_0 ),
+        .I1(\data_o_reg[1]_0 ),
+        .I2(\data_o_reg[3]_0 ),
+        .I3(\data_o_reg[2]_0 ),
         .I4(\am_reg[1] ),
-        .I5(\am[2]_i_6_n_0 ),
+        .I5(\data_o_reg[0]_0 ),
         .O(\am[2]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \am[2]_i_4 
-       (.I0(Q[3]),
-        .I1(\ir_reg[13]_0 [3]),
-        .I2(timer_rdata[3]),
-        .I3(uart_rdata[3]),
-        .I4(\am[2]_i_3_0 ),
-        .I5(\am[2]_i_3_1 ),
-        .O(\am[2]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \am[2]_i_5 
-       (.I0(Q[2]),
-        .I1(\ir_reg[13]_0 [2]),
-        .I2(timer_rdata[2]),
-        .I3(uart_rdata[2]),
-        .I4(\am[2]_i_3_2 ),
-        .I5(\am[2]_i_3_3 ),
-        .O(\am[2]_i_5_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \am[2]_i_6 
-       (.I0(Q[0]),
-        .I1(\ir_reg[13]_0 [0]),
-        .I2(timer_rdata[0]),
-        .I3(uart_rdata[0]),
-        .I4(\am[2]_i_3_4 ),
-        .I5(\am[2]_i_3_5 ),
-        .O(\am[2]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair101" *) 
+  (* SOFT_HLUTNM = "soft_lutpair106" *) 
   LUT3 #(
-    .INIT(8'h74)) 
+    .INIT(8'h35)) 
     \ctrl[16]_i_3 
-       (.I0(\data_o_reg[13]_0 ),
-        .I1(\src_reg[3] ),
-        .I2(\FSM_sequential_state_reg[3] [3]),
-        .O(\data_o_reg[13]_1 ));
-  LUT6 #(
-    .INIT(64'h0000000000000004)) 
-    \ctrl[17]_i_4 
-       (.I0(\ctrl_reg[17] ),
+       (.I0(\data_o_reg[8]_1 ),
         .I1(\data_o_reg[13]_0 ),
-        .I2(mem_data_i[3]),
-        .I3(mem_data_i[2]),
-        .I4(\src_reg[3] ),
-        .I5(\data_o_reg[1]_0 ),
+        .I2(\src_reg[3] ),
+        .O(\data_o_reg[8]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair98" *) 
+  LUT5 #(
+    .INIT(32'h00000004)) 
+    \ctrl[17]_i_4 
+       (.I0(\FSM_sequential_state_reg[4] ),
+        .I1(\data_o_reg[13]_0 ),
+        .I2(\am_reg[2] ),
+        .I3(\src_reg[3] ),
+        .I4(\data_o_reg[1]_1 ),
         .O(\data_o_reg[12] ));
   FDRE \data_o_reg[0] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[0]),
-        .Q(Q[0]),
+        .Q(sysconfig_rdata[0]),
         .R(SR));
   FDRE \data_o_reg[10] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[6]),
-        .Q(Q[6]),
+        .Q(Q[1]),
         .R(SR));
   FDRE \data_o_reg[11] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[7]),
-        .Q(Q[7]),
+        .Q(Q[2]),
         .R(SR));
   FDRE \data_o_reg[13] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[8]),
-        .Q(Q[8]),
+        .Q(sysconfig_rdata[13]),
         .R(SR));
   FDRE \data_o_reg[14] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[9]),
-        .Q(Q[9]),
+        .Q(Q[3]),
         .R(SR));
   FDRE \data_o_reg[15] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[10]),
-        .Q(Q[10]),
+        .Q(Q[4]),
         .R(SR));
   FDRE \data_o_reg[1] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[1]),
-        .Q(Q[1]),
+        .Q(sysconfig_rdata[1]),
         .R(SR));
   FDRE \data_o_reg[2] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[2]),
-        .Q(Q[2]),
+        .Q(sysconfig_rdata[2]),
         .R(SR));
   FDRE \data_o_reg[3] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[3]),
-        .Q(Q[3]),
+        .Q(sysconfig_rdata[3]),
         .R(SR));
   FDRE \data_o_reg[6] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[4]),
-        .Q(Q[4]),
+        .Q(Q[0]),
         .R(SR));
   FDRE \data_o_reg[8] 
        (.C(clk_i),
         .CE(1'b1),
         .D(D[5]),
-        .Q(Q[5]),
+        .Q(sysconfig_rdata[8]),
         .R(SR));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[10]_i_1 
-       (.I0(Q[6]),
-        .I1(\ir_reg[13]_0 [7]),
-        .I2(timer_rdata[6]),
-        .I3(uart_rdata[7]),
-        .I4(\ir_reg[10] ),
-        .I5(\ir_reg[10]_0 ),
-        .O(mem_data_i[2]));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \ir[11]_i_1 
-       (.I0(Q[7]),
-        .I1(\ir_reg[13]_0 [8]),
-        .I2(timer_rdata[7]),
-        .I3(uart_rdata[8]),
-        .I4(\ir_reg[11] ),
-        .I5(\ir_reg[11]_0 ),
-        .O(mem_data_i[3]));
-  (* SOFT_HLUTNM = "soft_lutpair98" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    \ir[0]_i_1 
+       (.I0(\data_o_reg[0]_0 ),
+        .O(\data_o_reg[13]_2 [0]));
+  (* SOFT_HLUTNM = "soft_lutpair97" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \ir[13]_i_1 
        (.I0(\data_o_reg[13]_0 ),
-        .O(mem_data_i[4]));
-  LUT5 #(
-    .INIT(32'h00000001)) 
-    \ir[13]_i_2 
-       (.I0(Q[8]),
-        .I1(\ir_reg[13] [1]),
-        .I2(\ir_reg[13]_0 [9]),
-        .I3(\ir_reg[13]_1 ),
-        .I4(\ir_reg[13]_2 ),
-        .O(\data_o_reg[13]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair104" *) 
+        .O(\data_o_reg[13]_2 [8]));
+  (* SOFT_HLUTNM = "soft_lutpair109" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    \ir[1]_i_1 
+       (.I0(\data_o_reg[1]_0 ),
+        .O(\data_o_reg[13]_2 [1]));
+  (* SOFT_HLUTNM = "soft_lutpair108" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    \ir[2]_i_1 
+       (.I0(\data_o_reg[2]_0 ),
+        .O(\data_o_reg[13]_2 [2]));
+  (* SOFT_HLUTNM = "soft_lutpair107" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    \ir[3]_i_1 
+       (.I0(\data_o_reg[3]_0 ),
+        .O(\data_o_reg[13]_2 [3]));
   LUT1 #(
     .INIT(2'h1)) 
     \ir[4]_i_1 
+       (.I0(\data_o_reg[6]_1 ),
+        .O(\data_o_reg[13]_2 [4]));
+  (* SOFT_HLUTNM = "soft_lutpair105" *) 
+  LUT1 #(
+    .INIT(2'h1)) 
+    \ir[6]_i_1 
        (.I0(\data_o_reg[6]_0 ),
-        .O(mem_data_i[0]));
+        .O(\data_o_reg[13]_2 [5]));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \ir[6]_i_2 
+       (.I0(Q[0]),
+        .I1(\ir_reg[13]_0 [5]),
+        .I2(\ir_reg[13] [0]),
+        .I3(uart_rdata[5]),
+        .I4(\ir_reg[6] ),
+        .I5(\ir_reg[6]_0 ),
+        .O(\data_o_reg[6]_0 ));
+  LUT1 #(
+    .INIT(2'h1)) 
+    \ir[8]_i_1 
+       (.I0(\data_o_reg[8]_1 ),
+        .O(\data_o_reg[13]_2 [6]));
   LUT1 #(
     .INIT(2'h1)) 
     \ir[9]_i_1 
-       (.I0(\data_o_reg[1]_0 ),
-        .O(mem_data_i[1]));
+       (.I0(\data_o_reg[1]_1 ),
+        .O(\data_o_reg[13]_2 [7]));
+  (* SOFT_HLUTNM = "soft_lutpair101" *) 
+  LUT3 #(
+    .INIT(8'h35)) 
+    mem_addr_reg0_carry__0_i_12
+       (.I0(\data_o_reg[6]_1 ),
+        .I1(\FSM_sequential_state_reg[4] ),
+        .I2(dio_swap),
+        .O(dio_swap_reg_2));
+  (* SOFT_HLUTNM = "soft_lutpair102" *) 
+  LUT3 #(
+    .INIT(8'hC5)) 
+    mem_addr_reg0_carry_i_9
+       (.I0(\data_o_reg[3]_0 ),
+        .I1(mem_data_i[1]),
+        .I2(dio_swap),
+        .O(dio_swap_reg_4));
+  (* SOFT_HLUTNM = "soft_lutpair103" *) 
+  LUT3 #(
+    .INIT(8'h74)) 
+    \op_b_ff[10]_i_2 
+       (.I0(\data_o_reg[2]_0 ),
+        .I1(dio_swap),
+        .I2(mem_data_i[0]),
+        .O(dio_swap_reg_7));
+  (* SOFT_HLUTNM = "soft_lutpair102" *) 
+  LUT3 #(
+    .INIT(8'h74)) 
+    \op_b_ff[11]_i_2 
+       (.I0(\data_o_reg[3]_0 ),
+        .I1(dio_swap),
+        .I2(mem_data_i[1]),
+        .O(dio_swap_reg_5));
   (* SOFT_HLUTNM = "soft_lutpair101" *) 
   LUT3 #(
     .INIT(8'h47)) 
-    mem_addr_reg0_carry__0_i_9
+    \op_b_ff[12]_i_2 
+       (.I0(\data_o_reg[6]_1 ),
+        .I1(dio_swap),
+        .I2(\FSM_sequential_state_reg[4] ),
+        .O(dio_swap_reg_3));
+  (* SOFT_HLUTNM = "soft_lutpair100" *) 
+  LUT3 #(
+    .INIT(8'h35)) 
+    \op_b_ff[13]_i_2 
+       (.I0(\data_o_reg[13]_0 ),
+        .I1(\am_reg[1] ),
+        .I2(dio_swap),
+        .O(dio_swap_reg_0));
+  (* SOFT_HLUTNM = "soft_lutpair99" *) 
+  LUT3 #(
+    .INIT(8'h35)) 
+    \op_b_ff[1]_i_2 
+       (.I0(\data_o_reg[1]_0 ),
+        .I1(\data_o_reg[1]_1 ),
+        .I2(dio_swap),
+        .O(dio_swap_reg_9));
+  (* SOFT_HLUTNM = "soft_lutpair103" *) 
+  LUT3 #(
+    .INIT(8'hC5)) 
+    \op_b_ff[2]_i_2 
+       (.I0(\data_o_reg[2]_0 ),
+        .I1(mem_data_i[0]),
+        .I2(dio_swap),
+        .O(dio_swap_reg_6));
+  (* SOFT_HLUTNM = "soft_lutpair100" *) 
+  LUT3 #(
+    .INIT(8'h47)) 
+    \op_b_ff[5]_i_2 
        (.I0(\data_o_reg[13]_0 ),
         .I1(dio_swap),
         .I2(\am_reg[1] ),
         .O(dio_swap_reg));
+  (* SOFT_HLUTNM = "soft_lutpair105" *) 
+  LUT3 #(
+    .INIT(8'hC5)) 
+    \op_b_ff[6]_i_2 
+       (.I0(\data_o_reg[6]_0 ),
+        .I1(mem_data_i[2]),
+        .I2(dio_swap),
+        .O(dio_swap_reg_1));
   (* SOFT_HLUTNM = "soft_lutpair104" *) 
   LUT3 #(
-    .INIT(8'h47)) 
-    mem_addr_reg0_carry__2_i_10
-       (.I0(\data_o_reg[6]_0 ),
-        .I1(dio_swap),
-        .I2(\ctrl_reg[17] ),
-        .O(dio_swap_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair100" *) 
+    .INIT(8'h53)) 
+    \op_b_ff[8]_i_2 
+       (.I0(\data_o_reg[0]_0 ),
+        .I1(\data_o_reg[8]_1 ),
+        .I2(dio_swap),
+        .O(dio_swap_reg_10));
+  (* SOFT_HLUTNM = "soft_lutpair99" *) 
   LUT3 #(
-    .INIT(8'h74)) 
-    \op_b_ff[1]_i_2 
+    .INIT(8'h53)) 
+    \op_b_ff[9]_i_2 
        (.I0(\data_o_reg[1]_0 ),
-        .I1(dio_swap),
-        .I2(\FSM_sequential_state_reg[3] [0]),
-        .O(dio_swap_reg_3));
-  (* SOFT_HLUTNM = "soft_lutpair103" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[2]_i_2 
-       (.I0(mem_data_i[2]),
-        .I1(dio_swap),
-        .I2(\FSM_sequential_state_reg[3] [1]),
-        .O(dio_swap_reg_2));
-  (* SOFT_HLUTNM = "soft_lutpair102" *) 
-  LUT3 #(
-    .INIT(8'hB8)) 
-    \op_b_ff[3]_i_2 
-       (.I0(mem_data_i[3]),
-        .I1(dio_swap),
-        .I2(\FSM_sequential_state_reg[3] [2]),
-        .O(dio_swap_reg_1));
+        .I1(\data_o_reg[1]_1 ),
+        .I2(dio_swap),
+        .O(dio_swap_reg_8));
   LUT6 #(
     .INIT(64'h0000000000000001)) 
     \sam[0]_i_2 
-       (.I0(Q[4]),
+       (.I0(Q[0]),
         .I1(\ir_reg[13]_0 [4]),
         .I2(timer_rdata[4]),
         .I3(uart_rdata[4]),
         .I4(\am_reg[1]_2 ),
         .I5(\am_reg[1]_3 ),
-        .O(\data_o_reg[6]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair100" *) 
+        .O(\data_o_reg[6]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair104" *) 
+  LUT3 #(
+    .INIT(8'h35)) 
+    \src[0]_i_1 
+       (.I0(\data_o_reg[0]_0 ),
+        .I1(\data_o_reg[8]_1 ),
+        .I2(\src_reg[3] ),
+        .O(\data_o_reg[3]_1 [0]));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \src[0]_i_2 
+       (.I0(sysconfig_rdata[0]),
+        .I1(\ir_reg[13]_0 [0]),
+        .I2(timer_rdata[0]),
+        .I3(uart_rdata[0]),
+        .I4(\ir_reg[0] ),
+        .I5(\ir_reg[0]_0 ),
+        .O(\data_o_reg[0]_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \src[0]_i_3 
+       (.I0(sysconfig_rdata[8]),
+        .I1(\ir_reg[13]_0 [6]),
+        .I2(timer_rdata[5]),
+        .I3(uart_rdata[6]),
+        .I4(\am_reg[1]_0 ),
+        .I5(\am_reg[1]_1 ),
+        .O(\data_o_reg[8]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair109" *) 
   LUT3 #(
     .INIT(8'h1D)) 
     \src[1]_i_1 
-       (.I0(\src[1]_i_2_n_0 ),
+       (.I0(\data_o_reg[1]_0 ),
         .I1(\src_reg[3] ),
-        .I2(\data_o_reg[1]_0 ),
-        .O(\data_o_reg[11]_0 [0]));
+        .I2(\data_o_reg[1]_1 ),
+        .O(\data_o_reg[3]_1 [1]));
   LUT6 #(
     .INIT(64'h0000000000000001)) 
     \src[1]_i_2 
-       (.I0(Q[1]),
+       (.I0(sysconfig_rdata[1]),
         .I1(\ir_reg[13]_0 [1]),
         .I2(timer_rdata[1]),
         .I3(uart_rdata[1]),
-        .I4(\src_reg[1] ),
-        .I5(\src_reg[1]_0 ),
-        .O(\src[1]_i_2_n_0 ));
+        .I4(\ir_reg[1] ),
+        .I5(\ir_reg[1]_0 ),
+        .O(\data_o_reg[1]_0 ));
   LUT6 #(
     .INIT(64'h0000000000000001)) 
     \src[1]_i_3 
-       (.I0(Q[1]),
-        .I1(\ir_reg[13]_0 [6]),
-        .I2(\ir_reg[13] [0]),
-        .I3(uart_rdata[6]),
+       (.I0(sysconfig_rdata[1]),
+        .I1(\ir_reg[13]_0 [7]),
+        .I2(\ir_reg[13] [1]),
+        .I3(uart_rdata[7]),
         .I4(\ir_reg[9] ),
         .I5(\ir_reg[9]_0 ),
-        .O(\data_o_reg[1]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair103" *) 
+        .O(\data_o_reg[1]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair108" *) 
   LUT3 #(
-    .INIT(8'hB8)) 
+    .INIT(8'hC5)) 
     \src[2]_i_1 
-       (.I0(mem_data_i[2]),
-        .I1(\src_reg[3] ),
-        .I2(\FSM_sequential_state_reg[3] [1]),
-        .O(\data_o_reg[11]_0 [1]));
-  (* SOFT_HLUTNM = "soft_lutpair102" *) 
+       (.I0(\data_o_reg[2]_0 ),
+        .I1(mem_data_i[0]),
+        .I2(\src_reg[3] ),
+        .O(\data_o_reg[3]_1 [2]));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \src[2]_i_2 
+       (.I0(sysconfig_rdata[2]),
+        .I1(\ir_reg[13]_0 [2]),
+        .I2(timer_rdata[2]),
+        .I3(uart_rdata[2]),
+        .I4(\ir_reg[2] ),
+        .I5(\ir_reg[2]_0 ),
+        .O(\data_o_reg[2]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair107" *) 
   LUT3 #(
-    .INIT(8'hB8)) 
+    .INIT(8'hC5)) 
     \src[3]_i_2 
-       (.I0(mem_data_i[3]),
-        .I1(\src_reg[3] ),
-        .I2(\FSM_sequential_state_reg[3] [2]),
-        .O(\data_o_reg[11]_0 [2]));
-  (* SOFT_HLUTNM = "soft_lutpair96" *) 
-  LUT4 #(
-    .INIT(16'h0010)) 
-    \src[3]_i_3 
-       (.I0(mem_data_i[2]),
-        .I1(mem_data_i[3]),
-        .I2(\data_o_reg[13]_0 ),
-        .I3(\ctrl_reg[17] ),
-        .O(\data_o_reg[10]_1 ));
+       (.I0(\data_o_reg[3]_0 ),
+        .I1(mem_data_i[1]),
+        .I2(\src_reg[3] ),
+        .O(\data_o_reg[3]_1 [3]));
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \src[3]_i_4 
+       (.I0(sysconfig_rdata[13]),
+        .I1(\ir_reg[13] [2]),
+        .I2(\ir_reg[13]_0 [8]),
+        .I3(\ir_reg[13]_1 ),
+        .I4(\ir_reg[13]_2 ),
+        .O(\data_o_reg[13]_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \src[3]_i_6 
+       (.I0(sysconfig_rdata[3]),
+        .I1(\ir_reg[13]_0 [3]),
+        .I2(timer_rdata[3]),
+        .I3(uart_rdata[3]),
+        .I4(\ir_reg[3] ),
+        .I5(\ir_reg[3]_0 ),
+        .O(\data_o_reg[3]_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "neo430_timer" *) 
@@ -12721,8 +12860,8 @@ module SystemTop_neo430_timer
     freq_gen_cg_en,
     pwm_cg_en,
     E,
-    \cpu_bus[wdata] ,
     \thres_reg[15]_0 ,
+    \thres_reg[15]_1 ,
     \data_o_reg[0]_0 ,
     \data_o_reg[15]_0 ,
     \data_o_reg[14]_0 ,
@@ -12759,8 +12898,8 @@ module SystemTop_neo430_timer
   input freq_gen_cg_en;
   input pwm_cg_en;
   input [0:0]E;
-  input [15:0]\cpu_bus[wdata] ;
-  input [0:0]\thres_reg[15]_0 ;
+  input [15:0]\thres_reg[15]_0 ;
+  input [0:0]\thres_reg[15]_1 ;
   input \data_o_reg[0]_0 ;
   input \data_o_reg[15]_0 ;
   input \data_o_reg[14]_0 ;
@@ -12819,7 +12958,6 @@ module SystemTop_neo430_timer
   wire \cnt_reg[8]_i_1_n_5 ;
   wire \cnt_reg[8]_i_1_n_6 ;
   wire \cnt_reg[8]_i_1_n_7 ;
-  wire [15:0]\cpu_bus[wdata] ;
   wire \data_o_reg[0]_0 ;
   wire \data_o_reg[0]_1 ;
   wire \data_o_reg[10]_0 ;
@@ -12865,7 +13003,8 @@ module SystemTop_neo430_timer
   wire prsc_tick_reg_7;
   wire prsc_tick_reg_i_1_n_0;
   wire pwm_cg_en;
-  wire [0:0]\thres_reg[15]_0 ;
+  wire [15:0]\thres_reg[15]_0 ;
+  wire [0:0]\thres_reg[15]_1 ;
   wire \thres_reg_n_0_[0] ;
   wire \thres_reg_n_0_[10] ;
   wire \thres_reg_n_0_[11] ;
@@ -13047,43 +13186,43 @@ module SystemTop_neo430_timer
   FDRE \ctrl_reg[0] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [0]),
+        .D(\thres_reg[15]_0 [0]),
         .Q(Q[0]),
         .R(1'b0));
   FDRE \ctrl_reg[1] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [1]),
+        .D(\thres_reg[15]_0 [1]),
         .Q(Q[1]),
         .R(1'b0));
   FDRE \ctrl_reg[2] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [2]),
+        .D(\thres_reg[15]_0 [2]),
         .Q(Q[2]),
         .R(1'b0));
   FDRE \ctrl_reg[3] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [3]),
+        .D(\thres_reg[15]_0 [3]),
         .Q(Q[3]),
         .R(1'b0));
   FDRE \ctrl_reg[4] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [4]),
+        .D(\thres_reg[15]_0 [4]),
         .Q(Q[4]),
         .R(1'b0));
   FDRE \ctrl_reg[5] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [5]),
+        .D(\thres_reg[15]_0 [5]),
         .Q(Q[5]),
         .R(1'b0));
   FDRE \ctrl_reg[6] 
        (.C(clk_i),
         .CE(E),
-        .D(\cpu_bus[wdata] [6]),
+        .D(\thres_reg[15]_0 [6]),
         .Q(Q[6]),
         .R(1'b0));
   FDRE \data_o_reg[0] 
@@ -13225,12 +13364,12 @@ module SystemTop_neo430_timer
   LUT6 #(
     .INIT(64'h9009000000009009)) 
     irq_fire1_carry_i_2
-       (.I0(\thres_reg_n_0_[7] ),
-        .I1(cnt_reg[7]),
+       (.I0(\thres_reg_n_0_[6] ),
+        .I1(cnt_reg[6]),
         .I2(\thres_reg_n_0_[8] ),
         .I3(cnt_reg[8]),
-        .I4(cnt_reg[6]),
-        .I5(\thres_reg_n_0_[6] ),
+        .I4(cnt_reg[7]),
+        .I5(\thres_reg_n_0_[7] ),
         .O(irq_fire1_carry_i_2_n_0));
   LUT6 #(
     .INIT(64'h9009000000009009)) 
@@ -13245,12 +13384,12 @@ module SystemTop_neo430_timer
   LUT6 #(
     .INIT(64'h9009000000009009)) 
     irq_fire1_carry_i_4
-       (.I0(\thres_reg_n_0_[0] ),
-        .I1(cnt_reg[0]),
+       (.I0(cnt_reg[0]),
+        .I1(\thres_reg_n_0_[0] ),
         .I2(\thres_reg_n_0_[1] ),
         .I3(cnt_reg[1]),
-        .I4(\thres_reg_n_0_[2] ),
-        .I5(cnt_reg[2]),
+        .I4(cnt_reg[2]),
+        .I5(\thres_reg_n_0_[2] ),
         .O(irq_fire1_carry_i_4_n_0));
   LUT3 #(
     .INIT(8'h80)) 
@@ -13266,7 +13405,7 @@ module SystemTop_neo430_timer
         .Q(irq_fire_ff),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'h553355330F000FFF)) 
+    .INIT(64'h0F000FFF55335533)) 
     prsc_tick_i_2
        (.I0(prsc_tick_reg_0),
         .I1(prsc_tick_reg_1),
@@ -13276,7 +13415,7 @@ module SystemTop_neo430_timer
         .I5(Q[5]),
         .O(prsc_tick_i_2_n_0));
   LUT6 #(
-    .INIT(64'h553355330F000FFF)) 
+    .INIT(64'h0F000FFF55335533)) 
     prsc_tick_i_3
        (.I0(prsc_tick_reg_4),
         .I1(prsc_tick_reg_5),
@@ -13298,98 +13437,98 @@ module SystemTop_neo430_timer
         .S(Q[6]));
   FDRE \thres_reg[0] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [0]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [0]),
         .Q(\thres_reg_n_0_[0] ),
         .R(1'b0));
   FDRE \thres_reg[10] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [10]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [10]),
         .Q(\thres_reg_n_0_[10] ),
         .R(1'b0));
   FDRE \thres_reg[11] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [11]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [11]),
         .Q(\thres_reg_n_0_[11] ),
         .R(1'b0));
   FDRE \thres_reg[12] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [12]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [12]),
         .Q(\thres_reg_n_0_[12] ),
         .R(1'b0));
   FDRE \thres_reg[13] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [13]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [13]),
         .Q(\thres_reg_n_0_[13] ),
         .R(1'b0));
   FDRE \thres_reg[14] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [14]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [14]),
         .Q(\thres_reg_n_0_[14] ),
         .R(1'b0));
   FDRE \thres_reg[15] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [15]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [15]),
         .Q(\thres_reg_n_0_[15] ),
         .R(1'b0));
   FDRE \thres_reg[1] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [1]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [1]),
         .Q(\thres_reg_n_0_[1] ),
         .R(1'b0));
   FDRE \thres_reg[2] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [2]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [2]),
         .Q(\thres_reg_n_0_[2] ),
         .R(1'b0));
   FDRE \thres_reg[3] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [3]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [3]),
         .Q(\thres_reg_n_0_[3] ),
         .R(1'b0));
   FDRE \thres_reg[4] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [4]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [4]),
         .Q(\thres_reg_n_0_[4] ),
         .R(1'b0));
   FDRE \thres_reg[5] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [5]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [5]),
         .Q(\thres_reg_n_0_[5] ),
         .R(1'b0));
   FDRE \thres_reg[6] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [6]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [6]),
         .Q(\thres_reg_n_0_[6] ),
         .R(1'b0));
   FDRE \thres_reg[7] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [7]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [7]),
         .Q(\thres_reg_n_0_[7] ),
         .R(1'b0));
   FDRE \thres_reg[8] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [8]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [8]),
         .Q(\thres_reg_n_0_[8] ),
         .R(1'b0));
   FDRE \thres_reg[9] 
        (.C(clk_i),
-        .CE(\thres_reg[15]_0 ),
-        .D(\cpu_bus[wdata] [9]),
+        .CE(\thres_reg[15]_1 ),
+        .D(\thres_reg[15]_0 [9]),
         .Q(\thres_reg_n_0_[9] ),
         .R(1'b0));
 endmodule
@@ -13397,6 +13536,7 @@ endmodule
 (* ORIG_REF_NAME = "neo430_top" *) 
 module SystemTop_neo430_top
    (uart_txd_o,
+    freq_gen_o,
     gpio_o,
     pwm_o,
     clk_i,
@@ -13404,6 +13544,7 @@ module SystemTop_neo430_top
     gpio_i,
     rst_i);
   output uart_txd_o;
+  output [0:0]freq_gen_o;
   output [15:0]gpio_o;
   output [0:0]pwm_o;
   input clk_i;
@@ -13454,6 +13595,7 @@ module SystemTop_neo430_top
   wire [15:0]din;
   wire dio_swap;
   wire freq_gen_cg_en;
+  wire [0:0]freq_gen_o;
   wire [11:0]freq_gen_rdata;
   wire [15:0]gpio_i;
   wire [15:0]gpio_o;
@@ -13465,46 +13607,48 @@ module SystemTop_neo430_top
   wire \neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_14 ;
   wire \neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_15 ;
   wire \neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_16 ;
-  wire \neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_17 ;
   wire \neo430_control_inst/p_5_in ;
-  wire [3:0]\neo430_control_inst/state ;
+  wire \neo430_control_inst/src_nxt ;
+  wire [3:1]\neo430_control_inst/state ;
   wire neo430_cpu_inst_n_1;
   wire neo430_cpu_inst_n_100;
   wire neo430_cpu_inst_n_101;
   wire neo430_cpu_inst_n_102;
   wire neo430_cpu_inst_n_103;
   wire neo430_cpu_inst_n_104;
-  wire neo430_cpu_inst_n_105;
-  wire neo430_cpu_inst_n_106;
-  wire neo430_cpu_inst_n_107;
-  wire neo430_cpu_inst_n_109;
-  wire neo430_cpu_inst_n_121;
+  wire neo430_cpu_inst_n_12;
   wire neo430_cpu_inst_n_122;
   wire neo430_cpu_inst_n_123;
-  wire neo430_cpu_inst_n_124;
   wire neo430_cpu_inst_n_125;
   wire neo430_cpu_inst_n_126;
   wire neo430_cpu_inst_n_127;
   wire neo430_cpu_inst_n_128;
-  wire neo430_cpu_inst_n_134;
   wire neo430_cpu_inst_n_135;
+  wire neo430_cpu_inst_n_15;
   wire neo430_cpu_inst_n_2;
-  wire neo430_cpu_inst_n_20;
-  wire neo430_cpu_inst_n_21;
-  wire neo430_cpu_inst_n_22;
-  wire neo430_cpu_inst_n_23;
-  wire neo430_cpu_inst_n_24;
-  wire neo430_cpu_inst_n_26;
   wire neo430_cpu_inst_n_3;
   wire neo430_cpu_inst_n_30;
   wire neo430_cpu_inst_n_31;
   wire neo430_cpu_inst_n_32;
-  wire neo430_cpu_inst_n_33;
-  wire neo430_cpu_inst_n_34;
   wire neo430_cpu_inst_n_35;
   wire neo430_cpu_inst_n_36;
+  wire neo430_cpu_inst_n_37;
+  wire neo430_cpu_inst_n_38;
+  wire neo430_cpu_inst_n_39;
   wire neo430_cpu_inst_n_4;
-  wire neo430_cpu_inst_n_5;
+  wire neo430_cpu_inst_n_40;
+  wire neo430_cpu_inst_n_41;
+  wire neo430_cpu_inst_n_42;
+  wire neo430_cpu_inst_n_43;
+  wire neo430_cpu_inst_n_44;
+  wire neo430_cpu_inst_n_45;
+  wire neo430_cpu_inst_n_46;
+  wire neo430_cpu_inst_n_47;
+  wire neo430_cpu_inst_n_48;
+  wire neo430_cpu_inst_n_49;
+  wire neo430_cpu_inst_n_50;
+  wire neo430_cpu_inst_n_51;
+  wire neo430_cpu_inst_n_52;
   wire neo430_cpu_inst_n_53;
   wire neo430_cpu_inst_n_54;
   wire neo430_cpu_inst_n_55;
@@ -13522,6 +13666,7 @@ module SystemTop_neo430_top
   wire neo430_cpu_inst_n_67;
   wire neo430_cpu_inst_n_68;
   wire neo430_cpu_inst_n_69;
+  wire neo430_cpu_inst_n_7;
   wire neo430_cpu_inst_n_70;
   wire neo430_cpu_inst_n_71;
   wire neo430_cpu_inst_n_72;
@@ -13552,6 +13697,8 @@ module SystemTop_neo430_top
   wire neo430_cpu_inst_n_97;
   wire neo430_cpu_inst_n_98;
   wire neo430_cpu_inst_n_99;
+  wire neo430_dmem_inst_n_10;
+  wire neo430_dmem_inst_n_11;
   wire neo430_dmem_inst_n_12;
   wire neo430_dmem_inst_n_13;
   wire neo430_dmem_inst_n_14;
@@ -13559,49 +13706,27 @@ module SystemTop_neo430_top
   wire neo430_dmem_inst_n_16;
   wire neo430_dmem_inst_n_17;
   wire neo430_dmem_inst_n_18;
-  wire neo430_dmem_inst_n_19;
-  wire neo430_dmem_inst_n_20;
-  wire neo430_dmem_inst_n_21;
-  wire neo430_dmem_inst_n_22;
-  wire neo430_dmem_inst_n_23;
-  wire neo430_dmem_inst_n_24;
-  wire neo430_dmem_inst_n_25;
-  wire neo430_dmem_inst_n_26;
-  wire neo430_dmem_inst_n_27;
-  wire neo430_dmem_inst_n_28;
-  wire neo430_dmem_inst_n_29;
-  wire neo430_dmem_inst_n_30;
-  wire neo430_dmem_inst_n_31;
-  wire neo430_dmem_inst_n_32;
-  wire neo430_dmem_inst_n_4;
+  wire neo430_dmem_inst_n_6;
+  wire neo430_dmem_inst_n_7;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_1 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_19 ;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_2 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_24 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_25 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_26 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_29 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_3 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_4 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_36 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_37 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_38 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_39 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_40 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_41 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_42 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_43 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_44 ;
+  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_45 ;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_46 ;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_47 ;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_48 ;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_49 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_5 ;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_50 ;
   wire \neo430_gpio_inst_true.neo430_gpio_inst_n_51 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_52 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_53 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_54 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_55 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_56 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_57 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_58 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_59 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_6 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_60 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_61 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_7 ;
-  wire \neo430_gpio_inst_true.neo430_gpio_inst_n_8 ;
   wire neo430_imem_inst_n_1;
   wire neo430_imem_inst_n_10;
   wire neo430_imem_inst_n_11;
@@ -13614,13 +13739,15 @@ module SystemTop_neo430_top
   wire neo430_imem_inst_n_18;
   wire neo430_imem_inst_n_19;
   wire neo430_imem_inst_n_20;
-  wire neo430_imem_inst_n_21;
-  wire neo430_imem_inst_n_22;
-  wire neo430_imem_inst_n_23;
   wire neo430_imem_inst_n_4;
   wire neo430_imem_inst_n_5;
   wire neo430_imem_inst_n_6;
-  wire neo430_imem_inst_n_7;
+  wire neo430_imem_inst_n_8;
+  wire neo430_imem_inst_n_9;
+  wire \neo430_pwm_inst_true.neo430_pwm_inst_n_26 ;
+  wire \neo430_pwm_inst_true.neo430_pwm_inst_n_27 ;
+  wire \neo430_pwm_inst_true.neo430_pwm_inst_n_28 ;
+  wire \neo430_pwm_inst_true.neo430_pwm_inst_n_29 ;
   wire neo430_sysconfig_inst_n_0;
   wire neo430_sysconfig_inst_n_1;
   wire neo430_sysconfig_inst_n_10;
@@ -13633,17 +13760,31 @@ module SystemTop_neo430_top
   wire neo430_sysconfig_inst_n_17;
   wire neo430_sysconfig_inst_n_18;
   wire neo430_sysconfig_inst_n_19;
+  wire neo430_sysconfig_inst_n_2;
   wire neo430_sysconfig_inst_n_20;
   wire neo430_sysconfig_inst_n_21;
-  wire neo430_sysconfig_inst_n_33;
-  wire neo430_sysconfig_inst_n_34;
-  wire neo430_sysconfig_inst_n_35;
-  wire neo430_sysconfig_inst_n_36;
+  wire neo430_sysconfig_inst_n_22;
+  wire neo430_sysconfig_inst_n_23;
+  wire neo430_sysconfig_inst_n_24;
+  wire neo430_sysconfig_inst_n_25;
+  wire neo430_sysconfig_inst_n_26;
+  wire neo430_sysconfig_inst_n_27;
+  wire neo430_sysconfig_inst_n_28;
+  wire neo430_sysconfig_inst_n_29;
+  wire neo430_sysconfig_inst_n_3;
+  wire neo430_sysconfig_inst_n_30;
+  wire neo430_sysconfig_inst_n_31;
+  wire neo430_sysconfig_inst_n_32;
+  wire neo430_sysconfig_inst_n_4;
+  wire neo430_sysconfig_inst_n_5;
+  wire neo430_sysconfig_inst_n_6;
   wire neo430_sysconfig_inst_n_7;
   wire neo430_sysconfig_inst_n_8;
   wire neo430_sysconfig_inst_n_9;
   wire \neo430_timer_inst_true.neo430_timer_inst_n_23 ;
-  wire \neo430_uart_inst_true.neo430_uart_inst_n_17 ;
+  wire \neo430_uart_inst_true.neo430_uart_inst_n_15 ;
+  wire \neo430_uart_inst_true.neo430_uart_inst_n_19 ;
+  wire \neo430_uart_inst_true.neo430_uart_inst_n_20 ;
   wire \neo430_uart_inst_true.neo430_uart_inst_n_21 ;
   wire \neo430_uart_inst_true.neo430_uart_inst_n_22 ;
   wire \neo430_uart_inst_true.neo430_uart_inst_n_23 ;
@@ -13661,12 +13802,6 @@ module SystemTop_neo430_top
   wire \neo430_uart_inst_true.neo430_uart_inst_n_35 ;
   wire \neo430_uart_inst_true.neo430_uart_inst_n_36 ;
   wire \neo430_uart_inst_true.neo430_uart_inst_n_37 ;
-  wire \neo430_uart_inst_true.neo430_uart_inst_n_38 ;
-  wire \neo430_uart_inst_true.neo430_uart_inst_n_39 ;
-  wire \neo430_uart_inst_true.neo430_uart_inst_n_40 ;
-  wire \neo430_uart_inst_true.neo430_uart_inst_n_41 ;
-  wire \neo430_uart_inst_true.neo430_uart_inst_n_42 ;
-  wire \neo430_uart_inst_true.neo430_uart_inst_n_43 ;
   wire p_0_in;
   wire p_0_in1_in;
   wire [2:0]p_0_in_7;
@@ -13684,13 +13819,13 @@ module SystemTop_neo430_top
   wire p_6_in;
   wire p_8_in;
   wire pwm_cg_en;
-  wire [7:0]\pwm_ch_reg[2]_0 ;
-  wire [7:0]\pwm_ch_reg[3]_1 ;
+  wire [7:0]\pwm_ch_reg[2]_1 ;
+  wire [7:0]\pwm_ch_reg[3]_2 ;
   wire [0:0]pwm_o;
   wire [15:0]pwm_rdata;
   wire [11:0]rdata_reg;
   wire [15:12]rdata_reg_2;
-  wire [13:12]rdata_reg_3;
+  wire [12:12]rdata_reg_3;
   wire rden;
   wire rden_1;
   wire rden_4;
@@ -13698,12 +13833,13 @@ module SystemTop_neo430_top
   wire rst_i;
   wire rst_i_sync0;
   wire rst_i_sync1;
-  wire [15:0]sysconfig_rdata;
-  wire [15:0]\sysinfo_mem[0]_2 ;
+  wire [15:6]sysconfig_rdata;
+  wire [15:1]\sysinfo_mem[0]_0 ;
   wire timer_cg_en;
   wire [15:0]timer_rdata;
   wire [15:0]uart_rdata;
   wire uart_rxd_i;
+  wire uart_tx_busy0;
   wire uart_txd_o;
   wire [3:3]\NLW_clk_div_reg[8]_i_1_CO_UNCONNECTED ;
 
@@ -13859,469 +13995,440 @@ module SystemTop_neo430_top
   SystemTop_neo430_boot_rom \neo430_boot_rom_inst_true.neo430_boot_rom_inst 
        (.ADDRARDADDR(\cpu_bus[addr] [10:1]),
         .DOADO(rdata_reg),
-        .\FSM_sequential_state[0]_i_5_0 (\neo430_uart_inst_true.neo430_uart_inst_n_32 ),
-        .\FSM_sequential_state[0]_i_5_1 (neo430_imem_inst_n_7),
-        .\FSM_sequential_state[0]_i_5_2 (\neo430_gpio_inst_true.neo430_gpio_inst_n_8 ),
-        .\FSM_sequential_state[0]_i_5_3 (neo430_dmem_inst_n_15),
-        .\FSM_sequential_state[0]_i_5_4 (\neo430_gpio_inst_true.neo430_gpio_inst_n_25 ),
-        .\FSM_sequential_state_reg[0] (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
-        .\FSM_sequential_state_reg[0]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_24 ),
-        .\FSM_sequential_state_reg[0]_1 (neo430_dmem_inst_n_21),
-        .\FSM_sequential_state_reg[0]_2 (neo430_dmem_inst_n_17),
-        .\FSM_sequential_state_reg[1] (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_13 ),
-        .Q(\neo430_control_inst/state [1]),
         .clk_i(clk_i),
-        .\ir[12]_i_2 (rdata_reg_2[12]),
+        .\ir_reg[14] ({rdata_reg_2[14],rdata_reg_2[12]}),
         .rdata_reg(rdata_reg_3),
-        .rdata_reg__0_0(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_16 ),
-        .rdata_reg__0_1(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_17 ),
-        .rdata_reg__0_2(neo430_cpu_inst_n_24),
+        .rdata_reg__0_0(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_14 ),
+        .rdata_reg__0_1(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_15 ),
+        .rdata_reg__0_2(neo430_cpu_inst_n_32),
         .rden(rden),
-        .rden_0(rden_4),
-        .rden_1(rden_1),
-        .rden_reg_0(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_14 ),
-        .rden_reg_1(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_15 ),
-        .rden_reg_2(neo430_cpu_inst_n_106),
-        .timer_rdata(timer_rdata[15:14]),
-        .uart_rdata(uart_rdata[15:14]));
+        .rden_0(rden_1),
+        .rden_1(rden_4),
+        .rden_reg_0(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_13 ),
+        .rden_reg_1(\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_16 ),
+        .rden_reg_2(neo430_cpu_inst_n_103),
+        .timer_rdata({timer_rdata[15],timer_rdata[13]}),
+        .uart_rdata({uart_rdata[15],uart_rdata[13]}));
   SystemTop_neo430_cpu neo430_cpu_inst
-       (.D({neo430_cpu_inst_n_30,neo430_cpu_inst_n_31,neo430_cpu_inst_n_32,neo430_cpu_inst_n_33,neo430_cpu_inst_n_34,neo430_cpu_inst_n_35,neo430_cpu_inst_n_36}),
-        .E(neo430_cpu_inst_n_5),
-        .\FSM_sequential_state_reg[0] (neo430_sysconfig_inst_n_19),
-        .\FSM_sequential_state_reg[0]_0 (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_13 ),
-        .\FSM_sequential_state_reg[1] (neo430_cpu_inst_n_134),
-        .\FSM_sequential_state_reg[1]_0 (neo430_imem_inst_n_4),
-        .\FSM_sequential_state_reg[2] (neo430_sysconfig_inst_n_0),
-        .\FSM_sequential_state_reg[2]_0 (neo430_sysconfig_inst_n_15),
-        .\FSM_sequential_state_reg[3] ({\neo430_control_inst/state [3],\neo430_control_inst/state [1:0]}),
-        .\FSM_sequential_state_reg[3]_0 (neo430_sysconfig_inst_n_13),
-        .\FSM_sequential_state_reg[3]_1 (neo430_sysconfig_inst_n_10),
-        .\FSM_sequential_state_reg[3]_2 (neo430_imem_inst_n_5),
-        .\FSM_sequential_state_reg[3]_3 (neo430_sysconfig_inst_n_18),
-        .\FSM_sequential_state_reg[4] (\neo430_gpio_inst_true.neo430_gpio_inst_n_4 ),
+       (.D({\sysinfo_mem[0]_0 [15:14],neo430_cpu_inst_n_7,\sysinfo_mem[0]_0 [11:10],\sysinfo_mem[0]_0 [8],\sysinfo_mem[0]_0 [6],neo430_cpu_inst_n_12,\sysinfo_mem[0]_0 [2:1],neo430_cpu_inst_n_15}),
+        .E(neo430_cpu_inst_n_35),
+        .\FSM_sequential_state_reg[0] (neo430_sysconfig_inst_n_30),
+        .\FSM_sequential_state_reg[1] (neo430_imem_inst_n_1),
+        .\FSM_sequential_state_reg[3] ({\neo430_control_inst/state [3],\neo430_control_inst/state [1]}),
+        .\FSM_sequential_state_reg[3]_0 (neo430_sysconfig_inst_n_29),
+        .\FSM_sequential_state_reg[3]_1 (neo430_imem_inst_n_5),
+        .\FSM_sequential_state_reg[3]_2 (neo430_sysconfig_inst_n_32),
+        .\FSM_sequential_state_reg[4] (neo430_sysconfig_inst_n_28),
         .Q({clkgen_en_o,p_0_in_8}),
-        .SR(neo430_cpu_inst_n_21),
+        .SR(neo430_cpu_inst_n_126),
         .WEA(p_0_out),
         .acc_en(acc_en_0),
         .acc_en_0(acc_en),
-        .\am_reg[0] (neo430_sysconfig_inst_n_20),
-        .\am_reg[2] ({neo430_sysconfig_inst_n_11,neo430_sysconfig_inst_n_12,\neo430_gpio_inst_true.neo430_gpio_inst_n_1 }),
-        .\am_reg[3] (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
+        .\am_reg[0] (\neo430_control_inst/src_nxt ),
+        .\am_reg[2] ({neo430_sysconfig_inst_n_26,neo430_sysconfig_inst_n_27,\neo430_pwm_inst_true.neo430_pwm_inst_n_26 }),
+        .\am_reg[3] (neo430_imem_inst_n_6),
         .clk_i(clk_i),
         .cnt_reg(cnt_reg),
-        .cnt_reg_10_sp_1(neo430_cpu_inst_n_94),
-        .cnt_reg_11_sp_1(neo430_cpu_inst_n_93),
-        .cnt_reg_12_sp_1(neo430_cpu_inst_n_92),
-        .cnt_reg_13_sp_1(neo430_cpu_inst_n_91),
-        .cnt_reg_14_sp_1(neo430_cpu_inst_n_90),
-        .cnt_reg_15_sp_1(neo430_cpu_inst_n_89),
-        .cnt_reg_7_sp_1(neo430_cpu_inst_n_97),
-        .cnt_reg_8_sp_1(neo430_cpu_inst_n_96),
-        .cnt_reg_9_sp_1(neo430_cpu_inst_n_95),
+        .cnt_reg_10_sp_1(neo430_cpu_inst_n_85),
+        .cnt_reg_11_sp_1(neo430_cpu_inst_n_84),
+        .cnt_reg_12_sp_1(neo430_cpu_inst_n_83),
+        .cnt_reg_13_sp_1(neo430_cpu_inst_n_82),
+        .cnt_reg_14_sp_1(neo430_cpu_inst_n_81),
+        .cnt_reg_15_sp_1(neo430_cpu_inst_n_80),
+        .cnt_reg_7_sp_1(neo430_cpu_inst_n_88),
+        .cnt_reg_8_sp_1(neo430_cpu_inst_n_87),
+        .cnt_reg_9_sp_1(neo430_cpu_inst_n_86),
         .\cpu_bus[addr] (\cpu_bus[addr] ),
-        .\cpu_bus[wdata] (\cpu_bus[wdata] ),
         .\cpu_bus[wr_en] (\cpu_bus[wr_en] ),
-        .\ctrl[8]_i_7 (\neo430_uart_inst_true.neo430_uart_inst_n_33 ),
-        .\ctrl[8]_i_7_0 (neo430_imem_inst_n_13),
-        .\ctrl[8]_i_7_1 (neo430_dmem_inst_n_18),
-        .\ctrl_reg[0] (neo430_cpu_inst_n_104),
+        .\ctrl_reg[0] (neo430_cpu_inst_n_95),
         .\ctrl_reg[12] (neo430_cpu_inst_n_1),
-        .\ctrl_reg[12]_0 (neo430_cpu_inst_n_53),
-        .\ctrl_reg[12]_1 (neo430_cpu_inst_n_109),
-        .\ctrl_reg[15] (\neo430_gpio_inst_true.neo430_gpio_inst_n_7 ),
-        .\ctrl_reg[16] (neo430_sysconfig_inst_n_17),
-        .\ctrl_reg[17] (neo430_sysconfig_inst_n_16),
-        .\ctrl_reg[19] (\neo430_gpio_inst_true.neo430_gpio_inst_n_29 ),
-        .\ctrl_reg[1] (neo430_cpu_inst_n_103),
-        .\ctrl_reg[25] (neo430_cpu_inst_n_20),
-        .\ctrl_reg[25]_0 (neo430_cpu_inst_n_23),
-        .\ctrl_reg[25]_1 (neo430_cpu_inst_n_24),
-        .\ctrl_reg[25]_2 (neo430_cpu_inst_n_121),
-        .\ctrl_reg[25]_3 (neo430_cpu_inst_n_122),
-        .\ctrl_reg[25]_4 (neo430_cpu_inst_n_123),
-        .\ctrl_reg[25]_5 (neo430_cpu_inst_n_124),
-        .\ctrl_reg[25]_6 (neo430_cpu_inst_n_125),
-        .\ctrl_reg[25]_7 (neo430_cpu_inst_n_128),
-        .\ctrl_reg[28] (neo430_cpu_inst_n_22),
-        .\ctrl_reg[28]_0 (neo430_cpu_inst_n_26),
-        .\ctrl_reg[28]_1 (neo430_cpu_inst_n_105),
-        .\ctrl_reg[28]_2 (neo430_cpu_inst_n_106),
-        .\ctrl_reg[28]_3 (neo430_cpu_inst_n_107),
-        .\ctrl_reg[28]_4 (neo430_cpu_inst_n_126),
-        .\ctrl_reg[28]_5 (neo430_cpu_inst_n_127),
-        .\ctrl_reg[2] (neo430_cpu_inst_n_102),
-        .\ctrl_reg[3] (neo430_cpu_inst_n_101),
-        .\ctrl_reg[4] (neo430_cpu_inst_n_100),
-        .\ctrl_reg[5] (neo430_cpu_inst_n_99),
-        .\ctrl_reg[6] (neo430_cpu_inst_n_98),
+        .\ctrl_reg[12]_0 (neo430_cpu_inst_n_122),
+        .\ctrl_reg[15] (\neo430_gpio_inst_true.neo430_gpio_inst_n_1 ),
+        .\ctrl_reg[16] (neo430_sysconfig_inst_n_3),
+        .\ctrl_reg[17] (neo430_sysconfig_inst_n_1),
+        .\ctrl_reg[17]_0 (neo430_dmem_inst_n_6),
+        .\ctrl_reg[17]_1 (neo430_sysconfig_inst_n_31),
+        .\ctrl_reg[1] (neo430_cpu_inst_n_94),
+        .\ctrl_reg[25] (neo430_cpu_inst_n_30),
+        .\ctrl_reg[25]_0 (neo430_cpu_inst_n_123),
+        .\ctrl_reg[25]_1 (neo430_cpu_inst_n_128),
+        .\ctrl_reg[27] (neo430_cpu_inst_n_98),
+        .\ctrl_reg[27]_0 (neo430_cpu_inst_n_99),
+        .\ctrl_reg[27]_1 (neo430_cpu_inst_n_100),
+        .\ctrl_reg[28] (neo430_cpu_inst_n_31),
+        .\ctrl_reg[28]_0 (neo430_cpu_inst_n_101),
+        .\ctrl_reg[28]_1 (neo430_cpu_inst_n_104),
+        .\ctrl_reg[28]_2 (neo430_cpu_inst_n_125),
+        .\ctrl_reg[28]_3 (neo430_cpu_inst_n_127),
+        .\ctrl_reg[2] (neo430_cpu_inst_n_93),
+        .\ctrl_reg[3] (neo430_cpu_inst_n_92),
+        .\ctrl_reg[4] (neo430_cpu_inst_n_91),
+        .\ctrl_reg[5] (neo430_cpu_inst_n_90),
+        .\ctrl_reg[6] (neo430_cpu_inst_n_89),
         .\ctrl_reg[8] (neo430_cpu_inst_n_4),
-        .\ctrl_reg[8]_0 (neo430_imem_inst_n_6),
         .\ctrl_reg[9] (neo430_cpu_inst_n_3),
         .\data_o_reg[15] (din),
-        .\data_o_reg[15]_0 ({\neo430_gpio_inst_true.neo430_gpio_inst_n_46 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_47 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_48 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_49 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_50 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_51 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_52 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_53 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_54 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_55 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_56 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_57 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_58 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_59 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_60 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_61 }),
-        .\data_o_reg[15]_1 (\pwm_ch_reg[3]_1 ),
+        .\data_o_reg[15]_0 ({\neo430_gpio_inst_true.neo430_gpio_inst_n_36 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_37 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_38 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_39 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_40 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_41 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_42 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_43 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_44 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_45 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_46 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_47 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_48 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_49 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_50 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_51 }),
+        .\data_o_reg[15]_1 (\pwm_ch_reg[3]_2 ),
         .\data_o_reg[6] ({p_0_in_7,p_2_in_6,p_0_in1_in,\neo430_timer_inst_true.neo430_timer_inst_n_23 ,timer_cg_en}),
-        .\data_o_reg[7] (\pwm_ch_reg[2]_0 ),
-        .\din_reg[15] ({neo430_cpu_inst_n_56,neo430_cpu_inst_n_57,neo430_cpu_inst_n_58,neo430_cpu_inst_n_59,neo430_cpu_inst_n_60,neo430_cpu_inst_n_61,neo430_cpu_inst_n_62,neo430_cpu_inst_n_63,neo430_cpu_inst_n_64,neo430_cpu_inst_n_65,neo430_cpu_inst_n_66,neo430_cpu_inst_n_67,neo430_cpu_inst_n_68,neo430_cpu_inst_n_69,neo430_cpu_inst_n_70,neo430_cpu_inst_n_71}),
+        .\data_o_reg[7] (\pwm_ch_reg[2]_1 ),
+        .\din_reg[15] ({neo430_cpu_inst_n_45,neo430_cpu_inst_n_46,neo430_cpu_inst_n_47,neo430_cpu_inst_n_48,neo430_cpu_inst_n_49,neo430_cpu_inst_n_50,neo430_cpu_inst_n_51,neo430_cpu_inst_n_52,neo430_cpu_inst_n_53,neo430_cpu_inst_n_54,neo430_cpu_inst_n_55,neo430_cpu_inst_n_56,neo430_cpu_inst_n_57,neo430_cpu_inst_n_58,neo430_cpu_inst_n_59,neo430_cpu_inst_n_60}),
         .dio_swap(dio_swap),
+        .dio_swap_reg_0({neo430_cpu_inst_n_36,neo430_cpu_inst_n_37,neo430_cpu_inst_n_38,neo430_cpu_inst_n_39,neo430_cpu_inst_n_40,neo430_cpu_inst_n_41,neo430_cpu_inst_n_42}),
+        .dio_swap_reg_1(\cpu_bus[wdata] ),
+        .i__carry__1_i_5(neo430_sysconfig_inst_n_21),
+        .i__carry__1_i_5_0(neo430_sysconfig_inst_n_22),
         .\irq_buf_reg[1] (\neo430_control_inst/p_5_in ),
-        .\irq_buf_reg[1]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_31 ),
+        .\irq_buf_reg[1]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_28 ),
         .irq_fire_ff(irq_fire_ff),
         .irq_o(irq_o),
-        .\irq_vec_reg[1] (neo430_cpu_inst_n_54),
-        .\irq_vec_reg[1]_0 (neo430_cpu_inst_n_55),
-        .mem_addr_reg0_carry__0(neo430_sysconfig_inst_n_21),
-        .\mem_addr_reg_reg[15] (neo430_sysconfig_inst_n_33),
+        .mem_addr_reg0_carry(neo430_sysconfig_inst_n_10),
+        .mem_addr_reg0_carry__2(\neo430_pwm_inst_true.neo430_pwm_inst_n_28 ),
+        .\mem_addr_reg_reg[11] (neo430_cpu_inst_n_32),
+        .\mem_addr_reg_reg[11]_0 (neo430_cpu_inst_n_103),
+        .\mem_addr_reg_reg[11]_1 (neo430_sysconfig_inst_n_18),
+        .\mem_addr_reg_reg[15] (neo430_cpu_inst_n_102),
         .\mem_addr_reg_reg[1] (neo430_cpu_inst_n_2),
-        .\mem_addr_reg_reg[1]_0 (neo430_cpu_inst_n_88),
-        .\mem_addr_reg_reg[1]_1 ({\sysinfo_mem[0]_2 [15:13],\sysinfo_mem[0]_2 [11:10],\sysinfo_mem[0]_2 [8],\sysinfo_mem[0]_2 [6],\sysinfo_mem[0]_2 [3:0]}),
-        .\mem_addr_reg_reg[7] (\neo430_gpio_inst_true.neo430_gpio_inst_n_26 ),
+        .\mem_addr_reg_reg[1]_0 (neo430_cpu_inst_n_96),
+        .\mem_addr_reg_reg[1]_1 (neo430_cpu_inst_n_97),
+        .\mem_addr_reg_reg[2] (neo430_cpu_inst_n_43),
+        .\mem_addr_reg_reg[2]_0 (neo430_cpu_inst_n_44),
+        .\mem_addr_reg_reg[2]_1 (neo430_cpu_inst_n_77),
+        .\mem_addr_reg_reg[2]_2 (neo430_cpu_inst_n_78),
+        .\mem_addr_reg_reg[2]_3 (neo430_cpu_inst_n_79),
+        .\mem_addr_reg_reg[7] (neo430_sysconfig_inst_n_7),
         .mem_data_i(mem_data_i),
-        .\op_b_ff_reg[10] (neo430_dmem_inst_n_20),
-        .\op_b_ff_reg[11] (neo430_dmem_inst_n_16),
-        .\op_b_ff_reg[14] (neo430_dmem_inst_n_14),
-        .\op_b_ff_reg[15] (neo430_dmem_inst_n_4),
-        .\op_b_ff_reg[1] (neo430_sysconfig_inst_n_36),
-        .\op_b_ff_reg[2] (neo430_sysconfig_inst_n_35),
-        .\op_b_ff_reg[3] (neo430_sysconfig_inst_n_34),
-        .\op_b_ff_reg[4] (neo430_sysconfig_inst_n_14),
-        .\op_b_ff_reg[4]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_5 ),
-        .\op_b_ff_reg[5] (neo430_sysconfig_inst_n_1),
-        .\op_b_ff_reg[5]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_3 ),
-        .\op_b_ff_reg[6] (neo430_imem_inst_n_11),
-        .\op_b_ff_reg[7] (neo430_imem_inst_n_1),
-        .\op_b_ff_reg[8] (neo430_dmem_inst_n_25),
-        .\op_b_ff_reg[9] (neo430_dmem_inst_n_24),
+        .\op_b_ff_reg[0] (neo430_sysconfig_inst_n_24),
+        .\op_b_ff_reg[0]_0 (neo430_sysconfig_inst_n_4),
+        .\op_b_ff_reg[10] (neo430_sysconfig_inst_n_19),
+        .\op_b_ff_reg[11] (neo430_sysconfig_inst_n_12),
+        .\op_b_ff_reg[12] (neo430_sysconfig_inst_n_9),
+        .\op_b_ff_reg[13] (neo430_sysconfig_inst_n_2),
+        .\op_b_ff_reg[14] (neo430_sysconfig_inst_n_6),
+        .\op_b_ff_reg[15] (\neo430_pwm_inst_true.neo430_pwm_inst_n_27 ),
+        .\op_b_ff_reg[1] (neo430_sysconfig_inst_n_23),
+        .\op_b_ff_reg[2] (neo430_sysconfig_inst_n_17),
+        .\op_b_ff_reg[3] (neo430_sysconfig_inst_n_11),
+        .\op_b_ff_reg[4] (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
+        .\op_b_ff_reg[4]_0 (neo430_sysconfig_inst_n_8),
+        .\op_b_ff_reg[5] (neo430_sysconfig_inst_n_0),
+        .\op_b_ff_reg[6] (neo430_sysconfig_inst_n_5),
+        .\op_b_ff_reg[7] (\neo430_pwm_inst_true.neo430_pwm_inst_n_29 ),
+        .\op_b_ff_reg[8] (neo430_sysconfig_inst_n_25),
+        .\op_b_ff_reg[9] (neo430_sysconfig_inst_n_20),
         .p_1_in(p_1_in_5),
         .p_2_in3_in(p_2_in3_in),
-        .\pwm_ch_reg[1][7] ({neo430_cpu_inst_n_72,neo430_cpu_inst_n_73,neo430_cpu_inst_n_74,neo430_cpu_inst_n_75,neo430_cpu_inst_n_76,neo430_cpu_inst_n_77,neo430_cpu_inst_n_78,neo430_cpu_inst_n_79,neo430_cpu_inst_n_80,neo430_cpu_inst_n_81,neo430_cpu_inst_n_82,neo430_cpu_inst_n_83,neo430_cpu_inst_n_84,neo430_cpu_inst_n_85,neo430_cpu_inst_n_86,neo430_cpu_inst_n_87}),
+        .\pwm_ch_reg[1][7] ({neo430_cpu_inst_n_61,neo430_cpu_inst_n_62,neo430_cpu_inst_n_63,neo430_cpu_inst_n_64,neo430_cpu_inst_n_65,neo430_cpu_inst_n_66,neo430_cpu_inst_n_67,neo430_cpu_inst_n_68,neo430_cpu_inst_n_69,neo430_cpu_inst_n_70,neo430_cpu_inst_n_71,neo430_cpu_inst_n_72,neo430_cpu_inst_n_73,neo430_cpu_inst_n_74,neo430_cpu_inst_n_75,neo430_cpu_inst_n_76}),
         .\rst_gen_reg[3] (neo430_cpu_inst_n_135),
-        .\src_reg[3] ({neo430_sysconfig_inst_n_7,neo430_sysconfig_inst_n_8,neo430_sysconfig_inst_n_9,neo430_dmem_inst_n_12}),
+        .\sam_reg[1] (\neo430_gpio_inst_true.neo430_gpio_inst_n_19 ),
+        .\src_reg[3] ({neo430_sysconfig_inst_n_13,neo430_sysconfig_inst_n_14,neo430_sysconfig_inst_n_15,neo430_sysconfig_inst_n_16}),
         .\sreg_reg[0] (rst_gen),
         .\sreg_reg[15] (p_1_out),
-        .uart_tx_busy_reg(\neo430_uart_inst_true.neo430_uart_inst_n_21 ),
-        .\uart_tx_sreg_reg[1] (\neo430_uart_inst_true.neo430_uart_inst_n_17 ),
-        .\uart_tx_sreg_reg[6] ({\neo430_uart_inst_true.neo430_uart_inst_n_37 ,\neo430_uart_inst_true.neo430_uart_inst_n_38 ,\neo430_uart_inst_true.neo430_uart_inst_n_39 ,\neo430_uart_inst_true.neo430_uart_inst_n_40 ,\neo430_uart_inst_true.neo430_uart_inst_n_41 ,\neo430_uart_inst_true.neo430_uart_inst_n_42 }),
-        .\uart_tx_sreg_reg[7] (\neo430_uart_inst_true.neo430_uart_inst_n_43 ),
-        .\uart_tx_sreg_reg[7]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_22 ));
+        .uart_tx_busy0(uart_tx_busy0),
+        .\uart_tx_sreg_reg[1] (\neo430_uart_inst_true.neo430_uart_inst_n_15 ),
+        .\uart_tx_sreg_reg[6] ({\neo430_uart_inst_true.neo430_uart_inst_n_31 ,\neo430_uart_inst_true.neo430_uart_inst_n_32 ,\neo430_uart_inst_true.neo430_uart_inst_n_33 ,\neo430_uart_inst_true.neo430_uart_inst_n_34 ,\neo430_uart_inst_true.neo430_uart_inst_n_35 ,\neo430_uart_inst_true.neo430_uart_inst_n_36 }),
+        .\uart_tx_sreg_reg[7] (\neo430_uart_inst_true.neo430_uart_inst_n_37 ),
+        .\uart_tx_sreg_reg[7]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_19 ));
   SystemTop_neo430_dmem neo430_dmem_inst
-       (.DOADO({rdata_reg_2[15:14],rdata_reg_2[12]}),
-        .\FSM_sequential_state[0]_i_5 (neo430_imem_inst_n_13),
-        .\FSM_sequential_state[0]_i_5_0 (\neo430_uart_inst_true.neo430_uart_inst_n_33 ),
-        .\FSM_sequential_state[0]_i_5_1 (neo430_imem_inst_n_14),
-        .\FSM_sequential_state[0]_i_5_2 (\neo430_uart_inst_true.neo430_uart_inst_n_34 ),
-        .\FSM_sequential_state[0]_i_5_3 (neo430_imem_inst_n_15),
-        .\FSM_sequential_state[0]_i_5_4 (\neo430_uart_inst_true.neo430_uart_inst_n_35 ),
-        .\FSM_sequential_state[0]_i_5_5 (\neo430_uart_inst_true.neo430_uart_inst_n_36 ),
-        .Q({gpio_rdata[8:6],gpio_rdata[3:0]}),
-        .acc_en(acc_en),
+       (.DOADO(rdata_reg_2),
+        .E(neo430_cpu_inst_n_35),
+        .Q(gpio_rdata[7]),
+        .acc_en(acc_en_0),
+        .\am_reg[0] (neo430_sysconfig_inst_n_1),
+        .\am_reg[0]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
+        .\am_reg[0]_1 (neo430_imem_inst_n_6),
         .clk_i(clk_i),
         .\cpu_bus[addr] (\cpu_bus[addr] [10:1]),
-        .\cpu_bus[wdata] (\cpu_bus[wdata] ),
         .\cpu_bus[wr_en] (\cpu_bus[wr_en] ),
-        .\data_o_reg[8] (neo430_dmem_inst_n_12),
-        .dio_swap(dio_swap),
-        .dio_swap_reg(neo430_dmem_inst_n_4),
-        .dio_swap_reg_0(neo430_dmem_inst_n_14),
-        .dio_swap_reg_1(neo430_dmem_inst_n_16),
-        .dio_swap_reg_2(neo430_dmem_inst_n_20),
-        .dio_swap_reg_3(neo430_dmem_inst_n_24),
-        .dio_swap_reg_4(neo430_dmem_inst_n_25),
-        .dmem_file_h_reg_0(neo430_dmem_inst_n_15),
-        .dmem_file_h_reg_1(neo430_dmem_inst_n_17),
-        .dmem_file_h_reg_2(neo430_dmem_inst_n_18),
-        .dmem_file_h_reg_3(neo430_dmem_inst_n_19),
-        .dmem_file_h_reg_4(neo430_dmem_inst_n_21),
-        .dmem_file_h_reg_5(neo430_dmem_inst_n_22),
-        .dmem_file_h_reg_6(neo430_dmem_inst_n_23),
-        .dmem_file_l_reg_0(neo430_dmem_inst_n_13),
-        .dmem_file_l_reg_1(neo430_dmem_inst_n_26),
-        .dmem_file_l_reg_2(neo430_dmem_inst_n_27),
-        .dmem_file_l_reg_3(neo430_dmem_inst_n_28),
-        .dmem_file_l_reg_4(neo430_dmem_inst_n_29),
-        .dmem_file_l_reg_5(neo430_dmem_inst_n_30),
-        .dmem_file_l_reg_6(neo430_dmem_inst_n_31),
-        .dmem_file_l_reg_7(neo430_dmem_inst_n_32),
+        .\data_o_reg[13] (\neo430_control_inst/src_nxt ),
+        .dmem_file_h_reg_0(neo430_dmem_inst_n_6),
+        .dmem_file_h_reg_1(neo430_dmem_inst_n_10),
+        .dmem_file_h_reg_2(neo430_dmem_inst_n_11),
+        .dmem_file_h_reg_3(\cpu_bus[wdata] ),
+        .dmem_file_l_reg_0(neo430_dmem_inst_n_7),
+        .dmem_file_l_reg_1(neo430_dmem_inst_n_12),
+        .dmem_file_l_reg_2(neo430_dmem_inst_n_13),
+        .dmem_file_l_reg_3(neo430_dmem_inst_n_14),
+        .dmem_file_l_reg_4(neo430_dmem_inst_n_15),
+        .dmem_file_l_reg_5(neo430_dmem_inst_n_16),
+        .dmem_file_l_reg_6(neo430_dmem_inst_n_17),
+        .dmem_file_l_reg_7(neo430_dmem_inst_n_18),
         .freq_gen_rdata(freq_gen_rdata),
-        .\ir_reg[0] (neo430_imem_inst_n_23),
-        .\ir_reg[11] ({pwm_rdata[11:10],pwm_rdata[8:0]}),
-        .\ir_reg[1] (neo430_imem_inst_n_22),
-        .\ir_reg[2] (neo430_imem_inst_n_21),
-        .\ir_reg[3] (neo430_imem_inst_n_20),
-        .\ir_reg[6] (neo430_imem_inst_n_17),
-        .\ir_reg[7] (neo430_imem_inst_n_10),
-        .\ir_reg[8] ({sysconfig_rdata[8],sysconfig_rdata[6],sysconfig_rdata[3:0]}),
-        .\ir_reg[8]_0 (neo430_imem_inst_n_16),
-        .mem_data_i({mem_data_i[8:6],mem_data_i[3:0]}),
-        .\op_b_ff_reg[15] ({mem_data_i[15:14],mem_data_i[11:10]}),
-        .\op_b_ff_reg[9] (neo430_sysconfig_inst_n_10),
+        .\ir_reg[10] (neo430_imem_inst_n_11),
+        .\ir_reg[10]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_30 ),
+        .\ir_reg[11] (neo430_imem_inst_n_10),
+        .\ir_reg[11]_0 ({pwm_rdata[11:10],pwm_rdata[8],pwm_rdata[5:0]}),
+        .\ir_reg[11]_1 (\neo430_uart_inst_true.neo430_uart_inst_n_29 ),
+        .mem_data_i(mem_data_i[11:10]),
         .rden(rden_1),
-        .rden_reg_0(neo430_cpu_inst_n_105),
-        .\src_reg[0] (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
-        .timer_rdata({timer_rdata[13],timer_rdata[9:6],timer_rdata[3:0]}),
-        .uart_rdata({uart_rdata[13],uart_rdata[8:6],uart_rdata[3:0]}));
+        .rden_reg_0(neo430_cpu_inst_n_101),
+        .timer_rdata({timer_rdata[9],timer_rdata[6]}));
   SystemTop_neo430_freq_gen \neo430_freq_gen_inst_true.neo430_freq_gen_inst 
-       (.D(\cpu_bus[wdata] [11:0]),
-        .E(neo430_cpu_inst_n_125),
+       (.D(\cpu_bus[wdata] ),
+        .E(neo430_cpu_inst_n_79),
         .clk_i(clk_i),
-        .\data_o_reg[11]_0 (neo430_cpu_inst_n_127),
+        .\data_o_reg[11]_0 (neo430_cpu_inst_n_125),
         .freq_gen_cg_en(freq_gen_cg_en),
-        .freq_gen_rdata(freq_gen_rdata));
+        .freq_gen_o(freq_gen_o),
+        .freq_gen_rdata(freq_gen_rdata),
+        .\nco_prsc_tick_reg[0]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_20 ),
+        .\nco_prsc_tick_reg[0]_1 (\neo430_uart_inst_true.neo430_uart_inst_n_21 ),
+        .\nco_prsc_tick_reg[0]_2 (\neo430_uart_inst_true.neo430_uart_inst_n_22 ),
+        .\nco_prsc_tick_reg[0]_3 (\neo430_uart_inst_true.neo430_uart_inst_n_23 ),
+        .\nco_prsc_tick_reg[0]_4 (\neo430_uart_inst_true.neo430_uart_inst_n_24 ),
+        .\nco_prsc_tick_reg[0]_5 (\neo430_uart_inst_true.neo430_uart_inst_n_25 ),
+        .\nco_prsc_tick_reg[0]_6 (\neo430_uart_inst_true.neo430_uart_inst_n_26 ),
+        .\nco_prsc_tick_reg[0]_7 (\neo430_uart_inst_true.neo430_uart_inst_n_27 ),
+        .\tuning_word_reg[0][15]_0 (neo430_cpu_inst_n_44));
   SystemTop_neo430_gpio \neo430_gpio_inst_true.neo430_gpio_inst 
-       (.D({neo430_cpu_inst_n_56,neo430_cpu_inst_n_57,neo430_cpu_inst_n_58,neo430_cpu_inst_n_59,neo430_cpu_inst_n_60,neo430_cpu_inst_n_61,neo430_cpu_inst_n_62,neo430_cpu_inst_n_63,neo430_cpu_inst_n_64,neo430_cpu_inst_n_65,neo430_cpu_inst_n_66,neo430_cpu_inst_n_67,neo430_cpu_inst_n_68,neo430_cpu_inst_n_69,neo430_cpu_inst_n_70,neo430_cpu_inst_n_71}),
-        .E(neo430_cpu_inst_n_5),
-        .\FSM_sequential_state[0]_i_5 (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_17 ),
-        .\FSM_sequential_state[0]_i_5_0 (neo430_dmem_inst_n_15),
-        .\FSM_sequential_state[2]_i_4 (neo430_imem_inst_n_10),
-        .\FSM_sequential_state[2]_i_4_0 (neo430_dmem_inst_n_13),
-        .\FSM_sequential_state_reg[4] (neo430_dmem_inst_n_17),
-        .\FSM_sequential_state_reg[4]_0 (neo430_sysconfig_inst_n_1),
-        .\FSM_sequential_state_reg[4]_1 (neo430_dmem_inst_n_21),
-        .Q({gpio_rdata[15:6],gpio_rdata[4:0]}),
-        .SR(neo430_cpu_inst_n_21),
-        .\am_reg[0] (neo430_sysconfig_inst_n_14),
-        .\am_reg[0]_0 (neo430_imem_inst_n_18),
-        .\am_reg[0]_1 (neo430_dmem_inst_n_27),
-        .\am_reg[3] (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_15 ),
-        .\am_reg[3]_0 (neo430_imem_inst_n_7),
-        .\am_reg[3]_1 (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_16 ),
-        .\am_reg[3]_2 (neo430_imem_inst_n_12),
-        .\am_reg[3]_3 (pwm_rdata[15:12]),
-        .\am_reg[3]_4 ({sysconfig_rdata[15:13],sysconfig_rdata[6]}),
+       (.D({neo430_cpu_inst_n_45,neo430_cpu_inst_n_46,neo430_cpu_inst_n_47,neo430_cpu_inst_n_48,neo430_cpu_inst_n_49,neo430_cpu_inst_n_50,neo430_cpu_inst_n_51,neo430_cpu_inst_n_52,neo430_cpu_inst_n_53,neo430_cpu_inst_n_54,neo430_cpu_inst_n_55,neo430_cpu_inst_n_56,neo430_cpu_inst_n_57,neo430_cpu_inst_n_58,neo430_cpu_inst_n_59,neo430_cpu_inst_n_60}),
+        .E(neo430_cpu_inst_n_97),
+        .Q({gpio_rdata[15:13],gpio_rdata[11:6],gpio_rdata[4:0]}),
+        .SR(neo430_cpu_inst_n_126),
         .clk_i(clk_i),
-        .\cpu_bus[wdata] (\cpu_bus[wdata] ),
-        .\ctrl[19]_i_4 (neo430_imem_inst_n_17),
-        .\ctrl[19]_i_4_0 (neo430_dmem_inst_n_26),
-        .\data_o_reg[12]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_5 ),
-        .\data_o_reg[12]_1 (\neo430_gpio_inst_true.neo430_gpio_inst_n_7 ),
-        .\data_o_reg[12]_2 ({mem_data_i[12],mem_data_i[5]}),
-        .\data_o_reg[13]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_4 ),
-        .\data_o_reg[13]_1 (\neo430_gpio_inst_true.neo430_gpio_inst_n_25 ),
-        .\data_o_reg[14]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_24 ),
-        .\data_o_reg[15]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
-        .\data_o_reg[15]_1 (\neo430_gpio_inst_true.neo430_gpio_inst_n_8 ),
-        .\data_o_reg[5]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_3 ),
-        .\data_o_reg[6]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_29 ),
-        .\data_o_reg[7]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_1 ),
-        .\data_o_reg[7]_1 (\neo430_gpio_inst_true.neo430_gpio_inst_n_6 ),
+        .\ctrl_reg[15] (neo430_imem_inst_n_6),
+        .\ctrl_reg[15]_0 (\neo430_pwm_inst_true.neo430_pwm_inst_n_27 ),
+        .\data_o_reg[12]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_1 ),
+        .\data_o_reg[12]_1 (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
+        .\data_o_reg[5]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_19 ),
         .\din_reg[15]_0 (din),
-        .dio_swap(dio_swap),
-        .dio_swap_reg(\neo430_gpio_inst_true.neo430_gpio_inst_n_26 ),
-        .\dout_reg[15]_0 ({\neo430_gpio_inst_true.neo430_gpio_inst_n_46 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_47 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_48 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_49 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_50 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_51 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_52 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_53 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_54 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_55 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_56 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_57 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_58 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_59 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_60 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_61 }),
-        .freq_gen_rdata(freq_gen_rdata[7]),
+        .\dout_reg[15]_0 ({\neo430_gpio_inst_true.neo430_gpio_inst_n_36 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_37 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_38 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_39 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_40 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_41 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_42 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_43 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_44 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_45 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_46 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_47 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_48 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_49 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_50 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_51 }),
+        .\dout_reg[15]_1 (\cpu_bus[wdata] ),
         .gpio_i(gpio_i),
-        .\ir_reg[12] (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_14 ),
-        .\irq_mask_reg[0]_0 (neo430_cpu_inst_n_20),
+        .\ir_reg[12] (pwm_rdata[12]),
+        .\ir_reg[12]_0 (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_16 ),
+        .\ir_reg[5] (sysconfig_rdata[6]),
+        .\ir_reg[5]_0 (neo430_imem_inst_n_15),
+        .\ir_reg[5]_1 (neo430_dmem_inst_n_13),
+        .\irq_mask_reg[15]_0 (neo430_cpu_inst_n_77),
         .irq_o(irq_o),
-        .mem_data_i(mem_data_i[7]),
-        .timer_rdata({timer_rdata[12],timer_rdata[7:5]}),
-        .uart_rdata({uart_rdata[12],uart_rdata[7:5]}));
+        .mem_data_i({mem_data_i[12],mem_data_i[5]}),
+        .timer_rdata({timer_rdata[12],timer_rdata[5]}),
+        .uart_rdata({uart_rdata[12],uart_rdata[5]}));
   SystemTop_neo430_imem neo430_imem_inst
-       (.DOADO(rdata_reg_2[15:14]),
-        .\FSM_sequential_state_reg[1] (neo430_imem_inst_n_6),
-        .\FSM_sequential_state_reg[1]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_5 ),
-        .\FSM_sequential_state_reg[1]_1 (neo430_dmem_inst_n_17),
-        .\FSM_sequential_state_reg[1]_2 ({\neo430_control_inst/state [3],\neo430_control_inst/state [1:0]}),
+       (.DOADO({rdata_reg_2[15],rdata_reg_2[13]}),
+        .\FSM_sequential_state_reg[1] (neo430_imem_inst_n_4),
+        .\FSM_sequential_state_reg[1]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
+        .\FSM_sequential_state_reg[1]_1 (neo430_dmem_inst_n_6),
+        .\FSM_sequential_state_reg[1]_2 ({\neo430_control_inst/state [3],\neo430_control_inst/state [1]}),
         .\FSM_sequential_state_reg[1]_3 (neo430_sysconfig_inst_n_1),
-        .\FSM_sequential_state_reg[3] (neo430_imem_inst_n_4),
+        .\FSM_sequential_state_reg[3] (neo430_imem_inst_n_1),
         .Q(sysconfig_rdata[15:14]),
         .WEA(p_0_out),
-        .acc_en(acc_en_0),
+        .acc_en(acc_en),
         .clk_i(clk_i),
         .\cpu_bus[addr] (\cpu_bus[addr] ),
-        .\cpu_bus[wdata] (\cpu_bus[wdata] ),
-        .\data_o_reg[15] (mem_data_i[15:14]),
-        .\data_o_reg[15]_0 (neo430_imem_inst_n_5),
-        .dio_swap(dio_swap),
-        .dio_swap_reg(neo430_imem_inst_n_1),
-        .dio_swap_reg_0(neo430_imem_inst_n_11),
-        .imem_file_ram_h_reg_0_0(neo430_imem_inst_n_15),
-        .imem_file_ram_h_reg_0_1(neo430_imem_inst_n_16),
-        .imem_file_ram_h_reg_1_0(neo430_imem_inst_n_13),
-        .imem_file_ram_h_reg_1_1(neo430_imem_inst_n_14),
-        .imem_file_ram_h_reg_3_0(neo430_imem_inst_n_12),
-        .imem_file_ram_l_reg_0_0(neo430_imem_inst_n_22),
-        .imem_file_ram_l_reg_0_1(neo430_imem_inst_n_23),
-        .imem_file_ram_l_reg_1_0(neo430_imem_inst_n_20),
-        .imem_file_ram_l_reg_1_1(neo430_imem_inst_n_21),
-        .imem_file_ram_l_reg_2_0(neo430_imem_inst_n_18),
-        .imem_file_ram_l_reg_2_1(neo430_imem_inst_n_19),
-        .imem_file_ram_l_reg_3_0(neo430_imem_inst_n_10),
-        .imem_file_ram_l_reg_3_1(neo430_imem_inst_n_17),
+        .\data_o_reg[13] (neo430_imem_inst_n_5),
+        .\data_o_reg[15] (neo430_imem_inst_n_6),
+        .imem_file_ram_h_reg_0_0(neo430_imem_inst_n_12),
+        .imem_file_ram_h_reg_0_1(neo430_imem_inst_n_13),
+        .imem_file_ram_h_reg_1_0(neo430_imem_inst_n_10),
+        .imem_file_ram_h_reg_1_1(neo430_imem_inst_n_11),
+        .imem_file_ram_h_reg_2_0(neo430_imem_inst_n_9),
+        .imem_file_ram_h_reg_3_0(\cpu_bus[wdata] ),
+        .imem_file_ram_l_reg_0_0(neo430_imem_inst_n_19),
+        .imem_file_ram_l_reg_0_1(neo430_imem_inst_n_20),
+        .imem_file_ram_l_reg_1_0(neo430_imem_inst_n_17),
+        .imem_file_ram_l_reg_1_1(neo430_imem_inst_n_18),
+        .imem_file_ram_l_reg_2_0(neo430_imem_inst_n_15),
+        .imem_file_ram_l_reg_2_1(neo430_imem_inst_n_16),
+        .imem_file_ram_l_reg_3_0(neo430_imem_inst_n_8),
+        .imem_file_ram_l_reg_3_1(neo430_imem_inst_n_14),
         .imem_file_ram_l_reg_3_2(p_1_out),
         .\ir_reg[11] (rdata_reg),
-        .\ir_reg[14] (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_16 ),
-        .\ir_reg[15] (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_15 ),
+        .\ir_reg[14] (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_14 ),
+        .\ir_reg[15] (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_13 ),
         .\ir_reg[15]_0 (pwm_rdata[15:14]),
         .\ir_reg[15]_1 (gpio_rdata[15:14]),
-        .mem_data_i(mem_data_i[7:6]),
+        .mem_data_i(mem_data_i[15:14]),
         .rdata_reg(rdata_reg_3),
         .rden(rden_4),
         .rden_0(rden_1),
         .rden_1(rden),
-        .rden_reg_0(neo430_imem_inst_n_7),
-        .rden_reg_1(neo430_cpu_inst_n_26));
+        .rden_reg_0(neo430_cpu_inst_n_102),
+        .timer_rdata(timer_rdata[14]),
+        .uart_rdata(uart_rdata[14]));
   SystemTop_neo430_pwm \neo430_pwm_inst_true.neo430_pwm_inst 
-       (.D({neo430_cpu_inst_n_72,neo430_cpu_inst_n_73,neo430_cpu_inst_n_74,neo430_cpu_inst_n_75,neo430_cpu_inst_n_76,neo430_cpu_inst_n_77,neo430_cpu_inst_n_78,neo430_cpu_inst_n_79,neo430_cpu_inst_n_80,neo430_cpu_inst_n_81,neo430_cpu_inst_n_82,neo430_cpu_inst_n_83,neo430_cpu_inst_n_84,neo430_cpu_inst_n_85,neo430_cpu_inst_n_86,neo430_cpu_inst_n_87}),
-        .E(neo430_cpu_inst_n_55),
-        .Q(\pwm_ch_reg[3]_1 ),
-        .SR(neo430_cpu_inst_n_126),
+       (.D({neo430_cpu_inst_n_61,neo430_cpu_inst_n_62,neo430_cpu_inst_n_63,neo430_cpu_inst_n_64,neo430_cpu_inst_n_65,neo430_cpu_inst_n_66,neo430_cpu_inst_n_67,neo430_cpu_inst_n_68,neo430_cpu_inst_n_69,neo430_cpu_inst_n_70,neo430_cpu_inst_n_71,neo430_cpu_inst_n_72,neo430_cpu_inst_n_73,neo430_cpu_inst_n_74,neo430_cpu_inst_n_75,neo430_cpu_inst_n_76}),
+        .E(neo430_cpu_inst_n_43),
+        .Q(\pwm_ch_reg[3]_2 ),
+        .SR(neo430_cpu_inst_n_127),
+        .\am_reg[0] (neo430_imem_inst_n_6),
+        .\am_reg[0]_0 (\neo430_gpio_inst_true.neo430_gpio_inst_n_19 ),
+        .\am_reg[0]_1 (neo430_sysconfig_inst_n_8),
         .clk_i(clk_i),
-        .\cpu_bus[wdata] (\cpu_bus[wdata] ),
-        .\data_o_reg[15]_0 (pwm_rdata),
-        .gpio_o(gpio_o),
-        .p_1_in(p_1_in_5),
-        .\prsc_reg[2]_0 (neo430_cpu_inst_n_88),
-        .pwm_cg_en(pwm_cg_en),
-        .\pwm_ch_reg[2][0]_0 (neo430_cpu_inst_n_121),
-        .\pwm_ch_reg[2][7]_0 (\pwm_ch_reg[2]_0 ),
-        .\pwm_cnt_reg[0]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_25 ),
-        .\pwm_cnt_reg[0]_1 (\neo430_uart_inst_true.neo430_uart_inst_n_26 ),
-        .\pwm_cnt_reg[0]_2 (\neo430_uart_inst_true.neo430_uart_inst_n_23 ),
-        .\pwm_cnt_reg[0]_3 (\neo430_uart_inst_true.neo430_uart_inst_n_24 ),
-        .\pwm_cnt_reg[0]_4 (\neo430_uart_inst_true.neo430_uart_inst_n_29 ),
-        .\pwm_cnt_reg[0]_5 (\neo430_uart_inst_true.neo430_uart_inst_n_30 ),
-        .\pwm_cnt_reg[0]_6 (\neo430_uart_inst_true.neo430_uart_inst_n_27 ),
-        .\pwm_cnt_reg[0]_7 (\neo430_uart_inst_true.neo430_uart_inst_n_28 ),
-        .pwm_o(pwm_o),
-        .\register_sr_reg[3] ({\neo430_gpio_inst_true.neo430_gpio_inst_n_46 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_47 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_48 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_49 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_50 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_51 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_52 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_53 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_54 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_55 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_56 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_57 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_58 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_59 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_60 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_61 }));
-  SystemTop_neo430_sysconfig neo430_sysconfig_inst
-       (.D({\sysinfo_mem[0]_2 [15:13],\sysinfo_mem[0]_2 [11:10],\sysinfo_mem[0]_2 [8],\sysinfo_mem[0]_2 [6],\sysinfo_mem[0]_2 [3:0]}),
-        .\FSM_sequential_state_reg[0] (\neo430_gpio_inst_true.neo430_gpio_inst_n_6 ),
-        .\FSM_sequential_state_reg[0]_0 (neo430_cpu_inst_n_134),
-        .\FSM_sequential_state_reg[3] ({mem_data_i[15],mem_data_i[8],mem_data_i[3:1]}),
-        .Q({sysconfig_rdata[15:13],sysconfig_rdata[11:10],sysconfig_rdata[8],sysconfig_rdata[6],sysconfig_rdata[3:0]}),
-        .SR(neo430_cpu_inst_n_128),
-        .\am[2]_i_3_0 (neo430_imem_inst_n_20),
-        .\am[2]_i_3_1 (neo430_dmem_inst_n_29),
-        .\am[2]_i_3_2 (neo430_imem_inst_n_21),
-        .\am[2]_i_3_3 (neo430_dmem_inst_n_30),
-        .\am[2]_i_3_4 (neo430_imem_inst_n_23),
-        .\am[2]_i_3_5 (neo430_dmem_inst_n_32),
-        .\am_reg[1] (\neo430_gpio_inst_true.neo430_gpio_inst_n_3 ),
-        .\am_reg[1]_0 (neo430_imem_inst_n_16),
-        .\am_reg[1]_1 (neo430_dmem_inst_n_23),
-        .\am_reg[1]_2 (neo430_imem_inst_n_19),
-        .\am_reg[1]_3 (neo430_dmem_inst_n_28),
-        .clk_i(clk_i),
-        .\ctrl_reg[17] (\neo430_gpio_inst_true.neo430_gpio_inst_n_5 ),
-        .\data_o_reg[10]_0 (neo430_sysconfig_inst_n_19),
-        .\data_o_reg[10]_1 (neo430_sysconfig_inst_n_20),
-        .\data_o_reg[11]_0 ({neo430_sysconfig_inst_n_7,neo430_sysconfig_inst_n_8,neo430_sysconfig_inst_n_9}),
-        .\data_o_reg[12] (neo430_sysconfig_inst_n_16),
-        .\data_o_reg[13]_0 (neo430_sysconfig_inst_n_1),
-        .\data_o_reg[13]_1 (neo430_sysconfig_inst_n_17),
-        .\data_o_reg[13]_2 (neo430_sysconfig_inst_n_18),
-        .\data_o_reg[1]_0 (neo430_sysconfig_inst_n_10),
-        .\data_o_reg[5] ({neo430_sysconfig_inst_n_11,neo430_sysconfig_inst_n_12}),
-        .\data_o_reg[6]_0 (neo430_sysconfig_inst_n_14),
-        .\data_o_reg[7] (neo430_sysconfig_inst_n_0),
-        .\data_o_reg[8]_0 (neo430_sysconfig_inst_n_13),
-        .\data_o_reg[8]_1 (neo430_sysconfig_inst_n_15),
+        .\data_o_reg[15]_0 ({pwm_rdata[15:8],pwm_rdata[6:0]}),
+        .\data_o_reg[7]_0 (\neo430_pwm_inst_true.neo430_pwm_inst_n_26 ),
+        .\data_o_reg[7]_1 (\neo430_pwm_inst_true.neo430_pwm_inst_n_27 ),
+        .\data_o_reg[7]_2 (mem_data_i[7]),
         .dio_swap(dio_swap),
-        .dio_swap_reg(neo430_sysconfig_inst_n_21),
-        .dio_swap_reg_0(neo430_sysconfig_inst_n_33),
-        .dio_swap_reg_1(neo430_sysconfig_inst_n_34),
-        .dio_swap_reg_2(neo430_sysconfig_inst_n_35),
-        .dio_swap_reg_3(neo430_sysconfig_inst_n_36),
-        .\ir_reg[10] (neo430_imem_inst_n_14),
-        .\ir_reg[10]_0 (neo430_dmem_inst_n_19),
-        .\ir_reg[11] (neo430_imem_inst_n_13),
-        .\ir_reg[11]_0 (neo430_dmem_inst_n_18),
-        .\ir_reg[13] ({pwm_rdata[13],pwm_rdata[9]}),
-        .\ir_reg[13]_0 ({gpio_rdata[13],gpio_rdata[11:8],gpio_rdata[4:0]}),
-        .\ir_reg[13]_1 (neo430_dmem_inst_n_15),
-        .\ir_reg[13]_2 (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_17 ),
-        .\ir_reg[9] (neo430_imem_inst_n_15),
-        .\ir_reg[9]_0 (neo430_dmem_inst_n_22),
-        .mem_data_i({mem_data_i[13],mem_data_i[11:9],mem_data_i[4]}),
-        .\src_reg[1] (neo430_imem_inst_n_22),
-        .\src_reg[1]_0 (neo430_dmem_inst_n_31),
-        .\src_reg[3] (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
-        .timer_rdata({timer_rdata[11:10],timer_rdata[8],timer_rdata[4:0]}),
-        .uart_rdata({uart_rdata[11:8],uart_rdata[4:0]}));
+        .dio_swap_reg(\neo430_pwm_inst_true.neo430_pwm_inst_n_28 ),
+        .dio_swap_reg_0(\neo430_pwm_inst_true.neo430_pwm_inst_n_29 ),
+        .gpio_o(gpio_o),
+        .\ir_reg[7] (sysconfig_rdata[6]),
+        .\ir_reg[7]_0 (neo430_imem_inst_n_8),
+        .\ir_reg[7]_1 (neo430_dmem_inst_n_7),
+        .mem_data_i(mem_data_i[15]),
+        .p_1_in(p_1_in_5),
+        .\prsc_reg[2]_0 (neo430_cpu_inst_n_78),
+        .pwm_cg_en(pwm_cg_en),
+        .\pwm_ch_reg[1][7]_0 (\cpu_bus[wdata] ),
+        .\pwm_ch_reg[2][0]_0 (neo430_cpu_inst_n_96),
+        .\pwm_ch_reg[2][7]_0 (\pwm_ch_reg[2]_1 ),
+        .\pwm_cnt_reg[0]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_22 ),
+        .\pwm_cnt_reg[0]_1 (\neo430_uart_inst_true.neo430_uart_inst_n_23 ),
+        .\pwm_cnt_reg[0]_2 (\neo430_uart_inst_true.neo430_uart_inst_n_20 ),
+        .\pwm_cnt_reg[0]_3 (\neo430_uart_inst_true.neo430_uart_inst_n_21 ),
+        .\pwm_cnt_reg[0]_4 (\neo430_uart_inst_true.neo430_uart_inst_n_24 ),
+        .\pwm_cnt_reg[0]_5 (\neo430_uart_inst_true.neo430_uart_inst_n_25 ),
+        .\pwm_cnt_reg[0]_6 (\neo430_uart_inst_true.neo430_uart_inst_n_26 ),
+        .\pwm_cnt_reg[0]_7 (\neo430_uart_inst_true.neo430_uart_inst_n_27 ),
+        .pwm_o(pwm_o),
+        .\register_sr_reg[3] ({\neo430_gpio_inst_true.neo430_gpio_inst_n_36 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_37 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_38 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_39 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_40 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_41 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_42 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_43 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_44 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_45 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_46 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_47 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_48 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_49 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_50 ,\neo430_gpio_inst_true.neo430_gpio_inst_n_51 }),
+        .timer_rdata(timer_rdata[7]),
+        .uart_rdata(uart_rdata[7]));
+  SystemTop_neo430_sysconfig neo430_sysconfig_inst
+       (.D({\sysinfo_mem[0]_0 [15:14],neo430_cpu_inst_n_7,\sysinfo_mem[0]_0 [11:10],\sysinfo_mem[0]_0 [8],\sysinfo_mem[0]_0 [6],neo430_cpu_inst_n_12,\sysinfo_mem[0]_0 [2:1],neo430_cpu_inst_n_15}),
+        .\FSM_sequential_state_reg[0] (neo430_imem_inst_n_4),
+        .\FSM_sequential_state_reg[1] (neo430_sysconfig_inst_n_30),
+        .\FSM_sequential_state_reg[4] (\neo430_gpio_inst_true.neo430_gpio_inst_n_2 ),
+        .\FSM_sequential_state_reg[4]_0 (\neo430_pwm_inst_true.neo430_pwm_inst_n_27 ),
+        .Q({sysconfig_rdata[15:14],sysconfig_rdata[11:10],sysconfig_rdata[6]}),
+        .SR(neo430_cpu_inst_n_128),
+        .\am_reg[1] (\neo430_gpio_inst_true.neo430_gpio_inst_n_19 ),
+        .\am_reg[1]_0 (neo430_imem_inst_n_13),
+        .\am_reg[1]_1 (neo430_dmem_inst_n_11),
+        .\am_reg[1]_2 (neo430_imem_inst_n_16),
+        .\am_reg[1]_3 (neo430_dmem_inst_n_14),
+        .\am_reg[2] (neo430_dmem_inst_n_6),
+        .clk_i(clk_i),
+        .\data_o_reg[0]_0 (neo430_sysconfig_inst_n_24),
+        .\data_o_reg[12] (neo430_sysconfig_inst_n_31),
+        .\data_o_reg[13]_0 (neo430_sysconfig_inst_n_1),
+        .\data_o_reg[13]_1 (neo430_sysconfig_inst_n_32),
+        .\data_o_reg[13]_2 ({mem_data_i[13],mem_data_i[9:8],mem_data_i[6],mem_data_i[4:0]}),
+        .\data_o_reg[1]_0 (neo430_sysconfig_inst_n_21),
+        .\data_o_reg[1]_1 (neo430_sysconfig_inst_n_22),
+        .\data_o_reg[1]_2 (neo430_sysconfig_inst_n_29),
+        .\data_o_reg[2]_0 (neo430_sysconfig_inst_n_18),
+        .\data_o_reg[3]_0 (neo430_sysconfig_inst_n_11),
+        .\data_o_reg[3]_1 ({neo430_sysconfig_inst_n_13,neo430_sysconfig_inst_n_14,neo430_sysconfig_inst_n_15,neo430_sysconfig_inst_n_16}),
+        .\data_o_reg[5] ({neo430_sysconfig_inst_n_26,neo430_sysconfig_inst_n_27}),
+        .\data_o_reg[6]_0 (neo430_sysconfig_inst_n_6),
+        .\data_o_reg[6]_1 (neo430_sysconfig_inst_n_8),
+        .\data_o_reg[7] (neo430_sysconfig_inst_n_28),
+        .\data_o_reg[8]_0 (neo430_sysconfig_inst_n_3),
+        .\data_o_reg[8]_1 (neo430_sysconfig_inst_n_4),
+        .dio_swap(dio_swap),
+        .dio_swap_reg(neo430_sysconfig_inst_n_0),
+        .dio_swap_reg_0(neo430_sysconfig_inst_n_2),
+        .dio_swap_reg_1(neo430_sysconfig_inst_n_5),
+        .dio_swap_reg_10(neo430_sysconfig_inst_n_25),
+        .dio_swap_reg_2(neo430_sysconfig_inst_n_7),
+        .dio_swap_reg_3(neo430_sysconfig_inst_n_9),
+        .dio_swap_reg_4(neo430_sysconfig_inst_n_10),
+        .dio_swap_reg_5(neo430_sysconfig_inst_n_12),
+        .dio_swap_reg_6(neo430_sysconfig_inst_n_17),
+        .dio_swap_reg_7(neo430_sysconfig_inst_n_19),
+        .dio_swap_reg_8(neo430_sysconfig_inst_n_20),
+        .dio_swap_reg_9(neo430_sysconfig_inst_n_23),
+        .\ir_reg[0] (neo430_imem_inst_n_20),
+        .\ir_reg[0]_0 (neo430_dmem_inst_n_18),
+        .\ir_reg[13] ({pwm_rdata[13],pwm_rdata[9],pwm_rdata[6]}),
+        .\ir_reg[13]_0 ({gpio_rdata[13],gpio_rdata[9:8],gpio_rdata[6],gpio_rdata[4:0]}),
+        .\ir_reg[13]_1 (neo430_imem_inst_n_9),
+        .\ir_reg[13]_2 (\neo430_boot_rom_inst_true.neo430_boot_rom_inst_n_15 ),
+        .\ir_reg[1] (neo430_imem_inst_n_19),
+        .\ir_reg[1]_0 (neo430_dmem_inst_n_17),
+        .\ir_reg[2] (neo430_imem_inst_n_18),
+        .\ir_reg[2]_0 (neo430_dmem_inst_n_16),
+        .\ir_reg[3] (neo430_imem_inst_n_17),
+        .\ir_reg[3]_0 (neo430_dmem_inst_n_15),
+        .\ir_reg[6] (neo430_imem_inst_n_14),
+        .\ir_reg[6]_0 (neo430_dmem_inst_n_12),
+        .\ir_reg[9] (neo430_imem_inst_n_12),
+        .\ir_reg[9]_0 (neo430_dmem_inst_n_10),
+        .mem_data_i({mem_data_i[15:14],mem_data_i[11:10]}),
+        .\src_reg[3] (neo430_imem_inst_n_6),
+        .timer_rdata({timer_rdata[8],timer_rdata[4:0]}),
+        .uart_rdata({uart_rdata[9:8],uart_rdata[6],uart_rdata[4:0]}));
   SystemTop_neo430_timer \neo430_timer_inst_true.neo430_timer_inst 
-       (.E(neo430_cpu_inst_n_124),
+       (.E(neo430_cpu_inst_n_99),
         .Q({p_0_in_7,p_2_in_6,p_0_in1_in,\neo430_timer_inst_true.neo430_timer_inst_n_23 ,timer_cg_en}),
         .clk_div0(clk_div0),
         .\clk_div_reg[0] (clkgen_en_o),
         .clk_i(clk_i),
         .cnt_reg(cnt_reg),
-        .\cpu_bus[wdata] (\cpu_bus[wdata] ),
-        .\data_o_reg[0]_0 (neo430_cpu_inst_n_23),
-        .\data_o_reg[0]_1 (neo430_cpu_inst_n_104),
-        .\data_o_reg[10]_0 (neo430_cpu_inst_n_94),
-        .\data_o_reg[11]_0 (neo430_cpu_inst_n_93),
-        .\data_o_reg[12]_0 (neo430_cpu_inst_n_92),
-        .\data_o_reg[13]_0 (neo430_cpu_inst_n_91),
-        .\data_o_reg[14]_0 (neo430_cpu_inst_n_90),
-        .\data_o_reg[15]_0 (neo430_cpu_inst_n_89),
-        .\data_o_reg[1]_0 (neo430_cpu_inst_n_103),
-        .\data_o_reg[2]_0 (neo430_cpu_inst_n_102),
-        .\data_o_reg[3]_0 (neo430_cpu_inst_n_101),
-        .\data_o_reg[4]_0 (neo430_cpu_inst_n_100),
-        .\data_o_reg[5]_0 (neo430_cpu_inst_n_99),
-        .\data_o_reg[6]_0 (neo430_cpu_inst_n_98),
-        .\data_o_reg[7]_0 (neo430_cpu_inst_n_97),
-        .\data_o_reg[8]_0 (neo430_cpu_inst_n_96),
-        .\data_o_reg[9]_0 (neo430_cpu_inst_n_95),
+        .\data_o_reg[0]_0 (neo430_cpu_inst_n_30),
+        .\data_o_reg[0]_1 (neo430_cpu_inst_n_95),
+        .\data_o_reg[10]_0 (neo430_cpu_inst_n_85),
+        .\data_o_reg[11]_0 (neo430_cpu_inst_n_84),
+        .\data_o_reg[12]_0 (neo430_cpu_inst_n_83),
+        .\data_o_reg[13]_0 (neo430_cpu_inst_n_82),
+        .\data_o_reg[14]_0 (neo430_cpu_inst_n_81),
+        .\data_o_reg[15]_0 (neo430_cpu_inst_n_80),
+        .\data_o_reg[1]_0 (neo430_cpu_inst_n_94),
+        .\data_o_reg[2]_0 (neo430_cpu_inst_n_93),
+        .\data_o_reg[3]_0 (neo430_cpu_inst_n_92),
+        .\data_o_reg[4]_0 (neo430_cpu_inst_n_91),
+        .\data_o_reg[5]_0 (neo430_cpu_inst_n_90),
+        .\data_o_reg[6]_0 (neo430_cpu_inst_n_89),
+        .\data_o_reg[7]_0 (neo430_cpu_inst_n_88),
+        .\data_o_reg[8]_0 (neo430_cpu_inst_n_87),
+        .\data_o_reg[9]_0 (neo430_cpu_inst_n_86),
         .freq_gen_cg_en(freq_gen_cg_en),
         .irq_fire_ff(irq_fire_ff),
         .p_2_in3_in(p_2_in3_in),
-        .prsc_tick_reg_0(\neo430_uart_inst_true.neo430_uart_inst_n_23 ),
-        .prsc_tick_reg_1(\neo430_uart_inst_true.neo430_uart_inst_n_24 ),
-        .prsc_tick_reg_2(\neo430_uart_inst_true.neo430_uart_inst_n_25 ),
-        .prsc_tick_reg_3(\neo430_uart_inst_true.neo430_uart_inst_n_26 ),
-        .prsc_tick_reg_4(\neo430_uart_inst_true.neo430_uart_inst_n_29 ),
-        .prsc_tick_reg_5(\neo430_uart_inst_true.neo430_uart_inst_n_30 ),
-        .prsc_tick_reg_6(\neo430_uart_inst_true.neo430_uart_inst_n_27 ),
-        .prsc_tick_reg_7(\neo430_uart_inst_true.neo430_uart_inst_n_28 ),
+        .prsc_tick_reg_0(\neo430_uart_inst_true.neo430_uart_inst_n_22 ),
+        .prsc_tick_reg_1(\neo430_uart_inst_true.neo430_uart_inst_n_23 ),
+        .prsc_tick_reg_2(\neo430_uart_inst_true.neo430_uart_inst_n_20 ),
+        .prsc_tick_reg_3(\neo430_uart_inst_true.neo430_uart_inst_n_21 ),
+        .prsc_tick_reg_4(\neo430_uart_inst_true.neo430_uart_inst_n_26 ),
+        .prsc_tick_reg_5(\neo430_uart_inst_true.neo430_uart_inst_n_27 ),
+        .prsc_tick_reg_6(\neo430_uart_inst_true.neo430_uart_inst_n_24 ),
+        .prsc_tick_reg_7(\neo430_uart_inst_true.neo430_uart_inst_n_25 ),
         .pwm_cg_en(pwm_cg_en),
-        .\thres_reg[15]_0 (neo430_cpu_inst_n_122),
+        .\thres_reg[15]_0 (\cpu_bus[wdata] ),
+        .\thres_reg[15]_1 (neo430_cpu_inst_n_98),
         .timer_rdata(timer_rdata));
   SystemTop_neo430_uart \neo430_uart_inst_true.neo430_uart_inst 
        (.D({clk_div_reg[11:9],clk_div_reg[6:5],clk_div_reg[2:0]}),
-        .E(\neo430_uart_inst_true.neo430_uart_inst_n_22 ),
-        .\FSM_sequential_state[0]_i_13 ({pwm_rdata[12],pwm_rdata[9]}),
-        .\FSM_sequential_state[0]_i_13_0 (gpio_rdata[12:8]),
+        .E(neo430_cpu_inst_n_100),
         .Q({clkgen_en_o,p_0_in_8}),
-        .\clk_div_ff_reg[0] (\neo430_uart_inst_true.neo430_uart_inst_n_26 ),
-        .\clk_div_ff_reg[10] (\neo430_uart_inst_true.neo430_uart_inst_n_30 ),
-        .\clk_div_ff_reg[11] (\neo430_uart_inst_true.neo430_uart_inst_n_29 ),
-        .\clk_div_ff_reg[1] (\neo430_uart_inst_true.neo430_uart_inst_n_25 ),
-        .\clk_div_ff_reg[2] (\neo430_uart_inst_true.neo430_uart_inst_n_24 ),
-        .\clk_div_ff_reg[5] (\neo430_uart_inst_true.neo430_uart_inst_n_23 ),
-        .\clk_div_ff_reg[6] (\neo430_uart_inst_true.neo430_uart_inst_n_28 ),
-        .\clk_div_ff_reg[9] (\neo430_uart_inst_true.neo430_uart_inst_n_27 ),
+        .\clk_div_ff_reg[0] (\neo430_uart_inst_true.neo430_uart_inst_n_23 ),
+        .\clk_div_ff_reg[10] (\neo430_uart_inst_true.neo430_uart_inst_n_25 ),
+        .\clk_div_ff_reg[11] (\neo430_uart_inst_true.neo430_uart_inst_n_24 ),
+        .\clk_div_ff_reg[1] (\neo430_uart_inst_true.neo430_uart_inst_n_22 ),
+        .\clk_div_ff_reg[2] (\neo430_uart_inst_true.neo430_uart_inst_n_21 ),
+        .\clk_div_ff_reg[5] (\neo430_uart_inst_true.neo430_uart_inst_n_20 ),
+        .\clk_div_ff_reg[6] (\neo430_uart_inst_true.neo430_uart_inst_n_27 ),
+        .\clk_div_ff_reg[9] (\neo430_uart_inst_true.neo430_uart_inst_n_26 ),
         .clk_i(clk_i),
-        .\cpu_bus[wdata] ({\cpu_bus[wdata] [14:12],\cpu_bus[wdata] [10:0]}),
-        .\ctrl[8]_i_9 ({sysconfig_rdata[11:10],sysconfig_rdata[8],sysconfig_rdata[1]}),
-        .\ctrl_reg[14]_0 (neo430_cpu_inst_n_123),
+        .\ctrl_reg[14]_0 ({\cpu_bus[wdata] [14:12],\cpu_bus[wdata] [10:0]}),
         .\data_o_reg[0]_0 (neo430_cpu_inst_n_2),
-        .\data_o_reg[10]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_34 ),
-        .\data_o_reg[11]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_33 ),
-        .\data_o_reg[12]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_32 ),
-        .\data_o_reg[12]_1 (neo430_cpu_inst_n_1),
-        .\data_o_reg[15]_0 (neo430_cpu_inst_n_107),
-        .\data_o_reg[8]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_36 ),
-        .\data_o_reg[8]_1 (neo430_cpu_inst_n_4),
-        .\data_o_reg[9]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_35 ),
-        .\data_o_reg[9]_1 (neo430_cpu_inst_n_3),
+        .\data_o_reg[10]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_30 ),
+        .\data_o_reg[11]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_29 ),
+        .\data_o_reg[12]_0 (neo430_cpu_inst_n_1),
+        .\data_o_reg[15]_0 ({uart_rdata[15:12],uart_rdata[9:0]}),
+        .\data_o_reg[15]_1 (neo430_cpu_inst_n_104),
+        .\data_o_reg[8]_0 (neo430_cpu_inst_n_4),
+        .\data_o_reg[9]_0 (neo430_cpu_inst_n_3),
+        .\ir_reg[11] (gpio_rdata[11:10]),
+        .\ir_reg[11]_0 (sysconfig_rdata[11:10]),
         .\irq_buf_reg[1] (\neo430_control_inst/p_5_in ),
-        .\pwm_cnt[7]_i_5 ({\clk_div_ff_reg_n_0_[11] ,p_12_in,p_10_in,p_8_in,p_6_in,p_4_in,p_2_in,\clk_div_ff_reg_n_0_[0] }),
-        .timer_rdata({timer_rdata[12:10],timer_rdata[8]}),
-        .uart_rdata(uart_rdata),
-        .\uart_rx_avail_reg[1]_0 (neo430_cpu_inst_n_22),
-        .\uart_rx_avail_reg[1]_1 (neo430_cpu_inst_n_54),
-        .uart_rx_busy_ff_reg_0(\neo430_uart_inst_true.neo430_uart_inst_n_31 ),
+        .\nco_prsc_tick[0]_i_3 ({\clk_div_ff_reg_n_0_[11] ,p_12_in,p_10_in,p_8_in,p_6_in,p_4_in,p_2_in,\clk_div_ff_reg_n_0_[0] }),
+        .timer_rdata(timer_rdata[11:10]),
+        .\uart_rx_avail_reg[1]_0 (neo430_cpu_inst_n_31),
+        .\uart_rx_avail_reg[1]_1 (neo430_cpu_inst_n_123),
+        .uart_rx_busy_ff_reg_0(\neo430_uart_inst_true.neo430_uart_inst_n_28 ),
         .uart_rxd_i(uart_rxd_i),
-        .\uart_tx_bitcnt_reg[3]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_21 ),
-        .uart_tx_busy_reg_0(\neo430_uart_inst_true.neo430_uart_inst_n_17 ),
-        .uart_tx_busy_reg_1(neo430_cpu_inst_n_53),
-        .\uart_tx_sreg_reg[7]_0 ({\neo430_uart_inst_true.neo430_uart_inst_n_37 ,\neo430_uart_inst_true.neo430_uart_inst_n_38 ,\neo430_uart_inst_true.neo430_uart_inst_n_39 ,\neo430_uart_inst_true.neo430_uart_inst_n_40 ,\neo430_uart_inst_true.neo430_uart_inst_n_41 ,\neo430_uart_inst_true.neo430_uart_inst_n_42 }),
-        .\uart_tx_sreg_reg[7]_1 (neo430_cpu_inst_n_109),
-        .\uart_tx_sreg_reg[7]_2 ({neo430_cpu_inst_n_30,neo430_cpu_inst_n_31,neo430_cpu_inst_n_32,neo430_cpu_inst_n_33,neo430_cpu_inst_n_34,neo430_cpu_inst_n_35,neo430_cpu_inst_n_36}),
-        .\uart_tx_sreg_reg[8]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_43 ),
+        .\uart_tx_baud_cnt_reg[7]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_19 ),
+        .uart_tx_busy0(uart_tx_busy0),
+        .uart_tx_busy_reg_0(\neo430_uart_inst_true.neo430_uart_inst_n_15 ),
+        .\uart_tx_sreg_reg[7]_0 ({\neo430_uart_inst_true.neo430_uart_inst_n_31 ,\neo430_uart_inst_true.neo430_uart_inst_n_32 ,\neo430_uart_inst_true.neo430_uart_inst_n_33 ,\neo430_uart_inst_true.neo430_uart_inst_n_34 ,\neo430_uart_inst_true.neo430_uart_inst_n_35 ,\neo430_uart_inst_true.neo430_uart_inst_n_36 }),
+        .\uart_tx_sreg_reg[7]_1 (neo430_cpu_inst_n_122),
+        .\uart_tx_sreg_reg[7]_2 ({neo430_cpu_inst_n_36,neo430_cpu_inst_n_37,neo430_cpu_inst_n_38,neo430_cpu_inst_n_39,neo430_cpu_inst_n_40,neo430_cpu_inst_n_41,neo430_cpu_inst_n_42}),
+        .\uart_tx_sreg_reg[8]_0 (\neo430_uart_inst_true.neo430_uart_inst_n_37 ),
         .uart_txd_o(uart_txd_o));
   LUT1 #(
     .INIT(2'h1)) 
@@ -14428,6 +14535,7 @@ module SystemTop_neo430_top_0_0
 
   wire \<const0> ;
   wire clk_i;
+  wire [0:0]\^freq_gen_o ;
   wire [15:0]gpio_i;
   wire [15:0]gpio_o;
   wire [0:0]\^pwm_o ;
@@ -14445,7 +14553,7 @@ module SystemTop_neo430_top_0_0
   assign ext_ack_o[0] = \<const0> ;
   assign freq_gen_o[2] = \<const0> ;
   assign freq_gen_o[1] = \<const0> ;
-  assign freq_gen_o[0] = \<const0> ;
+  assign freq_gen_o[0] = \^freq_gen_o [0];
   assign pwm_o[3] = \<const0> ;
   assign pwm_o[2] = \<const0> ;
   assign pwm_o[1] = \<const0> ;
@@ -14533,6 +14641,7 @@ module SystemTop_neo430_top_0_0
        (.G(\<const0> ));
   SystemTop_neo430_top U0
        (.clk_i(clk_i),
+        .freq_gen_o(\^freq_gen_o ),
         .gpio_i(gpio_i),
         .gpio_o(gpio_o),
         .pwm_o(\^pwm_o ),
@@ -14543,87 +14652,77 @@ endmodule
 
 (* ORIG_REF_NAME = "neo430_uart" *) 
 module SystemTop_neo430_uart
-   (uart_rdata,
+   (\data_o_reg[15]_0 ,
     uart_txd_o,
     uart_tx_busy_reg_0,
     Q,
-    \uart_tx_bitcnt_reg[3]_0 ,
-    E,
+    \uart_tx_baud_cnt_reg[7]_0 ,
     \clk_div_ff_reg[5] ,
     \clk_div_ff_reg[2] ,
     \clk_div_ff_reg[1] ,
     \clk_div_ff_reg[0] ,
-    \clk_div_ff_reg[9] ,
-    \clk_div_ff_reg[6] ,
     \clk_div_ff_reg[11] ,
     \clk_div_ff_reg[10] ,
+    \clk_div_ff_reg[9] ,
+    \clk_div_ff_reg[6] ,
     uart_rx_busy_ff_reg_0,
-    \data_o_reg[12]_0 ,
     \data_o_reg[11]_0 ,
     \data_o_reg[10]_0 ,
-    \data_o_reg[9]_0 ,
-    \data_o_reg[8]_0 ,
     \uart_tx_sreg_reg[7]_0 ,
     \uart_tx_sreg_reg[8]_0 ,
     clk_i,
-    \data_o_reg[15]_0 ,
-    \data_o_reg[12]_1 ,
-    \data_o_reg[9]_1 ,
-    \data_o_reg[8]_1 ,
-    uart_tx_busy_reg_1,
+    \data_o_reg[15]_1 ,
+    \data_o_reg[12]_0 ,
+    \data_o_reg[9]_0 ,
+    \data_o_reg[8]_0 ,
+    uart_tx_busy0,
     \data_o_reg[0]_0 ,
-    \pwm_cnt[7]_i_5 ,
+    \nco_prsc_tick[0]_i_3 ,
     D,
     \irq_buf_reg[1] ,
     timer_rdata,
-    \FSM_sequential_state[0]_i_13 ,
-    \FSM_sequential_state[0]_i_13_0 ,
-    \ctrl[8]_i_9 ,
+    \ir_reg[11] ,
+    \ir_reg[11]_0 ,
+    E,
     \ctrl_reg[14]_0 ,
-    \cpu_bus[wdata] ,
     uart_rxd_i,
     \uart_rx_avail_reg[1]_0 ,
     \uart_rx_avail_reg[1]_1 ,
     \uart_tx_sreg_reg[7]_1 ,
     \uart_tx_sreg_reg[7]_2 );
-  output [15:0]uart_rdata;
+  output [13:0]\data_o_reg[15]_0 ;
   output uart_txd_o;
   output uart_tx_busy_reg_0;
   output [2:0]Q;
-  output \uart_tx_bitcnt_reg[3]_0 ;
-  output [0:0]E;
+  output \uart_tx_baud_cnt_reg[7]_0 ;
   output \clk_div_ff_reg[5] ;
   output \clk_div_ff_reg[2] ;
   output \clk_div_ff_reg[1] ;
   output \clk_div_ff_reg[0] ;
-  output \clk_div_ff_reg[9] ;
-  output \clk_div_ff_reg[6] ;
   output \clk_div_ff_reg[11] ;
   output \clk_div_ff_reg[10] ;
+  output \clk_div_ff_reg[9] ;
+  output \clk_div_ff_reg[6] ;
   output uart_rx_busy_ff_reg_0;
-  output \data_o_reg[12]_0 ;
   output \data_o_reg[11]_0 ;
   output \data_o_reg[10]_0 ;
-  output \data_o_reg[9]_0 ;
-  output \data_o_reg[8]_0 ;
   output [5:0]\uart_tx_sreg_reg[7]_0 ;
   output \uart_tx_sreg_reg[8]_0 ;
   input clk_i;
-  input \data_o_reg[15]_0 ;
-  input \data_o_reg[12]_1 ;
-  input \data_o_reg[9]_1 ;
-  input \data_o_reg[8]_1 ;
-  input uart_tx_busy_reg_1;
+  input \data_o_reg[15]_1 ;
+  input \data_o_reg[12]_0 ;
+  input \data_o_reg[9]_0 ;
+  input \data_o_reg[8]_0 ;
+  input uart_tx_busy0;
   input \data_o_reg[0]_0 ;
-  input [7:0]\pwm_cnt[7]_i_5 ;
+  input [7:0]\nco_prsc_tick[0]_i_3 ;
   input [7:0]D;
   input [0:0]\irq_buf_reg[1] ;
-  input [3:0]timer_rdata;
-  input [1:0]\FSM_sequential_state[0]_i_13 ;
-  input [4:0]\FSM_sequential_state[0]_i_13_0 ;
-  input [3:0]\ctrl[8]_i_9 ;
-  input [0:0]\ctrl_reg[14]_0 ;
-  input [13:0]\cpu_bus[wdata] ;
+  input [1:0]timer_rdata;
+  input [1:0]\ir_reg[11] ;
+  input [1:0]\ir_reg[11]_0 ;
+  input [0:0]E;
+  input [13:0]\ctrl_reg[14]_0 ;
   input uart_rxd_i;
   input \uart_rx_avail_reg[1]_0 ;
   input \uart_rx_avail_reg[1]_1 ;
@@ -14632,8 +14731,6 @@ module SystemTop_neo430_uart
 
   wire [7:0]D;
   wire [0:0]E;
-  wire [1:0]\FSM_sequential_state[0]_i_13 ;
-  wire [4:0]\FSM_sequential_state[0]_i_13_0 ;
   wire [2:0]Q;
   wire \clk_div_ff_reg[0] ;
   wire \clk_div_ff_reg[10] ;
@@ -14644,19 +14741,17 @@ module SystemTop_neo430_uart
   wire \clk_div_ff_reg[6] ;
   wire \clk_div_ff_reg[9] ;
   wire clk_i;
-  wire [13:0]\cpu_bus[wdata] ;
-  wire [3:0]\ctrl[8]_i_9 ;
-  wire [0:0]\ctrl_reg[14]_0 ;
+  wire [13:0]\ctrl_reg[14]_0 ;
   wire \ctrl_reg_n_0_[0] ;
-  wire \data_o[0]_i_1__0_n_0 ;
+  wire \data_o[0]_i_1_n_0 ;
   wire \data_o[10]_i_1__0_n_0 ;
-  wire \data_o[11]_i_1__0_n_0 ;
-  wire \data_o[13]_i_1__0_n_0 ;
+  wire \data_o[11]_i_1_n_0 ;
+  wire \data_o[13]_i_1_n_0 ;
   wire \data_o[14]_i_1_n_0 ;
   wire \data_o[15]_i_2_n_0 ;
-  wire \data_o[1]_i_1__0_n_0 ;
+  wire \data_o[1]_i_1_n_0 ;
   wire \data_o[2]_i_1__0_n_0 ;
-  wire \data_o[3]_i_1__0_n_0 ;
+  wire \data_o[3]_i_1_n_0 ;
   wire \data_o[4]_i_1_n_0 ;
   wire \data_o[5]_i_1_n_0 ;
   wire \data_o[6]_i_1__0_n_0 ;
@@ -14665,24 +14760,24 @@ module SystemTop_neo430_uart
   wire \data_o_reg[10]_0 ;
   wire \data_o_reg[11]_0 ;
   wire \data_o_reg[12]_0 ;
-  wire \data_o_reg[12]_1 ;
-  wire \data_o_reg[15]_0 ;
+  wire [13:0]\data_o_reg[15]_0 ;
+  wire \data_o_reg[15]_1 ;
   wire \data_o_reg[8]_0 ;
-  wire \data_o_reg[8]_1 ;
   wire \data_o_reg[9]_0 ;
-  wire \data_o_reg[9]_1 ;
+  wire [1:0]\ir_reg[11] ;
+  wire [1:0]\ir_reg[11]_0 ;
   wire [0:0]\irq_buf_reg[1] ;
   wire [3:0]minusOp;
   wire [3:0]minusOp__0;
+  wire [7:0]\nco_prsc_tick[0]_i_3 ;
   wire [2:2]p_0_in;
   wire p_0_in11_in;
   wire [3:2]p_0_in__0;
   wire [7:0]p_1_in;
   wire p_1_in13_in;
   wire [6:0]p_2_in;
-  wire [7:0]\pwm_cnt[7]_i_5 ;
-  wire [3:0]timer_rdata;
-  wire [15:0]uart_rdata;
+  wire [1:0]timer_rdata;
+  wire [11:10]uart_rdata;
   wire uart_rx_avail19_out;
   wire \uart_rx_avail[0]_i_1_n_0 ;
   wire \uart_rx_avail[1]_i_1_n_0 ;
@@ -14705,15 +14800,14 @@ module SystemTop_neo430_uart
   wire \uart_rx_baud_cnt[4]_i_2_n_0 ;
   wire \uart_rx_baud_cnt[5]_i_1_n_0 ;
   wire \uart_rx_baud_cnt[5]_i_2_n_0 ;
-  wire \uart_rx_baud_cnt[5]_i_3_n_0 ;
-  wire \uart_rx_baud_cnt[5]_i_4_n_0 ;
   wire \uart_rx_baud_cnt[6]_i_1_n_0 ;
-  wire \uart_rx_baud_cnt[6]_i_2_n_0 ;
   wire \uart_rx_baud_cnt[7]_i_1_n_0 ;
   wire \uart_rx_baud_cnt[7]_i_2_n_0 ;
   wire \uart_rx_baud_cnt[7]_i_4_n_0 ;
   wire \uart_rx_baud_cnt[7]_i_5_n_0 ;
   wire \uart_rx_baud_cnt[7]_i_6_n_0 ;
+  wire \uart_rx_baud_cnt[7]_i_7_n_0 ;
+  wire \uart_rx_baud_cnt[7]_i_8_n_0 ;
   wire \uart_rx_baud_cnt_reg[7]_i_3_n_0 ;
   wire \uart_rx_baud_cnt_reg_n_0_[0] ;
   wire \uart_rx_baud_cnt_reg_n_0_[1] ;
@@ -14730,10 +14824,12 @@ module SystemTop_neo430_uart
   wire uart_rx_busy_ff;
   wire uart_rx_busy_ff_reg_0;
   wire uart_rx_busy_i_1_n_0;
-  wire uart_rx_busy_i_2_n_0;
   wire uart_rx_busy_reg_n_0;
   wire \uart_rx_reg[7]_i_1_n_0 ;
   wire \uart_rx_reg[7]_i_2_n_0 ;
+  wire \uart_rx_reg[7]_i_3_n_0 ;
+  wire \uart_rx_reg[7]_i_4_n_0 ;
+  wire \uart_rx_reg[7]_i_5_n_0 ;
   wire \uart_rx_reg_reg_n_0_[0] ;
   wire \uart_rx_reg_reg_n_0_[1] ;
   wire \uart_rx_reg_reg_n_0_[2] ;
@@ -14751,21 +14847,17 @@ module SystemTop_neo430_uart
   wire \uart_tx_baud_cnt[2]_i_2_n_0 ;
   wire \uart_tx_baud_cnt[2]_i_3_n_0 ;
   wire \uart_tx_baud_cnt[3]_i_1_n_0 ;
-  wire \uart_tx_baud_cnt[3]_i_2_n_0 ;
   wire \uart_tx_baud_cnt[4]_i_1_n_0 ;
+  wire \uart_tx_baud_cnt[4]_i_2_n_0 ;
+  wire \uart_tx_baud_cnt[4]_i_3_n_0 ;
   wire \uart_tx_baud_cnt[5]_i_1_n_0 ;
   wire \uart_tx_baud_cnt[5]_i_2_n_0 ;
   wire \uart_tx_baud_cnt[5]_i_3_n_0 ;
-  wire \uart_tx_baud_cnt[5]_i_4_n_0 ;
-  wire \uart_tx_baud_cnt[5]_i_5_n_0 ;
-  wire \uart_tx_baud_cnt[5]_i_6_n_0 ;
   wire \uart_tx_baud_cnt[6]_i_1_n_0 ;
-  wire \uart_tx_baud_cnt[6]_i_2_n_0 ;
-  wire \uart_tx_baud_cnt[6]_i_3_n_0 ;
   wire \uart_tx_baud_cnt[7]_i_1_n_0 ;
   wire \uart_tx_baud_cnt[7]_i_2_n_0 ;
   wire \uart_tx_baud_cnt[7]_i_3_n_0 ;
-  wire \uart_tx_baud_cnt[7]_i_4_n_0 ;
+  wire \uart_tx_baud_cnt_reg[7]_0 ;
   wire \uart_tx_baud_cnt_reg_n_0_[0] ;
   wire \uart_tx_baud_cnt_reg_n_0_[1] ;
   wire \uart_tx_baud_cnt_reg_n_0_[2] ;
@@ -14776,9 +14868,10 @@ module SystemTop_neo430_uart
   wire \uart_tx_baud_cnt_reg_n_0_[7] ;
   wire \uart_tx_bitcnt[1]_i_1_n_0 ;
   wire [3:0]uart_tx_bitcnt_reg;
-  wire \uart_tx_bitcnt_reg[3]_0 ;
+  wire uart_tx_busy0;
+  wire uart_tx_busy_i_1_n_0;
+  wire uart_tx_busy_i_3_n_0;
   wire uart_tx_busy_reg_0;
-  wire uart_tx_busy_reg_1;
   wire uart_tx_done0;
   wire uart_tx_done_i_1_n_0;
   wire uart_tx_done_reg_n_0;
@@ -14792,168 +14885,128 @@ module SystemTop_neo430_uart
   wire \uart_tx_sreg_reg_n_0_[1] ;
   wire uart_txd_o;
 
-  LUT4 #(
-    .INIT(16'h0001)) 
-    \FSM_sequential_state[0]_i_14 
-       (.I0(uart_rdata[12]),
-        .I1(timer_rdata[3]),
-        .I2(\FSM_sequential_state[0]_i_13 [1]),
-        .I3(\FSM_sequential_state[0]_i_13_0 [4]),
-        .O(\data_o_reg[12]_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \FSM_sequential_state[4]_i_16 
-       (.I0(uart_rdata[11]),
-        .I1(timer_rdata[2]),
-        .I2(\FSM_sequential_state[0]_i_13_0 [3]),
-        .I3(\ctrl[8]_i_9 [3]),
-        .O(\data_o_reg[11]_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \FSM_sequential_state[4]_i_17 
-       (.I0(uart_rdata[10]),
-        .I1(timer_rdata[1]),
-        .I2(\FSM_sequential_state[0]_i_13_0 [2]),
-        .I3(\ctrl[8]_i_9 [2]),
-        .O(\data_o_reg[10]_0 ));
-  LUT4 #(
-    .INIT(16'h0001)) 
-    \FSM_sequential_state[4]_i_18 
-       (.I0(uart_rdata[9]),
-        .I1(\FSM_sequential_state[0]_i_13 [0]),
-        .I2(\FSM_sequential_state[0]_i_13_0 [1]),
-        .I3(\ctrl[8]_i_9 [0]),
-        .O(\data_o_reg[9]_0 ));
-  LUT4 #(
-    .INIT(16'h0001)) 
-    \FSM_sequential_state[4]_i_19 
-       (.I0(uart_rdata[8]),
-        .I1(timer_rdata[0]),
-        .I2(\FSM_sequential_state[0]_i_13_0 [0]),
-        .I3(\ctrl[8]_i_9 [1]),
-        .O(\data_o_reg[8]_0 ));
   FDRE \ctrl_reg[0] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [0]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [0]),
         .Q(\ctrl_reg_n_0_[0] ),
         .R(1'b0));
   FDRE \ctrl_reg[10] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [10]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [10]),
         .Q(p_0_in),
         .R(1'b0));
   FDRE \ctrl_reg[12] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [11]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [11]),
         .Q(Q[2]),
         .R(1'b0));
   FDRE \ctrl_reg[13] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [12]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [12]),
         .Q(p_1_in13_in),
         .R(1'b0));
   FDRE \ctrl_reg[14] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [13]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [13]),
         .Q(p_0_in11_in),
         .R(1'b0));
   FDRE \ctrl_reg[1] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [1]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [1]),
         .Q(p_2_in[0]),
         .R(1'b0));
   FDRE \ctrl_reg[2] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [2]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [2]),
         .Q(p_2_in[1]),
         .R(1'b0));
   FDRE \ctrl_reg[3] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [3]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [3]),
         .Q(p_2_in[2]),
         .R(1'b0));
   FDRE \ctrl_reg[4] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [4]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [4]),
         .Q(p_2_in[3]),
         .R(1'b0));
   FDRE \ctrl_reg[5] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [5]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [5]),
         .Q(p_2_in[4]),
         .R(1'b0));
   FDRE \ctrl_reg[6] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [6]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [6]),
         .Q(p_2_in[5]),
         .R(1'b0));
   FDRE \ctrl_reg[7] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [7]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [7]),
         .Q(p_2_in[6]),
         .R(1'b0));
   FDRE \ctrl_reg[8] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [8]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [8]),
         .Q(Q[0]),
         .R(1'b0));
   FDRE \ctrl_reg[9] 
        (.C(clk_i),
-        .CE(\ctrl_reg[14]_0 ),
-        .D(\cpu_bus[wdata] [9]),
+        .CE(E),
+        .D(\ctrl_reg[14]_0 [9]),
         .Q(Q[1]),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair117" *) 
+  (* SOFT_HLUTNM = "soft_lutpair119" *) 
   LUT3 #(
     .INIT(8'hB8)) 
-    \data_o[0]_i_1__0 
+    \data_o[0]_i_1 
        (.I0(\ctrl_reg_n_0_[0] ),
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_reg_reg_n_0_[0] ),
-        .O(\data_o[0]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair121" *) 
+        .O(\data_o[0]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair123" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_o[10]_i_1__0 
        (.I0(p_0_in),
         .I1(\data_o_reg[0]_0 ),
         .O(\data_o[10]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair116" *) 
+  (* SOFT_HLUTNM = "soft_lutpair118" *) 
   LUT3 #(
     .INIT(8'h80)) 
-    \data_o[11]_i_1__0 
+    \data_o[11]_i_1 
        (.I0(\data_o_reg[0]_0 ),
         .I1(\uart_rx_avail_reg_n_0_[1] ),
         .I2(\uart_rx_avail_reg_n_0_[0] ),
-        .O(\data_o[11]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair124" *) 
+        .O(\data_o[11]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair126" *) 
   LUT2 #(
     .INIT(4'h8)) 
-    \data_o[13]_i_1__0 
+    \data_o[13]_i_1 
        (.I0(p_1_in13_in),
         .I1(\data_o_reg[0]_0 ),
-        .O(\data_o[13]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair124" *) 
+        .O(\data_o[13]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair126" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \data_o[14]_i_1 
        (.I0(p_0_in11_in),
         .I1(\data_o_reg[0]_0 ),
         .O(\data_o[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair121" *) 
+  (* SOFT_HLUTNM = "soft_lutpair123" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \data_o[15]_i_2 
@@ -14961,15 +15014,15 @@ module SystemTop_neo430_uart
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_avail_reg_n_0_[0] ),
         .O(\data_o[15]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair117" *) 
+  (* SOFT_HLUTNM = "soft_lutpair119" *) 
   LUT3 #(
     .INIT(8'hB8)) 
-    \data_o[1]_i_1__0 
+    \data_o[1]_i_1 
        (.I0(p_2_in[0]),
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_reg_reg_n_0_[1] ),
-        .O(\data_o[1]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair118" *) 
+        .O(\data_o[1]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair120" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \data_o[2]_i_1__0 
@@ -14977,15 +15030,15 @@ module SystemTop_neo430_uart
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_reg_reg_n_0_[2] ),
         .O(\data_o[2]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair118" *) 
+  (* SOFT_HLUTNM = "soft_lutpair120" *) 
   LUT3 #(
     .INIT(8'hB8)) 
-    \data_o[3]_i_1__0 
+    \data_o[3]_i_1 
        (.I0(p_2_in[2]),
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_reg_reg_n_0_[3] ),
-        .O(\data_o[3]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair119" *) 
+        .O(\data_o[3]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair121" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \data_o[4]_i_1 
@@ -14993,7 +15046,7 @@ module SystemTop_neo430_uart
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_reg_reg_n_0_[4] ),
         .O(\data_o[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair119" *) 
+  (* SOFT_HLUTNM = "soft_lutpair121" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \data_o[5]_i_1 
@@ -15001,7 +15054,7 @@ module SystemTop_neo430_uart
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_reg_reg_n_0_[5] ),
         .O(\data_o[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair120" *) 
+  (* SOFT_HLUTNM = "soft_lutpair122" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \data_o[6]_i_1__0 
@@ -15009,7 +15062,7 @@ module SystemTop_neo430_uart
         .I1(\data_o_reg[0]_0 ),
         .I2(\uart_rx_reg_reg_n_0_[6] ),
         .O(\data_o[6]_i_1__0_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair120" *) 
+  (* SOFT_HLUTNM = "soft_lutpair122" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \data_o[7]_i_1 
@@ -15020,99 +15073,115 @@ module SystemTop_neo430_uart
   FDRE \data_o_reg[0] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o[0]_i_1__0_n_0 ),
-        .Q(uart_rdata[0]),
-        .R(\data_o_reg[15]_0 ));
+        .D(\data_o[0]_i_1_n_0 ),
+        .Q(\data_o_reg[15]_0 [0]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[10] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[10]_i_1__0_n_0 ),
         .Q(uart_rdata[10]),
-        .R(\data_o_reg[15]_0 ));
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[11] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o[11]_i_1__0_n_0 ),
+        .D(\data_o[11]_i_1_n_0 ),
         .Q(uart_rdata[11]),
-        .R(\data_o_reg[15]_0 ));
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[12] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o_reg[12]_1 ),
-        .Q(uart_rdata[12]),
-        .R(\data_o_reg[15]_0 ));
+        .D(\data_o_reg[12]_0 ),
+        .Q(\data_o_reg[15]_0 [10]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[13] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o[13]_i_1__0_n_0 ),
-        .Q(uart_rdata[13]),
-        .R(\data_o_reg[15]_0 ));
+        .D(\data_o[13]_i_1_n_0 ),
+        .Q(\data_o_reg[15]_0 [11]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[14] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[14]_i_1_n_0 ),
-        .Q(uart_rdata[14]),
-        .R(\data_o_reg[15]_0 ));
+        .Q(\data_o_reg[15]_0 [12]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[15] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[15]_i_2_n_0 ),
-        .Q(uart_rdata[15]),
-        .R(\data_o_reg[15]_0 ));
+        .Q(\data_o_reg[15]_0 [13]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[1] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o[1]_i_1__0_n_0 ),
-        .Q(uart_rdata[1]),
-        .R(\data_o_reg[15]_0 ));
+        .D(\data_o[1]_i_1_n_0 ),
+        .Q(\data_o_reg[15]_0 [1]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[2] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[2]_i_1__0_n_0 ),
-        .Q(uart_rdata[2]),
-        .R(\data_o_reg[15]_0 ));
+        .Q(\data_o_reg[15]_0 [2]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[3] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o[3]_i_1__0_n_0 ),
-        .Q(uart_rdata[3]),
-        .R(\data_o_reg[15]_0 ));
+        .D(\data_o[3]_i_1_n_0 ),
+        .Q(\data_o_reg[15]_0 [3]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[4] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[4]_i_1_n_0 ),
-        .Q(uart_rdata[4]),
-        .R(\data_o_reg[15]_0 ));
+        .Q(\data_o_reg[15]_0 [4]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[5] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[5]_i_1_n_0 ),
-        .Q(uart_rdata[5]),
-        .R(\data_o_reg[15]_0 ));
+        .Q(\data_o_reg[15]_0 [5]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[6] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[6]_i_1__0_n_0 ),
-        .Q(uart_rdata[6]),
-        .R(\data_o_reg[15]_0 ));
+        .Q(\data_o_reg[15]_0 [6]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[7] 
        (.C(clk_i),
         .CE(1'b1),
         .D(\data_o[7]_i_1_n_0 ),
-        .Q(uart_rdata[7]),
-        .R(\data_o_reg[15]_0 ));
+        .Q(\data_o_reg[15]_0 [7]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[8] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o_reg[8]_1 ),
-        .Q(uart_rdata[8]),
-        .R(\data_o_reg[15]_0 ));
+        .D(\data_o_reg[8]_0 ),
+        .Q(\data_o_reg[15]_0 [8]),
+        .R(\data_o_reg[15]_1 ));
   FDRE \data_o_reg[9] 
        (.C(clk_i),
         .CE(1'b1),
-        .D(\data_o_reg[9]_1 ),
-        .Q(uart_rdata[9]),
-        .R(\data_o_reg[15]_0 ));
+        .D(\data_o_reg[9]_0 ),
+        .Q(\data_o_reg[15]_0 [9]),
+        .R(\data_o_reg[15]_1 ));
+  LUT4 #(
+    .INIT(16'h0001)) 
+    \ir[10]_i_3 
+       (.I0(uart_rdata[10]),
+        .I1(timer_rdata[0]),
+        .I2(\ir_reg[11] [0]),
+        .I3(\ir_reg[11]_0 [0]),
+        .O(\data_o_reg[10]_0 ));
+  LUT4 #(
+    .INIT(16'h0001)) 
+    \ir[11]_i_3 
+       (.I0(uart_rdata[11]),
+        .I1(timer_rdata[1]),
+        .I2(\ir_reg[11] [1]),
+        .I3(\ir_reg[11]_0 [1]),
+        .O(\data_o_reg[11]_0 ));
   LUT6 #(
     .INIT(64'h0000000000DFDFDF)) 
     \irq_buf[1]_i_2 
@@ -15126,53 +15195,53 @@ module SystemTop_neo430_uart
   LUT2 #(
     .INIT(4'hB)) 
     prsc_tick_i_10
-       (.I0(\pwm_cnt[7]_i_5 [5]),
-        .I1(D[5]),
-        .O(\clk_div_ff_reg[9] ));
-  LUT2 #(
-    .INIT(4'hB)) 
-    prsc_tick_i_11
-       (.I0(\pwm_cnt[7]_i_5 [4]),
-        .I1(D[4]),
-        .O(\clk_div_ff_reg[6] ));
-  LUT2 #(
-    .INIT(4'hB)) 
-    prsc_tick_i_4
-       (.I0(\pwm_cnt[7]_i_5 [3]),
-        .I1(D[3]),
-        .O(\clk_div_ff_reg[5] ));
-  LUT2 #(
-    .INIT(4'hB)) 
-    prsc_tick_i_5
-       (.I0(\pwm_cnt[7]_i_5 [2]),
-        .I1(D[2]),
-        .O(\clk_div_ff_reg[2] ));
-  LUT2 #(
-    .INIT(4'hB)) 
-    prsc_tick_i_6
-       (.I0(\pwm_cnt[7]_i_5 [1]),
-        .I1(D[1]),
-        .O(\clk_div_ff_reg[1] ));
-  LUT2 #(
-    .INIT(4'hB)) 
-    prsc_tick_i_7
-       (.I0(\pwm_cnt[7]_i_5 [0]),
-        .I1(D[0]),
-        .O(\clk_div_ff_reg[0] ));
-  LUT2 #(
-    .INIT(4'hB)) 
-    prsc_tick_i_8
-       (.I0(\pwm_cnt[7]_i_5 [7]),
+       (.I0(\nco_prsc_tick[0]_i_3 [7]),
         .I1(D[7]),
         .O(\clk_div_ff_reg[11] ));
   LUT2 #(
     .INIT(4'hB)) 
-    prsc_tick_i_9
-       (.I0(\pwm_cnt[7]_i_5 [6]),
+    prsc_tick_i_11
+       (.I0(\nco_prsc_tick[0]_i_3 [6]),
         .I1(D[6]),
         .O(\clk_div_ff_reg[10] ));
+  LUT2 #(
+    .INIT(4'hB)) 
+    prsc_tick_i_4
+       (.I0(\nco_prsc_tick[0]_i_3 [1]),
+        .I1(D[1]),
+        .O(\clk_div_ff_reg[1] ));
+  LUT2 #(
+    .INIT(4'hB)) 
+    prsc_tick_i_5
+       (.I0(\nco_prsc_tick[0]_i_3 [0]),
+        .I1(D[0]),
+        .O(\clk_div_ff_reg[0] ));
+  LUT2 #(
+    .INIT(4'hB)) 
+    prsc_tick_i_6
+       (.I0(\nco_prsc_tick[0]_i_3 [3]),
+        .I1(D[3]),
+        .O(\clk_div_ff_reg[5] ));
+  LUT2 #(
+    .INIT(4'hB)) 
+    prsc_tick_i_7
+       (.I0(\nco_prsc_tick[0]_i_3 [2]),
+        .I1(D[2]),
+        .O(\clk_div_ff_reg[2] ));
+  LUT2 #(
+    .INIT(4'hB)) 
+    prsc_tick_i_8
+       (.I0(\nco_prsc_tick[0]_i_3 [5]),
+        .I1(D[5]),
+        .O(\clk_div_ff_reg[9] ));
+  LUT2 #(
+    .INIT(4'hB)) 
+    prsc_tick_i_9
+       (.I0(\nco_prsc_tick[0]_i_3 [4]),
+        .I1(D[4]),
+        .O(\clk_div_ff_reg[6] ));
   LUT6 #(
-    .INIT(64'hE0E0E0E0E0E0E000)) 
+    .INIT(64'hE0E0E0E0E000E0E0)) 
     \uart_rx_avail[0]_i_1 
        (.I0(\uart_rx_avail_reg_n_0_[0] ),
         .I1(uart_rx_avail19_out),
@@ -15181,7 +15250,7 @@ module SystemTop_neo430_uart
         .I4(\uart_rx_avail_reg[1]_1 ),
         .I5(\uart_rx_avail[1]_i_5_n_0 ),
         .O(\uart_rx_avail[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair113" *) 
+  (* SOFT_HLUTNM = "soft_lutpair116" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \uart_rx_avail[0]_i_2 
@@ -15189,7 +15258,7 @@ module SystemTop_neo430_uart
         .I1(uart_rx_busy_reg_n_0),
         .O(uart_rx_avail19_out));
   LUT5 #(
-    .INIT(32'h88888880)) 
+    .INIT(32'h88888088)) 
     \uart_rx_avail[1]_i_1 
        (.I0(\uart_rx_avail[1]_i_2_n_0 ),
         .I1(Q[2]),
@@ -15197,7 +15266,7 @@ module SystemTop_neo430_uart
         .I3(\uart_rx_avail_reg[1]_1 ),
         .I4(\uart_rx_avail[1]_i_5_n_0 ),
         .O(\uart_rx_avail[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair113" *) 
+  (* SOFT_HLUTNM = "soft_lutpair116" *) 
   LUT4 #(
     .INIT(16'hFB08)) 
     \uart_rx_avail[1]_i_2 
@@ -15206,7 +15275,7 @@ module SystemTop_neo430_uart
         .I2(uart_rx_busy_reg_n_0),
         .I3(\uart_rx_avail_reg_n_0_[1] ),
         .O(\uart_rx_avail[1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair116" *) 
+  (* SOFT_HLUTNM = "soft_lutpair118" *) 
   LUT3 #(
     .INIT(8'hAB)) 
     \uart_rx_avail[1]_i_5 
@@ -15231,60 +15300,57 @@ module SystemTop_neo430_uart
     \uart_rx_baud_cnt[0]_i_1 
        (.I0(\uart_rx_baud_cnt_reg_n_0_[0] ),
         .I1(\ctrl_reg_n_0_[0] ),
-        .I2(\uart_rx_baud_cnt[2]_i_3_n_0 ),
+        .I2(\uart_rx_baud_cnt[2]_i_2_n_0 ),
         .I3(uart_rx_busy_reg_n_0),
         .I4(Q[2]),
         .I5(p_2_in[0]),
         .O(\uart_rx_baud_cnt[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair108" *) 
-  LUT4 #(
-    .INIT(16'hBF80)) 
-    \uart_rx_baud_cnt[1]_i_1 
-       (.I0(\uart_rx_baud_cnt[1]_i_2_n_0 ),
-        .I1(uart_rx_busy_reg_n_0),
-        .I2(Q[2]),
-        .I3(p_2_in[1]),
-        .O(\uart_rx_baud_cnt[1]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hC3C3C3C3C3C3C3C2)) 
-    \uart_rx_baud_cnt[1]_i_2 
-       (.I0(p_2_in[0]),
+    .INIT(64'hFF90FFFFFF900000)) 
+    \uart_rx_baud_cnt[1]_i_1 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[1] ),
         .I1(\uart_rx_baud_cnt_reg_n_0_[0] ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[1] ),
+        .I2(\uart_rx_baud_cnt[2]_i_2_n_0 ),
+        .I3(\uart_rx_baud_cnt[1]_i_2_n_0 ),
+        .I4(\uart_rx_baud_cnt[7]_i_4_n_0 ),
+        .I5(p_2_in[1]),
+        .O(\uart_rx_baud_cnt[1]_i_1_n_0 ));
+  LUT5 #(
+    .INIT(32'h00D00000)) 
+    \uart_rx_baud_cnt[1]_i_2 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[3] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[4] ),
+        .I2(p_2_in[0]),
         .I3(\uart_rx_baud_cnt[2]_i_4_n_0 ),
-        .I4(\uart_rx_baud_cnt_reg_n_0_[2] ),
-        .I5(\uart_rx_baud_cnt_reg_n_0_[3] ),
+        .I4(\uart_rx_baud_cnt[3]_i_2_n_0 ),
         .O(\uart_rx_baud_cnt[1]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h4544FFFF45444544)) 
+    .INIT(64'h3288FFFF32880000)) 
     \uart_rx_baud_cnt[2]_i_1 
        (.I0(\uart_rx_baud_cnt[2]_i_2_n_0 ),
-        .I1(\uart_rx_baud_cnt[2]_i_3_n_0 ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[0] ),
-        .I3(p_2_in[1]),
-        .I4(\uart_rx_baud_cnt[6]_i_2_n_0 ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[2] ),
+        .I2(p_2_in[1]),
+        .I3(\uart_rx_baud_cnt[2]_i_3_n_0 ),
+        .I4(\uart_rx_baud_cnt[7]_i_4_n_0 ),
         .I5(p_2_in[2]),
         .O(\uart_rx_baud_cnt[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair107" *) 
-  LUT5 #(
-    .INIT(32'h1EFFFFFF)) 
-    \uart_rx_baud_cnt[2]_i_2 
-       (.I0(\uart_rx_baud_cnt_reg_n_0_[0] ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[1] ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[2] ),
-        .I3(Q[2]),
-        .I4(uart_rx_busy_reg_n_0),
-        .O(\uart_rx_baud_cnt[2]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair109" *) 
+  (* SOFT_HLUTNM = "soft_lutpair115" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
-    \uart_rx_baud_cnt[2]_i_3 
-       (.I0(\uart_rx_baud_cnt[2]_i_4_n_0 ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[1] ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[2] ),
+    \uart_rx_baud_cnt[2]_i_2 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[1] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[2] ),
+        .I2(\uart_rx_baud_cnt[2]_i_4_n_0 ),
         .I3(\uart_rx_baud_cnt_reg_n_0_[3] ),
+        .O(\uart_rx_baud_cnt[2]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair115" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    \uart_rx_baud_cnt[2]_i_3 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[1] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[0] ),
         .O(\uart_rx_baud_cnt[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair110" *) 
+  (* SOFT_HLUTNM = "soft_lutpair112" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     \uart_rx_baud_cnt[2]_i_4 
@@ -15294,96 +15360,72 @@ module SystemTop_neo430_uart
         .I3(\uart_rx_baud_cnt_reg_n_0_[7] ),
         .O(\uart_rx_baud_cnt[2]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'h2EE22EE22EE22222)) 
+    .INIT(64'h6660FFFF66600000)) 
     \uart_rx_baud_cnt[3]_i_1 
-       (.I0(p_2_in[3]),
-        .I1(\uart_rx_baud_cnt[6]_i_2_n_0 ),
-        .I2(\uart_rx_baud_cnt[3]_i_2_n_0 ),
-        .I3(\uart_rx_baud_cnt_reg_n_0_[3] ),
-        .I4(p_2_in[2]),
-        .I5(\uart_rx_baud_cnt[4]_i_2_n_0 ),
+       (.I0(\uart_rx_baud_cnt[3]_i_2_n_0 ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[3] ),
+        .I2(p_2_in[2]),
+        .I3(\uart_rx_baud_cnt[7]_i_6_n_0 ),
+        .I4(\uart_rx_baud_cnt[7]_i_4_n_0 ),
+        .I5(p_2_in[3]),
         .O(\uart_rx_baud_cnt[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair107" *) 
+  (* SOFT_HLUTNM = "soft_lutpair114" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \uart_rx_baud_cnt[3]_i_2 
        (.I0(\uart_rx_baud_cnt_reg_n_0_[0] ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[2] ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[1] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[1] ),
+        .I2(\uart_rx_baud_cnt_reg_n_0_[2] ),
         .O(\uart_rx_baud_cnt[3]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h6660FFFF66600000)) 
     \uart_rx_baud_cnt[4]_i_1 
-       (.I0(\uart_rx_baud_cnt[5]_i_2_n_0 ),
+       (.I0(\uart_rx_baud_cnt[4]_i_2_n_0 ),
         .I1(\uart_rx_baud_cnt_reg_n_0_[4] ),
         .I2(p_2_in[3]),
-        .I3(\uart_rx_baud_cnt[4]_i_2_n_0 ),
-        .I4(\uart_rx_baud_cnt[6]_i_2_n_0 ),
+        .I3(\uart_rx_baud_cnt[7]_i_6_n_0 ),
+        .I4(\uart_rx_baud_cnt[7]_i_4_n_0 ),
         .I5(p_2_in[4]),
         .O(\uart_rx_baud_cnt[4]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFEFFFFFFFF)) 
-    \uart_rx_baud_cnt[4]_i_2 
-       (.I0(\uart_rx_baud_cnt_reg_n_0_[7] ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[6] ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[5] ),
-        .I3(\uart_rx_baud_cnt_reg_n_0_[4] ),
-        .I4(\uart_rx_baud_cnt_reg_n_0_[3] ),
-        .I5(\uart_rx_baud_cnt[3]_i_2_n_0 ),
-        .O(\uart_rx_baud_cnt[4]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hF300AAAAFFFFAAAA)) 
-    \uart_rx_baud_cnt[5]_i_1 
-       (.I0(p_2_in[5]),
-        .I1(\uart_rx_baud_cnt[5]_i_2_n_0 ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[4] ),
-        .I3(\uart_rx_baud_cnt_reg_n_0_[5] ),
-        .I4(\uart_rx_baud_cnt[6]_i_2_n_0 ),
-        .I5(\uart_rx_baud_cnt[5]_i_3_n_0 ),
-        .O(\uart_rx_baud_cnt[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair109" *) 
+  (* SOFT_HLUTNM = "soft_lutpair114" *) 
   LUT4 #(
     .INIT(16'h0001)) 
-    \uart_rx_baud_cnt[5]_i_2 
-       (.I0(\uart_rx_baud_cnt_reg_n_0_[1] ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[2] ),
+    \uart_rx_baud_cnt[4]_i_2 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[2] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[1] ),
         .I2(\uart_rx_baud_cnt_reg_n_0_[0] ),
         .I3(\uart_rx_baud_cnt_reg_n_0_[3] ),
-        .O(\uart_rx_baud_cnt[5]_i_2_n_0 ));
-  LUT5 #(
-    .INIT(32'hFF55FF57)) 
-    \uart_rx_baud_cnt[5]_i_3 
-       (.I0(\uart_rx_baud_cnt[3]_i_2_n_0 ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[6] ),
+        .O(\uart_rx_baud_cnt[4]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'hFF40FF40FF400000)) 
+    \uart_rx_baud_cnt[5]_i_1 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[6] ),
+        .I1(\uart_rx_baud_cnt[7]_i_5_n_0 ),
         .I2(p_2_in[4]),
-        .I3(\uart_rx_baud_cnt[5]_i_4_n_0 ),
-        .I4(\uart_rx_baud_cnt_reg_n_0_[7] ),
-        .O(\uart_rx_baud_cnt[5]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair110" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    \uart_rx_baud_cnt[5]_i_4 
-       (.I0(\uart_rx_baud_cnt_reg_n_0_[3] ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[4] ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[5] ),
-        .O(\uart_rx_baud_cnt[5]_i_4_n_0 ));
+        .I3(\uart_rx_baud_cnt[5]_i_2_n_0 ),
+        .I4(\uart_rx_baud_cnt[7]_i_4_n_0 ),
+        .I5(p_2_in[5]),
+        .O(\uart_rx_baud_cnt[5]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'hFF0F0FEFFF0FFF0F)) 
+    \uart_rx_baud_cnt[5]_i_2 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[7] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[6] ),
+        .I2(\uart_rx_baud_cnt[7]_i_4_n_0 ),
+        .I3(\uart_rx_baud_cnt_reg_n_0_[5] ),
+        .I4(\uart_rx_baud_cnt_reg_n_0_[4] ),
+        .I5(\uart_rx_baud_cnt[4]_i_2_n_0 ),
+        .O(\uart_rx_baud_cnt[5]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'h0FE0FFFF0FE00000)) 
     \uart_rx_baud_cnt[6]_i_1 
        (.I0(\uart_rx_baud_cnt_reg_n_0_[7] ),
         .I1(p_2_in[5]),
-        .I2(\uart_rx_baud_cnt[7]_i_4_n_0 ),
+        .I2(\uart_rx_baud_cnt[7]_i_5_n_0 ),
         .I3(\uart_rx_baud_cnt_reg_n_0_[6] ),
-        .I4(\uart_rx_baud_cnt[6]_i_2_n_0 ),
+        .I4(\uart_rx_baud_cnt[7]_i_4_n_0 ),
         .I5(p_2_in[6]),
         .O(\uart_rx_baud_cnt[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair108" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \uart_rx_baud_cnt[6]_i_2 
-       (.I0(uart_rx_busy_reg_n_0),
-        .I1(Q[2]),
-        .O(\uart_rx_baud_cnt[6]_i_2_n_0 ));
   LUT3 #(
     .INIT(8'hBF)) 
     \uart_rx_baud_cnt[7]_i_1 
@@ -15392,45 +15434,61 @@ module SystemTop_neo430_uart
         .I2(uart_rx_busy_reg_n_0),
         .O(\uart_rx_baud_cnt[7]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hC000C0C000800000)) 
+    .INIT(64'h8088AAAA80888088)) 
     \uart_rx_baud_cnt[7]_i_2 
-       (.I0(p_2_in[6]),
-        .I1(uart_rx_busy_reg_n_0),
-        .I2(Q[2]),
-        .I3(\uart_rx_baud_cnt_reg_n_0_[6] ),
-        .I4(\uart_rx_baud_cnt[7]_i_4_n_0 ),
-        .I5(\uart_rx_baud_cnt_reg_n_0_[7] ),
+       (.I0(\uart_rx_baud_cnt[7]_i_4_n_0 ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[7] ),
+        .I2(\uart_rx_baud_cnt_reg_n_0_[6] ),
+        .I3(\uart_rx_baud_cnt[7]_i_5_n_0 ),
+        .I4(\uart_rx_baud_cnt[7]_i_6_n_0 ),
+        .I5(p_2_in[6]),
         .O(\uart_rx_baud_cnt[7]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
+  (* SOFT_HLUTNM = "soft_lutpair113" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \uart_rx_baud_cnt[7]_i_4 
-       (.I0(\uart_rx_baud_cnt_reg_n_0_[1] ),
-        .I1(\uart_rx_baud_cnt_reg_n_0_[2] ),
-        .I2(\uart_rx_baud_cnt_reg_n_0_[0] ),
-        .I3(\uart_rx_baud_cnt_reg_n_0_[5] ),
-        .I4(\uart_rx_baud_cnt_reg_n_0_[4] ),
-        .I5(\uart_rx_baud_cnt_reg_n_0_[3] ),
+       (.I0(uart_rx_busy_reg_n_0),
+        .I1(Q[2]),
         .O(\uart_rx_baud_cnt[7]_i_4_n_0 ));
   LUT6 #(
-    .INIT(64'h553355330F000FFF)) 
+    .INIT(64'h0000000000000001)) 
     \uart_rx_baud_cnt[7]_i_5 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[3] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[0] ),
+        .I2(\uart_rx_baud_cnt_reg_n_0_[1] ),
+        .I3(\uart_rx_baud_cnt_reg_n_0_[2] ),
+        .I4(\uart_rx_baud_cnt_reg_n_0_[4] ),
+        .I5(\uart_rx_baud_cnt_reg_n_0_[5] ),
+        .O(\uart_rx_baud_cnt[7]_i_5_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFEFFFF)) 
+    \uart_rx_baud_cnt[7]_i_6 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[7] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[6] ),
+        .I2(\uart_rx_baud_cnt_reg_n_0_[5] ),
+        .I3(\uart_rx_baud_cnt_reg_n_0_[4] ),
+        .I4(\uart_rx_baud_cnt[4]_i_2_n_0 ),
+        .O(\uart_rx_baud_cnt[7]_i_6_n_0 ));
+  LUT6 #(
+    .INIT(64'h553355330F000FFF)) 
+    \uart_rx_baud_cnt[7]_i_7 
        (.I0(\clk_div_ff_reg[5] ),
         .I1(\clk_div_ff_reg[2] ),
         .I2(\clk_div_ff_reg[1] ),
         .I3(Q[0]),
         .I4(\clk_div_ff_reg[0] ),
         .I5(Q[1]),
-        .O(\uart_rx_baud_cnt[7]_i_5_n_0 ));
+        .O(\uart_rx_baud_cnt[7]_i_7_n_0 ));
   LUT6 #(
-    .INIT(64'h0F000FFF55335533)) 
-    \uart_rx_baud_cnt[7]_i_6 
-       (.I0(\clk_div_ff_reg[9] ),
-        .I1(\clk_div_ff_reg[6] ),
-        .I2(\clk_div_ff_reg[11] ),
+    .INIT(64'h553355330F000FFF)) 
+    \uart_rx_baud_cnt[7]_i_8 
+       (.I0(\clk_div_ff_reg[11] ),
+        .I1(\clk_div_ff_reg[10] ),
+        .I2(\clk_div_ff_reg[9] ),
         .I3(Q[0]),
-        .I4(\clk_div_ff_reg[10] ),
+        .I4(\clk_div_ff_reg[6] ),
         .I5(Q[1]),
-        .O(\uart_rx_baud_cnt[7]_i_6_n_0 ));
+        .O(\uart_rx_baud_cnt[7]_i_8_n_0 ));
   FDRE \uart_rx_baud_cnt_reg[0] 
        (.C(clk_i),
         .CE(\uart_rx_baud_cnt[7]_i_1_n_0 ),
@@ -15480,24 +15538,23 @@ module SystemTop_neo430_uart
         .Q(\uart_rx_baud_cnt_reg_n_0_[7] ),
         .R(1'b0));
   MUXF7 \uart_rx_baud_cnt_reg[7]_i_3 
-       (.I0(\uart_rx_baud_cnt[7]_i_5_n_0 ),
-        .I1(\uart_rx_baud_cnt[7]_i_6_n_0 ),
+       (.I0(\uart_rx_baud_cnt[7]_i_7_n_0 ),
+        .I1(\uart_rx_baud_cnt[7]_i_8_n_0 ),
         .O(\uart_rx_baud_cnt_reg[7]_i_3_n_0 ),
         .S(p_0_in));
-  (* SOFT_HLUTNM = "soft_lutpair114" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \uart_rx_bitcnt[0]_i_1 
        (.I0(uart_rx_bitcnt_reg[0]),
         .O(minusOp[0]));
-  (* SOFT_HLUTNM = "soft_lutpair122" *) 
+  (* SOFT_HLUTNM = "soft_lutpair124" *) 
   LUT2 #(
     .INIT(4'h9)) 
     \uart_rx_bitcnt[1]_i_1 
        (.I0(uart_rx_bitcnt_reg[1]),
         .I1(uart_rx_bitcnt_reg[0]),
         .O(\uart_rx_bitcnt[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair122" *) 
+  (* SOFT_HLUTNM = "soft_lutpair124" *) 
   LUT3 #(
     .INIT(8'hA9)) 
     \uart_rx_bitcnt[2]_i_1 
@@ -15511,13 +15568,17 @@ module SystemTop_neo430_uart
        (.I0(Q[2]),
         .I1(uart_rx_busy_reg_n_0),
         .O(uart_rx_busy1));
-  LUT2 #(
-    .INIT(4'h2)) 
+  LUT6 #(
+    .INIT(64'h0000000000000008)) 
     \uart_rx_bitcnt[3]_i_2 
        (.I0(\uart_rx_baud_cnt_reg[7]_i_3_n_0 ),
         .I1(\uart_rx_baud_cnt[4]_i_2_n_0 ),
+        .I2(\uart_rx_baud_cnt_reg_n_0_[4] ),
+        .I3(\uart_rx_baud_cnt_reg_n_0_[5] ),
+        .I4(\uart_rx_baud_cnt_reg_n_0_[6] ),
+        .I5(\uart_rx_baud_cnt_reg_n_0_[7] ),
         .O(\uart_rx_bitcnt[3]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair114" *) 
+  (* SOFT_HLUTNM = "soft_lutpair117" *) 
   LUT4 #(
     .INIT(16'hAAA9)) 
     \uart_rx_bitcnt[3]_i_3 
@@ -15561,21 +15622,11 @@ module SystemTop_neo430_uart
     uart_rx_busy_i_1
        (.I0(uart_rx_busy_reg_n_0),
         .I1(Q[2]),
-        .I2(uart_rx_busy_i_2_n_0),
+        .I2(\uart_rx_reg[7]_i_3_n_0 ),
         .I3(uart_rx_sync[0]),
         .I4(uart_rx_sync[2]),
         .I5(uart_rx_sync[1]),
         .O(uart_rx_busy_i_1_n_0));
-  LUT6 #(
-    .INIT(64'h0000000000000002)) 
-    uart_rx_busy_i_2
-       (.I0(\uart_rx_baud_cnt_reg[7]_i_3_n_0 ),
-        .I1(\uart_rx_baud_cnt[4]_i_2_n_0 ),
-        .I2(uart_rx_bitcnt_reg[0]),
-        .I3(uart_rx_bitcnt_reg[1]),
-        .I4(uart_rx_bitcnt_reg[2]),
-        .I5(uart_rx_bitcnt_reg[3]),
-        .O(uart_rx_busy_i_2_n_0));
   FDRE uart_rx_busy_reg
        (.C(clk_i),
         .CE(1'b1),
@@ -15587,15 +15638,40 @@ module SystemTop_neo430_uart
     \uart_rx_reg[7]_i_1 
        (.I0(Q[2]),
         .O(\uart_rx_reg[7]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h00000002)) 
+  LUT2 #(
+    .INIT(4'h8)) 
     \uart_rx_reg[7]_i_2 
-       (.I0(\uart_rx_sreg[8]_i_1_n_0 ),
-        .I1(uart_rx_bitcnt_reg[0]),
-        .I2(uart_rx_bitcnt_reg[1]),
-        .I3(uart_rx_bitcnt_reg[2]),
-        .I4(uart_rx_bitcnt_reg[3]),
+       (.I0(\uart_rx_reg[7]_i_3_n_0 ),
+        .I1(uart_rx_busy_reg_n_0),
         .O(\uart_rx_reg[7]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000800)) 
+    \uart_rx_reg[7]_i_3 
+       (.I0(\uart_rx_baud_cnt_reg[7]_i_3_n_0 ),
+        .I1(\uart_rx_reg[7]_i_4_n_0 ),
+        .I2(uart_rx_bitcnt_reg[3]),
+        .I3(\uart_rx_baud_cnt[3]_i_2_n_0 ),
+        .I4(\uart_rx_baud_cnt_reg_n_0_[5] ),
+        .I5(\uart_rx_reg[7]_i_5_n_0 ),
+        .O(\uart_rx_reg[7]_i_3_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair117" *) 
+  LUT3 #(
+    .INIT(8'h01)) 
+    \uart_rx_reg[7]_i_4 
+       (.I0(uart_rx_bitcnt_reg[0]),
+        .I1(uart_rx_bitcnt_reg[1]),
+        .I2(uart_rx_bitcnt_reg[2]),
+        .O(\uart_rx_reg[7]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair112" *) 
+  LUT5 #(
+    .INIT(32'hFFFFFFFE)) 
+    \uart_rx_reg[7]_i_5 
+       (.I0(\uart_rx_baud_cnt_reg_n_0_[3] ),
+        .I1(\uart_rx_baud_cnt_reg_n_0_[7] ),
+        .I2(\uart_rx_baud_cnt_reg_n_0_[6] ),
+        .I3(\uart_rx_baud_cnt_reg_n_0_[5] ),
+        .I4(\uart_rx_baud_cnt_reg_n_0_[4] ),
+        .O(\uart_rx_reg[7]_i_5_n_0 ));
   FDRE \uart_rx_reg_reg[0] 
        (.C(clk_i),
         .CE(\uart_rx_reg[7]_i_2_n_0 ),
@@ -15644,13 +15720,12 @@ module SystemTop_neo430_uart
         .D(p_1_in[7]),
         .Q(\uart_rx_reg_reg_n_0_[7] ),
         .R(\uart_rx_reg[7]_i_1_n_0 ));
-  LUT4 #(
-    .INIT(16'h2000)) 
+  LUT3 #(
+    .INIT(8'h80)) 
     \uart_rx_sreg[8]_i_1 
-       (.I0(\uart_rx_baud_cnt_reg[7]_i_3_n_0 ),
-        .I1(\uart_rx_baud_cnt[4]_i_2_n_0 ),
-        .I2(Q[2]),
-        .I3(uart_rx_busy_reg_n_0),
+       (.I0(\uart_rx_bitcnt[3]_i_2_n_0 ),
+        .I1(Q[2]),
+        .I2(uart_rx_busy_reg_n_0),
         .O(\uart_rx_sreg[8]_i_1_n_0 ));
   FDRE \uart_rx_sreg_reg[1] 
        (.C(clk_i),
@@ -15731,165 +15806,122 @@ module SystemTop_neo430_uart
         .Q(p_0_in__0[3]),
         .R(1'b0));
   LUT5 #(
-    .INIT(32'h0EEEEEEE)) 
+    .INIT(32'h7F7F7F00)) 
     \uart_tx_baud_cnt[0]_i_1 
-       (.I0(\uart_tx_baud_cnt[2]_i_3_n_0 ),
-        .I1(\ctrl_reg_n_0_[0] ),
+       (.I0(Q[2]),
+        .I1(uart_tx_busy_reg_0),
         .I2(\uart_tx_baud_cnt_reg_n_0_[0] ),
-        .I3(Q[2]),
-        .I4(uart_tx_busy_reg_0),
+        .I3(\uart_tx_baud_cnt[2]_i_2_n_0 ),
+        .I4(\ctrl_reg_n_0_[0] ),
         .O(\uart_tx_baud_cnt[0]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h8874B874B874B874)) 
+  LUT5 #(
+    .INIT(32'hF44F4444)) 
     \uart_tx_baud_cnt[1]_i_1 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[1] ),
-        .I1(\uart_tx_baud_cnt[2]_i_3_n_0 ),
-        .I2(p_2_in[0]),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[0] ),
-        .I4(Q[2]),
-        .I5(uart_tx_busy_reg_0),
+       (.I0(\uart_tx_baud_cnt[4]_i_3_n_0 ),
+        .I1(p_2_in[0]),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[0] ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[1] ),
+        .I4(\uart_tx_baud_cnt[2]_i_2_n_0 ),
         .O(\uart_tx_baud_cnt[1]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hF4F4F44F4444444C)) 
     \uart_tx_baud_cnt[2]_i_1 
-       (.I0(\uart_tx_baud_cnt[2]_i_2_n_0 ),
+       (.I0(\uart_tx_baud_cnt[5]_i_2_n_0 ),
         .I1(p_2_in[1]),
         .I2(\uart_tx_baud_cnt_reg_n_0_[2] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[0] ),
-        .I4(\uart_tx_baud_cnt_reg_n_0_[1] ),
-        .I5(\uart_tx_baud_cnt[2]_i_3_n_0 ),
-        .O(\uart_tx_baud_cnt[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair105" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \uart_tx_baud_cnt[2]_i_2 
-       (.I0(Q[2]),
-        .I1(uart_tx_busy_reg_0),
-        .O(\uart_tx_baud_cnt[2]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFE00000000)) 
-    \uart_tx_baud_cnt[2]_i_3 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[2] ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[3] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[1] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[7] ),
-        .I4(\uart_tx_baud_cnt[7]_i_4_n_0 ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[1] ),
+        .I4(\uart_tx_baud_cnt_reg_n_0_[0] ),
         .I5(\uart_tx_baud_cnt[2]_i_2_n_0 ),
+        .O(\uart_tx_baud_cnt[2]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'hAAAAAAA8AAAAAAAA)) 
+    \uart_tx_baud_cnt[2]_i_2 
+       (.I0(\uart_tx_baud_cnt[5]_i_2_n_0 ),
+        .I1(\uart_tx_baud_cnt_reg_n_0_[2] ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[1] ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[6] ),
+        .I4(\uart_tx_baud_cnt_reg_n_0_[7] ),
+        .I5(\uart_tx_baud_cnt[2]_i_3_n_0 ),
+        .O(\uart_tx_baud_cnt[2]_i_2_n_0 ));
+  LUT3 #(
+    .INIT(8'h01)) 
+    \uart_tx_baud_cnt[2]_i_3 
+       (.I0(\uart_tx_baud_cnt_reg_n_0_[3] ),
+        .I1(\uart_tx_baud_cnt_reg_n_0_[4] ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[5] ),
         .O(\uart_tx_baud_cnt[2]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'hAAA9FFFFAAA90000)) 
     \uart_tx_baud_cnt[3]_i_1 
        (.I0(\uart_tx_baud_cnt_reg_n_0_[3] ),
         .I1(\uart_tx_baud_cnt_reg_n_0_[2] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[1] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[0] ),
-        .I4(\uart_tx_baud_cnt[3]_i_2_n_0 ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[0] ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[1] ),
+        .I4(\uart_tx_baud_cnt[4]_i_3_n_0 ),
         .I5(p_2_in[2]),
         .O(\uart_tx_baud_cnt[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair106" *) 
-  LUT3 #(
-    .INIT(8'h80)) 
-    \uart_tx_baud_cnt[3]_i_2 
-       (.I0(\uart_tx_baud_cnt[6]_i_3_n_0 ),
-        .I1(uart_tx_busy_reg_0),
-        .I2(Q[2]),
-        .O(\uart_tx_baud_cnt[3]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h9FFFFFFF90000000)) 
+  LUT5 #(
+    .INIT(32'h9AFF9A00)) 
     \uart_tx_baud_cnt[4]_i_1 
        (.I0(\uart_tx_baud_cnt_reg_n_0_[4] ),
-        .I1(\uart_tx_baud_cnt[7]_i_3_n_0 ),
-        .I2(\uart_tx_baud_cnt[6]_i_3_n_0 ),
-        .I3(uart_tx_busy_reg_0),
-        .I4(Q[2]),
-        .I5(p_2_in[3]),
+        .I1(\uart_tx_baud_cnt_reg_n_0_[3] ),
+        .I2(\uart_tx_baud_cnt[4]_i_2_n_0 ),
+        .I3(\uart_tx_baud_cnt[4]_i_3_n_0 ),
+        .I4(p_2_in[3]),
         .O(\uart_tx_baud_cnt[4]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'hF800F8F8)) 
-    \uart_tx_baud_cnt[5]_i_1 
-       (.I0(Q[2]),
-        .I1(uart_tx_busy_reg_0),
-        .I2(p_2_in[4]),
-        .I3(\uart_tx_baud_cnt[5]_i_2_n_0 ),
-        .I4(\uart_tx_baud_cnt[5]_i_3_n_0 ),
-        .O(\uart_tx_baud_cnt[5]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFF5555FF5555FD)) 
-    \uart_tx_baud_cnt[5]_i_2 
-       (.I0(\uart_tx_baud_cnt[2]_i_2_n_0 ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[6] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[7] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[4] ),
-        .I4(\uart_tx_baud_cnt_reg_n_0_[5] ),
-        .I5(\uart_tx_baud_cnt[7]_i_3_n_0 ),
-        .O(\uart_tx_baud_cnt[5]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF4445FF45)) 
-    \uart_tx_baud_cnt[5]_i_3 
-       (.I0(\uart_tx_baud_cnt[5]_i_4_n_0 ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[7] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[6] ),
-        .I3(\uart_tx_baud_cnt[5]_i_5_n_0 ),
-        .I4(p_2_in[4]),
-        .I5(\uart_tx_baud_cnt[5]_i_6_n_0 ),
-        .O(\uart_tx_baud_cnt[5]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \uart_tx_baud_cnt[5]_i_4 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[4] ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[5] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[1] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[0] ),
-        .I4(\uart_tx_baud_cnt_reg_n_0_[3] ),
-        .I5(\uart_tx_baud_cnt_reg_n_0_[2] ),
-        .O(\uart_tx_baud_cnt[5]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair111" *) 
   LUT3 #(
     .INIT(8'h01)) 
-    \uart_tx_baud_cnt[5]_i_5 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[0] ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[1] ),
+    \uart_tx_baud_cnt[4]_i_2 
+       (.I0(\uart_tx_baud_cnt_reg_n_0_[1] ),
+        .I1(\uart_tx_baud_cnt_reg_n_0_[0] ),
         .I2(\uart_tx_baud_cnt_reg_n_0_[2] ),
-        .O(\uart_tx_baud_cnt[5]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair112" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \uart_tx_baud_cnt[5]_i_6 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[3] ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[5] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[4] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[6] ),
-        .O(\uart_tx_baud_cnt[5]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair106" *) 
+        .O(\uart_tx_baud_cnt[4]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h7FFF5000)) 
-    \uart_tx_baud_cnt[6]_i_1 
-       (.I0(\uart_tx_baud_cnt[6]_i_2_n_0 ),
-        .I1(\uart_tx_baud_cnt[6]_i_3_n_0 ),
-        .I2(uart_tx_busy_reg_0),
-        .I3(Q[2]),
-        .I4(p_2_in[5]),
-        .O(\uart_tx_baud_cnt[6]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000FFFFFFFF1)) 
-    \uart_tx_baud_cnt[6]_i_2 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[7] ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[3] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[4] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[5] ),
+    .INIT(32'h88808888)) 
+    \uart_tx_baud_cnt[4]_i_3 
+       (.I0(uart_tx_busy_reg_0),
+        .I1(Q[2]),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[7] ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[6] ),
         .I4(\uart_tx_baud_cnt[7]_i_3_n_0 ),
-        .I5(\uart_tx_baud_cnt_reg_n_0_[6] ),
-        .O(\uart_tx_baud_cnt[6]_i_2_n_0 ));
+        .O(\uart_tx_baud_cnt[4]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \uart_tx_baud_cnt[6]_i_3 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[0] ),
+    .INIT(64'hDDDD8880FFFFAAAA)) 
+    \uart_tx_baud_cnt[5]_i_1 
+       (.I0(\uart_tx_baud_cnt[5]_i_2_n_0 ),
+        .I1(\uart_tx_baud_cnt[7]_i_3_n_0 ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[7] ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[6] ),
+        .I4(p_2_in[4]),
+        .I5(\uart_tx_baud_cnt[5]_i_3_n_0 ),
+        .O(\uart_tx_baud_cnt[5]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair110" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \uart_tx_baud_cnt[5]_i_2 
+       (.I0(Q[2]),
+        .I1(uart_tx_busy_reg_0),
+        .O(\uart_tx_baud_cnt[5]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h00000001FFFFFFFF)) 
+    \uart_tx_baud_cnt[5]_i_3 
+       (.I0(\uart_tx_baud_cnt_reg_n_0_[4] ),
         .I1(\uart_tx_baud_cnt_reg_n_0_[2] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[3] ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[0] ),
         .I3(\uart_tx_baud_cnt_reg_n_0_[1] ),
-        .I4(\uart_tx_baud_cnt_reg_n_0_[7] ),
-        .I5(\uart_tx_baud_cnt[7]_i_4_n_0 ),
-        .O(\uart_tx_baud_cnt[6]_i_3_n_0 ));
+        .I4(\uart_tx_baud_cnt_reg_n_0_[3] ),
+        .I5(\uart_tx_baud_cnt_reg_n_0_[5] ),
+        .O(\uart_tx_baud_cnt[5]_i_3_n_0 ));
+  LUT6 #(
+    .INIT(64'h3AAACAAA2AAACAAA)) 
+    \uart_tx_baud_cnt[6]_i_1 
+       (.I0(p_2_in[5]),
+        .I1(\uart_tx_baud_cnt_reg_n_0_[6] ),
+        .I2(Q[2]),
+        .I3(uart_tx_busy_reg_0),
+        .I4(\uart_tx_baud_cnt[7]_i_3_n_0 ),
+        .I5(\uart_tx_baud_cnt_reg_n_0_[7] ),
+        .O(\uart_tx_baud_cnt[6]_i_1_n_0 ));
   LUT3 #(
     .INIT(8'hBF)) 
     \uart_tx_baud_cnt[7]_i_1 
@@ -15898,32 +15930,25 @@ module SystemTop_neo430_uart
         .I2(Q[2]),
         .O(\uart_tx_baud_cnt[7]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFF78880777F0000)) 
+    .INIT(64'hF77FF7F780008080)) 
     \uart_tx_baud_cnt[7]_i_2 
        (.I0(uart_tx_busy_reg_0),
         .I1(Q[2]),
-        .I2(\uart_tx_baud_cnt[7]_i_3_n_0 ),
-        .I3(\uart_tx_baud_cnt[7]_i_4_n_0 ),
-        .I4(p_2_in[6]),
-        .I5(\uart_tx_baud_cnt_reg_n_0_[7] ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[7] ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[6] ),
+        .I4(\uart_tx_baud_cnt[7]_i_3_n_0 ),
+        .I5(p_2_in[6]),
         .O(\uart_tx_baud_cnt[7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair111" *) 
-  LUT4 #(
-    .INIT(16'hFFFE)) 
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
     \uart_tx_baud_cnt[7]_i_3 
        (.I0(\uart_tx_baud_cnt_reg_n_0_[2] ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[3] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[0] ),
-        .I3(\uart_tx_baud_cnt_reg_n_0_[1] ),
+        .I1(\uart_tx_baud_cnt_reg_n_0_[0] ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[1] ),
+        .I3(\uart_tx_baud_cnt_reg_n_0_[5] ),
+        .I4(\uart_tx_baud_cnt_reg_n_0_[4] ),
+        .I5(\uart_tx_baud_cnt_reg_n_0_[3] ),
         .O(\uart_tx_baud_cnt[7]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair112" *) 
-  LUT3 #(
-    .INIT(8'hFE)) 
-    \uart_tx_baud_cnt[7]_i_4 
-       (.I0(\uart_tx_baud_cnt_reg_n_0_[6] ),
-        .I1(\uart_tx_baud_cnt_reg_n_0_[4] ),
-        .I2(\uart_tx_baud_cnt_reg_n_0_[5] ),
-        .O(\uart_tx_baud_cnt[7]_i_4_n_0 ));
   FDRE \uart_tx_baud_cnt_reg[0] 
        (.C(clk_i),
         .CE(\uart_tx_baud_cnt[7]_i_1_n_0 ),
@@ -15972,20 +15997,19 @@ module SystemTop_neo430_uart
         .D(\uart_tx_baud_cnt[7]_i_2_n_0 ),
         .Q(\uart_tx_baud_cnt_reg_n_0_[7] ),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair123" *) 
+  (* SOFT_HLUTNM = "soft_lutpair125" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \uart_tx_bitcnt[0]_i_1 
        (.I0(uart_tx_bitcnt_reg[0]),
         .O(minusOp__0[0]));
-  (* SOFT_HLUTNM = "soft_lutpair115" *) 
   LUT2 #(
     .INIT(4'h9)) 
     \uart_tx_bitcnt[1]_i_1 
        (.I0(uart_tx_bitcnt_reg[1]),
         .I1(uart_tx_bitcnt_reg[0]),
         .O(\uart_tx_bitcnt[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair123" *) 
+  (* SOFT_HLUTNM = "soft_lutpair125" *) 
   LUT3 #(
     .INIT(8'hA9)) 
     \uart_tx_bitcnt[2]_i_1 
@@ -15999,13 +16023,15 @@ module SystemTop_neo430_uart
        (.I0(uart_tx_busy_reg_0),
         .I1(Q[2]),
         .O(uart_tx_done0));
-  LUT2 #(
-    .INIT(4'h2)) 
+  LUT4 #(
+    .INIT(16'h0200)) 
     \uart_tx_bitcnt[3]_i_2 
        (.I0(\uart_rx_baud_cnt_reg[7]_i_3_n_0 ),
-        .I1(\uart_tx_baud_cnt[6]_i_3_n_0 ),
-        .O(E));
-  (* SOFT_HLUTNM = "soft_lutpair115" *) 
+        .I1(\uart_tx_baud_cnt_reg_n_0_[7] ),
+        .I2(\uart_tx_baud_cnt_reg_n_0_[6] ),
+        .I3(\uart_tx_baud_cnt[7]_i_3_n_0 ),
+        .O(\uart_tx_baud_cnt_reg[7]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair111" *) 
   LUT4 #(
     .INIT(16'hAAA9)) 
     \uart_tx_bitcnt[3]_i_3 
@@ -16016,50 +16042,62 @@ module SystemTop_neo430_uart
         .O(minusOp__0[3]));
   FDRE \uart_tx_bitcnt_reg[0] 
        (.C(clk_i),
-        .CE(E),
+        .CE(\uart_tx_baud_cnt_reg[7]_0 ),
         .D(minusOp__0[0]),
         .Q(uart_tx_bitcnt_reg[0]),
         .R(uart_tx_done0));
   FDSE \uart_tx_bitcnt_reg[1] 
        (.C(clk_i),
-        .CE(E),
+        .CE(\uart_tx_baud_cnt_reg[7]_0 ),
         .D(\uart_tx_bitcnt[1]_i_1_n_0 ),
         .Q(uart_tx_bitcnt_reg[1]),
         .S(uart_tx_done0));
   FDRE \uart_tx_bitcnt_reg[2] 
        (.C(clk_i),
-        .CE(E),
+        .CE(\uart_tx_baud_cnt_reg[7]_0 ),
         .D(minusOp__0[2]),
         .Q(uart_tx_bitcnt_reg[2]),
         .R(uart_tx_done0));
   FDSE \uart_tx_bitcnt_reg[3] 
        (.C(clk_i),
-        .CE(E),
+        .CE(\uart_tx_baud_cnt_reg[7]_0 ),
         .D(minusOp__0[3]),
         .Q(uart_tx_bitcnt_reg[3]),
         .S(uart_tx_done0));
-  LUT6 #(
-    .INIT(64'h0000000000000002)) 
-    uart_tx_busy_i_2
-       (.I0(\uart_rx_baud_cnt_reg[7]_i_3_n_0 ),
-        .I1(uart_tx_bitcnt_reg[3]),
-        .I2(uart_tx_bitcnt_reg[2]),
-        .I3(uart_tx_bitcnt_reg[1]),
-        .I4(uart_tx_bitcnt_reg[0]),
-        .I5(\uart_tx_baud_cnt[6]_i_3_n_0 ),
-        .O(\uart_tx_bitcnt_reg[3]_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair113" *) 
+  LUT4 #(
+    .INIT(16'h2AEA)) 
+    uart_tx_busy_i_1
+       (.I0(uart_tx_busy0),
+        .I1(Q[2]),
+        .I2(uart_tx_busy_reg_0),
+        .I3(uart_tx_busy_i_3_n_0),
+        .O(uart_tx_busy_i_1_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair111" *) 
+  LUT5 #(
+    .INIT(32'h00000002)) 
+    uart_tx_busy_i_3
+       (.I0(\uart_tx_baud_cnt_reg[7]_0 ),
+        .I1(uart_tx_bitcnt_reg[0]),
+        .I2(uart_tx_bitcnt_reg[1]),
+        .I3(uart_tx_bitcnt_reg[2]),
+        .I4(uart_tx_bitcnt_reg[3]),
+        .O(uart_tx_busy_i_3_n_0));
   FDRE uart_tx_busy_reg
        (.C(clk_i),
         .CE(1'b1),
-        .D(uart_tx_busy_reg_1),
+        .D(uart_tx_busy_i_1_n_0),
         .Q(uart_tx_busy_reg_0),
         .R(1'b0));
-  LUT3 #(
-    .INIT(8'h80)) 
+  LUT6 #(
+    .INIT(64'h0001000000000000)) 
     uart_tx_done_i_1
-       (.I0(\uart_tx_bitcnt_reg[3]_0 ),
-        .I1(Q[2]),
-        .I2(uart_tx_busy_reg_0),
+       (.I0(uart_tx_bitcnt_reg[3]),
+        .I1(uart_tx_bitcnt_reg[2]),
+        .I2(uart_tx_bitcnt_reg[1]),
+        .I3(uart_tx_bitcnt_reg[0]),
+        .I4(\uart_tx_baud_cnt_reg[7]_0 ),
+        .I5(\uart_tx_baud_cnt[5]_i_2_n_0 ),
         .O(uart_tx_done_i_1_n_0));
   FDRE uart_tx_done_reg
        (.C(clk_i),
@@ -16073,12 +16111,12 @@ module SystemTop_neo430_uart
        (.I0(\uart_tx_sreg_reg_n_0_[1] ),
         .I1(uart_tx_busy_reg_0),
         .O(\uart_tx_sreg[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair105" *) 
+  (* SOFT_HLUTNM = "soft_lutpair110" *) 
   LUT5 #(
     .INIT(32'hFACACACA)) 
     \uart_tx_sreg[8]_i_1 
        (.I0(\uart_tx_sreg_reg[8]_0 ),
-        .I1(\cpu_bus[wdata] [7]),
+        .I1(\ctrl_reg[14]_0 [7]),
         .I2(\uart_tx_sreg_reg[7]_1 ),
         .I3(Q[2]),
         .I4(uart_tx_busy_reg_0),
@@ -16523,12 +16561,12 @@ module SystemTop_seven_seg_driver
 
   SystemTop_counter_up CNT_MODULE_SELECT_Inst
        (.D({CNT_MODULE_SELECT_Inst_n_0,\BCD_TO_SEG_Inst/seg_o }),
-        .Q({\DIGIT_REGs_Inst[2].REG_Inst_n_0 ,\DIGIT_REGs_Inst[2].REG_Inst_n_1 ,\DIGIT_REGs_Inst[2].REG_Inst_n_2 ,\DIGIT_REGs_Inst[2].REG_Inst_n_3 }),
+        .Q({\DIGIT_REGs_Inst[3].REG_Inst_n_0 ,\DIGIT_REGs_Inst[3].REG_Inst_n_1 ,\DIGIT_REGs_Inst[3].REG_Inst_n_2 ,\DIGIT_REGs_Inst[3].REG_Inst_n_3 }),
         .clk_i(clk_i),
         .en_i(en_i),
-        .\register_sr_reg[5] (register_sr),
-        .\register_sr_reg[5]_0 ({\DIGIT_REGs_Inst[4].REG_Inst_n_0 ,\DIGIT_REGs_Inst[4].REG_Inst_n_1 ,\DIGIT_REGs_Inst[4].REG_Inst_n_2 ,\DIGIT_REGs_Inst[4].REG_Inst_n_3 }),
-        .\register_sr_reg[5]_1 ({\DIGIT_REGs_Inst[3].REG_Inst_n_0 ,\DIGIT_REGs_Inst[3].REG_Inst_n_1 ,\DIGIT_REGs_Inst[3].REG_Inst_n_2 ,\DIGIT_REGs_Inst[3].REG_Inst_n_3 }),
+        .\register_sr_reg[5] ({\DIGIT_REGs_Inst[2].REG_Inst_n_0 ,\DIGIT_REGs_Inst[2].REG_Inst_n_1 ,\DIGIT_REGs_Inst[2].REG_Inst_n_2 ,\DIGIT_REGs_Inst[2].REG_Inst_n_3 }),
+        .\register_sr_reg[5]_0 (register_sr),
+        .\register_sr_reg[5]_1 ({\DIGIT_REGs_Inst[4].REG_Inst_n_0 ,\DIGIT_REGs_Inst[4].REG_Inst_n_1 ,\DIGIT_REGs_Inst[4].REG_Inst_n_2 ,\DIGIT_REGs_Inst[4].REG_Inst_n_3 }),
         .rst_i(rst_i));
   SystemTop_reg_async_rst__parameterized0 \DIGIT_REGs_Inst[1].REG_Inst 
        (.Q(register_sr),
@@ -16641,6 +16679,18 @@ module SystemTop_xlslice_1_0
   output [0:0]Dout;
 
   wire [15:0]Din;
+
+  assign Dout[0] = Din[0];
+endmodule
+
+(* CHECK_LICENSE_TYPE = "SystemTop_xlslice_2_0,xlslice_v1_0_2_xlslice,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "xlslice_v1_0_2_xlslice,Vivado 2021.2" *) 
+module SystemTop_xlslice_2_0
+   (Din,
+    Dout);
+  input [2:0]Din;
+  output [0:0]Dout;
+
+  wire [2:0]Din;
 
   assign Dout[0] = Din[0];
 endmodule

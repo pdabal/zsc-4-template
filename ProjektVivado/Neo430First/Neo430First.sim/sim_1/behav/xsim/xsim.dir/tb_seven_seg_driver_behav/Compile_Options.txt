@@ -1,0 +1,1 @@
+--incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "extras" -L "secureip" -L "xpm" --snapshot "tb_seven_seg_driver_behav" "xil_defaultlib.tb_seven_seg_driver" -log "elaborate.log" 

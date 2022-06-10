@@ -1,0 +1,11 @@
+0.7
+2020.2
+Oct 19 2021
+03:16:22
+C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/testbench/tb_seven_seg_driver.vhdl,1654514208,vhdl,,,,tb_seven_seg_driver,,,,,,,,
+C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/bcd_to_seg.vhdl,1654513812,vhdl,C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/seven_seg_driver.vhdl,,,bcd_to_seg,,,,,,,,
+C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/counter_up.vhdl,1652441209,vhdl,C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/seven_seg_driver.vhdl,,,counter_up,,,,,,,,
+C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/mux_4_to_1.vhdl,1652437130,vhdl,C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/seven_seg_driver.vhdl,,,mux_4_to_1,,,,,,,,
+C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/reg_async_rst.vhdl,1652435395,vhdl,C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/seven_seg_driver.vhdl,,,reg_async_rst,,,,,,,,
+C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/reg_shift_async_rst.vhdl,1652435364,vhdl,C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/seven_seg_driver.vhdl,,,reg_shift_async_rst,,,,,,,,
+C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/vhdl/seven_seg_driver.vhdl,1654514095,vhdl,C:/Projekty/LabZSC/WEL21ET1S4/pawel_dabal/Lab-1/Source/testbench/tb_seven_seg_driver.vhdl,,,seven_seg_driver,,,,,,,,

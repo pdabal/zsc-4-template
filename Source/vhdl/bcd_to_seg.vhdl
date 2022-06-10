@@ -31,6 +31,7 @@ begin
       when "1101" => seg_o <= "0100001"; -- d
       when "1110" => seg_o <= "0000110"; -- E
       when "1111" => seg_o <= "0001110"; -- F
+      when others => seg_o <= "1111111"; -- error
     end case;    
   end process;
 end architecture;
